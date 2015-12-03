@@ -1,0 +1,11 @@
+﻿{
+    "name": "testing all node options",
+    "url": "",
+    "port": "3001",
+    "appRoot": "/",
+    "tunnel": "http://localhost:3002/"
+   
+  
+        
+    
+}

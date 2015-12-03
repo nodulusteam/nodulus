@@ -1,0 +1,46 @@
+﻿ul {
+  list-style: none;
+}
+ul li span i.fa {
+  position: relative;
+  left: -22px;
+  cursor: pointer;
+  top: 31px;
+}
+.dropdown {
+  margin-top: 17px;
+  margin-left: 10px;
+}
+.md-icon-button.md-accent {
+  font-size: 20px;
+  width: 54px;
+  height: 54px;
+}
+.hasChildren {
+  top: 14px;
+  position: relative;
+}
+.collapsed {
+  display: inline-block;
+  overflow: hidden;
+  height: 0;
+  transition: height 1s;
+  -webkit-transition: height 1s;
+  -moz-transition: height 1s;
+  -o-transition: height 1s;
+}
+
+ .md-chips .md-chip {
+    cursor: default;
+    border-radius: 10px;
+    display: block;
+    height: 24px;
+    line-height: 24px;
+    margin: 8px 8px 0 0;
+    padding: 0 12px 0 12px;
+    float: left;
+    box-sizing: border-box;
+    max-width: 100%;
+    position: relative;
+    }
+/*# sourceMappingURL=dataManager.css.map */

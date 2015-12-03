@@ -1,0 +1,26 @@
+﻿{
+    "name": "testing all node options",
+    "url": "",
+    "port": "3003",
+    "appRoot": "/api",
+    "couchBase": "",
+    "hosts": [ "http://127.0.0.1:8093/" ],
+    "tunnel": "http://localhost:3003/",
+    "mongodb": { "host": "mongodb://localhost:27017/dma" },
+    "mimeTypes": { ".html": "text/html",
+        ".css": "text/css",
+        ".js": "text/javascript",
+        ".less": "text/less",
+        ".json": "application/json",
+        ".ttf": "application/font-woff",
+        ".woff": "application/font-woff",
+        ".png":  "image/png"
+
+
+        
+
+
+    } 
+        
+    
+}

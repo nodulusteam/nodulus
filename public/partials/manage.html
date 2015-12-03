@@ -1,0 +1,181 @@
+﻿
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top" style="direction: {{$Language.language.direction}}">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            
+            <a class="navbar-brand" ng-click='Logoff()'><span class="fa fa-user"></span> {{$User.User.Email}}</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right class="nav-tabs"">
+                <!--<li><a ng-click='dashboard()'>Dashboard</a></li>-->
+                <li><a ng-click='toggleRight()'>Settings</a></li>
+                <!--<li><a ng-click='profile()'>Profile</a></li>
+                <li><a ng-click='help()'>Help</a></li>-->
+            </ul>
+            <form class="navbar-form navbar-right">
+                <input type="text" class="form-control" placeholder="Search...">
+            </form>
+        </div>
+    </div>
+</nav>
+
+<md-progress-linear mode="indeterminate" data-ng-show="TreeLoading"></md-progress-linear>
+
+<div class="container-full"   style="height: {{PaneHeight-150}}px;direction: {{$Language.language.direction}}">
+   
+        <div id="sidebar" class="col-lg-2 col-md-3 col-sm-3 col-xs-3 sidebar {{$Language.language.direction}} container-fluid" style="height: {{PaneHeight}}px">
+            <div ng-repeat="menu in Menus" layout="column">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><i class="fa fa-database"></i> {{menu.name}}
+                    
+                    <span class="pull-{{$Language.language.alignInvert}}">
+                        <a class="btn btn-info btn-xs" ng-click='AddCategory()' title="New collection"><i class="fa fa-plus"></i> </a>
+                    </span>
+                    </div>
+                    <div class="panel-body"><abn-tree tree-data="menu.children" ng-if="menu.children"
+          tree-control="menu"
+          icon-leaf="icon-file"
+          icon-expand="icon-plus-sign"
+          icon-collapse="icon-minus-sign"
+          on-select="showSelected(branch)"
+          expand-level="2"
+          initial-selection="">
+
+</abn-tree></div>
+                </div>
+               
+
+                <!--on-node-toggle="loadSelected(node, expanded)"
+                tree-model="menu"
+                selected-node="ActiveTreeNode"
+                options="treeOptions"
+                on-selection="showSelected(node)"
+                on-right-click="showTreeBottomSheet(node)"-->
+                
+                <!--<md-button class="md-fab md-primary" md-theme="{{$Theme.theme}}" aria-label="Edit" ng-click='AddCategory()'>
+                    <i class="fa fa-plus" style="font-size: 35px;"></i>
+                </md-button>-->
+                </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" ng-model="Module.Name" />
+                <a class="btn btn-primary" ng-click="Install()">install</a>
+
+            </div>
+            </div>
+
+
+    
+        <div class="col-lg-10 col-md-9 col-sm-9 col-xs-9 main" style="height: {{PaneHeight}}px;">
+            <div scrolling-tabs-wrapper watch-tabs="Tabs">
+               
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" ng-class="{'active': ActiveTreeNode === tab}" ng-repeat="tab in Tabs" ng-mousedown="onTabSelected(tab, $event)">
+                            <a>
+                                <buttun aria-label="Close" ng-click='CloseTab(tab)'>
+                                    <i class="fa fa-times fa-2"></i>
+                                </buttun>
+
+                                <span ng-bind="tab.name"></span>
+
+                               
+                                    <span class="btn btn-default btn-xs dropdown-toggle" type="button" ng-click="tab.menutoggle = !tab.menutoggle">
+
+                                        <span class="caret"></span>
+                                    </span>
+                                    <ul class="dropdown-menu" mg-show="tab.menutoggle">
+                                        <li ng-click="Refresh(tab)"><span class="fa fa-refresh"></span></li>
+                                        <li ng-click="CopyLink(tab)"><span class="fa fa-copy"></span></li>
+                                        <li ng-click="PopLink(tab)"><span class="fa fa-pop"></span></li>
+                                    </ul>
+                                
+
+                            </a>
+                            <!--<a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a>-->
+                        </li>
+
+                    </ul>
+                </div>
+
+
+
+            
+
+
+                    <div id="TabContainer"   style="height: {{PaneHeight-65}}px;"></div>
+
+
+
+
+           
+
+            </div>
+       
+</div>
+
+
+        <section layout="horizontal" flex style="direction: {{$Language.language.direction}}">
+            
+
+
+
+
+           
+
+            
+
+
+
+            <md-sidenav class="panel panel-primary md-sidenav-{{$Language.language.alignInvert}} md-whiteframe-z2" md-component-id="right" style="padding-top: 60px;height: {{PaneHeight}}px;">
+
+                 
+                    <div class="panel-heading">{{"Options"| translate}}</div>
+                    <div class="panel-body" data-ng-include="'partials/settings.html'"></div>
+
+                 
+
+
+              
+
+            </md-sidenav>
+
+        </section>
+
+
+<footer   class="navbar navbar-inverse navbar-fixed-bottom" style="height: 20px!important;min-height: 0!important;">
+    <div class="container-full">
+        <ul class="nav navbar-nav">
+            <li>
+                <a href="http://www.ewave.co.il" target="_blank" style="padding: 0!important" title="איוייב מציעה מגוון פתרונות תוכנה ואינטגרציה. אנו מתמחים בפיתוח מערכות מידע וניהול מבוזרות מבוססות תשתית אינטרנט">
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <img src="ewaveLogo.png" width="49" height="12" alt="איוייב מציעה מגוון פתרונות תוכנה ואינטגרציה. אנו מתמחים בפיתוח מערכות מידע וניהול מבוזרות מבוססות תשתית אינטרנט" /> <sub> open-source ©</sub>
+                </a>
+            </li>
+        </ul>
+    </div>
+   </footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

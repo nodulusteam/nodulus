@@ -1,0 +1,13 @@
+﻿body {
+}
+
+
+.rtl {
+    direction: rtl;
+    text-align: right;
+}
+
+
+table {
+    text-align: right;
+}

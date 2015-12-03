@@ -1,0 +1,15 @@
+﻿.codeeditor{
+
+    width: 100%;
+    height: 600px;
+
+}
+#editor {
+    /** Setting height is also important, otherwise editor wont showup**/
+    height: 300px;
+}
+
+
+.white {color: #ffffff;}
+
+a {cursor: pointer;}

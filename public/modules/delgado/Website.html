@@ -1,0 +1,187 @@
+﻿
+
+<div ng-controller="WebsiteController" style="position: relative;">
+
+
+    
+    <nav class="navbar navbar-toolbar navbar-default" style="height: 30px;width: 100%" flex>
+        <div class="btn-group pull-right">
+            <a ng-click="DeleteWebsite()" class="btn btn-danger"><span class="fa fa-remove"></span> Delete</a>            
+            <a ng-click="Update()" class="btn btn-primary" 
+               ng-class="{'btn-success': Saved}"><span ng-class="{'fa fa-circle-o-notch fa-spin': Saving,'fa fa-save': !Saving }"></span> Save</a>
+
+
+        </div>
+    </nav>
+
+
+
+    <div id="ProductDialogScope">
+        <md-progress-linear mode="indeterminate" data-ng-show="RequestActive" md-theme="{{$Theme.theme}}"></md-progress-linear>
+
+
+        <form style="padding: 20px;" name="websiteForm">
+
+            <div class="form-group col-lg-6 col-md-6">
+                <label>Name</label>
+                <input required name="websitename" class="form-control" ng-model="EditObject.Name">
+                <div ng-messages="websiteForm.websitename.$error">
+                    <div ng-message="required">This is required.</div>
+
+                </div>
+            </div>
+
+
+            <div class="form-group col-lg-6 col-md-6">
+
+                <label>Base URL</label>
+                <input class="form-control" required name="BaseUrl" ng-model="EditObject.BaseUrl" md-theme="{{$Theme.theme}}">
+
+                <div ng-messages="websiteForm.BaseUrl.$error">
+                    <div ng-message="required">This is required.</div>
+
+                </div>
+
+            </div>
+
+            <div class="form-group col-lg-6 col-md-6">
+
+                <label>paging addition (eg. page={0})</label>
+                <input class="form-control" name="PagingAddition" ng-model="EditObject.PagingAddition" md-theme="{{$Theme.theme}}">
+
+                <div ng-messages="websiteForm.PagingAddition.$error">
+
+                </div>
+            </div>
+
+            <div class="form-group col-lg-6 col-md-6">
+                <label>Number of pages for fetch</label>
+                <input class="form-control" name="NumberOfPagesForFetch" ng-model="EditObject.NumberOfPagesForFetch" md-theme="{{$Theme.theme}}">
+
+                <div ng-messages="websiteForm.NumberOfPagesForFetch.$error">
+
+                </div>
+            </div>
+
+            <div class="form-group col-lg-6 col-md-6">
+                <label>PageUrl</label>
+                <input required class="form-control" name="pageurl" ng-model="EditObject.PageUrl">
+
+                <div ng-messages="websiteForm.pageurl.$error">
+                    <div ng-message="required">This is required.</div>
+
+                </div>
+            </div>
+
+
+            <div class="form-group col-lg-6 col-md-6">
+                <label>App Root (Trigger)</label>
+                <input maxlength="30" class="form-control" required name="approot" ng-model="EditObject.AppRoot">
+
+                <div ng-messages="websiteForm.approot.$error">
+                    <div ng-message="required">This is required.</div>
+                    <div ng-message="maxlength">The trigger has to be less than 30 characters long.</div>
+                </div>
+            </div>
+
+            <div class="form-group col-lg-6 col-md-6">
+                <label>Repeat request</label>
+                <input maxlength="30" class="form-control"  ng-model="EditObject.NumberOfRepeats">
+
+                
+            </div>
+
+            <div class="form-group col-lg-6 col-md-6">
+                <label>Content type</label>
+                <select placeholder="ContentType" class="form-control"
+                        ng-options="type.id as type.name for type in ContentTypes" ng-model="EditObject.ContentType"></select>
+            </div>
+
+            <div class="form-group col-lg-6 col-md-6">
+                <label>Cookies</label><a class="btn btn-info btn-xs pull-right" ng-click='AddCookie()' title="New cookie"><i class="fa fa-plus"></i> </a>
+
+                <table class="table">
+                    <thead>
+                        <tr><th>Name</th><th>Value</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="cookie in EditObject.Cookies">
+                            <td>
+                                <input type="text" ng-model="cookie.Name" class="form-control" />
+                            </td>
+                            <td>
+                                <input type="text" ng-model="cookie.Value" class="form-control" />
+                            </td>
+                            <td><a class="btn btn-danger btn-xs" ng-click='DeleteCookie()' title="Remove cookie"><i class="fa fa-minus"></i> </a></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div style="clear: both"></div>
+            <hr />
+
+
+            <div class="panel panel-primary" ng-class="{'full-size': FullSize}">
+                <div class="panel-heading">
+                    <input type="checkbox" ng-model="EditObject.Phantomize" ng-false-value="false" ng-true-value="true" class="md-warn"
+                           aria-label="Phantomize" />
+                    Phantomize
+
+
+                    <select ng-model="EditObject.hostingScript" style="width: 200px;" class=" form-control pull-right" ng-options="item.src as item.name for item in HostingScripts"></select>
+
+
+                    <a class="btn btn-default pull-right" ng-click="Open(EditObject)">
+                        Open
+                    </a>
+
+                    <a class="btn btn-warning pull-right" ng-click="GoFullSize(EditObject)">
+                        Full size editor
+                    </a>
+
+                    <div style="clear: both"></div>
+                </div>
+                <div class="panel-body" ng-show="EditObject.Phantomize">
+                    <div ui-ace ng-model="EditObject.PhantomScript"></div>
+
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+            <!--<label>Post action</label>
+            <div ui-ace ng-model="EditObject.PhantomScriptPost" ng-show="EditObject.Phantomize"></div>-->
+        </form>
+
+
+        <a class="btn btn-primary" ng-click="Update()">
+            Update
+        </a>
+
+
+
+
+    </div>
+
+
+    <nav class="navbar navbar-toolbar navbar-default" style="height: 30px;width: 100%" flex>
+        <div class="btn-group pull-right">
+            <a ng-click="DeleteWebsite()" class="btn btn-danger"><span class="fa fa-remove"></span> Delete</a>
+            <a ng-click="Update()" class="btn btn-primary"
+               ng-class="{'btn-success': Saved}"><span ng-class="{'fa fa-circle-o-notch fa-spin': Saving,'fa fa-save': !Saving }"></span>Save</a>
+
+
+        </div>
+    </nav>
+
+</div>
+
+
