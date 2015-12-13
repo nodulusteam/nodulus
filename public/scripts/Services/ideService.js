@@ -29,7 +29,8 @@
             
             //debugger
             //item.Url = "schemas.html";
-            
+            debugger;
+
             var tabPane = $("<div data-any-lobby=\"" + itemUrl + "\" itemkey='" + item.itemKey + "' schemaid='" + item.schemaid + "'></div>");
             tabwrapper = $("<div></div>");
             tabwrapper.append(tabPane);

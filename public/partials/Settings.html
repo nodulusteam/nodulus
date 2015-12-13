@@ -29,5 +29,27 @@
         <a class="btn btn-primary" aria-label="Logoff" ng-click='Logoff()'>Disconnect</a>
 
     </div> 
-</div>
+
+    <div class="form-group">
+        installed modules
+        <div class="list-group">
+            <a class="list-group-item" ng-repeat="package in ModuleList">
+                {{package.module.name}}
+
+                <span class="btn btn-sm btn-danger pull-right" ng-click="UnInstall(package.module)"><span class="fa fa-recycle"></span> </span>
+            </a>
+        </div>
+        
+            
+        </div>
+
+    <md-progress-linear mode="indeterminate" data-ng-show="ModuleLoading"></md-progress-linear>
+        <div class="form-group">
+            <input type="text" class="form-control" ng-model="Module.Name" />
+            <a class="btn btn-primary" ng-click="Install()">install</a>
+
+        </div>
+
+
+    </div>
 

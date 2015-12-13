@@ -1,0 +1,27 @@
+{
+  "delgado": {
+    "module": { "name": "delgado" },
+    "files": [ ],
+    "navigation": [
+      {
+        "_id": "delgado",
+        "ParentId": "00000000-0000-0000-0000-000000000000",
+        "Name": "delgado",
+        "label": "delgado",
+        "Url": "/modules/delgado/Websites.html",
+        "Alias": "Websites"
+      }
+    ]
+  },
+  "schemas": {
+    "files": [ ],
+    "scripts": [ "app.js" ],
+    "module": {
+      "name": "schemas",
+      "path": "schema.js",
+      "route": "/schema"
+    },
+    "npm": { },
+    "navigation": [ ]
+  }
+}

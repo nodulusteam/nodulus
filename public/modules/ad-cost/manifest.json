@@ -1,0 +1,26 @@
+{
+
+  "files": [ ],
+  "scripts": [ "app.js" ],
+  "module": {
+    "name": "ad-cost",
+    "path": "adcost.js",
+    "route": "/adcost"
+  },
+  "npm": {
+    "body-parser": "^1.13.3"
+  },
+  "navigation": [
+    {
+      "_id": "ad-cost",
+      "ParentId": "00000000-0000-0000-0000-000000000000",
+      "Name": "ad-cost",
+      "label": "ad-cost",
+      "Url": "/modules/ad-cost/Accounts.html",
+      "Alias": "Accounts"
+    }
+  ]
+
+
+
+}

@@ -3,10 +3,10 @@
 
 <nav class="navbar navbar-inverse navbar-fixed-top" style="direction: {{$Language.language.direction}}">
     <div class="container-fluid">
-        <div class="navbar-header">
-            
-            <a class="navbar-brand" ng-click='Logoff()'><span class="fa fa-user"></span> {{$User.User.Email}}</a>
-        </div>
+        <a class="navbar-header">
+             
+            <div class="navbar-brand">Console</div><span  class="navbar-brand" ng-click='Logoff()'><span class="fa fa-user"></span> {{$User.User.email}}</span>
+        </a>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right class="nav-tabs"">
                 <!--<li><a ng-click='dashboard()'>Dashboard</a></li>-->
@@ -26,44 +26,55 @@
 <div class="container-full"   style="height: {{PaneHeight-150}}px;direction: {{$Language.language.direction}}">
    
         <div id="sidebar" class="col-lg-2 col-md-3 col-sm-3 col-xs-3 sidebar {{$Language.language.direction}} container-fluid" style="height: {{PaneHeight}}px">
-            <div ng-repeat="menu in Menus" layout="column">
-                <div class="panel panel-primary">
-                    <div class="panel-heading"><i class="fa fa-database"></i> {{menu.name}}
-                    
-                    <span class="pull-{{$Language.language.alignInvert}}">
-                        <a class="btn btn-info btn-xs" ng-click='AddCategory()' title="New collection"><i class="fa fa-plus"></i> </a>
-                    </span>
+            <div ng-repeat="menu in $TreeMenu.Menus" layout="column">
+
+
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+
+                    <div class="panel panel-primary">
+                        <div class="panel-heading" role="tab" id="{{menu.name}}">
+                            <span role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{menu.name}}" 
+                                  aria-expanded="true" aria-controls="collapse{{menu.name}}">
+                                <i class="{{menu.icon}}"></i> {{menu.name}}
+                            </span>
+                            
+
+                            <span class="pull-{{$Language.language.alignInvert}}">
+                                <a class="btn btn-info btn-xs" ng-click='menu.AddCategory(menu)' title="{{menu.name}}"><i class="fa fa-plus"></i> </a>
+                            </span>
+                        </div>
+                        <div id="collapse{{menu.name}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{menu.name}}">
+
+
+                            <div class="panel-body">
+                                <abn-tree tree-data="menu.children" ng-if="menu.children"
+                                          tree-control="menu"
+                                          icon-leaf="icon-file"
+                                          icon-expand="icon-plus-sign"
+                                          icon-collapse="icon-minus-sign"
+                                          on-select="showSelected(branch)"
+                                          expand-level="2"
+                                          initial-selection="">
+
+                                </abn-tree>
+                            </div>
+                        </div>
                     </div>
-                    <div class="panel-body"><abn-tree tree-data="menu.children" ng-if="menu.children"
-          tree-control="menu"
-          icon-leaf="icon-file"
-          icon-expand="icon-plus-sign"
-          icon-collapse="icon-minus-sign"
-          on-select="showSelected(branch)"
-          expand-level="2"
-          initial-selection="">
 
-</abn-tree></div>
-                </div>
-               
-
-                <!--on-node-toggle="loadSelected(node, expanded)"
-                tree-model="menu"
-                selected-node="ActiveTreeNode"
-                options="treeOptions"
-                on-selection="showSelected(node)"
-                on-right-click="showTreeBottomSheet(node)"-->
-                
-                <!--<md-button class="md-fab md-primary" md-theme="{{$Theme.theme}}" aria-label="Edit" ng-click='AddCategory()'>
-                    <i class="fa fa-plus" style="font-size: 35px;"></i>
-                </md-button>-->
+                    </div>
+                    <!--on-node-toggle="loadSelected(node, expanded)"
+        tree-model="menu"
+        selected-node="ActiveTreeNode"
+        options="treeOptions"
+        on-selection="showSelected(node)"
+        on-right-click="showTreeBottomSheet(node)"-->
+                    <!--<md-button class="md-fab md-primary" md-theme="{{$Theme.theme}}" aria-label="Edit" ng-click='AddCategory()'>
+            <i class="fa fa-plus" style="font-size: 35px;"></i>
+        </md-button>-->
                 </div>
 
-            <div class="form-group">
-                <input type="text" class="form-control" ng-model="Module.Name" />
-                <a class="btn btn-primary" ng-click="Install()">install</a>
-
-            </div>
+        
             </div>
 
 
@@ -119,7 +130,12 @@
         <section layout="horizontal" flex style="direction: {{$Language.language.direction}}">
             
 
-
+            <div class="col-md-3 show-grid pull-right" style="position: absolute;bottom: 0; right: 0;">
+                <uib-alert ng-repeat="alert in $Alerts.alerts"
+                           type="{{alert.type}}"
+                           dismiss-on-timeout="5000"
+                           close="$Alerts.remove(alert)"><span class="{{alert.icon}}"></span> {{alert.msg}}</uib-alert>
+            </div>
 
 
            
@@ -144,6 +160,7 @@
         </section>
 
 
+<div style="clear: both;"></div>
 <footer   class="navbar navbar-inverse navbar-fixed-bottom" style="height: 20px!important;min-height: 0!important;">
     <div class="container-full">
         <ul class="nav navbar-nav">

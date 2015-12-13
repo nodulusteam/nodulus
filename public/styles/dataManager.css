@@ -20,7 +20,8 @@ ul li span i.fa {
   top: 14px;
   position: relative;
 }
-.collapsed {
+
+/*.collapsed {
   display: inline-block;
   overflow: hidden;
   height: 0;
@@ -28,7 +29,7 @@ ul li span i.fa {
   -webkit-transition: height 1s;
   -moz-transition: height 1s;
   -o-transition: height 1s;
-}
+}*/
 .LobbyList {
   width: 90%;
   margin-left: 30px;

@@ -1,7 +1,7 @@
-﻿angular.module('ApiAdmin').controller('ideController', function ($scope, $User, $resource, $location, $compile, $Language, $mdSidenav, $mdBottomSheet, $Theme, $mdDialog, $Cache) {
+﻿angular.module('ApiAdmin').controller('ideController', function ($scope, $User, $TreeMenu, $resource, $location, $compile, $Language, $mdSidenav, $mdBottomSheet, $Theme, $mdDialog, $Cache) {
     $scope.$Theme = $Theme;
     $scope.$User = $User;
-    
+    $scope.$TreeMenu = $TreeMenu;
     
     //$scope.Language = $Language.getActive();
     $scope.$Language = $Language;
@@ -87,7 +87,7 @@
     
     $scope.onTabSelected = function (tab, $event) {
         $scope.focusMe(tab.itemKey);
-       
+        
         if ($event) {
             if ($event.which == 2)
                 $scope.CloseTab(tab);
@@ -122,16 +122,16 @@
 
     }
     $scope.ShowLobby = function (item, itemUrl) {
-         
+        
         $scope.ActiveTreeNode = item;
         
         if (item == null)
             return;
         //if(item.Url === "" || item.Url === undefined)
-		//     item.Url = "lobby.html";
-		  
-		if (item.itemKey === undefined)
-			item.itemKey = "b" + "_" + item._id;//.replace(/-/g, '');
+        //     item.Url = "lobby.html";
+        
+        if (item.itemKey === undefined)
+            item.itemKey = "b" + "_" + item._id;//.replace(/-/g, '');
         //item.itemKey = itemKey;
         if ($scope.TabByKey(item.itemKey) != null) {
             
@@ -144,9 +144,9 @@
         
         $scope.Tabs.push(item);
         
-        
+        debugger;
         //item.Url = "schemas.html";
-        var tabPane = $("<div data-any-lobby=\"" + itemUrl + "\" itemkey='" + item.itemKey + "' schemaid='" + item.schemaid + "'></div>");
+        var tabPane = $("<div data-any-lobby=\"" + itemUrl + "\" itemkey='" + item.itemKey + "' schemaid='" + item._id + "'></div>");
         tabwrapper = $("<div></div>");
         tabwrapper.append(tabPane);
         $("#TabContainer").append(tabwrapper);
@@ -159,12 +159,12 @@
     }
     
     $scope.showSelected = function (node) {
-      
-
+        
+        
         var itemUrl = 'lobby.html';
-       
-    
-        var item = { _id: node._id, name: node.Name  };
+        
+        
+        var item = { _id: node._id, name: node.Name };
         $scope.ShowLobby(item, node.Url);
       
     }
@@ -206,8 +206,8 @@
                 else if ($scope.Tabs.length === 1)
                     nextpos = 0;
                 
-                if($scope.Tabs[nextpos]!== undefined)
-                     $scope.focusMe($scope.Tabs[nextpos].itemKey);
+                if ($scope.Tabs[nextpos] !== undefined)
+                    $scope.focusMe($scope.Tabs[nextpos].itemKey);
             }
 
     }
@@ -231,73 +231,127 @@
     
     
     
+    $TreeMenu.initTreeMenu();
     
     
-    var TreeResource = $resource(apiUrl + '/Navigation/');
-    $scope.TreeLoading = true;
-    TreeResource.get(function (data) {
-        var navs = data.items;
-        
-        $scope.treeOptions = {
-            nodeChildren: "Children"
-        };
-        
-        
-        $scope.Menus = [{ id: 1, 'name': "main" }];
-        $scope.Menu = navs;
-        $scope.subTreeResource = $resource(apiUrl + '/Navigation/', { ParentId: "@parentid" });
-        angular.forEach($scope.Menus, function (value, key) {
-            
-            $scope.TreeLoading = true;
-            $scope.subTreeResource.get({ ParentId: '00000000-0000-0000-0000-000000000000' }, function (data) {
-                 
-                for (var i = 0; i < data.items.length; i++) {
-                    
-                    if (data.items[i].Left + 1 < data.items[i].Right)
-                        data.items[i].Children = {};
-                }
-                
-                value.children = data.items;
-                $scope.TreeLoading = false;
-            });
-        });
-
-
-
-
-    });
+    //var TreeResource = $resource(apiUrl + '/Navigation/');
+    //$scope.TreeLoading = true;
+    //TreeResource.get(function (data) {
+    //    var navs = data.items;
+    
+    //    $scope.treeOptions = {
+    //        nodeChildren: "Children"
+    //    };
+    
+    
+    //    $scope.Menus = [{ id: 1, 'name': "main" }];
+    //    $scope.Menu = navs;
+    //    $scope.subTreeResource = $resource(apiUrl + '/Navigation/', { ParentId: "@parentid" });
+    //    angular.forEach($scope.Menus, function (value, key) {
+    
+    //        $scope.TreeLoading = true;
+    //        $scope.subTreeResource.get({ ParentId: '00000000-0000-0000-0000-000000000000' }, function (data) {
+    
+    //            for (var i = 0; i < data.items.length; i++) {
+    
+    //                if (data.items[i].Left + 1 < data.items[i].Right)
+    //                    data.items[i].Children = {};
+    //            }
+    
+    //            value.children = data.items;
+    //            $scope.TreeLoading = false;
+    //        });
+    //    });
+    
+    
+    
+    
+    //});
     
     $scope.SetActiveMenu = function (menu) {
         $scope.ActiveMenu = menu;
     }
     $scope.ActiveMenu = null;
     
-    $scope.AddCategory = function () {
+    //$scope.AddCategory = function () {
         
         
-        var parentEl = angular.element(document.body);
-        $mdDialog.show({
-            parent: parentEl,
-            templateUrl: 'partials/manage/dialogs/category.html',
-            controller: 'CategoryDialog',
-            locals: { "$EditCategory": { ParentId: '00000000-0000-0000-0000-000000000000' }, "$NodeCollection": $scope.Menus[0].Children },
+    //    var parentEl = angular.element(document.body);
+    //    $mdDialog.show({
+    //        parent: parentEl,
+    //        templateUrl: 'partials/manage/dialogs/category.html',
+    //        controller: 'CategoryDialog',
+    //        locals: { "$EditCategory": { ParentId: '00000000-0000-0000-0000-000000000000' }, "$NodeCollection": $scope.Menus[0].Children },
             
-            //templateUrl: 'partials/dialogs/category.html',
-            //controller: 'GreetingController'
-            onComplete: function () {
-               // alert("complete");
+    //        //templateUrl: 'partials/dialogs/category.html',
+    //        //controller: 'GreetingController'
+    //        onComplete: function () {
+    //           // alert("complete");
                 
-                //angular.element("#CategoryDialogScope").scope().LoadForParent(0);
-            },
-            //locals: { employee: $scope.userName }
-        });
+    //            //angular.element("#CategoryDialogScope").scope().LoadForParent(0);
+    //        },
+    //        //locals: { employee: $scope.userName }
+    //    });
 
-    }
+    //}
 
 
 })
 
-.controller('CategoryDialog', function ($scope, $resource, $location, $compile, $mdDialog, $Theme, $Config, $EditCategory, $rootScope, $Cache) {
+.controller('CategoryDialog', function ($scope, $resource, $location, $compile, $mdDialog, $Theme, $Config, $EditCategory, $NodeCollection, $rootScope, $Cache) {
+    $scope.EditCategory = $EditCategory;
+    var lobbyResource = $resource(apiUrl + '/Navigation/', {}, {
+        'get': { method: 'GET' },
+        'save': { method: 'POST' },
+        'query': { method: 'GET', isArray: true },
+        'update': { method: 'PUT' },
+        'delete': { method: 'DELETE' }
+    });
+    
+    $scope.ParentCategory = null;
+    $scope.LoadData = function (boneid) {
+        $scope.RequestActive = true;
+        lobbyResource.get({ boneid: boneid }, function (data) {
+            
+            
+            $scope.EditCategory = data;
+          
+        });
+
+
+    }
+    
+    
+    $scope.LoadForParent = function (parentid) {
+        $scope.RequestActive = true;
+        lobbyResource.get({ boneid: parentid }, function (data) {
+            $scope.RequestActive = false;
+            $scope.Results = data.d;
+        });
+
+
+    }
+    
+    $scope.Update = function () {
+        
+        
+        
+        $scope.RequestActive = true;
+        lobbyResource.save($scope.EditCategory, function (data) {
+            $NodeCollection.push($scope.EditCategory);
+            $scope.RequestActive = false;
+            $mdDialog.hide();
+        });
+        
+
+
+    };
+    $scope.Cancel = function () {
+        $mdDialog.hide();
+    };
+
+})
+.controller('SchemaDialog', function ($scope, $resource, $location, $compile, $mdDialog, $Theme, $Config, $EditCategory, $rootScope, $Cache) {
     
     
     $scope.EditCategory = $EditCategory;
@@ -312,7 +366,7 @@
     //})
     
     
-  
+    
     $scope.EditCategory = { type: "object", "required": [], "properties": {} }
     //$scope.EditCategory["schema"] = { fields: [] };
     
@@ -333,38 +387,39 @@
     
     
     
-    var nameResource = $resource('/Schema/collections', {}, {
+    var nameResource = $resource('/schema/collections', {}, {
         'get': { method: 'GET' },
         'save': { method: 'POST' },
         'query': { method: 'GET', isArray: true },
         'update': { method: 'PUT' },
         'delete': { method: 'DELETE' }
     });
-    nameResource.query({}, function (data) {        
-        $Cache.ready("schemas", function (schemas) {            
+    nameResource.query({}, function (data) {
+        $Cache.ready("schemas", function (schemas) {
+            debugger
             var result = [];
             for (var i = 0; i < data.length; i++) {
-                for (var x = 0; x< schemas.length; x++) {
+                for (var x = 0; x < schemas.length; x++) {
                     if (schemas[x].name === data[i].name) {
-                       
+                        
                         data.splice(i, 1);
                         i = 0;
                     }
                 }
             }
             
-            if (data.length >0)
+            if (data.length > 0)
                 $scope.NamingMode = "existing";
-
+            
             $scope.NotMappedSchemas = data;
         });
     });
-   
-
+    
+    
     $scope.ParentCategory = null;
     $scope.LoadData = function (boneid) {
         $scope.RequestActive = true;
-        lobbyResource.get({ boneid: boneid }, function (data) {            
+        lobbyResource.get({ boneid: boneid }, function (data) {
             $scope.EditCategory = data;
         });
     }
@@ -379,19 +434,19 @@
     }
     
     $scope.Update = function () {
-      
+        
         $scope.RequestActive = true;
-        if ($scope.EditCategory._id !== undefined) {            
+        if ($scope.EditCategory._id !== undefined) {
             lobbyResource.update($scope.EditCategory, function (data) {
-                $scope.RequestActive = false;                
+                $scope.RequestActive = false;
                 $mdDialog.hide();
                 $rootScope.$broadcast("updateMenus");
             });
         }
         else {
-            $scope.EditCategory._id = guid();        
+            $scope.EditCategory._id = guid();
             lobbyResource.save($scope.EditCategory, function (data) {
-                $scope.RequestActive = false;                
+                $scope.RequestActive = false;
                 $mdDialog.hide();
                 $rootScope.$broadcast("updateMenus");
             });
@@ -402,7 +457,7 @@
     };
 
 })
-.controller('SettingsCtrl', function ($rootScope, $scope, $resource, $location, $compile, $Language, $mdSidenav, $mdBottomSheet, $Theme) {
+.controller('SettingsCtrl', function ($rootScope, $scope, $TreeMenu, $resource, $mdDialog, $Alerts, $location, $compile, $Language, $mdSidenav, $mdBottomSheet, $Theme) {
     
     $scope.Languages = $Language.languages;
     // $scope.Language = $Language.language;
@@ -446,7 +501,7 @@
     $scope.Theme = $Theme.theme;
     
     
-    $scope.Themes = ["amelia", "blooming", "cerulean", "desert" , "paper","green", "readable", "Rouge", "simplex", "spacelab", "Liquorice Schnitzel", "flat","cyborg", "United", "superhero", "journal", "Lumen"];
+    $scope.Themes = ["amelia", "blooming", "cerulean", "desert" , "paper", "green", "readable", "Rouge", "simplex", "spacelab", "Liquorice Schnitzel", "flat", "cyborg", "United", "superhero", "journal", "Lumen"];
     var theme = localStorage.getItem("theme");
     if (theme !== null && theme !== undefined) {
         $scope.Theme = theme;
@@ -455,31 +510,93 @@
         $scope.Theme = "paper";
     }
     
-    $scope.$watch("Theme", function (theme_name, oldVal) {       
+    $scope.$watch("Theme", function (theme_name, oldVal) {
         if (theme_name !== undefined) {
             var theme = "themes/" + theme_name + "/bootstrap.min.css";
             $('link[id="mainthemefile"]').attr('href', theme);
             localStorage.setItem("theme", theme_name);
         }
     });
-        
-
+    
+    
     //$scope.SetTheme = function (theme) {
-        
+    
     //    $Theme.setTheme($scope.Theme);
     //    //$scope.$parent.$parent.Theme = $scope.Theme;
     //    $scope.bootstrapThemeLink = "themes/" + $scope.Theme;
     //    var stylers = $('link[styler="true"]');
     //    stylers.each(function () {
-            
+    
     //        $(this).attr('href', $scope.bootstrapThemeLink + $(this).attr("styler-path"));
     //    })
-        
-        
-        
+    
+    
+    
     //    localStorage.setItem("theme", $scope.Theme);
     //}
     //$scope.Themes = ['default', 'amber', 'blue', 'brown', 'cyan', 'deep-orange', 'grey', 'red', 'teal', 'pink', 'lime', 'green'];
+    $scope.Install = function () {
+        
+        $scope.ModuleLoading = true;
+        var setupRes = $resource("/modules/install");
+        setupRes.save({ name: $scope.Module.Name }, function (data) {
+            
+            $scope.ListModules();
+            $TreeMenu.initTreeMenu();
+            $Alerts.add({ type: 'success', msg: 'module: ' + $scope.Module.Name + ' installed', 'icon': 'fa fa-check' });
+        })
+
+
+    
+    
+    }
+    $scope.ModuleLoading = false;
+    $scope.UnInstall = function (module) {
+        
+        var confirm = $mdDialog.confirm()
+      //.parent(angular.element(document.body))
+      .title('Confirm')
+       .content('This will uninstall module:' + module.name + ', continue?')
+      //.ariaLabel('Confirm')
+       .ok('Continue')
+      .cancel('Cancel');
+        //.targetEvent(ev);
+        $mdDialog.show(confirm).then(function () {
+            $scope.ModuleLoading = true;
+            
+            var setupRes = $resource("/modules/uninstall");
+            setupRes.save({ "name": module.name }, function (data) {
+                
+                $Alerts.add({ type: 'success', msg: 'module: ' + $scope.Module.Name + ' removed', 'icon': 'fa fa-recycle' });
+                $scope.ListModules();
+                $TreeMenu.initTreeMenu();
+            })
+
+          
+        }, function () {
+           // $scope.alert = 'You decided to keep your debt.';
+        });
+        
+
+       
+    }
+    
+    $scope.ListModules = function () {
+        
+        $scope.ModuleLoading = true;
+        var setupRes = $resource("/modules/list");
+        setupRes.query({}, function (data) {
+            $scope.ModuleLoading = false;
+            $scope.ModuleList = data;
+           
+        })
+
+
+    
+    
+    }
+    
+    $scope.ListModules();
 
 })
 .directive('ckEditor', [function () {
@@ -601,7 +718,7 @@
             };
             
             var src = attr.anyLobby.replace(".aspx", ".html");
-            scope.InsidePartial =  src;
+            scope.InsidePartial = src;
             
             $("div", element).html("<div ng-include=\"'" + scope.InsidePartial + "'\" aria-label=''></div> ");
             
@@ -813,7 +930,7 @@
         }
     };
 })
-.controller('TreeMenuCtrl', function ($scope, $mdBottomSheet, $mdDialog, $resource, $rootScope) {
+.controller('SchemaTreeMenuCtrl', function ($scope, $mdBottomSheet, $mdDialog, $resource, $rootScope) {
     
     $scope.items = [
         //{ name: 'Add child category', icon: 'add', method: AddCategory },
@@ -841,7 +958,98 @@
 
     }
     
-    function EditSchema(item) {       
+    function EditSchema(item) {
+        var url = 'modules/schemas/schemas.html';
+        var scope = angular.element("#view").scope();
+        item.node.schemaid = item.node._id;
+        scope.ShowLobby(item.node, url);
+    }
+    function DeleteCategory(category) {
+        
+        var lobbyResource = $resource(apiUrl + '/schemas/', {}, {
+            'get': { method: 'GET' },
+            'save': { method: 'POST' },
+            'query': { method: 'GET', isArray: true },
+            'update': { method: 'PUT' },
+            'delete': { method: 'DELETE' }
+        });
+        
+        
+        lobbyResource.delete({ "_id": category.node._id }, function (data) {
+            $rootScope.$broadcast("updateMenus");
+
+
+        })
+    }
+    
+    function EditCategory(category) {
+        
+        
+        var parentEl = angular.element(document.body);
+        $mdDialog.show({
+            parent: parentEl,
+            templateUrl: 'partials/manage/dialogs/category.html',
+            controller: 'CategoryDialog',
+            locals: { "$EditCategory": category },
+            
+            //templateUrl: 'partials/dialogs/category.html',
+            //controller: 'GreetingController'
+            onComplete: function () {
+               // alert("complete");
+                
+                //angular.element("#CategoryDialogScope").scope().LoadForParent(0);
+            },
+            //locals: { employee: $scope.userName }
+        });
+        
+
+        //$mdDialog.show({
+        //    template: "<div data-any-lobby=\"" + "/dialogs/category.html" + "\" flex='80'></div>",
+        //    //templateUrl: 'partials/dialogs/category.html',
+        //    //controller: 'GreetingController'
+        //    onComplete: function () {
+
+        //        angular.element("#CategoryDialogScope").scope().LoadData(category.Id);
+        //    },
+        //    //locals: { employee: $scope.userName }
+        //});
+
+    }
+    
+    $scope.listItemClick = function ($index) {
+        var clickedItem = $scope.items[$index];
+        $mdBottomSheet.hide(clickedItem);
+    };
+})
+.controller('TreeMenuCtrl', function ($scope, $mdBottomSheet, $mdDialog, $resource, $rootScope) {
+    
+    $scope.items = [
+        //{ name: 'Add child category', icon: 'add', method: AddCategory },
+        { name: 'Edit Category', icon: 'fa fa-cog', method: EditCategory },
+        { name: 'Remove', icon: 'fa fa-close' , method: DeleteCategory },
+        { name: 'Edit Schema', icon: 'fa fa-edit', method: EditSchema }
+    ];
+    
+    
+    function AddCategory(parent) {
+        
+        
+        $mdDialog.show({
+            template: "<div data-any-lobby=\"" + "/dialogs/category.html" + "\" flex='80'></div>",
+            
+            //templateUrl: 'partials/dialogs/category.html',
+            //controller: 'GreetingController'
+            onComplete: function () {
+                
+                
+                angular.element("#CategoryDialogScope").scope().LoadForParent(parent.Id);
+            },
+            //locals: { employee: $scope.userName }
+        });
+
+    }
+    
+    function EditSchema(item) {
         var url = 'Schemas.html';
         var scope = angular.element("#view").scope();
         item.node.schemaid = item.node._id;
@@ -857,7 +1065,7 @@
             'delete': { method: 'DELETE' }
         });
         
-         
+        
         lobbyResource.delete({ "_id": category.node._id }, function (data) {
             $rootScope.$broadcast("updateMenus");
 
@@ -1067,8 +1275,153 @@
 
 
 
-});
+})
+.service("$TreeMenu", function ($resource, $mdDialog, $mdBottomSheet) {
+    
+    var TreeResource = $resource(apiUrl + '/Navigation/');
+    var instance = this;
+    instance.initTreeMenu = function () {
+        TreeResource.get(function (data) {
+            var navs = data.items;
+            
+            instance.treeOptions = {
+                nodeChildren: "Children"
+            };
+            
+            
+            instance.Menus = [{
+                    id: 1, 'name': "Categories" , icon: 'fa fa-folder-open', type: 'categories', 
+                    showTreeBottomSheet: function ($event, node) {
+                        
+                        
+                        
+                        $mdBottomSheet.show({
+                            templateUrl: 'partials/TreeMenu.html',
+                            controller: 'TreeMenuCtrl',
+                            targetEvent: $event
+                        }).then(function (clickedItem) {
+                            
+                            clickedItem.method($event);
+            //$scope.alert = clickedItem.name + ' clicked!';
+                        });
+                    },
+                    AddCategory: function (menu) {
+                        
+                        
+                        var parentEl = angular.element(document.body);
+                        
+                        
+                        
+                        $mdDialog.show({
+                            parent: parentEl,
+                            templateUrl: 'partials/manage/dialogs/category.html',
+                            controller: 'CategoryDialog',
+                            locals: { "$EditCategory": { _id: guid(), ParentId: '00000000-0000-0000-0000-000000000000' }, "$NodeCollection": menu.children },
+                            onComplete: function () { }
+                        });
 
+                    }
+                }, {
+                    id: 2, 'name': 'Data', icon: 'fa fa-database' , 'type': 'schemas',
+                    showTreeBottomSheet: function ($event, node) {
+                        $mdBottomSheet.show({
+                            templateUrl: 'partials/SchemaTreeMenu.html',
+                            controller: 'SchemaTreeMenuCtrl',
+                            targetEvent: $event
+                        }).then(function (clickedItem) {
+                            clickedItem.method($event);
+                        });
+                    },
+                    AddCategory: function () {
+                        var parentEl = angular.element(document.body);
+                        $mdDialog.show({
+                            parent: parentEl,
+                            templateUrl: 'partials/manage/dialogs/schema.html',
+                            controller: 'SchemaDialog',
+                            locals: { "$EditCategory": { ParentId: '00000000-0000-0000-0000-000000000000' }, "$NodeCollection": instance.Menus[0].Children },
+                            onComplete: function () { }
+                        });
+
+                    }
+                }];
+            instance.Menu = navs;
+            instance.subTreeResource = $resource(apiUrl + '/Navigation/', { ParentId: "@parentid" });
+            instance.schemaTreeResource = $resource(apiUrl + '/schemas/', {});
+            angular.forEach(instance.Menus, function (value, key) {
+                
+                switch (value.type) {
+                    case "categories":
+                        instance.TreeLoading = true;
+                        instance.subTreeResource.get({ ParentId: '00000000-0000-0000-0000-000000000000' }, function (data) {
+                            
+                            
+                            
+                            for (var i = 0; i < data.items.length; i++) {
+                                
+                                if (data.items[i].Left + 1 < data.items[i].Right)
+                                    data.items[i].Children = {};
+                            }
+                            
+                            
+                            value.children = data.items;
+                            instance.TreeLoading = false;
+                        });
+                        break;
+                    case "schemas":
+                        
+                        
+                        instance.TreeLoading = true;
+                        instance.schemaTreeResource.get({}, function (data) {
+                            value.children = [];                             
+                            for (var i = 0; i < data.items.length; i++) {
+                                value.children.push({
+                                    Alias: data.items[i].name ,
+                                    Name: data.items[i].name ,
+                                    ParentId: "00000000-0000-0000-0000-000000000000",
+                                    Url: "/modules/schemas/lobby.html",
+                                    _id: data.items[i]._id,
+                                    label: data.items[i].name
+                                });
+
+                                 
+                            }
+                            
+                            
+                            
+                            instance.TreeLoading = false;
+                        });
+                        break;
+
+
+                }
+                
+            });
+        });
+    };
+    
+    $("#sidebar").on('contextmenu', 'a', function (event) {
+        var $scope = angular.element("html").scope();
+        $scope.$apply(function () {
+            //get the parent menuscope
+            var nodeSearch = angular.element(event.toElement).scope();;
+            var activeNode = angular.element(event.toElement).scope();
+            
+            while (nodeSearch.$parent.menu === undefined && nodeSearch.$parent !== undefined)
+                nodeSearch = nodeSearch.$parent;
+            
+            if (nodeSearch.$parent.menu !== undefined)
+                nodeSearch = nodeSearch.$parent.menu;
+            
+            event.preventDefault();
+            if (nodeSearch !== null)
+                nodeSearch.showTreeBottomSheet({ event: event, node: activeNode.row.branch });
+        });
+    });
+    
+   // $scope.TreeLoading = true;
+   
+
+});
 
 function guid() {
     function s4() {

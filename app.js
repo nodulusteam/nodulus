@@ -10,14 +10,35 @@ var bodyParser = require('body-parser');
 var url = require('url');
 var querystring = require('querystring');
 var dal = require('./classes/dal.js');
-var config = require('./classes/config.js'); 
-var server = require('./classes/webServer.js');
+var config = require('./classes/config.js');
+var SocketUse = require('./classes/socket.js'); 
+var webServer = require('./classes/webServer.js');
 var api = require('./classes/api.js');
 
- 
 
+var EventEmitter = require('events').EventEmitter;
+global.eventServer = new EventEmitter();
 
 var app = express();
+
+ 
+var http = require("http").createServer(app);
+var io = require("socket.io")(http);
+
+http.listen(8080, "127.0.0.1");
+
+
+var server = require('http').Server(app);
+webServer.start(server, function () { 
+
+    var socket = require('socket.io')(server);
+    var io = socket.listen(server);
+    
+    console.log("socket listen on:" + io)
+    SocketUse(io);
+
+});
+//app.use('/Users', require('./routes/users.js'));
 
 
 var regexIso8601 = /^(\d{4}|\+\d{6})(?:-(\d{2})(?:-(\d{2})(?:T(\d{2}):(\d{2}):(\d{2})\.(\d{1,})(Z|([\-+])(\d{2}):(\d{2}))?)?)?)?$/;
@@ -46,13 +67,14 @@ for (var i = 0; i < config.modules().length; i++) {
 
 }
 
-//app.use('/Users', require('./routes/users.js'));
-server.start(app);
+
+
+
 api.start(app);
 
 
 
-config
+ 
 
 
 module.exports = app;

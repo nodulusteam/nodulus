@@ -1,27 +1,13 @@
 ﻿var setup = (function () {
     
-    var fs = require("fs-extra");
-    var JSZip = require("jszip");     
-    var dal = require("../../classes/dal.js");
+ 
     
     
     
 
     function _install(module_name) {
         
-        fs.ensureDirSync(global.appRoot + "\\public\\modules\\");
-        fs.ensureDirSync(global.appRoot + "\\public\\modules\\" + module_name);
-
-    // read a zip file
-        fs.readFile(__dirname  + "\\" + module_name + ".zip", function (err, data) {
-        if (err) throw err;
-            var zip = new JSZip(data);
-            for (var filename in zip.files) {
-                var fileData = zip.file(filename).asText();
-                fs.writeFileSync(global.appRoot +"\\public\\modules\\" + module_name +"\\" +  filename, fileData, 'utf8');
-            }
-
-    });
+      
         //unzip the file
     
 

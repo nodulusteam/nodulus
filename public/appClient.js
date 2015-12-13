@@ -4,6 +4,8 @@
 var apiUrl = "/api/";
 var logedinuser = {};
 var LNG = {}
+var socket = {};
+var socketsInitialized = false;
 /* ng-infinite-scroll - v1.0.0 - 2013-02-23 */
 var mod;
 
@@ -262,8 +264,8 @@ var DynamicData = angular.module('ApiAdmin', ['infinite-scroll', 'ngCkeditor', '
             }
         }
     }])
-.controller('shellController', function ($scope, $resource, $location, $compile, $Language, $Theme, $User, $Models, $Cache) {
-    
+.controller('shellController', function ($scope, $mdDialog, $resource, $location, $compile, $Alerts, $Language, $Theme, $User, $Models, $Cache, $Config) {
+    $scope.$Alerts = $Alerts;
     
     $Cache.ready("schemas", function (data) {
         var schemasObject = {};
@@ -318,19 +320,24 @@ var DynamicData = angular.module('ApiAdmin', ['infinite-scroll', 'ngCkeditor', '
 
     });
     $scope.Module = {};
-    $scope.Install = function () {
+  
+    //$scope.Install = function () {
         
         
-        var setupRes = $resource("/modules/install");
-        setupRes.save({ name: $scope.Module.Name }, function (data) {
-            
-            alert("finished");
-        })
+    //    var setupRes = $resource("/modules/install");
+    //    setupRes.save({ name: $scope.Module.Name }, function (data) {
+    //        $Alerts.add({ type: 'success', msg: 'module ' + $scope.Module.Name +' successfully installed', autoClose: 10000000, 'icon': 'fa fa-check' });
+             
+    //    })
 
 
     
     
-    }
+    //}
+    
+    initSocketEvents($scope, $User, $Config, $Alerts);
+
+
 })
 .controller('loginController', function ($scope, $resource, $location, $mdToast, $animate, $mdDialog, $Theme, $User) {
     
@@ -520,10 +527,56 @@ var DynamicData = angular.module('ApiAdmin', ['infinite-scroll', 'ngCkeditor', '
         }
     }
 
+})
+.service('$Alerts', function ($resource, $Config) {
+    
+    var instance = this;
+    instance.alerts = [];
+    
+    
+    
+    
+    
+    this.add = function (alert) {
+        instance.alerts.push(alert);
+        
+
+    }
+    this.remove = function (alert) {         
+        instance.alerts.splice(instance.alerts.indexOf(alert) , 1);
+    }
+   
+ 
+
 });
 
 
 
+function initSocketEvents($scope, $User, $Config, $Alerts) {
+    $Config.ready(function () {
+        
+        if (!socketsInitialized) {
+            
+            socket = io("http://localhost:3001");
+            //$Config.site.appRoot + ":" + $Config.site.port  
+            
+            if ($User.User._id)
+                socket.emit('console connect', { UserId: $User.User._id });
+            
+            //var user = localStorage.getItem("juntasuser");
+            //if (user !== null) {
+            //    user = JSON.parse(user);
+            
+            //}
+            
+            socket.on('console connected', function (navData) {
+                $scope.$apply(function () {
+                    $Alerts.add({ type: 'success', msg: 'client connected', autoClose: 10000000, 'icon': 'fa fa-check' });
+                });
+            });
+        }
+    });
+}
 
 
 DynamicData.controller('Directives.BaseController', ['$scope', '$rootScope', '$Models', '$Broker', '$Cache', function ($scope, $rootScope, $Models, $Broker, $Cache) {
