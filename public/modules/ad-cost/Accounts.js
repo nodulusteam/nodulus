@@ -41,7 +41,7 @@ angular.module('ApiAdmin').controller('AccountsController', ['$scope', '$Config'
           
             
             var _id = rowItem._id;
-            var itemUrl = 'modules/delgado/website.html';
+            var itemUrl = 'modules/ad-cost/Account.html';
             var item = { itemKey: "b_" + _id + "", name: rowItem.Name };
             angular.element("#view").scope().ShowLobby(item, itemUrl);
             return false;

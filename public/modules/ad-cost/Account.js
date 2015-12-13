@@ -72,8 +72,15 @@ angular.module('ApiAdmin').controller('AccountController', ['$scope', '$Config',
         $scope.facebookAuth = function () {
             $scope.InAuth = true;
             var redirect_uri = "http://localhost:3001/adcost/auth?a=" + $scope.EditObject._id;
-            alert(redirect_uri);
-            $scope.EditObject.ActiveAuthUrl = "https://www.facebook.com/dialog/oauth?client_id=1053239254694437&redirect_uri=" + redirect_uri +"&scope=ads_management";
+            
+            //$resource("/adcost/test").get(function (data) { 
+            
+            //    debugger;
+
+            //});
+
+
+            $scope.EditObject.ActiveAuthUrl = "https://www.facebook.com/dialog/oauth?client_id=203336776670339&redirect_uri=" + redirect_uri +"&scope=ads_management,ads_read";
             
             window.open($scope.EditObject.ActiveAuthUrl);
             return;

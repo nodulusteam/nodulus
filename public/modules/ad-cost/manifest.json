@@ -8,7 +8,7 @@
     "route": "/adcost"
   },
   "npm": {
-    "body-parser": "^1.13.3"
+    "dk-machinepack-facebookads": "^1.3.31"
   },
   "navigation": [
     {

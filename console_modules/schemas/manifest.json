@@ -1,0 +1,19 @@
+{
+
+  "files": [ ],
+  "scripts": [ "app.js" ],
+  "module": {
+    "name": "schemas",
+    "path": "schemas.js",
+    "route": "/schemas"
+  },
+  "npm": {
+
+  },
+  "navigation": [
+
+  ]
+
+
+
+}
