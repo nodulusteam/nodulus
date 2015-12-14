@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{2cb23b19-1ae4-436b-9fc2-5fdb472c2db6}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <StartupFile>app.js</StartupFile>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -20,19 +20,7 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
-    <Content Include="console_modules\delgado\delgado.zip" />
     <Content Include="modules.json" />
-    <Content Include="public\modules\ad-cost\Account.html" />
-    <Content Include="public\modules\ad-cost\manifest.json" />
-    <Content Include="public\modules\ad-cost\Accounts.html" />
-    <Content Include="public\modules\schemas\confirmDialog.html" />
-    <Content Include="public\modules\schemas\designer.html" />
-    <Content Include="public\modules\schemas\item.html" />
-    <Content Include="public\modules\schemas\lobby.html" />
-    <Content Include="public\modules\schemas\manifest.json" />
-    <Content Include="public\modules\schemas\propertiesDialog.html" />
-    <Content Include="public\modules\schemas\SchemaInput.html" />
-    <Content Include="public\modules\schemas\Schemas.html" />
     <Content Include="public\partials\manage\dialogs\schema.html" />
     <Content Include="public\partials\manage\Website.html" />
     <Content Include="public\partials\SchemaTreeMenu.html" />
@@ -43,18 +31,8 @@
     <Compile Include="app.js" />
     <Compile Include="classes\module_installer.js" />
     <Compile Include="classes\socket.js" />
-    <Compile Include="console_modules\delgado\setup.js" />
-    <Compile Include="public\modules\ad-cost\Account.js" />
-    <Compile Include="public\modules\ad-cost\Accounts.js" />
-    <Compile Include="public\modules\schemas\app.js" />
-    <Compile Include="public\modules\schemas\designer.js" />
-    <Compile Include="public\modules\schemas\item.js" />
-    <Compile Include="public\modules\schemas\lobby.js" />
-    <Compile Include="public\modules\schemas\Schemas.js" />
     <Compile Include="public\partials\manage\Website.js" />
     <Compile Include="routes\module.js" />
-    <Compile Include="routes\adcost.js" />
-    <Compile Include="routes\schema.js" />
     <Compile Include="routes\users.js" />
     <Compile Include="classes\api.js" />
     <Compile Include="classes\config.js" />
@@ -3753,11 +3731,8 @@
     <Folder Include="classes" />
     <Folder Include="classes\impl" />
     <Folder Include="config" />
-    <Folder Include="console_modules\" />
-    <Folder Include="console_modules\delgado\" />
+    <Folder Include="nodulus_modules\" />
     <Folder Include="public\modules\" />
-    <Folder Include="public\modules\ad-cost\" />
-    <Folder Include="public\modules\schemas\" />
     <Folder Include="routes\" />
     <Folder Include="public" />
     <Folder Include="public\config" />
