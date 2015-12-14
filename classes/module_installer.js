@@ -46,7 +46,7 @@
         
         
         // see FileSaver.js
-        fs.writeFile(global.appRoot + "/console_modules/" + module_name + ".zip", content, function (err) {
+        fs.writeFile(global.appRoot + "/nodulus_modules/" + module_name + ".zip", content, function (err) {
             if (err) throw err;
             callback(null, manifest_file);
         });
@@ -61,7 +61,7 @@
         fs.ensureDirSync(global.appRoot + "\\public\\modules\\" + module_name);
         
         // read a zip file
-        fs.readFile(global.appRoot + "\\console_modules\\" + module_name + ".zip", function (err, data) {
+        fs.readFile(global.appRoot + "\\nodulus_modules\\" + module_name + ".zip", function (err, data) {
             if (err) throw err;
             
             var zip = new JSZip(data);
@@ -143,7 +143,7 @@
     
     
     
-    //var module = require(global.appRoot + "/console_modules/" + module_name +"/setup.js");
+    //var module = require(global.appRoot + "/nodulus_modules/" + module_name +"/setup.js");
     //module.install(module_name);
     
     

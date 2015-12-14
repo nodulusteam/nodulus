@@ -1,11 +1,11 @@
 {
-  "name": "Console",
+  "name": "nodulus",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node app.js"
   },
-  "description": "Console",
+  "description": "nodulus",
   "author": {
     "name": "roi ben haim",
     "email": "roi@ewave.co.il"
