@@ -6,7 +6,8 @@
     var path = require('path');  
  
     var obj = JSON.parse(fs.readFileSync(global.appRoot + '\\config\\site.json', 'utf8').replace(/^\uFEFF/, ''));
-    var modules_in_config = obj.modules;
+    var modules_in_config = JSON.parse(fs.readFileSync(global.appRoot + '\\modules.json', 'utf8').replace(/^\uFEFF/, ''));
+    
     //fs.readFile('./config/site.json', 'utf8', function (err, data) {
     //    if (err) throw err;
     //    obj = JSON.parse(data);

@@ -11,7 +11,7 @@ var url = require('url');
 var querystring = require('querystring');
 var dal = require('./classes/dal.js');
 var config = require('./classes/config.js');
-var SocketUse = require('./classes/socket.js'); 
+var SocketUse = require('./classes/socket.js');
 var webServer = require('./classes/webServer.js');
 var api = require('./classes/api.js');
 
@@ -21,7 +21,7 @@ global.eventServer = new EventEmitter();
 
 var app = express();
 
- 
+
 var http = require("http").createServer(app);
 var io = require("socket.io")(http);
 
@@ -29,8 +29,8 @@ http.listen(8080, "127.0.0.1");
 
 
 var server = require('http').Server(app);
-webServer.start(server, function () { 
-
+webServer.start(server, function () {
+    
     var socket = require('socket.io')(server);
     var io = socket.listen(server);
     
@@ -56,14 +56,19 @@ app.use(bodyParser.json({
     limit: '50mb',
 }));
 app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true })); 
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use('/', express.static(__dirname + '/public'));
 
 
 //load modules
-for (var i = 0; i < config.modules().length; i++) {
-    var module = config.modules()[i];
-    app.use(module.route, require('./routes/' + module.path));
+var modules = config.modules();
+for (var name in modules) {
+    var module = modules[name];
+    if (module.routes !== undefined) {
+        for (var x = 0; x < module.routes.length; x++) {
+            app.use(module.routes[x].route, require('./routes/' + module.routes[x].path));
+        }
+    }
 
 }
 
@@ -74,7 +79,7 @@ api.start(app);
 
 
 
- 
+
 
 
 module.exports = app;

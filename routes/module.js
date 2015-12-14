@@ -23,6 +23,15 @@ router.get("/list", function (req, res) {
     
     })
 })
+router.post("/pack", function (req, res) {
+    
+    moduleUtiliity.pack(req.body.name, function (data) {
+         
+        res.json(data);
+    
+    })
+})
+
 
 
 router.post('/install', function (req, res) {
@@ -30,6 +39,9 @@ router.post('/install', function (req, res) {
         return res.sendStatus(400);   
      
     var module_name = req.body.name;
+    
+    if (module_name === "" || module_name === undefined)
+        return res.sendStatus(400);
 
     moduleUtiliity.install(module_name, function (err, manifest_json) {
         if (err !== null)

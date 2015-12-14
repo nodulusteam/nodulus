@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{2cb23b19-1ae4-436b-9fc2-5fdb472c2db6}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ShowAllFiles</ProjectView>
+    <ProjectView>ProjectFiles</ProjectView>
     <StartupFile>app.js</StartupFile>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -24,9 +24,6 @@
     <Content Include="public\modules\ad-cost\Account.html" />
     <Content Include="public\modules\ad-cost\manifest.json" />
     <Content Include="public\modules\ad-cost\Accounts.html" />
-    <Content Include="public\modules\delgado\manifest.json" />
-    <Content Include="public\modules\delgado\Website.html" />
-    <Content Include="public\modules\delgado\Websites.html" />
     <Content Include="public\modules\schemas\confirmDialog.html" />
     <Content Include="public\modules\schemas\designer.html" />
     <Content Include="public\modules\schemas\item.html" />
@@ -48,9 +45,6 @@
     <Compile Include="console_modules\delgado\setup.js" />
     <Compile Include="public\modules\ad-cost\Account.js" />
     <Compile Include="public\modules\ad-cost\Accounts.js" />
-    <Compile Include="public\modules\ad-cost\app.js" />
-    <Compile Include="public\modules\delgado\Website.js" />
-    <Compile Include="public\modules\delgado\Websites.js" />
     <Compile Include="public\modules\schemas\app.js" />
     <Compile Include="public\modules\schemas\designer.js" />
     <Compile Include="public\modules\schemas\item.js" />
@@ -3761,7 +3755,6 @@
     <Folder Include="console_modules\" />
     <Folder Include="console_modules\delgado\" />
     <Folder Include="public\modules\" />
-    <Folder Include="public\modules\delgado\" />
     <Folder Include="public\modules\ad-cost\" />
     <Folder Include="public\modules\schemas\" />
     <Folder Include="routes\" />

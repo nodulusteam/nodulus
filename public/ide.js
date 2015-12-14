@@ -540,16 +540,37 @@
         $scope.ModuleLoading = true;
         var setupRes = $resource("/modules/install");
         setupRes.save({ name: $scope.Module.Name }, function (data) {
-            
+             
             $scope.ListModules();
             $TreeMenu.initTreeMenu();
             $Alerts.add({ type: 'success', msg: 'module: ' + $scope.Module.Name + ' installed', 'icon': 'fa fa-check' });
+        }, function () { 
+            $Alerts.add({ type: 'danger', msg: 'module: ' + $scope.Module.Name + ' not installed', 'icon': 'fa fa-close' });
+            $scope.ModuleLoading = false;
         })
 
 
     
     
     }
+    $scope.Pack = function (module) {
+        
+        $scope.ModuleLoading = true;
+        var setupRes = $resource("/modules/pack");
+        setupRes.save({ name: module.name }, function (data) {
+            $scope.ModuleLoading = false;
+            $Alerts.add({ type: 'success', msg: 'module: ' + module.name  + ' packed', 'icon': 'fa fa-check' });
+        }, function () { 
+            $Alerts.add({ type: 'warning', msg: 'module: ' + $scope.Module.Name + ' not packed', 'icon': 'fa fa-close' });
+            $scope.ModuleLoading = false;
+        
+        })
+
+
+    
+    
+    }
+
     $scope.ModuleLoading = false;
     $scope.UnInstall = function (module) {
         

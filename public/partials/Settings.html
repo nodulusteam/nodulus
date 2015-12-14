@@ -37,6 +37,7 @@
                 {{package.module.name}}
 
                 <span class="btn btn-sm btn-danger pull-right" ng-click="UnInstall(package.module)"><span class="fa fa-recycle"></span> </span>
+                <span class="btn btn-sm btn-info pull-right" ng-click="Pack(package.module)"><span class="fa fa-file-archive-o"></span> </span>
             </a>
         </div>
         
@@ -47,6 +48,7 @@
         <div class="form-group">
             <input type="text" class="form-control" ng-model="Module.Name" />
             <a class="btn btn-primary" ng-click="Install()">install</a>
+             
 
         </div>
 

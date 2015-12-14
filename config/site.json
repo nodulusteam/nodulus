@@ -31,12 +31,7 @@
       "name": "modules",
       "path": "module.js",
       "route": "/modules"
-    },
-    {
-      "name": "adcost",
-      "path": "adcost.js",
-      "route": "/adcost"
-    },
+    } ,
     {
       "name": "schemas",
       "path": "schema.js",
