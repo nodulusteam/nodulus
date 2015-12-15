@@ -71,7 +71,7 @@ mod.directive('infiniteScroll', [
 ]);
 
 var providers = {};
-var DynamicData = angular.module('ApiAdmin', ['infinite-scroll', 'ngCkeditor', 'schemaForm', 'anguFixedHeaderTable', 'm43nu.auto-height', 'mgcrea.ngStrap', 'mj.scrollingTabs', 'ui.bootstrap', 'agGrid', 'ui.ace', 'ngSanitize', 'ngRoute', 'ngResource', 'angular.filter', 'angularBootstrapNavTree', 'treeControl', 'ngMaterial', 'ngMessages', 'RecursionHelper', 'DynamicDataSerivces', 'Cache', 'IDE', 'pascalprecht.translate'])
+var DynamicData = angular.module('ApiAdmin', ['infinite-scroll', 'ngCkeditor', 'schemaForm', 'anguFixedHeaderTable', 'm43nu.auto-height', 'mgcrea.ngStrap', 'mj.scrollingTabs', 'ui.bootstrap', 'ui.ace', 'ngSanitize', 'ngRoute', 'ngResource', 'angular.filter', 'angularBootstrapNavTree', 'treeControl', 'ngMaterial', 'ngMessages', 'RecursionHelper', 'DynamicDataSerivces', 'Cache', 'IDE', 'pascalprecht.translate'])
 .config(['$controllerProvider', '$resourceProvider', '$routeProvider', '$mdThemingProvider', '$compileProvider', '$provide', '$injector', '$translateProvider', 
     function ($controllerProvider, $resourceProvider, $routeProvider, $mdThemingProvider, $compileProvider, $provide, $injector, $translateProvider) {
         // $resourceProvider.defaults.stripTrailingSlashes = false;    
@@ -264,9 +264,9 @@ var DynamicData = angular.module('ApiAdmin', ['infinite-scroll', 'ngCkeditor', '
             }
         }
     }])
-.controller('shellController', function ($scope, $mdDialog, $resource, $location, $compile, $Alerts, $Language, $Theme, $User, $Models, $Cache, $Config) {
+.controller('shellController', function ($scope, $mdDialog, $resource, $location, $compile, $Alerts, $Language, $Theme, $User, $Models, $Cache, $Config,$IDE) {
     $scope.$Alerts = $Alerts;
-    
+    $scope.$IDE = $IDE;
     $Cache.ready("schemas", function (data) {
         var schemasObject = {};
         for (var i = 0; i < data.length; i++) {

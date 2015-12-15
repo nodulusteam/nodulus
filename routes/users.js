@@ -44,7 +44,7 @@ function _register(user, callback) {
             var query = "INSERT INTO users email=@email,password=@password;";
             dal.query(query, { "email": user.Email , "password": user.Password }, function (user) {
                 
-                callback(user.ops[0]);
+                callback(user.result.upserted[0]);
                 
             });
                     

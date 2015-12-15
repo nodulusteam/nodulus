@@ -1,15 +1,15 @@
-﻿angular.module('ApiAdmin').controller('ideController', function ($scope, $User, $TreeMenu, $resource, $location, $compile, $Language, $mdSidenav, $mdBottomSheet, $Theme, $mdDialog, $Cache) {
+﻿angular.module('ApiAdmin').controller('ideController', function ($scope, $User, $TreeMenu, $resource, $location, $compile,
+     $Language, $mdSidenav, $mdBottomSheet, $Theme, $mdDialog, $Cache, $IDE) {
     $scope.$Theme = $Theme;
     $scope.$User = $User;
     $scope.$TreeMenu = $TreeMenu;
-    
+    $scope.$IDE = $IDE;
     //$scope.Language = $Language.getActive();
     $scope.$Language = $Language;
     
     
     if (localStorage.getItem("ApiUser") !== undefined) {
-        $scope.User = JSON.parse(localStorage.getItem("ApiUser"));
-        
+        $scope.User = JSON.parse(localStorage.getItem("ApiUser"));        
         $scope.Logoff = function () {
             
             $scope.User = null;
@@ -22,84 +22,18 @@
         $location.path("/login");
     
     $scope.TreeLoading = false;
-    $scope.toggleRight = function () {
-        
+    $scope.toggleRight = function () {        
         $mdSidenav('right').toggle();
     }
-    //$scope.Languages = { "1033": { name: "english", shortname: "eng" }, "1037": { name: "hebrew", shortname: "heb" } };
-    //$scope.LanguageDescriptor = { "lcid": 1033, "name": "english" };
-    //$scope.lcid = 1037;
-    
-    
-    $scope.GetLanguageName = function (lcid) {
-        
+     
+    $scope.GetLanguageName = function (lcid) {        
         return $Language.getByLCID(lcid).name;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    //if (LanguageDescriptor.Direction == "rtl")
-    //    ret +=  "<link href=\"css/rtl.css\" rel=\"stylesheet\" type=\"text/css\" />";
-    //return ret;
-    
-    $scope.focusMe = function (itemKey) {
-        
-        $("div[data-egen-page], div[data-egen-lobby],div[data-any-lobby]").hide();
-        $("div[itemkey='" + itemKey + "']").show();
-        
-        
-        for (var i = 0; i < $scope.Tabs.length; i++)
-            if ($scope.Tabs[i].itemKey == itemKey) {
-                $scope.selectedTabIndex = i;
-                $scope.ActiveTreeNode = $scope.Tabs[i];
-            }
 
-
-
-
-        //$("paper-tab.selected").removeClass("selected");
-        //$("paper-tab[itemkey='" + itemKey + "']").addClass("selected");
-    }
-    
     $scope.ActiveTreeNode = {};
-    $scope.Tabs = [];
-    $scope.TabByKey = function (itemKey) {
-        for (var i = 0; i < $scope.Tabs.length; i++)
-            if ($scope.Tabs[i].itemKey == itemKey)
-                return $scope.Tabs[i];
-        return null;
-
-    }
-    
-    
-    $scope.AddTab = function () {
-        document.getElementById("TabContainer").innerHTML += "<div id='aaa' ><div ng-include=\"'partials/lobby.html'\"></div></div>";
-        var element = angular.element("#aaa");
-        $compile(element.contents())($scope);
-
-    }
     $scope.selectedTabIndex = 0;
     
-    $scope.onTabSelected = function (tab, $event) {
-        $scope.focusMe(tab.itemKey);
-        
-        if ($event) {
-            if ($event.which == 2)
-                $scope.CloseTab(tab);
-        } else {
-            if ($event.button == 4)
-                $scope.CloseTab(tab);
-        }
-
-
-
-        //tab.Selected = true;
-    }
+    
     $scope.EditItem = function (item) {
         item.Name = item.name;
         var itemKey = "b" + item.boneid + "n" + item.nsid + "o" + item.objid + "l" + item.lcid;
@@ -120,52 +54,12 @@
         $scope.focusMe(itemKey);
 
 
-    }
-    $scope.ShowLobby = function (item, itemUrl) {
-        
-        $scope.ActiveTreeNode = item;
-        
-        if (item == null)
-            return;
-        //if(item.Url === "" || item.Url === undefined)
-        //     item.Url = "lobby.html";
-        
-        if (item.itemKey === undefined)
-            item.itemKey = "b" + "_" + item._id;//.replace(/-/g, '');
-        //item.itemKey = itemKey;
-        if ($scope.TabByKey(item.itemKey) != null) {
-            
-            $scope.focusMe(item.itemKey);
-            return;
-        }
-        
-        item.disabled = false;
-        item.style = "lobby-tab";
-        
-        $scope.Tabs.push(item);
-        
-        debugger;
-        //item.Url = "schemas.html";
-        var tabPane = $("<div data-any-lobby=\"" + itemUrl + "\" itemkey='" + item.itemKey + "' schemaid='" + item._id + "'></div>");
-        tabwrapper = $("<div></div>");
-        tabwrapper.append(tabPane);
-        $("#TabContainer").append(tabwrapper);
-        // item.tabPane = tabPane;
-        var element = angular.element(tabPane);
-        $compile(tabwrapper.contents())($scope);
-        
-        $scope.focusMe(item.itemKey);
-
-    }
+    } 
     
     $scope.showSelected = function (node) {
-        
-        
         var itemUrl = 'lobby.html';
-        
-        
-        var item = { _id: node._id, name: node.Name };
-        $scope.ShowLobby(item, node.Url);
+        var item = { _id: node._id, name: node.Name, schemaid: node._id };
+        $IDE.ShowLobby(item, node.Url);
       
     }
     
@@ -191,26 +85,7 @@
         }
     }
     
-    $scope.CloseTab = function (tab) {
-        
-        
-        $("div[itemkey = '" + tab.itemKey + "']").remove();
-        // tab.tabPane = null;
-        
-        for (var i = 0; i < $scope.Tabs.length; i++)
-            if ($scope.Tabs[i].itemKey === tab.itemKey) {
-                $scope.Tabs.splice(i, 1);
-                var nextpos = i;
-                if (i > 1)
-                    nextpos = i - 1;
-                else if ($scope.Tabs.length === 1)
-                    nextpos = 0;
-                
-                if ($scope.Tabs[nextpos] !== undefined)
-                    $scope.focusMe($scope.Tabs[nextpos].itemKey);
-            }
-
-    }
+    
     
     
     
@@ -234,66 +109,13 @@
     $TreeMenu.initTreeMenu();
     
     
-    //var TreeResource = $resource(apiUrl + '/Navigation/');
-    //$scope.TreeLoading = true;
-    //TreeResource.get(function (data) {
-    //    var navs = data.items;
-    
-    //    $scope.treeOptions = {
-    //        nodeChildren: "Children"
-    //    };
-    
-    
-    //    $scope.Menus = [{ id: 1, 'name': "main" }];
-    //    $scope.Menu = navs;
-    //    $scope.subTreeResource = $resource(apiUrl + '/Navigation/', { ParentId: "@parentid" });
-    //    angular.forEach($scope.Menus, function (value, key) {
-    
-    //        $scope.TreeLoading = true;
-    //        $scope.subTreeResource.get({ ParentId: '00000000-0000-0000-0000-000000000000' }, function (data) {
-    
-    //            for (var i = 0; i < data.items.length; i++) {
-    
-    //                if (data.items[i].Left + 1 < data.items[i].Right)
-    //                    data.items[i].Children = {};
-    //            }
-    
-    //            value.children = data.items;
-    //            $scope.TreeLoading = false;
-    //        });
-    //    });
-    
-    
-    
-    
-    //});
+     
     
     $scope.SetActiveMenu = function (menu) {
         $scope.ActiveMenu = menu;
     }
     $scope.ActiveMenu = null;
-    
-    //$scope.AddCategory = function () {
-        
-        
-    //    var parentEl = angular.element(document.body);
-    //    $mdDialog.show({
-    //        parent: parentEl,
-    //        templateUrl: 'partials/manage/dialogs/category.html',
-    //        controller: 'CategoryDialog',
-    //        locals: { "$EditCategory": { ParentId: '00000000-0000-0000-0000-000000000000' }, "$NodeCollection": $scope.Menus[0].Children },
-            
-    //        //templateUrl: 'partials/dialogs/category.html',
-    //        //controller: 'GreetingController'
-    //        onComplete: function () {
-    //           // alert("complete");
-                
-    //            //angular.element("#CategoryDialogScope").scope().LoadForParent(0);
-    //        },
-    //        //locals: { employee: $scope.userName }
-    //    });
-
-    //}
+     
 
 
 })
@@ -387,7 +209,7 @@
     
     
     
-    var nameResource = $resource('/schema/collections', {}, {
+    var nameResource = $resource('/schemas/collections', {}, {
         'get': { method: 'GET' },
         'save': { method: 'POST' },
         'query': { method: 'GET', isArray: true },
@@ -463,7 +285,11 @@
     // $scope.Language = $Language.language;
     
     $scope.Language = $Language.getByLCID(localStorage.getItem("lcid"));
-    
+    debugger;
+    if ($scope.Language !== undefined && $scope.Language.direction == 'rtl') {
+        $('link[id="languageCssfile"]').attr('href', "styles/bootstrap.rtl.css");
+    }
+
     
     
     //if (language === null)
@@ -477,14 +303,11 @@
     
     
     $scope.SetLanguage = function () {
-        $Language.set($scope.Language).$promise.then(function (response) {
-            
-            localStorage.setItem("lcid", $scope.Language.lcid);
-            
+        $Language.set($scope.Language).$promise.then(function (response) {            
+            localStorage.setItem("lcid", $scope.Language.lcid);            
             var resourceSetResolves = {};
             var arr = angular.fromJson(response.Results);
-            for (var i = 0; i < arr.length; i++) {
-                
+            for (var i = 0; i < arr.length; i++) {                
                 resourceSetResolves[arr[i].Key] = arr[i].Value;
             }
             //$scope.DataTables = data.Tables;
@@ -518,7 +341,7 @@
         }
     });
     
-    
+  
     //$scope.SetTheme = function (theme) {
     
     //    $Theme.setTheme($scope.Theme);
@@ -604,6 +427,7 @@
     
     $scope.ListModules = function () {
         
+        $scope.ModuleList = [];
         $scope.ModuleLoading = true;
         var setupRes = $resource("/modules/list");
         setupRes.query({}, function (data) {
@@ -866,18 +690,7 @@
         }
     }
 })
-.directive('egenLobby', function () {
-    return {
-        templateUrl: 'partials/lobby.html',
-        controller: "lobbyController",
-        scope: {
-            'itemKey': '@itemkey',
-            'boneid': '@boneid', // OK
-            'lcid': '@lcid', // OK
-            'editItem': "&editItem"
-        }
-    };
-})
+ 
 .directive('egenPage', function () {
     return {
         templateUrl: 'partials/page.html',
@@ -951,7 +764,7 @@
         }
     };
 })
-.controller('SchemaTreeMenuCtrl', function ($scope, $mdBottomSheet, $mdDialog, $resource, $rootScope) {
+.controller('SchemaTreeMenuCtrl', function ($scope, $mdBottomSheet, $mdDialog, $resource, $rootScope, $IDE) {
     
     $scope.items = [
         //{ name: 'Add child category', icon: 'add', method: AddCategory },
@@ -980,13 +793,13 @@
     }
     
     function EditSchema(item) {
-        var url = 'modules/schemas/schemas.html';
-        var scope = angular.element("#view").scope();
-        item.node.schemaid = item.node._id;
-        scope.ShowLobby(item.node, url);
+        var url = 'modules/schemas/schemas.html';      
+        item.node.schemaid = item.node._id;         
+        item.node.itemKey = "schema_" + item.node._id;
+        $IDE.ShowLobby(item.node, url);
     }
-    function DeleteCategory(category) {
-        
+
+    function DeleteCategory(category) {        
         var lobbyResource = $resource(apiUrl + '/schemas/', {}, {
             'get': { method: 'GET' },
             'save': { method: 'POST' },
@@ -1042,7 +855,7 @@
         $mdBottomSheet.hide(clickedItem);
     };
 })
-.controller('TreeMenuCtrl', function ($scope, $mdBottomSheet, $mdDialog, $resource, $rootScope) {
+.controller('TreeMenuCtrl', function ($scope, $mdBottomSheet, $mdDialog, $resource, $rootScope, $IDE) {
     
     $scope.items = [
         //{ name: 'Add child category', icon: 'add', method: AddCategory },
@@ -1074,7 +887,9 @@
         var url = 'Schemas.html';
         var scope = angular.element("#view").scope();
         item.node.schemaid = item.node._id;
-        scope.ShowLobby(item.node, url);
+        item.node.itemKey = "schema_" + item.node._id;
+        item.node.name = item.node.label;
+        $IDE.ShowLobby(item.node, url);
     }
     function DeleteCategory(category) {
         
@@ -1132,52 +947,7 @@
         var clickedItem = $scope.items[$index];
         $mdBottomSheet.hide(clickedItem);
     };
-})
-.controller('lobbyController', function ($scope, $resource, $location, $compile, $Status, $Language, $mdDialog, $DataTable) {
-    
-    $DataTable.Load();
-    
-    
-    $scope.GetLanguageName = function (lcid) {
-        for (var i = 0; i < $Language.languages.length; i++)
-            if ($Language.languages[i].lcid == lcid)
-                return $Language.languages[i].name;
-    };
-    
-    $scope.Statuses = $Status();
-    $scope.Results = null;
-    var lobbyResource = $resource(apiUrl + '/Lobby/', { boneid: "@boneid", lcid: "@lcid" });
-    lobbyResource.get({ boneid: $scope.boneid, lcid: $scope.lcid }, function (data) {
-        $scope.Results = data.Results;
-        $scope.DataTables = data.DataTables;
-
-
-    });
-    
-    
-    
-    $scope.EditItem = function (result) {
-        $scope.$parent.EditItem(result);
-    }
-    
-    $scope.AddNewItem = function () {
-        $mdDialog.show({
-            //template: "<div data-any-lobby=\"" + "/dialogs/newitem.html" + "\" flex='80'></div>",
-            templateUrl: 'partials/manage/dialogs/newitem.html',
-            //controller: 'GreetingController'
-            onComplete: function () {
-                
-                angular.element("#NewItemDialogScope").scope().DataTables = $scope.DataTables;
-                angular.element("#NewItemDialogScope").scope().$DataTable = $DataTable;
-
-
-                // $scope.$apply(angular.element("#NewItemDialogScope").scope().DataTables);
-            },
-            //locals: { employee: $scope.userName }
-        });
-    }
-
-})
+}) 
 .controller('pageController', function ($scope, $resource, $location, $compile, $http, $Status, $Language) {
     
     $http.defaults.useXDomain = true;
@@ -1218,7 +988,7 @@
 
 
     }
-    var schemaResource = $resource(apiUrl + '/Schema/', { nsid: "@nsid" });
+    var schemaResource = $resource(apiUrl + '/schemas/', { nsid: "@nsid" });
     var itemResource = $resource(apiUrl + '/Item/', { boneid: "@boneid", nsid: "@nsid", objid: "@objid", lcid: "@lcid" });
     $scope.updateitemResource = $resource(apiUrl + '/Item/', { updateObject: "@updateObject" });
     var globalDisplay = "";
@@ -1353,13 +1123,13 @@
                             clickedItem.method($event);
                         });
                     },
-                    AddCategory: function () {
+                    AddCategory: function (menu) {
                         var parentEl = angular.element(document.body);
                         $mdDialog.show({
                             parent: parentEl,
                             templateUrl: 'partials/manage/dialogs/schema.html',
                             controller: 'SchemaDialog',
-                            locals: { "$EditCategory": { ParentId: '00000000-0000-0000-0000-000000000000' }, "$NodeCollection": instance.Menus[0].Children },
+                            locals: { "$EditCategory": { ParentId: '00000000-0000-0000-0000-000000000000' }, "$NodeCollection": menu.children },
                             onComplete: function () { }
                         });
 

@@ -24,6 +24,7 @@
     <Content Include="public\partials\manage\dialogs\schema.html" />
     <Content Include="public\partials\manage\Website.html" />
     <Content Include="public\partials\SchemaTreeMenu.html" />
+    <Content Include="public\styles\bootstrap.rtl.css" />
     <Content Include="robots.txt" />
     <Content Include="favicon.ico" />
     <Content Include="package.json" />
@@ -355,9 +356,6 @@
     <Compile Include="public\scripts\ace\worker-php.js" />
     <Compile Include="public\scripts\ace\worker-xml.js" />
     <Compile Include="public\scripts\ace\worker-xquery.js" />
-    <Content Include="public\scripts\ag-grid\ag-blue.css" />
-    <Content Include="public\scripts\ag-grid\ag-grid.css" />
-    <Compile Include="public\scripts\ag-grid\ag-grid.js" />
     <Content Include="public\scripts\angular\version.txt" />
     <Content Include="public\scripts\angular\angular-csp.css" />
     <Content Include="public\scripts\angular\errors.json" />
@@ -3744,7 +3742,6 @@
     <Folder Include="public\partials\manage\dialogs\properties" />
     <Folder Include="public\scripts" />
     <Folder Include="public\scripts\ace" />
-    <Folder Include="public\scripts\ag-grid" />
     <Folder Include="public\scripts\angular" />
     <Folder Include="public\scripts\angular\angular-material" />
     <Folder Include="public\scripts\angular\angular-material\demos" />

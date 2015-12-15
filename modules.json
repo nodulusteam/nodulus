@@ -1,1 +1,63 @@
-{"modules":{"files":[],"scripts":[],"routes":[{"path":"module.js","route":"/modules"}],"module":{"name":"modules"},"npm":{},"navigation":[]}}
+{
+  "modules": {
+    "files": [ ],
+    "scripts": [ ],
+    "routes": [
+      {
+        "path": "module.js",
+        "route": "/modules"
+      }
+    ],
+    "module": { "name": "modules" },
+    "npm": { },
+    "navigation": [ ]
+  },
+  "users": {
+    "files": [ ],
+    "scripts": [ ],
+    "routes": [
+      {
+        "path": "users.js",
+        "route": "/Users"
+      }
+    ],
+    "module": { "name": "users" },
+    "npm": { },
+    "navigation": [ ]
+  },
+  "ad-cost": {
+    "files": [ "Account.html", "Account.js", "Accounts.html", "Accounts.js" ],
+    "scripts": [ ],
+    "routes": [
+      {
+        "path": "adcost.js",
+        "route": "/adcost"
+      }
+    ],
+    "module": { "name": "ad-cost" },
+    "npm": { "oauth": "^0.9.14" },
+    "navigation": [
+      {
+        "_id": "ad-cost",
+        "ParentId": "00000000-0000-0000-0000-000000000000",
+        "Name": "ad-cost",
+        "label": "ad-cost",
+        "Url": "/modules/ad-cost/Accounts.html",
+        "Alias": "Accounts"
+      }
+    ]
+  },
+  "schemas": {
+    "files": [ "Schemas.js", "Schemas.html", "SchemaInput.html", "propertiesDialog.html", "lobby.js", "lobby.html", "item.js", "item.html", "designer.js", "designer.html", "confirmDialog.html" ],
+    "scripts": [ "app.js" ],
+    "routes": [
+      {
+        "route": "/schemas",
+        "path": "schemas.js"
+      }
+    ],
+    "module": { "name": "schemas" },
+    "npm": { },
+    "navigation": [ ]
+  }
+}

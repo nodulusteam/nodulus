@@ -26,17 +26,16 @@
         var filesArr = [];
         for (var i = 0; i < manifest_file.files.length; i++) {
             var fileContent = fs.readFileSync(baseFolder + manifest_file.files[i]);
-            zip.file(manifest_file.files[i], fileContent );
+            zip.file(manifest_file.files[i], fileContent);
         }
         
-        if (manifest_file.routes !== undefined)
-            {
-        for (var i = 0; i < manifest_file.routes.length; i++) {
-            var fileContent = fs.readFileSync(global.appRoot +"/routes/" + manifest_file.routes[i].path);
-            zip.folder("routes").file(manifest_file.routes[i].path, fileContent);
+        if (manifest_file.routes !== undefined) {
+            for (var i = 0; i < manifest_file.routes.length; i++) {
+                var fileContent = fs.readFileSync(global.appRoot + "/routes/" + manifest_file.routes[i].path);
+                zip.folder("routes").file(manifest_file.routes[i].path, fileContent);
             }
         }
-
+        
         var manifestContent = fs.readFileSync(baseFolder + "manifest.json");
         zip.file("manifest.json", manifestContent);
         
@@ -69,21 +68,24 @@
             fs.writeFileSync(global.appRoot + "\\public\\modules\\" + module_name + "\\manifest.json" , fileData, 'utf8');
             var manifest_file = fs.readJsonSync(global.appRoot + "\\public\\modules\\" + module_name + "\\manifest.json", { throws: true });
             
-
             
-            for (var i = 0; i < manifest_file.files.length; i++) {
-                var filename = manifest_file.files[i];
-                var fileData = zip.file(filename).asText();
-                fs.writeFileSync(global.appRoot + "\\public\\modules\\" + module_name + "\\" + filename, fileData, 'utf8');
+            if (manifest_file.files !== undefined) {
+                for (var i = 0; i < manifest_file.files.length; i++) {
+                    var filename = manifest_file.files[i];
+                    var fileData = zip.file(filename).asText();
+                    fs.writeFileSync(global.appRoot + "\\public\\modules\\" + module_name + "\\" + filename, fileData, 'utf8');
+                }
             }
             
-            for (var i = 0; i < manifest_file.routes.length; i++) {
-                var filename = manifest_file.routes[i].path;
-                var fileData = zip.folder("routes").file(filename).asText();
-                fs.writeFileSync(global.appRoot + "\\routes\\" + filename, fileData, 'utf8');
+            if (manifest_file.routes !== undefined) {
+                for (var i = 0; i < manifest_file.routes.length; i++) {
+                    var filename = manifest_file.routes[i].path;
+                    var fileData = zip.folder("routes").file(filename).asText();
+                    fs.writeFileSync(global.appRoot + "\\routes\\" + filename, fileData, 'utf8');
+                }
             }
-
-          
+            
+            
             //register the module to the modules.json file
             fs.ensureFileSync(global.appRoot + "\\modules.json");
             var modules_file = {};
@@ -205,7 +207,7 @@
         
         //delete module folder
         deleteFolderRecursive(global.appRoot + "\\public\\modules\\" + module_name + "\\");
-
+        
         
         
         fs.writeFileSync(global.appRoot + "\\modules.json", JSON.stringify(modules_file));

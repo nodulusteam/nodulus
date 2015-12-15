@@ -24,6 +24,7 @@
     "moment": "^2.10.6",
     "mongodb": "^2.0.40",
     "morgan": "^1.6.1",
+    "oauth": "^0.9.14",
     "request": "^2.67.0",
     "socket-io-server": "^1.0.5",
     "stylus": "^0.42.3"

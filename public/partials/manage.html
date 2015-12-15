@@ -5,10 +5,10 @@
     <div class="container-fluid">
         <a class="navbar-header">
              
-            <div class="navbar-brand">nodulus</div><span  class="navbar-brand" ng-click='Logoff()'><span class="fa fa-user"></span> {{$User.User.email}}</span>
+            <div class="navbar-brand">nodulus&trade;</div><span  class="navbar-brand" ng-click='Logoff()'><span class="fa fa-user"></span> {{$User.User.email}}</span>
         </a>
         <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right class="nav-tabs"">
+            <ul class="nav navbar-nav navbar-right nav-tabs">
                 <!--<li><a ng-click='dashboard()'>Dashboard</a></li>-->
                 <li><a ng-click='toggleRight()'>Settings</a></li>
                 <!--<li><a ng-click='profile()'>Profile</a></li>
@@ -79,13 +79,15 @@
 
 
     
-        <div class="col-lg-10 col-md-9 col-sm-9 col-xs-9 main" style="height: {{PaneHeight}}px;">
-            <div scrolling-tabs-wrapper watch-tabs="Tabs">
+        <div class="col-lg-10 col-md-9 col-sm-9 col-xs-9 main" style="height: {{PaneHeight}}px;"  id="TabsCollection">
+            
+           
+            <div scrolling-tabs-wrapper watch-tabs="$IDE.Tabs">
                
                     <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" ng-class="{'active': ActiveTreeNode === tab}" ng-repeat="tab in Tabs" ng-mousedown="onTabSelected(tab, $event)">
+                        <li role="presentation" ng-class="{'active': $IDE.ActiveTreeNode === tab}" ng-repeat="tab in $IDE.Tabs" ng-mousedown="$IDE.onTabSelected(tab, $event)">
                             <a>
-                                <buttun aria-label="Close" ng-click='CloseTab(tab)'>
+                                <buttun aria-label="Close" ng-click='$IDE.CloseTab(tab)'>
                                     <i class="fa fa-times fa-2"></i>
                                 </buttun>
 

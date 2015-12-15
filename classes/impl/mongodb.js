@@ -327,6 +327,9 @@
             switch (oQuery.queryMode) {
                 case "INSERT":
                     
+                    if (oQuery.values["_id"] === undefined)
+                        oQuery.values["_id"] = require("guid").create().value;    
+
                     db.collection(oQuery.collection).save(oQuery.values
                         , function (err, result) {
                         //if (result.result.upserted !== undefined || result.result.nModified == 1) {

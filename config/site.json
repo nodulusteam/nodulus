@@ -3,10 +3,7 @@
   "url": "",
   "port": "3001",
   "appRoot": "/",
-  "couchBase": "",
-  "hosts": [ "http://127.0.0.1:8093/" ],
-  "tunnel": "http://localhost:3002/",
-  "mongodb": { "host": "mongodb://localhost:27017/console" },
+  "mongodb": { "host": "mongodb://localhost:27017/nodulus" },
   "mimeTypes": {
     ".html": "text/html",
     ".css": "text/css",
@@ -15,29 +12,7 @@
     ".json": "application/json",
     ".ttf": "application/font-woff",
     ".woff": "application/font-woff"
-
-
-
-
-
-  },
-  "modules": [
-    {
-      "name": "users",
-      "path": "users.js",
-      "route": "/Users"
-    },
-    {
-      "name": "modules",
-      "path": "module.js",
-      "route": "/modules"
-    } ,
-    {
-      "name": "schemas",
-      "path": "schema.js",
-      "route": "/schema"
-    }
-  ]
+  } 
 
 
 }
