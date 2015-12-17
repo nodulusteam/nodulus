@@ -23,7 +23,8 @@
   "dependencies": [ 
     "bootstrap-decorator.min.js",
     "schem-form-definitions.js",
-    "angular-schema-form-dynamic-select.js"      
+    "angular-schema-form-dynamic-select.js",
+    "bootstrap-ui-ace.min.js"   
   ],
   "routes": [
     {

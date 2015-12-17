@@ -109,7 +109,9 @@
                 }
 
             }
-            searchCommand.$orderby = JSON.parse( req.query.$sort);
+            
+            if(req.query.$sort)
+                    searchCommand.$orderby = JSON.parse( req.query.$sort);
              
             
             

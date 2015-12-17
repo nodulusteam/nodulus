@@ -1,5 +1,7 @@
 ﻿/*jslint node: true */
 "use strict";
+if (!location.origin)
+    location.origin = location.protocol + "//" + location.host;
 
 var apiUrl = "/api/";
 var logedinuser = {};
@@ -163,13 +165,16 @@ var DynamicData = angular.module('ApiAdmin', nodulus_dependecies  )
         
         
         var lcid = localStorage.getItem("lcid");
+         
         var languages = {
             1033: { name: "english", shortname: "eng", "lcid": 1033, "align": "left", "direction": "ltr", "alignInvert": "right", "directionInvert": "rtl" }
             ,
             1037: { name: "hebrew", shortname: "heb", "lcid": 1037, "align": "right", "direction": "rtl", "alignInvert": "left", "directionInvert": "ltr" }
         }
 ;
-        
+        if (lcid === null)
+            lcid = 1033;
+
       
         var LanguageFromCookie = languages[lcid];
         
@@ -716,7 +721,7 @@ function initSocketEvents($scope, $User, $Config, $Alerts) {
         
         if (!socketsInitialized) {
             
-            socket = io("http://localhost:3001");
+            socket = io(location.origin);
             //$Config.site.appRoot + ":" + $Config.site.port  
             
             if ($User.User._id)

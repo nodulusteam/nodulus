@@ -24,12 +24,16 @@ var app = express();
 
 var http = require("http").createServer(app);
 var io = require("socket.io")(http);
+//http.listen(8080, "127.0.0.1");
 
-http.listen(8080, "127.0.0.1");
+
+
+
+ 
 
 
 var server = require('http').Server(app);
-webServer.start(server, function () {
+webServer.start(server, app, function () {
     
     var socket = require('socket.io')(server);
     var io = socket.listen(server);
