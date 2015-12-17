@@ -1,0 +1,16 @@
+﻿var nodulus_mapping = {
+  "schemas": {
+    "dependencies": [ "schemaForm" ],
+    "scripts": [
+      "tv4.js",
+      "ObjectPath.js",
+      "schema-form.js",
+      "bootstrap-decorator.min.js",
+      "schem-form-definitions.js",
+      "angular-schema-form-dynamic-select.js"
+
+    ],
+    "module": { "name": "schemas" }
+
+  }
+}

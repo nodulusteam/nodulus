@@ -8,6 +8,80 @@ var socket = {};
 var socketsInitialized = false;
 /* ng-infinite-scroll - v1.0.0 - 2013-02-23 */
 var mod;
+var nodulus = {}
+var regModules = ["ng"];
+
+
+define(["angular"], function (angular) {
+    // Returns a angular module, searching for its name, if it's a string
+    function get(name) {
+        if (typeof name === "string") {
+            return angular.module(name);
+        }
+        
+        return name;
+    };
+    
+    var moduleExtender = function (sourceModule) {
+        var modules = Array.prototype.slice.call(arguments);
+        
+        // Take sourceModule out of the array
+        modules.shift();
+        
+        // Parse the source module
+        sourceModule = get(sourceModule);
+        if (!sourceModule._amdDecorated) {
+            throw new Error("Can't extend a module which hasn't been decorated.");
+        }
+        
+        // Merge all modules into the source module
+        modules.forEach(function (module) {
+            module = get(module);
+            module._invokeQueue.reverse().forEach(function (call) {
+                // call is in format [ provider, function, args ]
+                var provider = sourceModule._lazyProviders[ call[ 0 ] ];
+                
+                // Same as for example $controllerProvider.register("Ctrl", function() { ... })
+                provider && provider[ call[ 1 ] ].apply(provider, call[ 2 ]);
+            });
+        });
+    };
+    
+    var moduleDecorator = function (module) {
+        module = get(module);
+        module.extend = moduleExtender.bind(null, module);
+        
+        // Add config to decorate with lazy providers
+        module.config([
+            "$compileProvider",
+            "$controllerProvider",
+            "$filterProvider",
+            "$provide",
+            function ($compileProvider, $controllerProvider, $filterProvider, $provide) {
+                module._lazyProviders = {
+                    $compileProvider: $compileProvider,
+                    $controllerProvider: $controllerProvider,
+                    $filterProvider: $filterProvider,
+                    $provide: $provide
+                };
+                
+                module.lazy = {
+                    // ...controller, directive, etc, all functions to define something in angular are here, just like the project mentioned in the question
+                };
+                module._amdDecorated = true;
+            }
+        ]);
+    };
+    
+    // Tadaaa, all done!
+    return {
+        decorate: moduleDecorator
+    };
+});
+
+
+
+
 
 mod = angular.module('infinite-scroll', []);
 
@@ -71,7 +145,8 @@ mod.directive('infiniteScroll', [
 ]);
 
 var providers = {};
-var DynamicData = angular.module('ApiAdmin', ['infinite-scroll', 'ngCkeditor', 'schemaForm', 'anguFixedHeaderTable', 'm43nu.auto-height', 'mgcrea.ngStrap', 'mj.scrollingTabs', 'ui.bootstrap', 'ui.ace', 'ngSanitize', 'ngRoute', 'ngResource', 'angular.filter', 'angularBootstrapNavTree', 'treeControl', 'ngMaterial', 'ngMessages', 'RecursionHelper', 'DynamicDataSerivces', 'Cache', 'IDE', 'pascalprecht.translate'])
+//'schemaForm'
+var DynamicData = angular.module('ApiAdmin', nodulus_dependecies  )
 .config(['$controllerProvider', '$resourceProvider', '$routeProvider', '$mdThemingProvider', '$compileProvider', '$provide', '$injector', '$translateProvider', 
     function ($controllerProvider, $resourceProvider, $routeProvider, $mdThemingProvider, $compileProvider, $provide, $injector, $translateProvider) {
         // $resourceProvider.defaults.stripTrailingSlashes = false;    
@@ -85,9 +160,24 @@ var DynamicData = angular.module('ApiAdmin', ['infinite-scroll', 'ngCkeditor', '
         
         
         $translateProvider.useUrlLoader('/api/Languages');
-        $translateProvider.use('eng');
-        $translateProvider.preferredLanguage('eng');
-        $translateProvider.fallbackLanguage('eng');
+        
+        
+        var lcid = localStorage.getItem("lcid");
+        var languages = {
+            1033: { name: "english", shortname: "eng", "lcid": 1033, "align": "left", "direction": "ltr", "alignInvert": "right", "directionInvert": "rtl" }
+            ,
+            1037: { name: "hebrew", shortname: "heb", "lcid": 1037, "align": "right", "direction": "rtl", "alignInvert": "left", "directionInvert": "ltr" }
+        }
+;
+        
+      
+        var LanguageFromCookie = languages[lcid];
+        
+        
+        
+        $translateProvider.use(LanguageFromCookie.shortname);
+        $translateProvider.preferredLanguage(LanguageFromCookie.shortname);
+        $translateProvider.fallbackLanguage(LanguageFromCookie.shortname);
         
         
         
@@ -106,7 +196,7 @@ var DynamicData = angular.module('ApiAdmin', ['infinite-scroll', 'ngCkeditor', '
         
         
         this.$get = function ($resource) {
-            var languageResource = $resource(apiUrl + '/LanguageResource/', { "shortName": "@shortName", "lcid": "@lcid" });
+            var languageResource = $resource(apiUrl + '/Languages/', { "lcid": "@lcid" });
             
             return {
                 language: null,
@@ -144,7 +234,7 @@ var DynamicData = angular.module('ApiAdmin', ['infinite-scroll', 'ngCkeditor', '
                     
                     
                     
-                    var promise = languageResource.get({ "shortName": language.shortname, "lcid": language.lcid });
+                    var promise = languageResource.get({"lcid": language.lcid });
                     return promise;
 
 
@@ -188,14 +278,14 @@ var DynamicData = angular.module('ApiAdmin', ['infinite-scroll', 'ngCkeditor', '
         }
     }])
 //.service('$Config', ['$resource', '$http', function ($resource, $http) {
-		
+
 //		var self = this;		
 //        $http.get("config/client.json").success(function (data) {
 //            debugger		
 //			self.site = data;        
 //		})    
 //	}])
-    .provider("$Config", function () {
+.provider("$Config", function () {
     var type;
     return {
         setType: function (value) {
@@ -264,9 +354,11 @@ var DynamicData = angular.module('ApiAdmin', ['infinite-scroll', 'ngCkeditor', '
             }
         }
     }])
-.controller('shellController', function ($scope, $mdDialog, $resource, $location, $compile, $Alerts, $Language, $Theme, $User, $Models, $Cache, $Config,$IDE) {
+.controller('shellController', function ($scope, $mdDialog, $resource, $location, $compile, $Alerts, $Language, $Theme, $User, $Models, $Cache, $Config, $IDE, $nodulus) {
     $scope.$Alerts = $Alerts;
     $scope.$IDE = $IDE;
+    $scope.$nodulus = $nodulus;
+    nodulus = $scope.$nodulus ;
     $Cache.ready("schemas", function (data) {
         var schemasObject = {};
         for (var i = 0; i < data.length; i++) {
@@ -302,7 +394,7 @@ var DynamicData = angular.module('ApiAdmin', ['infinite-scroll', 'ngCkeditor', '
     var lcid = localStorage.getItem("lcid");
     $scope.Language = $Language.getByLCID(lcid);
     $Language.set($scope.Language)
-   .$promise.then(function (response) {
+.$promise.then(function (response) {
         
         var resourceSetResolves = {};
         var arr = angular.fromJson(response.Results);
@@ -320,17 +412,17 @@ var DynamicData = angular.module('ApiAdmin', ['infinite-scroll', 'ngCkeditor', '
 
     });
     $scope.Module = {};
-  
+    
     //$scope.Install = function () {
-        
-        
+    
+    
     //    var setupRes = $resource("/modules/install");
     //    setupRes.save({ name: $scope.Module.Name }, function (data) {
     //        $Alerts.add({ type: 'success', msg: 'module ' + $scope.Module.Name +' successfully installed', autoClose: 10000000, 'icon': 'fa fa-check' });
-             
+    
     //    })
-
-
+    
+    
     
     
     //}
@@ -390,9 +482,9 @@ var DynamicData = angular.module('ApiAdmin', ['infinite-scroll', 'ngCkeditor', '
             },
             
             templateUrl: 'partials/manage/dialogs/login.html'
-            
+
         });
-        
+
 
 
 
@@ -470,7 +562,7 @@ var DynamicData = angular.module('ApiAdmin', ['infinite-scroll', 'ngCkeditor', '
         },
         
         templateUrl: 'partials/manage/dialogs/register.html'
-            
+
     });
     
     
@@ -480,7 +572,7 @@ var DynamicData = angular.module('ApiAdmin', ['infinite-scroll', 'ngCkeditor', '
     $scope.Password = "";
     $scope.CookieTimeOut = 0;
     $scope.LoginLoading = false;
- 
+
 
 
 })
@@ -539,17 +631,84 @@ var DynamicData = angular.module('ApiAdmin', ['infinite-scroll', 'ngCkeditor', '
     
     this.add = function (alert) {
         instance.alerts.push(alert);
-        
+
 
     }
-    this.remove = function (alert) {         
+    this.remove = function (alert) {
         instance.alerts.splice(instance.alerts.indexOf(alert) , 1);
     }
+
+
+
+})
+
+
+
+
+
+.service('$nodulus', function ($resource, $Config, $injector, $log) {
+    
+    var instance = this;
+    
+    
    
- 
+    
+    this.register = function (registerModules) {
+        debugger
+        //$injector, providersx, 
+        var i, ii, k, invokeQueue, moduleName, moduleFn, invokeArgs, provider;
+        if (registerModules) {
+            var runBlocks = [];
+            for (k = registerModules.length - 1; k >= 0; k--) {
+                moduleName = registerModules[k];
+                regModules.push(moduleName);
+                moduleFn = angular.module(moduleName);
+                DynamicData.requires.push(moduleName);
+                
+
+                runBlocks = runBlocks.concat(moduleFn._runBlocks);
+                try {
+                    for (invokeQueue = moduleFn._invokeQueue, i = 0, ii = invokeQueue.length; i < ii; i++) {
+                        invokeArgs = invokeQueue[i];
+                        
+                        if (providers.hasOwnProperty(invokeArgs[0])) {
+                            provider = providers[invokeArgs[0]];
+                        } else {
+                            return $log.error("unsupported provider " + invokeArgs[0]);
+                        }
+                        provider[invokeArgs[1]].apply(provider, invokeArgs[2]);
+                    }
+                } catch (e) {
+                    if (e.message) {
+                        e.message += ' from ' + moduleName;
+                    }
+                    $log.error(e.message);
+                    throw e;
+                }
+                registerModules.pop();
+            }
+            angular.forEach(runBlocks, function (fn) {
+                $injector.invoke(fn);
+            });
+        }
+        return null;
+    }
+    
+    
+    
+
+
 
 });
 
+
+
+
+
+
+
+
+ 
 
 
 function initSocketEvents($scope, $User, $Config, $Alerts) {
@@ -631,18 +790,18 @@ DynamicData.controller('Directives.BaseController', ['$scope', '$rootScope', '$M
                 }, true);
 
             }
-		
-			
+
+
         }
-        //if($scope.family !== undefined)
-        //    $scope.models[$scope.family.name] = $scope.family.name;
+//if($scope.family !== undefined)
+//    $scope.models[$scope.family.name] = $scope.family.name;
 
-        //if ($scope.$parent.family!== undefined)
-        //    $scope.models[$scope.$parent.family.name] = $scope.$parent.family.name;
+//if ($scope.$parent.family!== undefined)
+//    $scope.models[$scope.$parent.family.name] = $scope.$parent.family.name;
 
 
-       
 
-        
+
+
 
     }]);

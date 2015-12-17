@@ -8,6 +8,30 @@
     $scope.$Language = $Language;
     
     
+    //var setupRes = $resource("/modules/list");
+    //setupRes.query({}, function (data) {
+         
+    //    for (var x = 0; x < data.length; x++) {
+    //        var module_name = data[x].module.name;
+    //        var module = data[x];
+    //        if (module.scripts !== undefined) {
+    //            for (var i = 0; i < module.scripts.length; i++) {
+                    
+    //                var script = document.createElement('script');
+    //                script.type = 'text/javascript';
+    //                script.async = false;   
+    //                script.src ="modules/" +  module_name +"/scripts/" +  module.scripts[i];                    
+    //                document.getElementsByTagName('head')[0].appendChild(script);
+
+    //            }
+
+    //        }
+    //    }
+               
+    //})
+    
+    
+
     if (localStorage.getItem("ApiUser") !== undefined) {
         $scope.User = JSON.parse(localStorage.getItem("ApiUser"));        
         $scope.Logoff = function () {
@@ -218,7 +242,7 @@
     });
     nameResource.query({}, function (data) {
         $Cache.ready("schemas", function (schemas) {
-            debugger
+        
             var result = [];
             for (var i = 0; i < data.length; i++) {
                 for (var x = 0; x < schemas.length; x++) {
@@ -285,7 +309,7 @@
     // $scope.Language = $Language.language;
     
     $scope.Language = $Language.getByLCID(localStorage.getItem("lcid"));
-    debugger;
+    
     if ($scope.Language !== undefined && $scope.Language.direction == 'rtl') {
         $('link[id="languageCssfile"]').attr('href', "styles/bootstrap.rtl.css");
     }
@@ -324,7 +348,7 @@
     $scope.Theme = $Theme.theme;
     
     
-    $scope.Themes = ["amelia", "blooming", "cerulean", "desert" , "paper", "green", "readable", "Rouge", "simplex", "spacelab", "Liquorice Schnitzel", "flat", "cyborg", "United", "superhero", "journal", "Lumen"];
+    $scope.Themes = ["amelia", "blooming", "cerulean", "desert" , "paper", "green", "readable",  "simplex", "spacelab", "Liquorice Schnitzel", "flat", "cyborg", "United", "superhero", "journal", "Lumen"];
     var theme = localStorage.getItem("theme");
     if (theme !== null && theme !== undefined) {
         $scope.Theme = theme;

@@ -21,6 +21,17 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
     <Content Include="modules.json" />
+    <Compile Include="public\app\modules.js" />
+    <Content Include="public\config\module_map.json" />
+    <Content Include="public\modules\schemas\confirmDialog.html" />
+    <Content Include="public\modules\schemas\designer.html" />
+    <Content Include="public\modules\schemas\item.html" />
+    <Content Include="public\modules\schemas\lobby.html" />
+    <Content Include="public\modules\schemas\manifest.json" />
+    <Content Include="public\modules\schemas\propertiesDialog.html" />
+    <Content Include="public\modules\schemas\SchemaInput.html" />
+    <Content Include="public\modules\schemas\Schemas.html" />
+    <Content Include="public\modules\schemas\subform.html" />
     <Content Include="public\partials\manage\dialogs\schema.html" />
     <Content Include="public\partials\manage\Website.html" />
     <Content Include="public\partials\SchemaTreeMenu.html" />
@@ -32,6 +43,12 @@
     <Compile Include="app.js" />
     <Compile Include="classes\module_installer.js" />
     <Compile Include="classes\socket.js" />
+    <Compile Include="public\modules\schemas\designer.js" />
+    <Compile Include="public\modules\schemas\item.js" />
+    <Compile Include="public\modules\schemas\lobby.js" />
+    <Compile Include="public\modules\schemas\Schemas.js" />
+    <Compile Include="public\modules\schemas\scripts\app.js" />
+    <Compile Include="public\modules\schemas\scripts\bootstrap-decorator.min.js" />
     <Compile Include="public\partials\manage\Website.js" />
     <Compile Include="routes\module.js" />
     <Compile Include="routes\users.js" />
@@ -44,8 +61,8 @@
     <Content Include="public\Default.html" />
     <Content Include="public\ewaveLogo.png" />
     <Content Include="public\favicon.png" />
-    <Compile Include="public\appClient.js" />
-    <Compile Include="public\ide.js" />
+    <Compile Include="public\app\nodulus.js" />
+    <Compile Include="public\app\ide.js" />
     <Compile Include="classes\impl\mongodb.js" />
     <Content Include="public\partials\manage\Websites.html" />
     <Compile Include="public\partials\manage\Websites.js" />
@@ -89,7 +106,7 @@
     <Compile Include="public\scripts\angular-sanitize.js" />
     <Compile Include="public\scripts\angular-sanitize.min.js" />
     <Compile Include="public\scripts\angular-scenario.js" />
-    <Compile Include="public\scripts\angular-schema-form-dynamic-select.js" />
+    <Compile Include="public\modules\schemas\scripts\angular-schema-form-dynamic-select.js" />
     <Compile Include="public\scripts\angular-strap.js" />
     <Compile Include="public\scripts\angular-strap.tpl.js" />
     <Compile Include="public\scripts\angular-touch.js" />
@@ -121,10 +138,10 @@
     <Compile Include="public\scripts\ng-jsoneditor.js" />
     <Compile Include="public\scripts\ng-polymer-elements.js" />
     <Compile Include="public\scripts\npm.js" />
-    <Compile Include="public\scripts\ObjectPath.js" />
-    <Compile Include="public\scripts\schem-form-definitions.js" />
-    <Compile Include="public\scripts\schema-form.js" />
-    <Compile Include="public\scripts\tv4.js" />
+    <Compile Include="public\modules\schemas\scripts\ObjectPath.js" />
+    <Compile Include="public\modules\schemas\scripts\schem-form-definitions.js" />
+    <Compile Include="public\modules\schemas\scripts\schema-form.js" />
+    <Compile Include="public\modules\schemas\scripts\tv4.js" />
     <Compile Include="public\scripts\ui-ace.js" />
     <Compile Include="public\scripts\ui-bootstrap-tpls-0.12.1.min.js" />
     <Compile Include="public\scripts\ui-bootstrap.js" />
@@ -3731,6 +3748,10 @@
     <Folder Include="config" />
     <Folder Include="nodulus_modules\" />
     <Folder Include="public\modules\" />
+    <Folder Include="public\modules\schemas\" />
+    <Folder Include="public\modules\schemas\css\" />
+    <Folder Include="public\modules\schemas\scripts\" />
+    <Folder Include="public\app\" />
     <Folder Include="routes\" />
     <Folder Include="public" />
     <Folder Include="public\config" />

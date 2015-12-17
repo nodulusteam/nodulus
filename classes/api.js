@@ -83,6 +83,7 @@
             var searchCommand = {};
             var specialCommand = {};
             var aggregateCommand = {};
+            var sortCommand = {};
             var projection = {};
             for (var key in req.query) {
                 if (key.indexOf("$") === 0) {
@@ -91,6 +92,9 @@
                         aggregateCommand[key] = JSON.parse(req.query[key]);
                     else
                         specialCommand[key] = req.query[key];
+
+                    if (searchCommand.$query === undefined)
+                        searchCommand.$query = {};
                 }
                 else {
                     if (searchCommand.$query === undefined)
@@ -105,8 +109,8 @@
                 }
 
             }
-            
-            
+            searchCommand.$orderby = JSON.parse( req.query.$sort);
+             
             
             
             

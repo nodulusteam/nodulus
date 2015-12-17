@@ -1,0 +1,41 @@
+﻿
+
+
+<md-dialog aria-label="Sub-form"   style="width:50%; overflow: hidden;">
+   
+        <div class="panel panel-primary" style="margin-bottom: 0px!important">
+            <div class="panel-heading">
+                 {{ItemName}}  
+            </div>
+            <div class="panel-body" style="overflow: auto;height: {{PaneHeight}}px;">
+                <form name="SubItemForm" sf-schema="schema" sf-form="form.items"
+                      sfUseDecorator="true" style="position: relative;"
+                      sf-model="model"></form>
+            </div>
+            <div class="panel-footer" style="padding: 10px!important;">
+                <a class="btn btn-default btn-sm pull-left" ng-click="cancel()"><i class="glyphicon glyphicon-edit"></i> Cancel
+
+                </a> 
+                <a class="btn btn-primary btn-sm pull-right" ng-click="answer()"> <i class="glyphicon glyphicon-ok"></i> OK
+
+                </a> &nbsp; 
+             
+                <a class="btn btn-danger btn-sm pull-right"><i class="glyphicon glyphicon-remove"></i> Delete
+
+                </a>
+                 <div style="clear: both;"></div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+ 
+</md-dialog>
+

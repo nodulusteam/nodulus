@@ -7,7 +7,7 @@
          
 
         this.ShowLobby = function (item, itemUrl) {
-            debugger
+          
             instance.ActiveTreeNode = item;
             
             if (item == null)
@@ -15,6 +15,11 @@
             //if(item.Url === "" || item.Url === undefined)
             //     item.Url = "lobby.html";
             
+            
+            
+            if (item.label !== undefined)
+                item.name = item.label;
+
             if (item.itemKey === undefined)
                 item.itemKey = "b" + "_" + item._id;//.replace(/-/g, '');
             //item.itemKey = itemKey;

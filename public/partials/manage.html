@@ -5,12 +5,13 @@
     <div class="container-fluid">
         <a class="navbar-header">
              
-            <div class="navbar-brand">nodulus&trade;</div><span  class="navbar-brand" ng-click='Logoff()'><span class="fa fa-user"></span> {{$User.User.email}}</span>
+            <div class="navbar-brand">nodulus&trade;</div><span  class="navbar-brand" ng-click='Logoff()'>
+            <span class="fa fa-user"></span> {{$User.User.email}}</span>
         </a>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right nav-tabs">
                 <!--<li><a ng-click='dashboard()'>Dashboard</a></li>-->
-                <li><a ng-click='toggleRight()'>Settings</a></li>
+                <li><a ng-click='toggleRight()'>{{"Settings" | translate}}</a></li>
                 <!--<li><a ng-click='profile()'>Profile</a></li>
                 <li><a ng-click='help()'>Help</a></li>-->
             </ul>
@@ -25,7 +26,7 @@
 
 <div class="container-full"   style="height: {{PaneHeight-150}}px;direction: {{$Language.language.direction}}">
    
-        <div id="sidebar" class="col-lg-2 col-md-3 col-sm-3 col-xs-3 sidebar {{$Language.language.direction}} container-fluid" style="height: {{PaneHeight}}px">
+        <div id="sidebar" class="col-lg-2 col-md-3 col-sm-3 col-xs-3 sidebar {{$Language.language.direction}} container-fluid" style="height: {{PaneHeight}}px; float: {{$Language.language.align}}!important">
             <div ng-repeat="menu in $TreeMenu.Menus" layout="column">
 
 
@@ -79,7 +80,7 @@
 
 
     
-        <div class="col-lg-10 col-md-9 col-sm-9 col-xs-9 main" style="height: {{PaneHeight}}px;"  id="TabsCollection">
+        <div class="col-lg-10 col-md-9 col-sm-9 col-xs-9 main" style="height: {{PaneHeight}}px;float: {{$Language.language.align}}!important"  id="TabsCollection">
             
            
             <div scrolling-tabs-wrapper watch-tabs="$IDE.Tabs">

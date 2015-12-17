@@ -9,22 +9,22 @@
 html {
   direction: rtl;
 }
-body {
+body {    
   direction: rtl;
 }
 .list-unstyled {
   padding-right: 0;
-  padding-left: none;
+  padding-left: 0;
 }
 .list-inline {
   padding-right: 0;
-  padding-left: none;
+  padding-left: 0;
   margin-right: -5px;
   margin-left: 0;
 }
 dd {
   margin-right: 0;
-  margin-left: none;
+  margin-left: 0;
 }
 @media (min-width: 768px) {
   .dl-horizontal dt {
@@ -864,13 +864,13 @@ th {
   .table-responsive > .table-bordered > tbody > tr > td:last-child,
   .table-responsive > .table-bordered > tfoot > tr > td:last-child {
     border-left: 0;
-    border-right: auto;
+    border-right: inherit;
   }
 }
 .radio label,
 .checkbox label {
   padding-right: 20px;
-  padding-left: auto;
+  padding-left: inherit;
 }
 .radio input[type="radio"],
 .radio-inline input[type="radio"],
@@ -892,7 +892,7 @@ th {
 }
 .has-feedback .form-control {
   padding-left: 42.5px;
-  padding-right: auto;
+  padding-right: inherit;
 }
 .form-control-feedback {
   left: 0;
@@ -902,7 +902,7 @@ th {
   .form-inline .radio,
   .form-inline .checkbox {
     padding-right: 0;
-    padding-left: auto;
+    padding-left: inherit;
   }
   .form-inline .radio input[type="radio"],
   .form-inline .checkbox input[type="checkbox"] {

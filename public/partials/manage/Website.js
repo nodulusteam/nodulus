@@ -21,7 +21,7 @@ angular.module('ApiAdmin').controller('WebsiteController', ['$scope', '$Config',
         
         websitesResource.get({ _id: $scope.itemId }, function (data) {
             $scope.EditObject = data.items[0];
-            debugger
+            
             if ($scope.EditObject === undefined) {
                 
                 $scope.EditObject = { _id: $scope.itemId };

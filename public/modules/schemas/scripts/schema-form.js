@@ -36,7 +36,8 @@ try {
   angular.module('angularSpectrumColorpicker');
   deps.push('angularSpectrumColorpicker');
 } catch (e) {}
-
+    
+ 
 var schemaForm = angular.module('schemaForm', deps);
 
 angular.module('schemaForm').provider('sfPath',
@@ -1685,7 +1686,8 @@ angular.module('schemaForm').directive('sfArray', ['sfSelect', 'schemaForm', 'sf
           if (angular.isUndefined(list)) {
             list = [];
             sfSelect(form.key, scope.model, list);
-          }
+                        }
+        
           scope.modelArray = list;
 
           // Arrays with titleMaps, i.e. checkboxes doesn't have items.
@@ -1726,7 +1728,10 @@ angular.module('schemaForm').directive('sfArray', ['sfSelect', 'schemaForm', 'sf
           };
 
           scope.appendToArray = function() {
-            var len = list.length;
+                            var len = list.length;
+                            if (len == 0)
+                                return list;
+
             var copy = scope.copyWithIndex(len);
             schemaForm.traverseForm(copy, function(part) {
 
@@ -1811,7 +1816,7 @@ angular.module('schemaForm').directive('sfArray', ['sfSelect', 'schemaForm', 'sf
             scope.$watchCollection('titleMapValues', function(vals, old) {
               if (vals && vals !== old) {
                 var arr = scope.modelArray;
-
+                                  
                 // Apparently the fastest way to clear an array, readable too.
                 // http://jsperf.com/array-destroy/32
                 while (arr.length > 0) {
@@ -1856,7 +1861,7 @@ angular.module('schemaForm').directive('sfArray', ['sfSelect', 'schemaForm', 'sf
                   result.error &&
                   (result.error.dataPath === '' ||
                   result.error.dataPath === '/' + form.key[form.key.length - 1])) {
-
+                                   
                 // Set viewValue to trigger $dirty on field. If someone knows a
                 // a better way to do it please tell.
                 ngModel.$setViewValue(scope.modelArray);
