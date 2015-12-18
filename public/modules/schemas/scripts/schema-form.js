@@ -16,7 +16,13 @@ try {
   angular.module('ngSanitize');
   deps.push('ngSanitize');
 } catch (e) {}
-
+    
+    try {
+        //This throws an expection if module does not exist.
+        angular.module('Cache');
+        deps.push('Cache');
+    } catch (e) { }
+    
 try {
   //This throws an expection if module does not exist.
   angular.module('ui.sortable');

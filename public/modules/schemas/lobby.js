@@ -2,11 +2,11 @@ DynamicData.
 controller("LobbyController", function ($scope, $resource, $Cache, $uibModal, $IDE) {
     var dbApi = "";
     $scope.initLobby = function () {
-        var arrOfCollectionId = [];         
+        var arrOfCollectionId = [];
         arrOfCollectionId.push($scope.schemaid);
         $scope.loadComp = false;
         $scope.deepFind = function (obj, options) {
-            if (options.form && options.form.lookup) {                
+            if (options.form && options.form.lookup) {
                 var val = $Cache.ready(options.form.lookup, function (data) {
                     if ($Cache[options.form.lookup][obj[options.field]] !== undefined && $Cache[options.form.lookup][obj[options.field]][options.form.lookupNameField] !== undefined)
                         obj[options.field + "_lookup"] = $Cache[options.form.lookup][obj[options.field]][options.form.lookupNameField];
@@ -44,9 +44,9 @@ controller("LobbyController", function ($scope, $resource, $Cache, $uibModal, $I
                 
                 $scope.fields[key] = { type: fields[key].type.name };
                 $scope.projection[key] = 1;
-
-                if (fields[key].form && fields[key].form.lookupNameField !== undefined) {                    
-                    $scope.columns.push({ type: fields[key].type.name, filter: 'text' , form: fields[key].form, field: key, getter: key + '.' + fields[key].form.lookupNameField   , headerName: fields[key].title });                    
+                
+                if (fields[key].form && fields[key].form.lookupNameField !== undefined) {
+                    $scope.columns.push({ type: fields[key].type.name, filter: 'text' , form: fields[key].form, field: key, getter: key + '.' + fields[key].form.lookupNameField   , headerName: fields[key].title });
                     
                 } else if (fields[key].form && fields[key].form.key === "datepicker") {
                     $scope.columns.push({ type: fields[key].type.name, filter: 'date', headerName: fields[key].title , field: key });
@@ -57,7 +57,7 @@ controller("LobbyController", function ($scope, $resource, $Cache, $uibModal, $I
             }
             
             $scope.columns.push({ headerName: "", templateUrl: "partials/gridTemplates/ViewAndDeleteBtns.html" });
-             
+            
             $scope.modelName = $Cache.schemas[$scope.schemaid].name;
             dbApi = $resource('/api/' + $scope.modelName);
             
@@ -66,9 +66,9 @@ controller("LobbyController", function ($scope, $resource, $Cache, $uibModal, $I
             }
             $scope.CurrentPage = 1;
             $scope.PageTo = function (page) {
-                $scope.CurrentPage = page;     
+                $scope.CurrentPage = page;
                 $scope.SearchInformation.paging = { page: page, pagesize: 10 };
-                 
+                
                 dbApi.get({
                     "$project": $scope.projection,
                     "$skip": (($scope.SearchInformation.paging.page - 1) * $scope.SearchInformation.paging.pagesize) ,
@@ -83,7 +83,7 @@ controller("LobbyController", function ($scope, $resource, $Cache, $uibModal, $I
                     $scope.LobbyPagesCount = data.count / $scope.SearchInformation.paging.pagesize;
                     $scope.LobbyPages = [];
                     for (var i = 0; i < $scope.LobbyPagesCount; i++) {
-                        $scope.LobbyPages.push(i+1);
+                        $scope.LobbyPages.push(i + 1);
                     }
                     
                     //var dataSource = new kendo.data.DataSource({
@@ -147,11 +147,28 @@ controller("LobbyController", function ($scope, $resource, $Cache, $uibModal, $I
                     alert("ERROR");
                 })
             }
-            $scope.OrderBy = function (column){
+            $scope.OrderBy = function (column) {
                 var sortObject = {};
-                sortObject[column.field] = 1;
-               
-                $scope.SearchInformation = { paging: { page: 1, pagesize: 10 }, sort: sortObject  };
+              
+                if (column.asc) {
+                    column.asc = false
+                    column.desc = true;
+                }else if (column.desc) {
+                    column.asc = true
+                    column.desc = false;
+                } else {
+                    column.asc = true;
+                }
+                
+                
+
+
+                if (column.asc)
+                    sortObject[column.field] = 1;
+                if (column.desc)
+                    sortObject[column.field] = -1;
+
+                $scope.SearchInformation = { paging: { page: 1, pagesize: 10 }, sort: sortObject };
                 $scope.PageTo(1);
             }
             
@@ -188,20 +205,20 @@ controller("LobbyController", function ($scope, $resource, $Cache, $uibModal, $I
         
         for (var key in $Cache.schemas[$scope.schemaid].properties) {
             formFragment = $Cache.schemas[$scope.schemaid].properties[key].form;
-           
+            
             if (formFragment && formFragment.nameField)
                 itemName += rowItem[key] + " ";
         }
         
-         
+        
         var itemId = rowItem._id;
         var itemUrl = 'modules/schemas/item.html';
         var item = { _id: itemId , name: itemName, schemaid: $scope.schemaid };
-         
+        
         $IDE.ShowLobby(item, itemUrl);
         //angular.element("#view").scope().ShowLobby(item, itemUrl);
         return false;
-    };    
+    };
     
     $scope.deleteItem = function (row) {
         var Api = $resource("/api/" + $Cache.schemas[$scope.schemaid].name);
@@ -241,7 +258,7 @@ controller("LobbyController", function ($scope, $resource, $Cache, $uibModal, $I
         var itemId = guid();
         var item = { _id: itemId, name: "New Item" , schemaid: $scope.schemaid };
         var itemUrl = "modules/schemas/item.html";
-      
+        
         $IDE.ShowLobby(item, itemUrl);
     }
 
