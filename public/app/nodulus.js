@@ -161,7 +161,9 @@ var DynamicData = angular.module('ApiAdmin', nodulus_dependecies  )
         };
         
         
-        $translateProvider.useUrlLoader('/api/Languages');
+
+        
+        $translateProvider.useUrlLoader('/translations/languages');
         
         
         var lcid = localStorage.getItem("lcid");

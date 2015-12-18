@@ -2,6 +2,7 @@
   "schemas": {
     "dependencies": [ "schemaForm" ],
     "scripts": [
+      "papaparse.min.js",
       "tv4.js",
       "ObjectPath.js",
       "schema-form.js",

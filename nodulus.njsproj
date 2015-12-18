@@ -16,6 +16,8 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <Name>nodulus</Name>
+    <NodejsPort>1337</NodejsPort>
+    <StartWebBrowser>True</StartWebBrowser>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -32,6 +34,9 @@
     <Content Include="public\modules\schemas\SchemaInput.html" />
     <Content Include="public\modules\schemas\Schemas.html" />
     <Content Include="public\modules\schemas\subform.html" />
+    <Content Include="public\modules\translations\Language.html" />
+    <Content Include="public\modules\translations\Languages.html" />
+    <Content Include="public\modules\translations\manifest.json" />
     <Content Include="public\partials\manage\dialogs\schema.html" />
     <Content Include="public\partials\manage\Website.html" />
     <Content Include="public\partials\SchemaTreeMenu.html" />
@@ -49,9 +54,13 @@
     <Compile Include="public\modules\schemas\Schemas.js" />
     <Compile Include="public\modules\schemas\scripts\app.js" />
     <Compile Include="public\modules\schemas\scripts\bootstrap-decorator.min.js" />
+    <Compile Include="public\modules\schemas\scripts\papaparse.min.js" />
+    <Compile Include="public\modules\translations\Language.js" />
+    <Compile Include="public\modules\translations\Languages.js" />
     <Compile Include="public\partials\manage\Website.js" />
     <Compile Include="public\scripts\socket.io-1.3.5.js" />
     <Compile Include="routes\module.js" />
+    <Compile Include="routes\translations.js" />
     <Compile Include="routes\users.js" />
     <Compile Include="classes\api.js" />
     <Compile Include="classes\config.js" />
@@ -3735,6 +3744,7 @@
     <Folder Include="public\modules\schemas\css\" />
     <Folder Include="public\modules\schemas\scripts\" />
     <Folder Include="public\app\" />
+    <Folder Include="public\modules\translations\" />
     <Folder Include="routes\" />
     <Folder Include="public" />
     <Folder Include="public\config" />

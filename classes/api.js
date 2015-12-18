@@ -110,17 +110,32 @@
 
             }
             
+            if (req.query.$search) {
+                req.query.$search = JSON.parse(req.query.$search);
+                if(req.query.$search.term !== "")
+                    searchCommand.$query["$text"] = { $search: req.query.$search.term };
+            }
+                
+
             if(req.query.$sort)
                     searchCommand.$orderby = JSON.parse( req.query.$sort);
              
             
             
             
+            
             dal.connect(function (err, db) {
+                db.collection(entity).ensureIndex(
+                    { "$**": "text" },
+                    { name: "TextIndex" }
+                )
+                
+
                 if (specialCommand.$skip && specialCommand.$limit) {
                     
+
                     //get the item count
-                    db.collection(entity).find(searchCommand).count(function (err, countResult) {
+                    db.collection(entity).find(searchCommand.$query).count(function (err, countResult) {
                         db.collection(entity).find(searchCommand, aggregateCommand.$project).skip(Number(specialCommand.$skip)).limit(Number(specialCommand.$limit)).toArray(function (err, result) {
                             
                             var data = { items: result, count: countResult }
@@ -130,7 +145,7 @@
                 } else {
                     db.collection(entity).find(searchCommand).toArray(function (err, result) {
                         
-                        var data = { items: result }
+                        var data = { items: result, count: result.length }
                         res.json(data);
                     });
                 }

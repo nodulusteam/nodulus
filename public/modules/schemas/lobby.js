@@ -69,12 +69,19 @@ controller("LobbyController", function ($scope, $resource, $Cache, $uibModal, $I
                 $scope.CurrentPage = page;
                 $scope.SearchInformation.paging = { page: page, pagesize: 10 };
                 
-                dbApi.get({
+                var searchObj = {
                     "$project": $scope.projection,
                     "$skip": (($scope.SearchInformation.paging.page - 1) * $scope.SearchInformation.paging.pagesize) ,
                     "$limit": $scope.SearchInformation.paging.pagesize,
                     "$sort": $scope.SearchInformation.sort
-                }, function (data) {
+                }
+                
+                if ($scope.SearchInformation.search!== undefined && $scope.SearchInformation.search.term !== undefined)
+                    searchObj["$search"] = $scope.SearchInformation.search;
+
+                dbApi.get(
+                    searchObj    
+                , function (data) {
                     
                     
                     $scope.LobbyItems = data.items;
@@ -190,23 +197,67 @@ controller("LobbyController", function ($scope, $resource, $Cache, $uibModal, $I
     }
     
     $scope.onBtExport = function () {
-        var params = {
-            skipHeader: $scope.skipHeader === true,
-            skipFooters: $scope.skipFooters === true,
-            skipGroups: $scope.skipGroups === true,
-            fileName: $scope.fileName
-        };
+        debugger
+        //var params = {
+        //    skipHeader: $scope.skipHeader === true,
+        //    skipFooters: $scope.skipFooters === true,
+        //    skipGroups: $scope.skipGroups === true,
+        //    fileName: $scope.fileName
+        //};
         
-        if ($scope.customHeader) {
-            params.customHeader = '[[[ This ia s sample custom header - so meta data maybe?? ]]]\n';
-        }
-        if ($scope.customFooter) {
-            params.customFooter = '[[[ This ia s sample custom footer - maybe a summary line here?? ]]]\n';
+        //if ($scope.customHeader) {
+        //    params.customHeader = '[[[ This ia s sample custom header - so meta data maybe?? ]]]\n';
+        //}
+        //if ($scope.customFooter) {
+        //    params.customFooter = '[[[ This ia s sample custom footer - maybe a summary line here?? ]]]\n';
+        //}
+        
+        //$scope.gridOptions.api.exportDataAsCsv(params);
+        var searchObj = {
+          
         }
         
-        $scope.gridOptions.api.exportDataAsCsv(params);
+        if ($scope.SearchInformation.search !== undefined && $scope.SearchInformation.search.term !== undefined)
+            searchObj["$search"] = $scope.SearchInformation.search;
+        
+        dbApi.get(
+            searchObj    
+                , function (data) {
+                     
+                var csv = Papa.unparse(data.items);
+                downloadWithName("data:text/csv;charset=utf-8," + escape(csv), "file.csv");
+                //var csvContent = "data:text/csv;charset=utf-8," + csv;
+                
+                //var encodedUri = encodeURI(csvContent);
+                //window.open(encodedUri);
+                
+
+            });
+
+        
+
+
     };
     
+    function downloadWithName(uri, name) {
+        function eventFire(el, etype) {
+            if (el.fireEvent) {
+                (el.fireEvent('on' + etype));
+            } else {
+                var evObj = document.createEvent('Events');
+                evObj.initEvent(etype, true, false);
+                el.dispatchEvent(evObj);
+            }
+        }
+        
+        var link = document.createElement("a");
+        link.download = name;
+        link.href = uri;
+        eventFire(link, "click");
+    }
+    
+   
+
     $scope.showDetails = function (rowItem, e) {
         //e.preventDefault();
         //var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
@@ -272,6 +323,30 @@ controller("LobbyController", function ($scope, $resource, $Cache, $uibModal, $I
         $IDE.ShowLobby(item, itemUrl);
     }
 
+    $scope.$watch("quickFilterText", function (newVal, oldVal) { 
+    
+        if (newVal !== undefined) {
+            $scope.SearchInformation["search"] = { term: newVal };
+            $scope.PageTo(1);
+        }
+    
+       
 
+         
+
+    }, true);
+})
+.directive("updateModelOnEnterKeyPressed", function () {
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function (scope, elem, attrs, ngModelCtrl) {
+            elem.bind("keyup", function (e) {
+                if (e.keyCode === 13) {
+                    ngModelCtrl.$commitViewValue();
+                }
+            });
+        }
+    }
 });
 

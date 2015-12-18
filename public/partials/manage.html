@@ -24,9 +24,9 @@
 
 <md-progress-linear mode="indeterminate" data-ng-show="TreeLoading"></md-progress-linear>
 
-<div class="container-full"   style="height: {{PaneHeight-150}}px;direction: {{$Language.language.direction}}">
+<div class="container-full"   style="height: {{PaneHeight-150}}px;">
    
-        <div id="sidebar" class="col-lg-2 col-md-3 col-sm-3 col-xs-3 sidebar {{$Language.language.direction}} container-fluid" style="height: {{PaneHeight}}px; float: {{$Language.language.align}}!important">
+        <div id="sidebar" class="col-lg-2 col-md-3 col-sm-3 col-xs-3 sidebar" style="height: {{PaneHeight}}px;">
             <div ng-repeat="menu in $TreeMenu.Menus" layout="column">
 
 
@@ -37,7 +37,7 @@
                         <div class="panel-heading" role="tab" id="{{menu.name}}">
                             <span role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{menu.name}}" 
                                   aria-expanded="true" aria-controls="collapse{{menu.name}}">
-                                <i class="{{menu.icon}}"></i> {{menu.name}}
+                                <i class="{{menu.icon}}"></i> {{menu.name | translate}}
                             </span>
                             
 

@@ -1,0 +1,36 @@
+﻿
+
+<div ng-controller="LanguagesController">
+
+
+
+    <a class="btn btn-primary pull-right" ng-click="New()" md-theme="{{$Theme.theme}}"><i class="fa fa-plus"></i>{{"New Language" | translate}}</a>
+    <table class="table">
+        <tr>
+            <th>{{"Name" | translate}}</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="language in Languages">
+            <td>{{language.name}}</td>
+             
+            <td><a class="btn btn-primary" ng-click="Edit(language)">
+    Edit
+</a>
+</td>
+            <td><a class="btn btn-danger" ng-click="Delete(language)">
+    Delete
+</a></td>
+
+        </tr>
+    </table>
+   
+    </div>
+
+ 
+
+   
+
+
+
