@@ -147,8 +147,10 @@ controller("LobbyController", function ($scope, $resource, $Cache, $uibModal, $I
                     alert("ERROR");
                 })
             }
+            $scope.SortObject = {};
+            $scope.LastSortObject = null;
             $scope.OrderBy = function (column) {
-                var sortObject = {};
+                
               
                 if (column.asc) {
                     column.asc = false
@@ -160,15 +162,23 @@ controller("LobbyController", function ($scope, $resource, $Cache, $uibModal, $I
                     column.asc = true;
                 }
                 
+                if ($scope.LastSortObject !== null && $scope.LastSortObject !== undefined && $scope.LastSortObject!== column) {
+                    delete $scope.LastSortObject.asc;
+                    delete $scope.LastSortObject.desc;
+                    delete $scope.SortObject[$scope.LastSortObject.field];
+                }
                 
+                $scope.LastSortObject = column;
 
 
                 if (column.asc)
-                    sortObject[column.field] = 1;
+                    $scope.SortObject[column.field] = 1;
                 if (column.desc)
-                    sortObject[column.field] = -1;
-
-                $scope.SearchInformation = { paging: { page: 1, pagesize: 10 }, sort: sortObject };
+                    $scope.SortObject[column.field] = -1;
+                
+                
+                   
+                $scope.SearchInformation = { paging: { page: 1, pagesize: 10 }, sort: $scope.SortObject };
                 $scope.PageTo(1);
             }
             
