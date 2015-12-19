@@ -2,23 +2,17 @@
 
 <div ng-controller="LanguageController" style="position: relative;">
 
-    <div class="fb-like"
-         data-share="true"
-         data-width="450"
-         data-show-faces="true">
-    </div>
-
-    <nav class="navbar navbar-toolbar navbar-default" style="width: 100%" flex>
-        <div class="btn-group pull-right">
-            <a ng-click="DeleteWebsite()" class="btn btn-danger"><span class="fa fa-remove"></span> Delete</a>
+    
+    <div class="well">
+         
+            <a ng-click="DeleteLanguage()" class="btn btn-danger"><span class="fa fa-remove"></span> {{"Delete" | translate}}</a>
             <a ng-click="Update()" class="btn btn-primary"
-               ng-class="{'btn-success': Saved}"><span ng-class="{'fa fa-circle-o-notch fa-spin': Saving,'fa fa-save': !Saving }"></span>Save</a>
+               ng-class="{'btn-success': Saved}"><span ng-class="{'fa fa-circle-o-notch fa-spin': Saving,'fa fa-save': !Saving }"></span> {{"Save" | translate}}</a>
 
 
-        </div>
-        <div style="clear: both;"></div>
-    </nav>
-
+        
+    </div>
+     
     
 
     <div id="ProductDialogScope">
@@ -34,7 +28,7 @@
             
 
             <div class="form-group col-lg-6 col-md-6">
-                <label>Name</label>
+                <label>{{"Name"| translate}}</label>
                 <input required name="accountname" class="form-control" ng-model="EditObject.name">
                 <div ng-messages="websiteForm.accountname.$error">
                     <div ng-message="required">This is required.</div>
@@ -57,21 +51,21 @@
                         <tr>
                             <th>{{"Name" | translate}}</th>
                             <th>{{"Value" | translate}}</th>
-                            <th><a class="btn btn-primary" ng-click="add()"><span class="fa fa-plus"></span></a> </th>
+                            <th><a class="btn btn-info btn-sm" ng-click="add()"><span class="fa fa-plus"></span></a> </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="entry in EditObject.values | orderBy: 'Key'">
                             <td><input type="text" class="form-control" ng-model="entry.Key" /></td>
                             <td><input type="text" class="form-control" ng-model="entry.Value" /></td>
-                            <td> <a class="btn btn-danger" ng-click="remove(entry)"><span class="fa fa-remove"></span></a> </td>
+                            <td> <a class="btn btn-warning btn-sm" ng-click="remove(entry)"><span class="fa fa-remove"></span></a> </td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr>
                             <th> </th>
                             <th> </th>
-                            <th><a class="btn btn-primary" ng-click="add()"><span class="fa fa-plus"></span></a> </th>
+                            <th><a class="btn btn-info btn-sm" ng-click="add()"><span class="fa fa-plus"></span></a> </th>
                         </tr>
                     </tfoot>
                 </table>
@@ -95,16 +89,15 @@
     </div>
 
 
-    <nav class="navbar navbar-toolbar navbar-default" style="width: 100%" flex>
-        <div class="btn-group pull-right">
-            <a ng-click="DeleteWebsite()" class="btn btn-danger"><span class="fa fa-remove"></span> Delete</a>
-            <a ng-click="Update()" class="btn btn-primary"
-               ng-class="{'btn-success': Saved}"><span ng-class="{'fa fa-circle-o-notch fa-spin': Saving,'fa fa-save': !Saving }"></span>Save</a>
+    <div class="well">
+
+        <a ng-click="DeleteLanguage()" class="btn btn-danger"><span class="fa fa-remove"></span> {{"Delete" | translate}}</a>
+        <a ng-click="Update()" class="btn btn-primary"
+           ng-class="{'btn-success': Saved}"><span ng-class="{'fa fa-circle-o-notch fa-spin': Saving,'fa fa-save': !Saving }"></span> {{"Save" | translate}}</a>
 
 
-        </div>
-        
-    </nav>
+
+    </div>
 
 
  

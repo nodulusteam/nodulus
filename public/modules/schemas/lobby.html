@@ -5,9 +5,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a ng-click="CreateNewItem()"><span class="fa fa-plus"></span> New</a></li>
-                <li><a ng-click="onBtExport()"><span class="fa fa fa-file-excel-o"></span> Export</a></li>
-                <li><a ng-click='ShowAdvancedSearch()'><span class="fa fa-search"></span> Advanced search</a></li>
+                <li><a ng-click="CreateNewItem()"><span class="fa fa-plus"></span> {{"New" | translate}}</a></li>
+                <li><a ng-click="onBtExport()"><span class="fa fa fa-file-excel-o"></span> {{"Export" | translate}}</a></li>
+                <!--<li><a ng-click='ShowAdvancedSearch()'><span class="fa fa-search"></span> {{"Advanced search" | translate}}Advanced search</a></li>-->
             </ul>
             <form class="navbar-form navbar-right">
                 <input type="text" class="form-control" placeholder="Search..." ng-model="quickFilterText" ng-model-options="{updateOn:'blur'}" data-update-model-on-enter-key-pressed>

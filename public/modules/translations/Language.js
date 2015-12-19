@@ -1,6 +1,7 @@
 ﻿
 
-angular.module('ApiAdmin').controller('LanguageController', ['$scope', '$Config', '$resource', '$location', '$compile', '$mdDialog', '$Theme', '$uibModal', function ($scope, $Config, $resource, $location, $compile, $mdDialog, $Theme, $uibModal) {
+angular.module('ApiAdmin').controller('LanguageController', ['$scope', '$Config', '$resource', '$location', '$compile', '$mdDialog', '$Theme', '$uibModal', '$timeout',
+    function ($scope, $Config, $resource, $location, $compile, $mdDialog, $Theme, $uibModal, $timeout) {
         
         $scope.$Theme = $Theme;
         $scope.FullSize = false;
@@ -62,6 +63,12 @@ angular.module('ApiAdmin').controller('LanguageController', ['$scope', '$Config'
              
 
         }
+        
+        $scope.DeleteLanguage = function () {
+           // DeleteLanguage
+        }
+        
+
         $scope.add = function () {            
             $scope.EditObject.values.push({});
         }
@@ -73,8 +80,12 @@ angular.module('ApiAdmin').controller('LanguageController', ['$scope', '$Config'
             
             websitesResource.save($scope.EditObject, function (data) {
                 $scope.RequestActive = false;
+                 
+                $scope.Saved = true;
                 $scope.Saving = false;
-              
+                $timeout(function () {
+                    $scope.Saved = false;
+                }, 3000);
             });
         };
 

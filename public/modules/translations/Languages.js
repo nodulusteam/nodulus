@@ -42,7 +42,7 @@ angular.module('ApiAdmin').controller('LanguagesController', ['$scope', '$Config
             
             var _id = rowItem._id;
             var itemUrl = 'modules/translations/Language.html';
-            var item = { itemKey: "b_" + _id + "", name: rowItem.Name };
+            var item = { itemKey: "b_" + _id + "", name: rowItem.name };
             $IDE.ShowLobby(item, itemUrl);
             return false;
         };

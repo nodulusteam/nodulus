@@ -2,9 +2,9 @@
 
     <nav class="navbar" style="height: 30px;width: 100%" flex>
         <div class="btn-group pull-right">
-            <a ng-click="deleteItem()" class="btn btn-danger"><span class="fa fa-remove"></span> Delete</a>
-            <a ng-click="JsonView = !JsonView" class="btn btn-info" ng-class="{'active': JsonView}"><span class="fa fa-code"></span> JSON </a>
-            <a ng-click="SaveItem()" class="btn btn-primary" ng-class="{'btn-success': Saved}"><span ng-class="{'fa fa-circle-o-notch fa-spin': Saving,'fa fa-save': !Saving }"></span> Save</a>
+            <a ng-click="deleteItem()" class="btn btn-danger"><span class="fa fa-remove"></span> {{"Delete" | translate}}</a>
+            <a ng-click="JsonView = !JsonView" class="btn btn-info" ng-class="{'active': JsonView}"><span class="fa fa-code"></span> {{"JSON" | translate}} </a>
+            <a ng-click="SaveItem()" class="btn btn-primary" ng-class="{'btn-success': Saved}"><span ng-class="{'fa fa-circle-o-notch fa-spin': Saving,'fa fa-save': !Saving }"></span> {{"Save" | translate}}</a>
 
 
         </div>
@@ -32,8 +32,8 @@
 
     <div class="btn-group pull-right">
         <a ng-click="deleteItem()" class="btn btn-danger"><span class="fa fa-remove"></span> {{"Delete" | translate}}</a>
-        <a ng-click="JsonView = !JsonView" class="btn btn-info" ng-class="{'active': JsonView}"><span class="fa fa-code"></span> JSON </a>
-        <a ng-click="SaveItem()" class="btn btn-primary" ng-class="{'btn-success': Saved}"><span ng-class="{'fa fa-circle-o-notch fa-spin': Saving,'fa fa-save': !Saving }"></span> Save</a>
+        <a ng-click="JsonView = !JsonView" class="btn btn-info" ng-class="{'active': JsonView}"><span class="fa fa-code"></span> {{"JSON" | translate}} </a>
+        <a ng-click="SaveItem()" class="btn btn-primary" ng-class="{'btn-success': Saved}"><span ng-class="{'fa fa-circle-o-notch fa-spin': Saving,'fa fa-save': !Saving }"></span> {{"Save" | translate}}</a>
 
 
     </div>
