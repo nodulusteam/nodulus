@@ -2,12 +2,27 @@
 {
 	background-color: white;
 }*/
-
+.clear
+{
+    clear: both;
+}
 .container-full {
     margin: 0 auto;
     width: 100%;
 }
+.well
+{
+    padding: 5px!important;
+}
+.well .nav>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 10px
+}
 
+.container-fluid {
+    padding: 0px;
+}
 .navbar {
     min-height: unset !important;
 }

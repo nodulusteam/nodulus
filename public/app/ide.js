@@ -46,8 +46,10 @@
         $location.path("/login");
     
     $scope.TreeLoading = false;
-    $scope.toggleRight = function () {        
-        $mdSidenav('right').toggle();
+    $scope.ShowSettings = false;
+    $scope.toggleRight = function () {
+        $scope.ShowSettings = !$scope.ShowSettings;       
+        //$mdSidenav('right').toggle();
     }
      
     $scope.GetLanguageName = function (lcid) {        
