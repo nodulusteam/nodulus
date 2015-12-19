@@ -303,7 +303,8 @@
     };
 
 })
-.controller('SettingsCtrl', function ($rootScope, $scope, $TreeMenu, $resource, $mdDialog, $Alerts, $location, $compile, $Language, $mdSidenav, $mdBottomSheet, $Theme) {
+.controller('SettingsCtrl', function ($rootScope, $scope, $TreeMenu, $resource, $mdDialog,
+     $Alerts, $location, $compile, $Language, $mdSidenav, $mdBottomSheet, $Theme, $translate) {
     
     $scope.Languages = $Language.languages;
     // $scope.Language = $Language.language;
@@ -313,6 +314,8 @@
     if ($scope.Language !== undefined && $scope.Language.direction == 'rtl') {
         $('link[id="languageCssfile"]').attr('href', "styles/bootstrap.rtl.css");
     }
+  
+    
 
     
     
@@ -327,17 +330,38 @@
     
     
     $scope.SetLanguage = function () {
-        $Language.set($scope.Language).$promise.then(function (response) {            
-            localStorage.setItem("lcid", $scope.Language.lcid);            
-            var resourceSetResolves = {};
-            var arr = angular.fromJson(response.Results);
-            for (var i = 0; i < arr.length; i++) {                
-                resourceSetResolves[arr[i].Key] = arr[i].Value;
-            }
-            //$scope.DataTables = data.Tables;
-            $scope.LNG = resourceSetResolves;
+        $Language.set($scope.Language).$promise.then(function (response) {
             
-            angular.element("html").scope().LNG = resourceSetResolves;
+            
+            $translate.use($scope.Language.shortname);
+            $translate.preferredLanguage($scope.Language.shortname);
+            $translate.fallbackLanguage($scope.Language.shortname);
+            $translate.refresh();
+
+
+
+            localStorage.setItem("lcid", $scope.Language.lcid);
+            
+            if ($scope.Language !== undefined && $scope.Language.direction == 'rtl') {
+                $('link[id="languageCssfile"]').attr('href', "styles/bootstrap.rtl.css");
+            } else {
+               
+                if ($Theme.theme !== undefined) {
+                    var themelink = "themes/" + $Theme.theme + "/bootstrap.min.css";
+                    $('link[id="languageCssfile"]').attr('href', themelink);
+           
+                }
+            }
+                   
+            //var resourceSetResolves = {};
+            //var arr = angular.fromJson(response.Results);
+            //for (var i = 0; i < arr.length; i++) {                
+            //    resourceSetResolves[arr[i].Key] = arr[i].Value;
+            //}
+            ////$scope.DataTables = data.Tables;
+            //$scope.LNG = resourceSetResolves;
+            
+            //angular.element("html").scope().LNG = resourceSetResolves;
             //$scope.$apply(angular.element("html").scope());
 
 
