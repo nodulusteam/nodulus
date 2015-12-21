@@ -9,7 +9,7 @@
         fs.readJson(global.appRoot + "\\modules.json", function (err, data) {
             
             callback(data);
-             
+
 
         });
 
@@ -42,13 +42,25 @@
         
         if (manifest_file.scripts !== undefined) {
             for (var i = 0; i < manifest_file.scripts.length; i++) {
-                if(fs.existsSync(baseFolder + "/scripts/" + manifest_file.scripts[i])){
-                var fileContent = fs.readFileSync(baseFolder + "/scripts/" + manifest_file.scripts[i]);
+                if (fs.existsSync(baseFolder + "/scripts/" + manifest_file.scripts[i])) {
+                    var fileContent = fs.readFileSync(baseFolder + "/scripts/" + manifest_file.scripts[i]);
                     zip.folder("scripts").file(manifest_file.scripts[i], fileContent);
                 }
             }
         }
-
+        
+        
+        
+        if (manifest_file.module.about !== undefined) {
+            
+            if (fs.existsSync(baseFolder + manifest_file.module.about)) {
+                var fileContent = fs.readFileSync(baseFolder + manifest_file.module.about);
+                zip.folder("about").file(manifest_file.module.about, fileContent);
+            }
+        }
+        
+        
+        
         var manifestContent = fs.readFileSync(baseFolder + "manifest.json");
         zip.file("manifest.json", manifestContent);
         
@@ -56,14 +68,14 @@
         content = zip.generate({ type : "nodebuffer" });
         var packageFileName = global.appRoot + "/nodulus_modules/" + module_name + ".zip";
         var packageBackupFileName = global.appRoot + "/nodulus_modules/" + module_name + "/" + module_name + "." + timestamp() + ".zip";
-
+        
         if (fs.existsSync(packageFileName)) {
             fs.ensureDirSync(global.appRoot + "/nodulus_modules/" + module_name);
             fs.renameSync(packageFileName, packageBackupFileName);
         }
-            
-
-       //var oldPackage  = fs.readFileSync(global.appRoot + "/nodulus_modules/" + module_name + ".zip");
+        
+        
+        //var oldPackage  = fs.readFileSync(global.appRoot + "/nodulus_modules/" + module_name + ".zip");
         
         // see FileSaver.js
         fs.writeFile(packageFileName, content, function (err) {
@@ -71,13 +83,14 @@
             callback(null, manifest_file);
         });
 
-         
-        
+
+
     }
     
     
-    function timestamp()
-    {
+    
+    
+    function timestamp() {
         var date = new Date();
         var components = [
             date.getYear(),
@@ -95,7 +108,7 @@
     
     function _install(module_name, callback) {
         var baseFolder = global.appRoot + "\\public\\modules\\" + module_name + "\\";
-
+        
         fs.ensureDirSync(global.appRoot + "\\public\\modules\\");
         fs.ensureDirSync(baseFolder);
         
@@ -126,13 +139,22 @@
             }
             
             if (manifest_file.scripts !== undefined) {
-                fs.ensureDirSync(baseFolder +"\\scripts\\");
+                fs.ensureDirSync(baseFolder + "\\scripts\\");
                 for (var i = 0; i < manifest_file.scripts.length; i++) {
                     var filename = manifest_file.scripts[i];
                     var fileData = zip.folder("scripts").file(filename).asText();
                     fs.writeFileSync(baseFolder + "\\scripts\\" + filename, fileData, 'utf8');
                 }
             }
+            
+            if (manifest_file.about !== undefined) {
+                var filename = manifest_file.about;
+                var fileData = zip.folder("about").file(filename).asText();
+                fs.writeFileSync(baseFolder + filename, fileData, 'utf8');
+            }
+            
+            
+            
             
             //register the module to the modules.json file
             fs.ensureFileSync(global.appRoot + "\\modules.json");

@@ -147,8 +147,9 @@
 
 
 
-            <div class="panel panel-primary col-md-5 container-fluid"  
-                 style="height: {{PaneHeight}}px;position: absolute;{{$Language.language.alignInvert}}: 5px;top:60px;" ng-show="ShowSettings">
+            <div class="panel panel-primary col-md-5 container-fluid" ng-class="{slideIn: ShowSettings,slideOut: !ShowSettings}"  
+                 style="height: {{PaneHeight}}px;position: absolute;{{$Language.language.alignInvert}}: 5px;top:60px;" 
+                  ng-show="ShowSettings" >
 
                  
                     <div class="panel-heading">{{"Options"| translate}}</div>
@@ -160,6 +161,11 @@
               
 
             </div>
+
+
+
+            
+
 
         </section>
 

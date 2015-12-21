@@ -306,7 +306,7 @@
 
 })
 .controller('SettingsCtrl', function ($rootScope, $scope, $TreeMenu, $resource, $mdDialog,
-     $Alerts, $location, $compile, $Language, $mdSidenav, $mdBottomSheet, $Theme, $translate) {
+     $Alerts, $location, $compile, $Language, $mdSidenav, $mdBottomSheet, $Theme, $translate, $IDE) {
     
     $scope.Languages = $Language.languages;
     // $scope.Language = $Language.language;
@@ -318,7 +318,11 @@
     }
   
     
-
+    $scope.LoadAbout = function (pack)
+    {
+        var module = pack.module;
+        $IDE.ShowLobby(module, "modules/" + module.name + "/" + module.about);
+    }
     
     
     //if (language === null)
@@ -413,7 +417,11 @@
         $scope.ModuleLoading = true;
         var setupRes = $resource("/modules/install");
         setupRes.save({ name: $scope.Module.Name }, function (data) {
-             
+            
+           
+
+            $scope.LoadAbout(data);
+
             $scope.ListModules();
             $TreeMenu.initTreeMenu();
             $Alerts.add({ type: 'success', msg: 'module: ' + $scope.Module.Name + ' installed', 'icon': 'fa fa-check' });

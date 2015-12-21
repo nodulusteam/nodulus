@@ -380,6 +380,8 @@ var DynamicData = angular.module('ApiAdmin', nodulus_dependecies  )
     if (theme === null)
         theme = "paper";
     
+   
+
     $Theme.setTheme(theme);
     //$scope.Theme = theme;
     
@@ -434,8 +436,11 @@ var DynamicData = angular.module('ApiAdmin', nodulus_dependecies  )
     
     //}
     
-    initSocketEvents($scope, $User, $Config, $Alerts);
+    
 
+    initSocketEvents($scope, $User, $Config, $Alerts);
+    
+  
 
 })
 .controller('loginController', function ($scope, $resource, $location, $mdToast, $animate, $mdDialog, $Theme, $User) {

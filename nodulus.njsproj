@@ -25,6 +25,10 @@
     <Content Include="modules.json" />
     <Compile Include="public\app\modules.js" />
     <Content Include="public\config\module_map.json" />
+    <Content Include="public\modules\delgado\manifest.json" />
+    <Content Include="public\modules\delgado\readme.html" />
+    <Content Include="public\modules\delgado\Website.html" />
+    <Content Include="public\modules\delgado\Websites.html" />
     <Content Include="public\modules\schemas\confirmDialog.html" />
     <Content Include="public\modules\schemas\designer.html" />
     <Content Include="public\modules\schemas\item.html" />
@@ -48,6 +52,8 @@
     <Compile Include="app.js" />
     <Compile Include="classes\module_installer.js" />
     <Compile Include="classes\socket.js" />
+    <Compile Include="public\modules\delgado\Website.js" />
+    <Compile Include="public\modules\delgado\Websites.js" />
     <Compile Include="public\modules\schemas\designer.js" />
     <Compile Include="public\modules\schemas\item.js" />
     <Compile Include="public\modules\schemas\lobby.js" />
@@ -3740,6 +3746,7 @@
     <Folder Include="config" />
     <Folder Include="nodulus_modules\" />
     <Folder Include="public\modules\" />
+    <Folder Include="public\modules\delgado\" />
     <Folder Include="public\modules\schemas\" />
     <Folder Include="public\modules\schemas\css\" />
     <Folder Include="public\modules\schemas\scripts\" />
