@@ -12,6 +12,9 @@
             <ul class="nav navbar-nav nav-tabs">
                 <!--<li><a ng-click='dashboard()'>Dashboard</a></li>-->
                 <li><a ng-click='toggleRight()'>{{"Settings" | translate}}</a></li>
+                <li><a ng-click='LoadModulesPage()'>{{"Modules" | translate}}</a></li>
+
+                
                 <!--<li><a ng-click='profile()'>Profile</a></li>
                 <li><a ng-click='help()'>Help</a></li>-->
             </ul>
@@ -147,7 +150,7 @@
 
 
 
-            <div class="panel panel-primary col-md-5 container-fluid" ng-class="{slideIn: ShowSettings,slideOut: !ShowSettings}"  
+            <div class="panel panel-primary col-md-2 container-fluid" ng-class="{slideIn: ShowSettings,slideOut: !ShowSettings}"  
                  style="height: {{PaneHeight}}px;position: absolute;{{$Language.language.alignInvert}}: 5px;top:60px;" 
                   ng-show="ShowSettings" >
 

@@ -8,9 +8,9 @@
 
             <div id="navbar" class="navbar-collapse collapse pull-left">
                 <ul class="nav navbar-nav navbar-right">
-                    <li ><a ng-click="CreateNewItem()" class="btn btn-xs btn-default" ><span class="fa fa-plus"></span> {{"New" | translate}}</a></li>
-                    <li><a ng-click="onBtExport()" class="btn btn-xs btn-default"><span class="fa fa fa-file-excel-o"></span> {{"Export" | translate}}</a></li>
-                    <li><a class="btn btn-xs btn-default">({{LobbyItemsCount}}  {{"Items" | translate}} )</a></li>
+                    <li><button ng-click="CreateNewItem()" class="navbar-btn btn btn-info" ><span class="fa fa-plus"></span> {{"New" | translate}}</button></li>
+                    <li><button ng-click="onBtExport()" class="btn navbar-btn btn-info"><span class="fa fa fa-file-excel-o"></span> {{"Export" | translate}}</button></li>
+                    <li><button class="btn navbar-btn btn-default">({{LobbyItemsCount}}  {{"Items" | translate}} )</button></li>
                     <!--<li><a ng-click='ShowAdvancedSearch()'><span class="fa fa-search"></span> {{"Advanced search" | translate}}Advanced search</a></li>-->
                 </ul>
                 <form class="navbar-form navbar-right">

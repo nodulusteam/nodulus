@@ -277,69 +277,7 @@
         
         
         app.use('/api', router);
-
-        //app.get('/api/*', function (req, res) {
-            
-        //    var entity = req.params[0].substring(1);
-        //    var where = "";
-        //    var whereObj = {};
-        //    var and = " AND ";
-        //    if (req.query != null) {
-        //        where = " WHERE ";
-        //        for (var key in req.query) {
-        //            where += key + "=@" + key + and;
-                    
-        //            whereObj[key] = req.query[key];
-        //        }
-                
-        //        where = where.substring(0, where.length - and.length);
-        //    }
-        //    var query = "SELECT * FROM " + entity + where + ";";
-        //    dal.query(query, whereObj, function (result) {
-                
-        //        res.end(JSON.stringify(result));
-        //    });
-
-            
-
-           
-            
-            
-    
-     
  
-        //});
-        
-        //app.post('/api/*', function (req, res) {
-        //    if (!req.body) return res.sendStatus(400);
-            
-        //    //// Convert our form input into JSON ready to store in Couchbase
-        //    //var jsonVersion = "{}";//returnJSONResults("", "");//JSON.stringify(req.body);
-        //    //var email = req.body.Email;
-        //    //var password = req.body.Password;
-            
-            
-    
-     
- 
-        //});
-        
- 
-
-
-        //app.put('/api/*', function (req, res) {         
-        //    if (!req.body) return res.sendStatus(400);            
-        //    var entity = req.params[0].substring(1);
-        //    var query = "INSERT INTO "+ entity +" ";
-            
-        //    if (req.body != null) {                
-        //        for (var key in req.body) {
-        //            query += key + "=@" + key + and;                   
-        //        }               
-        //    }
-        //    dal.query(query, req.body, function (user) {            
-        //    }); 
-        //});
     }
     return {
         start: _start

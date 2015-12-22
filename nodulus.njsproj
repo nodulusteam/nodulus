@@ -23,12 +23,15 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
     <Content Include="modules.json" />
+    <Compile Include="gulpfile.js" />
     <Compile Include="public\app\modules.js" />
     <Content Include="public\config\module_map.json" />
     <Content Include="public\modules\delgado\manifest.json" />
     <Content Include="public\modules\delgado\readme.html" />
     <Content Include="public\modules\delgado\Website.html" />
     <Content Include="public\modules\delgado\Websites.html" />
+    <Content Include="public\modules\modules\manifest.json" />
+    <Content Include="public\modules\modules\modules.html" />
     <Content Include="public\modules\schemas\confirmDialog.html" />
     <Content Include="public\modules\schemas\designer.html" />
     <Content Include="public\modules\schemas\item.html" />
@@ -45,6 +48,7 @@
     <Content Include="public\partials\manage\Website.html" />
     <Content Include="public\partials\SchemaTreeMenu.html" />
     <Content Include="public\styles\bootstrap.rtl.css" />
+    <Content Include="public\welcome.html" />
     <Content Include="robots.txt" />
     <Content Include="favicon.ico" />
     <Content Include="package.json" />
@@ -54,6 +58,7 @@
     <Compile Include="classes\socket.js" />
     <Compile Include="public\modules\delgado\Website.js" />
     <Compile Include="public\modules\delgado\Websites.js" />
+    <Compile Include="public\modules\modules\modules.js" />
     <Compile Include="public\modules\schemas\designer.js" />
     <Compile Include="public\modules\schemas\item.js" />
     <Compile Include="public\modules\schemas\lobby.js" />
@@ -65,7 +70,7 @@
     <Compile Include="public\modules\translations\Languages.js" />
     <Compile Include="public\partials\manage\Website.js" />
     <Compile Include="public\scripts\socket.io-1.3.5.js" />
-    <Compile Include="routes\module.js" />
+    <Compile Include="routes\modules.js" />
     <Compile Include="routes\translations.js" />
     <Compile Include="routes\users.js" />
     <Compile Include="classes\api.js" />
@@ -3747,6 +3752,7 @@
     <Folder Include="nodulus_modules\" />
     <Folder Include="public\modules\" />
     <Folder Include="public\modules\delgado\" />
+    <Folder Include="public\modules\modules\" />
     <Folder Include="public\modules\schemas\" />
     <Folder Include="public\modules\schemas\css\" />
     <Folder Include="public\modules\schemas\scripts\" />

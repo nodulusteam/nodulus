@@ -1,5 +1,5 @@
 DynamicData.
-controller("LobbyController", function ($scope, $resource, $Cache, $uibModal, $IDE) {
+controller("LobbyController", function ($scope, $resource, $Cache, $uibModal, $IDE, $Alerts) {
     var dbApi = "";
     $scope.initLobby = function () {
         var arrOfCollectionId = [];
@@ -197,22 +197,6 @@ controller("LobbyController", function ($scope, $resource, $Cache, $uibModal, $I
     }
     
     $scope.onBtExport = function () {
-        debugger
-        //var params = {
-        //    skipHeader: $scope.skipHeader === true,
-        //    skipFooters: $scope.skipFooters === true,
-        //    skipGroups: $scope.skipGroups === true,
-        //    fileName: $scope.fileName
-        //};
-        
-        //if ($scope.customHeader) {
-        //    params.customHeader = '[[[ This ia s sample custom header - so meta data maybe?? ]]]\n';
-        //}
-        //if ($scope.customFooter) {
-        //    params.customFooter = '[[[ This ia s sample custom footer - maybe a summary line here?? ]]]\n';
-        //}
-        
-        //$scope.gridOptions.api.exportDataAsCsv(params);
         var searchObj = {
           
         }
@@ -225,7 +209,10 @@ controller("LobbyController", function ($scope, $resource, $Cache, $uibModal, $I
                 , function (data) {
                      
                 var csv = Papa.unparse(data.items);
-                downloadWithName("data:text/csv;charset=utf-8," + escape(csv), "file.csv");
+                downloadWithName("data:text/csv;charset=utf-8," + escape(csv), $scope.modelName + ".csv");
+                 
+                $Alerts.add({ type: 'success', msg: $scope.modelName + ".csv", autoClose: 10000000, 'icon': 'fa fa-check' });
+
                 //var csvContent = "data:text/csv;charset=utf-8," + csv;
                 
                 //var encodedUri = encodeURI(csvContent);

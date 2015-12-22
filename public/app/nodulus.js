@@ -440,7 +440,10 @@ var DynamicData = angular.module('ApiAdmin', nodulus_dependecies  )
 
     initSocketEvents($scope, $User, $Config, $Alerts);
     
-  
+    $scope.LoadModulesPage = function () {
+        
+        $IDE.ShowLobby("Modules", "modules/modules/modules.html");
+    }
 
 })
 .controller('loginController', function ($scope, $resource, $location, $mdToast, $animate, $mdDialog, $Theme, $User) {

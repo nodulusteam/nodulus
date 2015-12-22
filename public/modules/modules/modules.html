@@ -1,0 +1,51 @@
+﻿<div ng-controller="ModulesController">
+
+
+
+    <md-progress-linear mode="indeterminate" data-ng-show="ModuleLoading"></md-progress-linear>
+
+    <div class="form-group">
+        <label>{{"module name" | translate}}</label>
+
+        <div class="input-group">
+
+            <input type="text" class="form-control" ng-model="Module.Name" />
+            <span class="input-group-btn">
+                <a class="btn btn-primary cursor" ng-click="Install()">install</a>
+            </span>
+
+        </div>
+    </div>
+
+    <h2>installed modules</h2>
+    <div class="list-group">
+
+        <div class="list-group-item" ng-repeat="package in ModuleList">
+            <div ng-click="package.collapsed = !package.collapsed">
+                <span ng-class="{'fa fa-angle-down': package.collapsed, 'fa fa-angle-right': !package.collapsed}"></span>
+                {{package.module.name}}
+
+            </div>
+
+            <div class="row" ng-show="package.collapsed">
+
+                <div class="col-md-6 col-lg-6">
+                    <a ng-click="LoadAbout(package)">{{"about"| translate}} {{package.module.name}}</a>
+                </div>
+                <div class="col-md-6 col-lg-6">
+
+                    <span class="btn btn-sm btn-danger" ng-click="UnInstall(package.module)"><span class="fa fa-recycle"></span> {{"Delete"| translate}} </span>
+                    <span class="btn btn-sm btn-info" ng-click="Pack(package.module)"><span class="fa fa-file-archive-o"></span> {{"Pack"| translate}}</span>
+
+                    <span class="btn btn-sm btn-warning" ng-click="Configure(package.module)"><span class="fa fa-cog"></span> {{"Configure"| translate}} </span>
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+</div>
