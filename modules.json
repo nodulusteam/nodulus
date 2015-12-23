@@ -63,7 +63,10 @@
   },
   "delgado": {
     "files": [ "Website.html", "Website.js", "Websites.html", "Websites.js" ],
-    "module": { "name": "delgado","about": "readme.html" },
+    "module": {
+      "name": "delgado",
+      "about": "readme.html"
+    },
     "navigation": [
       {
         "_id": "delgado",
@@ -72,6 +75,28 @@
         "label": "delgado",
         "Url": "/modules/delgado/Websites.html",
         "Alias": "Websites"
+      }
+    ]
+  },
+  "ad-cost": {
+    "files": [ "Account.html", "Account.js", "Accounts.html", "Accounts.js" ],
+    "scripts": [ ],
+    "routes": [
+      {
+        "path": "adcost.js",
+        "route": "/adcost"
+      }
+    ],
+    "module": { "name": "ad-cost" },
+    "npm": { "oauth": "^0.9.14" },
+    "navigation": [
+      {
+        "_id": "ad-cost",
+        "ParentId": "00000000-0000-0000-0000-000000000000",
+        "Name": "ad-cost",
+        "label": "ad-cost",
+        "Url": "/modules/ad-cost/Accounts.html",
+        "Alias": "Accounts"
       }
     ]
   }
