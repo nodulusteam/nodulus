@@ -1,7 +1,7 @@
 
 /*!
  * Stylus - UnaryOp
- * Copyright(c) 2010 LearnBoost <dev@learnboost.com>
+ * Copyright (c) Automattic <developer.wordpress.com>
  * MIT Licensed
  */
 
@@ -38,9 +38,29 @@ UnaryOp.prototype.__proto__ = Node.prototype;
  * @api public
  */
 
-UnaryOp.prototype.clone = function(){
-  var clone = new UnaryOp(this.op, this.expr.clone());
+UnaryOp.prototype.clone = function(parent){
+  var clone = new UnaryOp(this.op);
+  clone.expr = this.expr.clone(parent, clone);
   clone.lineno = this.lineno;
+  clone.column = this.column;
   clone.filename = this.filename;
   return clone;
+};
+
+/**
+ * Return a JSON representation of this node.
+ *
+ * @return {Object}
+ * @api public
+ */
+
+UnaryOp.prototype.toJSON = function(){
+  return {
+    __type: 'UnaryOp',
+    op: this.op,
+    expr: this.expr,
+    lineno: this.lineno,
+    column: this.column,
+    filename: this.filename
+  };
 };

@@ -1,7 +1,7 @@
 
 /*!
  * Stylus - Params
- * Copyright(c) 2010 LearnBoost <dev@learnboost.com>
+ * Copyright (c) Automattic <developer.wordpress.com>
  * MIT Licensed
  */
 
@@ -60,13 +60,31 @@ Params.prototype.push = function(node){
  * @api public
  */
 
-Params.prototype.clone = function(){
+Params.prototype.clone = function(parent){
   var clone = new Params;
   clone.lineno = this.lineno;
+  clone.column = this.column;
   clone.filename = this.filename;
   this.nodes.forEach(function(node){
-    clone.push(node.clone());
+    clone.push(node.clone(parent, clone));
   });
   return clone;
+};
+
+/**
+ * Return a JSON representation of this node.
+ *
+ * @return {Object}
+ * @api public
+ */
+
+Params.prototype.toJSON = function(){
+  return {
+    __type: 'Params',
+    nodes: this.nodes,
+    lineno: this.lineno,
+    column: this.column,
+    filename: this.filename
+  };
 };
 

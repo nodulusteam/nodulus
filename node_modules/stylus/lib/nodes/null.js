@@ -1,7 +1,7 @@
 
 /*!
  * Stylus - Null
- * Copyright(c) 2010 LearnBoost <dev@learnboost.com>
+ * Copyright (c) Automattic <developer.wordpress.com>
  * MIT Licensed
  */
 
@@ -70,3 +70,19 @@ Null.prototype.__defineGetter__('isNull', function(){
 Null.prototype.__defineGetter__('hash', function(){
   return null;
 });
+
+/**
+ * Return a JSON representation of this node.
+ *
+ * @return {Object}
+ * @api public
+ */
+
+Null.prototype.toJSON = function(){
+  return {
+    __type: 'Null',
+    lineno: this.lineno,
+    column: this.column,
+    filename: this.filename
+  };
+};

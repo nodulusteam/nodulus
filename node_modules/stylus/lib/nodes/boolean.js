@@ -1,7 +1,7 @@
 
 /*!
  * Stylus - Boolean
- * Copyright(c) 2010 LearnBoost <dev@learnboost.com>
+ * Copyright (c) Automattic <developer.wordpress.com>
  * MIT Licensed
  */
 
@@ -100,4 +100,18 @@ Boolean.prototype.toString = function(){
   return this.val
     ? 'true'
     : 'false';
+};
+
+/**
+ * Return a JSON representaiton of this node.
+ *
+ * @return {Object}
+ * @api public
+ */
+
+Boolean.prototype.toJSON = function(){
+  return {
+    __type: 'Boolean',
+    val: this.val
+  };
 };

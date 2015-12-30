@@ -1,7 +1,7 @@
 
 /*!
  * Stylus - Charset
- * Copyright(c) 2010 LearnBoost <dev@learnboost.com>
+ * Copyright (c) Automattic <developer.wordpress.com>
  * MIT Licensed
  */
 
@@ -9,8 +9,7 @@
  * Module dependencies.
  */
 
-var Node = require('./node')
-  , nodes = require('./');
+var Node = require('./node');
 
 /**
  * Initialize a new `Charset` with the given `val`
@@ -39,4 +38,21 @@ Charset.prototype.__proto__ = Node.prototype;
 
 Charset.prototype.toString = function(){
   return '@charset ' + this.val;
+};
+
+/**
+ * Return a JSON representation of this node.
+ *
+ * @return {Object}
+ * @api public
+ */
+
+Charset.prototype.toJSON = function(){
+  return {
+    __type: 'Charset',
+    val: this.val,
+    lineno: this.lineno,
+    column: this.column,
+    filename: this.filename
+  };
 };
