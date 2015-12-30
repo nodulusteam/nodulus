@@ -699,7 +699,7 @@ function initSocketEvents($scope, $User, $Config, $Alerts) {
         if (!socketsInitialized) {
 
             socket = io(location.origin);
-            //$Config.site.appRoot + ":" + $Config.site.po rt
+            //$Config.site.appRoot + ":" + $Config.site.po  rt
             if ($User.User !== null)
                 if ($User.User._id)
                     socket.emit('console connect', {UserId: $User.User._id});
