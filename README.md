@@ -12,10 +12,18 @@ so you want to build your next application / website / mobile app / REST api usi
 nodulus allows you to build and design your own back office modules or use the predefined ones, while focusing on the exact actions you need to add to your managemnt consoles.
 it uses a manifest file to define the module files, scripts, dependencies, routes etc.
 
+### dependencies
+
+1. [node.js](https://nodejs.org/en/)
+2. npm (will install with the node.js installation)
+3. [mongoDB](https://www.mongodb.org/) or try  [mongolab](https://mongolab.com/)
+
 ### setup & first run
 
 1. clone the repo
-2. run 'npm install'
+2. run `npm install`
+3. run `node app.js`
+4. browse `http://localhost:3001`
 
 
 ### the manifest.json file
