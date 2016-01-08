@@ -9,8 +9,8 @@ a modular back-office for node.js using angular.js and mongoDB.
 
 so you want to build your next application / website / mobile app / REST api using the almighty powers of the MEAN stack, but you don't have the managemnt application to manage the data and operations, well,  nodulus to the rescue.
 
-nodulus allows you to build and design your own back office modules or use the predefined ones, while focusing on the exact actions you need to add to your managemnt consoles.
-it uses a manifest file to define the module files, scripts, dependencies, routes etc.
+nodulus allows you to build and design your own back office modules (nodules) or use the predefined ones, while focusing on the exact actions you need to add to your managemnt consoles.
+it uses a manifest file to define the nodule files, scripts, dependencies, routes etc.
 
 ### dependencies
 
@@ -24,6 +24,13 @@ it uses a manifest file to define the module files, scripts, dependencies, route
 2. run `npm install`
 3. run `node app.js`
 4. browse `http://localhost:3001`
+
+use the configuration file at /config/site.json to set the database name and the application port, default port is 3001.
+
+
+
+
+## nodule development
 
 
 ### the manifest.json file
