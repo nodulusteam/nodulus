@@ -43,13 +43,43 @@ it uses a manifest file to define the module files, scripts, dependencies, route
 
   },
   "navigation": [
-
+	  {
+		  "_id": "translations",
+		  "ParentId": "00000000-0000-0000-0000-000000000000",
+		  "Name": "Translations",
+		  "label": "Translations",
+		  "Url": "/modules/translations/Languages.html",
+		  "Alias": "translations"
+		}
   ]
 
 
 
 }
 ```
+### pack & install
+
+
+
+
+
+### built in API data access
+
+a nodule can perform data operations via the built in REST api, just use the "/api/collection_name", as the endpoint of your ngResource object.
+
+
+
+### stock nodulues
+
+#### users
+
+#### modules
+
+#### schemas
+
+#### translations
+
+ 
 
 
 ﻿![Alt text](platform-images/login-screen.jpg?raw=true "Login")
