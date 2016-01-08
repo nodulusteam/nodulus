@@ -59,14 +59,14 @@ use the configuration file at /config/site.json to set the database name and the
   "npm": {
 	"package_name": "package_version", //e.g. "^1.5.0"  - npm packages to be installed when installing the module
   },
-  "navigation": [
+  "navigation": [ //module navigation options
 	  {
-		  "_id": "translations",
-		  "ParentId": "00000000-0000-0000-0000-000000000000",
-		  "Name": "Translations",
-		  "label": "Translations",
-		  "Url": "/modules/translations/Languages.html",
-		  "Alias": "translations"
+		  "_id": "unique_id_name",
+		  "ParentId": "00000000-0000-0000-0000-000000000000", // a parent_id used to create a hierarchy
+		  "Name": "some_name",
+		  "label": "some_display_name",
+		  "Url": "/modules/module_name/page_name.html"
+		   
 		}
   ]
 
@@ -76,6 +76,10 @@ use the configuration file at /config/site.json to set the database name and the
 ```
 ### pack & install
 
+apart from setting up nodules you can use nodulus to pack a development nodule for reuse and distribution. use the modules tab to access the installed nodules list, and the `pack` option to zip all the files registered in the manifest into a zip file (nodule package).
+the pack proccess will keep a copy of your last package for backup and version comparision.
+
+packages are installed and packed to the `nodulus_modules` folder in the root folder of the application.
 
 
 
