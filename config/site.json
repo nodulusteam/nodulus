@@ -1,9 +1,9 @@
 ﻿{
-  "name": "testing all node options",
+  "name": "nodulus",
   "url": "",
   "port": "3001",
   "appRoot": "/",
-  "mongodb": { "host": "mongodb://localhost:27017/dma" },
+  "mongodb": { "host": "mongodb://localhost:27017/nodulus" },
   "mimeTypes": {
     ".html": "text/html",
     ".css": "text/css",
