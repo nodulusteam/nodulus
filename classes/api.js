@@ -175,7 +175,7 @@
                     }
                     else {
                         if (!body[i]._id || body[i]._id === null || body[i]._id === "")
-                            body[i]._id = require("guid").create().value;
+                            body[i]._id = require("node-uuid").v4();
 
                     }
                     cleanEntityFramework(body[i], 0);

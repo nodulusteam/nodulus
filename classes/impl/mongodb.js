@@ -76,17 +76,10 @@
             if (x[i] == "INTO") {
                 
                 
-                //var actionGuid = require("guid").create().value;
-                //res.values["id"] = actionGuid;
+                
                 res.collection = x[i + 1];
                 res.values = params;
-                //var pairs = str.split("INTO " + res.collection)[1].split(",");
-                //for (var j = 0; j < pairs.length; j++) {
-                //    var triple = pairs[j].split("=");
-                //    res.values[triple[0].trim()] = params[triple[0].trim()];
-
-
-                //}
+                
             }
             if (x[i] == "WHERE") {
                 var conditionPoint = res.where;
@@ -328,7 +321,7 @@
                 case "INSERT":
                     
                     if (oQuery.values["_id"] === undefined)
-                        oQuery.values["_id"] = require("guid").create().value;    
+                        oQuery.values["_id"] = require("node-uuid").v4();    
 
                     db.collection(oQuery.collection).save(oQuery.values
                         , function (err, result) {

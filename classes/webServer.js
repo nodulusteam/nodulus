@@ -8,7 +8,9 @@
        
         server.listen(activeport, function () {
             
-            console.log('nodulus is listening on port ' + activeport);
+            console.log('*** nodulus is running on port ' + activeport);
+            console.log('*** change port in the site.json configuration file');
+            console.log('*** thank you for using nodulus by ewave');
             callback(app);
             
             
