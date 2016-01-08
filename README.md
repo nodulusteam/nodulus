@@ -90,16 +90,25 @@ a nodule can perform data operations via the built in REST api, just use the "/a
 
 
 
-### stock nodulues
+### stock nodules
 
 #### users
 
+provide basic email/password authentication.
+
+
 #### modules
+
+the package setup and package proccess
 
 #### schemas
 
-#### translations
+form generation based on the [schemaform.io](http://schemaform.io)
+the nodule contains basic form elements and a form designer along with a lobby, item page, search, server side paging, subforms and validations.
 
+
+#### translations
+nodulus can be translated using this nodule (todo - add  translation via the manifest file)
  
 
 
