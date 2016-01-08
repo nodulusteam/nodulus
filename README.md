@@ -9,7 +9,7 @@ a modular back-office for node.js using angular.js and mongoDB.
 
 so you want to build your next application / website / mobile app / REST api using the almighty powers of the MEAN stack, but you don't have the managemnt application to manage the data and operations, well,  nodulus to the rescue.
 
-nodulus allows you to build and design your own back office modules (nodules) or use the predefined ones, while focusing on the exact actions you need to add to your managemnt consoles.
+nodulus allows you to build and design your own back office modules *(nodules)* or use the predefined ones, while focusing on the exact actions you need to add to your managemnt consoles.
 it uses a manifest file to define the nodule files, scripts, dependencies, routes etc.
 
 ### dependencies
@@ -22,8 +22,7 @@ it uses a manifest file to define the nodule files, scripts, dependencies, route
 
 1. clone the repo
 2. run `npm install`
-3. run `node app.js`
-4. browse `http://localhost:3001`
+3. run `start.bat`
 
 use the configuration file at /config/site.json to set the database name and the application port, default port is 3001.
 
@@ -39,29 +38,26 @@ use the configuration file at /config/site.json to set the database name and the
 "module": {
     "name": "my_module_name" // the name for the module
   },
-  "files": [
+  "files": [ // a list of file to include in the root folder of the nudule, and pack in the nodule zip file
     "somescript.js",
     "apage.html"    
   ],
-  "scripts": [
+  "scripts": [// a list of scripts to load 
     "3partyscript.js"
     
   ],
-  "dependencies": [ 
-    "bootstrap-decorator.min.js",
-    "schem-form-definitions.js",
-    "angular-schema-form-dynamic-select.js",
-    "bootstrap-ui-ace.min.js"   
+  "dependencies": [
+	"angular_dependency_module_name" // a dependency to be injected to the main app 
   ],
-  "routes": [
+  "routes": [ // express routes for server proccessing
     {
-      "route": "/schemas",
-      "path": "schemas.js"
+      "route": "/route_base_entry_point",
+      "path": "route_file_name"
     }
   ],
   
   "npm": {
-
+	"package_name": "package_version", //e.g. "^1.5.0"  - npm packages to be installed when installing the module
   },
   "navigation": [
 	  {
