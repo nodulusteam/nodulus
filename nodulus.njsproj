@@ -25,6 +25,10 @@
     <Content Include="modules.json" />
     <Compile Include="gulpfile.js" />
     <Compile Include="public\app\modules.js" />
+    <Content Include="nodulus_modules\modules.zip" />
+    <Content Include="nodulus_modules\schemas.zip" />
+    <Content Include="nodulus_modules\translations.zip" />
+    <Content Include="nodulus_modules\users.zip" />
     <Content Include="public\config\module_map.json" />
     <Content Include="public\modules\delgado\manifest.json" />
     <Content Include="public\modules\delgado\readme.html" />

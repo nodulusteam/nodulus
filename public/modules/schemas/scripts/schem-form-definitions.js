@@ -58,7 +58,7 @@
     {
         "type": { name: "datepicker" } ,
         "key": "datepicker",
-        "dateFormat":"dd.MM.yyyy",
+        "dateFormat": "dd.MM.yyyy",
         "format" : "date",
         "default" : new Date(),
         "validTypes": ["date"]
@@ -111,7 +111,33 @@
         "type": { name: "ace" },	
         "key": "ace",
         "validTypes": ["string"]
-    }
+    },
+    {
+        "endpoint": "/cms/fileupload",
+        
+        "type": { name: "nwpFileUpload" },
+        "key": "nwpFileUpload",
+        "title": "Image",
+        
+        "format": "singlefile",
+        
+        "pattern": {
+            "mimeType": "image/*",
+            "validationMessage": "Falscher Dateityp: "
+        },
+        "maxSize": {
+            "maximum": "2MB",
+            "validationMessage": "Erlaubte Dateigröße überschritten: ",
+            "validationMessage2": "Aktuelle Dateigröße: "
+        },
+        "maxItems": {
+            "validationMessage": "Es wurden mehr Dateien hochgeladen als erlaubt."
+        },
+        "minItems": {
+            "validationMessage": "Sie müssen mindestens eine Datei hochladen"
+        }        ,
+        "validTypes": ["array"]
+    },
 ];
 
 
@@ -130,3 +156,7 @@ for (var i = 0; i < schemaFormDefinitions.length; i++) {
         schemaFormDefinitionsSupport[schemaFormDefinitions[i].validTypes[support]].push(schemaFormDefinitions[i]);
     }
 }
+
+ 
+
+//alert(JSON.stringify(schemaFormDefinitionsSupport));

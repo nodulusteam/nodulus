@@ -49,7 +49,7 @@ DynamicData.controller('SchemaCtrl', ['$scope', '$rootScope', '$mdSidenav', '$ht
         }
         
         $scope.recurseBuildProperties = function (dataObj, schemaObj) {
-            
+            debugger
             for (var key in dataObj) {
                 if (dataObj[key] === null) {
                     schemaObj.properties[key] = { "key": key, properties: {}, "title": key, "type": { "name": "string" } }
@@ -132,7 +132,7 @@ DynamicData.controller('SchemaCtrl', ['$scope', '$rootScope', '$mdSidenav', '$ht
             dbApi.save($scope.editorData.db , function () {
                 $scope.alerts.push({ type: 'success', msg: 'success.' });
                 $scope.Saved = true;
-                debugger
+                 
                 $Cache["schemas"][$scope.editorData.db._id] = $scope.editorData.db;
                 $timeout(function () { $scope.Saved = false; }, 3000)
             }, function () {
@@ -203,10 +203,10 @@ DynamicData.directive("schemaInput", function (RecursionHelper) {
                 }
                 $scope.Directives = [{ "name": "string" }, { "name": "date" },
                     { "name": "boolean" },
-                    { "name": "array", schema: { "items": { type: "string", properties: {}, enum: [] } } }, 
+                    { "name": "array" }, 
                     { "name": "object" }];
                 // $rootScope.types;
-                
+                //, schema: { "items": { type: "string", properties: {}, enum: [] } }
                 $scope.triggerParentChange = function () {
                     
                     if ($scope.$parent.triggerParentChange !== undefined)

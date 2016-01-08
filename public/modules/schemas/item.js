@@ -73,7 +73,7 @@
             if (!schema.properties[key].edit)
                 continue;
             
-
+            
             var formFragment = schema.properties[key].form;
             if (formFragment === undefined)
                 formFragment = {};
@@ -87,11 +87,12 @@
             var propertiesToBeMerge = schema.properties[key].type;
             //schema.items = propertiesToBeMerge.items;
             
-            for (var property in propertiesToBeMerge.schema) {
+            //debugger
+            //for (var property in propertiesToBeMerge.schema) {
                 
-                if (formFragment[property] === undefined)
-                    formFragment[property] = propertiesToBeMerge.schema[property];
-            }
+            //    if (formFragment[property] === undefined)
+            //        formFragment[property] = propertiesToBeMerge.schema[property];
+            //}
             formFragment.title = schema.properties[key].title;
             
             formFragment.type = formFragment.type.name;
@@ -124,7 +125,7 @@
             }
             
             
-             
+              
             if (schema.properties[key].items) {
                 formFragment.items = [];
                 $scope.recursiveBuildForm(schema.properties[key].items, formFragment.items)

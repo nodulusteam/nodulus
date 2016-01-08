@@ -13,5 +13,16 @@
     ],
     "module": { "name": "schemas" }
 
+  },
+  "cms": {
+    "dependencies": ["ngSchemaFormFile" ],
+    "scripts": [
+      "ng-file-upload.min.js",
+      "ng-file-upload-shim.min.js",
+
+
+      "schema-form-file.js"
+    ]
+
   }
 }

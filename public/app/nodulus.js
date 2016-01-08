@@ -145,6 +145,7 @@ mod.directive('infiniteScroll', [
 
 var providers = {};
 //'schemaForm'
+ 
 var DynamicData = angular.module('ApiAdmin', nodulus_dependecies)
     .config(['$controllerProvider', '$resourceProvider', '$routeProvider', '$mdThemingProvider', '$compileProvider', '$provide', '$injector', '$translateProvider',
         function ($controllerProvider, $resourceProvider, $routeProvider, $mdThemingProvider, $compileProvider, $provide, $injector, $translateProvider) {
@@ -649,7 +650,7 @@ var DynamicData = angular.module('ApiAdmin', nodulus_dependecies)
 
 
         this.register = function (registerModules) {
-            debugger
+             
             //$injector, providersx,
             var i, ii, k, invokeQueue, moduleName, moduleFn, invokeArgs, provider;
             if (registerModules) {
