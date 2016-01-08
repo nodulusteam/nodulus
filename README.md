@@ -13,8 +13,43 @@ nodulus allows you to build and design your own back office modules or use the p
 it uses a manifest file to define the module files, scripts, dependencies, routes etc.
 
 ### the manifest.json file
+```
+{
+"module": {
+    "name": "my_module_name" // the name for the module
+  },
+  "files": [
+    "somescript.js",
+    "apage.html"    
+  ],
+  "scripts": [
+    "3partyscript.js"
+    
+  ],
+  "dependencies": [ 
+    "bootstrap-decorator.min.js",
+    "schem-form-definitions.js",
+    "angular-schema-form-dynamic-select.js",
+    "bootstrap-ui-ace.min.js"   
+  ],
+  "routes": [
+    {
+      "route": "/schemas",
+      "path": "schemas.js"
+    }
+  ],
+  
+  "npm": {
+
+  },
+  "navigation": [
+
+  ]
 
 
+
+}
+```
 
 
 ﻿![Alt text](platform-images/login-screen.jpg?raw=true "Login")
