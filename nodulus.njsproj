@@ -29,6 +29,7 @@
     <Content Include="nodulus_modules\schemas.zip" />
     <Content Include="nodulus_modules\translations.zip" />
     <Content Include="nodulus_modules\users.zip" />
+    <Content Include="platform-images\login-screen.jpg" />
     <Content Include="public\config\module_map.json" />
     <Content Include="public\modules\delgado\manifest.json" />
     <Content Include="public\modules\delgado\readme.html" />
@@ -67,7 +68,6 @@
     <Compile Include="public\modules\schemas\item.js" />
     <Compile Include="public\modules\schemas\lobby.js" />
     <Compile Include="public\modules\schemas\Schemas.js" />
-    <Compile Include="public\modules\schemas\scripts\app.js" />
     <Compile Include="public\modules\schemas\scripts\bootstrap-decorator.min.js" />
     <Compile Include="public\modules\schemas\scripts\papaparse.min.js" />
     <Compile Include="public\modules\translations\Language.js" />
@@ -1285,6 +1285,7 @@
     <Folder Include="classes\impl" />
     <Folder Include="config" />
     <Folder Include="nodulus_modules\" />
+    <Folder Include="platform-images\" />
     <Folder Include="public\modules\" />
     <Folder Include="public\modules\delgado\" />
     <Folder Include="public\modules\modules\" />

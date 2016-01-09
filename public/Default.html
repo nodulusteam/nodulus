@@ -2,36 +2,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"   ng-controller="shellController as shell">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-
-    <title></title>
 
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="stylesheet" href="scripts/angular/angular-material/angular-material.css">
-    
-
     <link href="css/font-awesome.css" rel="stylesheet" />
-
-    <link href="modules/cms/css/fileupload.css" rel="stylesheet" />
-
-
-    <script src="scripts/jquery-2.0.0.min.js"></script>
-    <!--<script src="scripts/tv4.js"></script>
-    <script src="scripts/ObjectPath.js"></script>-->
-    <script src="scripts/socket.io-1.3.5.js"></script>
-
-    
-
-    <script src="scripts/bootstrap.min.js"></script>
-    <!-- link for CSS when using the tree as a Dom element -->
-    
     <link rel="stylesheet" type="text/css" id="mainthemefile" />
     <link rel="stylesheet" type="text/css" id="languageCssfile" />
-    <!--<link href="/app.css" rel="stylesheet" />-->
-
-
-
     <link href="themes/animate.css" rel="stylesheet" />
     <!--<link href="styles/ng-sortable.css" rel="stylesheet" />-->
     <!-- link for CSS when using the tree as a Dom element -->
@@ -40,15 +16,32 @@
     <link href="styles/dataManager.css" rel="stylesheet" />
     <link href="styles/abn_tree.css" rel="stylesheet" />
     <link href="scripts/jsoneditor/jsoneditor.css" rel="stylesheet" />
+    <link href="scripts/scrolling-tabs/scrolling-tabs.css" rel="stylesheet" />
 
 
 
 
-    <script src="scripts/angular/angular.min.js" type="text/javascript"></script>
-    <script src="scripts/ui-bootstrap.js" type="text/javascript"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title></title>
+    <script type="text/javascript" src="modules/nodulus_mapping.js"></script>
+   
+    <!--<link href="modules/cms/css/fileupload.css" rel="stylesheet" />-->
+    <script type="text/javascript" src="scripts/jquery-2.0.0.min.js"></script>
+    <!--<script src="scripts/tv4.js"></script>
+    <script src="scripts/ObjectPath.js"></script>-->
+    <script type="text/javascript" src="scripts/socket.io-1.3.5.js"></script>
+    <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
+    <!-- link for CSS when using the tree as a Dom element -->
+    
+  
+    <!--<link href="/app.css" rel="stylesheet" />-->
 
-    <script src="config/module_map.json"></script>
-    <script src="app/modules.js"></script>
+
+
+   
+    <script type="text/javascript" src="scripts/angular/angular.min.js"></script>
+    <script type="text/javascript" src="scripts/ui-bootstrap.js"></script>
+    <script type="text/javascript" src="app/modules.js"></script>
 
 
 
@@ -64,43 +57,47 @@
 
     <script src="scripts/ui-ace.js" type="text/javascript"></script>
 
-    <script src="scripts/jsoneditor/jsoneditor.js"></script>
+    <script src="scripts/jsoneditor/jsoneditor.js" type="text/javascript"></script>
 
-    <script src="scripts/ng-jsoneditor.js"></script>
+    <script src="scripts/ng-jsoneditor.js" type="text/javascript"></script>
     <!--<script src="scripts/ng-sortable.js"></script>-->
     <!--<script src="Scripts/ng-polymer-elements.js"></script>-->
     <!--<script src="scripts/angular/angular-material/angular-material.js"></script>-->
-    <script src="scripts/angular/angular-material/angular-material.min.js"></script>
+    <script src="scripts/angular/angular-material/angular-material.min.js" type="text/javascript"></script>
 
-    <script src="scripts/angular/angular-route.js"></script>
-    <script src="scripts/angular/angular-resource.js"></script>
-    <script src="scripts/angular/angular-sanitize.js"></script>
-    <script type="text/javascript" src="scripts/angular-tree-control.js"></script>
-    <script src="scripts/moment-with-langs.min.js"></script>
+    <script src="scripts/angular/angular-route.js" type="text/javascript"></script>
+    <script src="scripts/angular/angular-resource.js" type="text/javascript"></script>
+    <script src="scripts/angular/angular-sanitize.js" type="text/javascript"></script>
+    <script  src="scripts/angular-tree-control.js" type="text/javascript"></script>
+    <script src="scripts/moment-with-langs.min.js" type="text/javascript"></script>
  
 
-    <script src="scripts/angular-filter.min.js"></script>
-    <script src="scripts/ckeditor/ckeditor.js"></script>
+    <script src="scripts/angular-filter.min.js" type="text/javascript"></script>
+    <script src="scripts/ckeditor/ckeditor.js" type="text/javascript"></script>
      
-    <script src="scripts/angular/angular-recursion/angular-recursion.min.js"></script>
+    <script src="scripts/angular/angular-recursion/angular-recursion.min.js" type="text/javascript"></script>
 
     
      
-    <script src="scripts/angular-strap.js"></script>
-    <script src="scripts/angular-strap.tpl.js"></script>
+    <script src="scripts/angular-strap.js" type="text/javascript"></script>
+    <script src="scripts/angular-strap.tpl.js" type="text/javascript"></script>
     <!--<script src="scripts/angular-schema-form-dynamic-select.js"></script>-->
 
 
-    <script src="scripts/Services/DynamicDataServices.js"></script>
-    <script src="scripts/Services/Cache.js"></script>
+    <script src="scripts/Services/DynamicDataServices.js" type="text/javascript"></script>
+    <script src="scripts/Services/Cache.js" type="text/javascript"></script>
 
 
-    <script src="scripts/Services/ideService.js"></script>
-    <script src="scripts/abn_tree_directive.js"></script>
-    <script src="scripts/underscore.js"></script>
-    <script src="scripts/Directives/autoheight.js"></script>
-    <script src="scripts/ng-ckeditor.js"></script>
+    <script src="scripts/Services/ideService.js" type="text/javascript"></script>
+    <script src="scripts/abn_tree_directive.js" type="text/javascript"></script>
+    <script src="scripts/underscore.js" type="text/javascript"></script>
+    <script src="scripts/Directives/autoheight.js" type="text/javascript"></script>
+    <script src="scripts/ng-ckeditor.js" type="text/javascript"></script>
+    <script src="scripts/scrolling-tabs/scrolling-tabs.js" type="text/javascript"></script>
 
+
+    <script src="app/nodulus.js" type="text/javascript"></script>
+    <script src="app/ide.js" type="text/javascript"></script>
 
 
 
@@ -111,11 +108,7 @@
     
 
     <!--<script src="scripts/schem-form-definitions.js"></script>-->
-    <script src="scripts/scrolling-tabs/scrolling-tabs.js"></script>
-    <link href="scripts/scrolling-tabs/scrolling-tabs.css" rel="stylesheet" />
-
-    <script src="app/nodulus.js"></script>
-    <script src="app/ide.js"></script>
+  
 
     <script>
         //var JSON = {

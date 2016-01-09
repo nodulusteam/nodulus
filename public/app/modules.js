@@ -1,14 +1,19 @@
 var loader_count = 0;
 
+ 
+
 
 
 var nodulus_dependecies = ['infinite-scroll', 'ngCkeditor', 'anguFixedHeaderTable', 'm43nu.auto-height',
     'mgcrea.ngStrap', 'mj.scrollingTabs', 'ui.bootstrap', 'ui.ace', 'ngSanitize', 'ngRoute', 'ngResource', 'angular.filter', 'angularBootstrapNavTree',
     'treeControl', 'ngMaterial', 'ngMessages', 'RecursionHelper', 'DynamicDataSerivces', 'Cache', 'IDE', 'pascalprecht.translate'];
 
+var delay_bootstraping = false;
+
 for (var module_name in nodulus_mapping) {
   var module = nodulus_mapping[module_name];
-  for (var i = 0; i < module.scripts.length; i++) {
+    for (var i = 0; i < module.scripts.length; i++) {
+        delay_bootstraping = true;
     var script = document.createElement('script');
     script.type = 'text/javascript';
     script.async = false;
@@ -31,6 +36,11 @@ for (var module_name in nodulus_mapping) {
   }
 
 
+    if (!delay_bootstraping) {
+        angular.element(document).ready(function () {            
+            angular.bootstrap(document, ['ApiAdmin']);
+        });
+    }
 
 }
 

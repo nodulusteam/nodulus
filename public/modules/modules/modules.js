@@ -1,4 +1,4 @@
-﻿angular.module('ApiAdmin').controller("ModulesController", function ($scope, $Alerts, $IDE, $translate, $resource, $Language  ) {
+﻿angular.module('ApiAdmin').controller("ModulesController", function ($scope, $Alerts, $IDE, $translate, $resource, $Language ,$mdDialog ) {
 
 
     $scope.LoadAbout = function (pack) {
@@ -59,7 +59,7 @@
         //.targetEvent(ev);
         $mdDialog.show(confirm).then(function () {
             $scope.ModuleLoading = true;
-            
+            debugger
             var setupRes = $resource("/modules/uninstall");
             setupRes.save({ "name": module.name }, function (data) {
                 

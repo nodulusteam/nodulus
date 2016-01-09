@@ -66,8 +66,11 @@ app.use('/', express.static(__dirname + '/public'));
 
 //load modules
 var modules = config.modules();
+console.log("*** active nodules");
 for (var name in modules) {
     var module = modules[name];
+    console.log("*** " + name);
+    
     if (module.routes !== undefined) {
         for (var x = 0; x < module.routes.length; x++) {
             app.use(module.routes[x].route, require('./routes/' + module.routes[x].path));

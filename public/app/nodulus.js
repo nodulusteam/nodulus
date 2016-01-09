@@ -145,12 +145,13 @@ mod.directive('infiniteScroll', [
 
 var providers = {};
 //'schemaForm'
- 
+
+debugger;
 var DynamicData = angular.module('ApiAdmin', nodulus_dependecies)
     .config(['$controllerProvider', '$resourceProvider', '$routeProvider', '$mdThemingProvider', '$compileProvider', '$provide', '$injector', '$translateProvider',
         function ($controllerProvider, $resourceProvider, $routeProvider, $mdThemingProvider, $compileProvider, $provide, $injector, $translateProvider) {
             // $resourceProvider.defaults.stripTrailingSlashes = false;
-
+        debugger;
             providers = {
                 $controllerProvider: $controllerProvider,
                 $compileProvider: $compileProvider,
@@ -197,6 +198,7 @@ var DynamicData = angular.module('ApiAdmin', nodulus_dependecies)
             $translateProvider.preferredLanguage(LanguageFromCookie.shortname);
             $translateProvider.fallbackLanguage(LanguageFromCookie.shortname);
 
+        debugger;
 
             $routeProvider.
                 when("/login", {templateUrl: "partials/login.html", controller: "loginController"}).

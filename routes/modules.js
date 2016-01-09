@@ -23,6 +23,36 @@ router.get("/list", function (req, res) {
     
     })
 })
+router.get("/nodulus_mapping.js", function (req, res) {
+    
+    var str =" var nodulus_mapping =";
+    moduleUtiliity.list(function (data) {
+        var mapping_result = {};
+        for (var x in data) {
+            mapping_result[x] = {dependencies: [],scripts: [] };
+            if(data[x].scripts){
+            for(var sc=0;sc < data[x].scripts.length; sc++)
+            {
+                mapping_result[x].scripts.push(data[x].scripts[sc]);
+            }
+            }
+            if(data[x].dependencies)
+            {
+             for(var dp=0;dp < data[x].dependencies.length; dp++)
+            {
+                mapping_result[x].dependencies.push(data[x].dependencies[dp]);
+            }
+            }
+        }
+        
+        res.type("application/javascript").send(str  +  JSON.stringify(mapping_result));
+    
+    })
+})
+
+
+
+
 router.post("/pack", function (req, res) {
     
     moduleUtiliity.pack(req.body.name, function (data) {
