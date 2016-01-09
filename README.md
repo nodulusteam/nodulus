@@ -111,8 +111,9 @@ the nodule contains basic form elements and a form designer along with a lobby, 
 nodulus can be translated using this nodule (todo - add  translation via the manifest file)
  
 
-
+##### Login screen
 ﻿![Alt text](platform-images/login-screen.jpg?raw=true "Login")
 
-
+##### Modules setup
+﻿![Alt text](platform-images/modules.jpg?raw=true "Modules")
 
