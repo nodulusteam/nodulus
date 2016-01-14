@@ -89,6 +89,38 @@ router.post('/install', function (req, res) {
  
 });
 
+
+router.post('/create', function (req, res) {
+    if (!req.body)
+        return res.sendStatus(400);
+    
+    var module_name = req.body.name;
+    
+    if (module_name === "" || module_name === undefined)
+        return res.sendStatus(400);
+    moduleUtiliity.validateModuleName(module_name, function (exists) {
+        if (exists)
+            return res.json({"Error": "module name exists"});
+
+        moduleUtiliity.createPackage(module_name, function (err, manifest_json) { 
+            if (err !== null)
+                return res.sendStatus(400);
+
+
+            res.json(manifest_json);
+
+        })
+    })
+    
+     
+    
+     
+    
+     
+ 
+});
+
+
 router.post('/uninstall', function (req, res) {
     if (!req.body) return res.sendStatus(400);
     

@@ -37,6 +37,8 @@
     <Content Include="public\modules\delgado\Websites.html" />
     <Content Include="public\modules\modules\manifest.json" />
     <Content Include="public\modules\modules\modules.html" />
+    <Content Include="public\modules\modules\template\manifest.json" />
+    <Content Include="public\modules\modules\template\template.html" />
     <Content Include="public\modules\schemas\confirmDialog.html" />
     <Content Include="public\modules\schemas\designer.html" />
     <Content Include="public\modules\schemas\item.html" />
@@ -64,6 +66,8 @@
     <Compile Include="public\modules\delgado\Website.js" />
     <Compile Include="public\modules\delgado\Websites.js" />
     <Compile Include="public\modules\modules\modules.js" />
+    <Compile Include="public\modules\modules\template\routes\template.js" />
+    <Compile Include="public\modules\modules\template\template.js" />
     <Compile Include="public\modules\schemas\designer.js" />
     <Compile Include="public\modules\schemas\item.js" />
     <Compile Include="public\modules\schemas\lobby.js" />
@@ -1289,6 +1293,8 @@
     <Folder Include="public\modules\" />
     <Folder Include="public\modules\delgado\" />
     <Folder Include="public\modules\modules\" />
+    <Folder Include="public\modules\modules\template\" />
+    <Folder Include="public\modules\modules\template\routes\" />
     <Folder Include="public\modules\schemas\" />
     <Folder Include="public\modules\schemas\css\" />
     <Folder Include="public\modules\schemas\scripts\" />

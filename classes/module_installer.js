@@ -1,7 +1,67 @@
-﻿var moduleInstaller = (function () {
+﻿ 
+
+
+
+
+var moduleInstaller = (function () {
     var fs = require("fs-extra");
     var JSZip = require("jszip");
     var dal = require("./dal.js");
+    
+    function timestamp() {
+        var date = new Date();
+        var components = [
+            date.getYear(),
+            date.getMonth(),
+            date.getDate(),
+            date.getHours(),
+            date.getMinutes(),
+            date.getSeconds(),
+            date.getMilliseconds()
+        ];
+        
+        return components.join("");
+
+    }
+    function npm_install(packagePair, callback) {
+        var exec = require('child_process').exec,
+            child;
+        
+        child = exec('npm install ' + packagePair.name + ' --save',
+ function (error, stdout, stderr) {
+            
+            callback(stderr, stdout);
+                //console.log('stdout: ' + stdout);
+                //console.log('stderr: ' + stderr);
+                //if (error !== null) {
+                //    console.log('exec error: ' + error);
+                //}
+        });
+    }
+    
+    
+    var replaceAll = function (replaceThis, withThis, inThis) {
+        withThis = withThis.replace(/\$/g, "$$$$");
+        return inThis.replace(new RegExp(replaceThis.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|<>\-\&])/g, "\\$&"), "g"), withThis);
+    };
+    
+
+    
+    var deleteFolderRecursive = function (path) {
+        if (fs.existsSync(path)) {
+            fs.readdirSync(path).forEach(function (file, index) {
+                var curPath = path + "/" + file;
+                if (fs.lstatSync(curPath).isDirectory()) { // recurse
+                    deleteFolderRecursive(curPath);
+                } else { // delete file
+                    fs.unlinkSync(curPath);
+                }
+            });
+            fs.rmdirSync(path);
+        }
+    }
+    
+
     
     function _list(callback) {
         
@@ -13,7 +73,91 @@
 
         });
 
+    }    
+    function _validateModuleName(module_name, callback) {
+        
+        if (fs.existsSync(global.appRoot + "/nodulus_modules/" + module_name + ".zip")) {
+            return callback(true);
+        }
+        return callback(false);
     }
+    function _createPackage(module_name, callback) {
+        var baseFolder = global.appRoot + "\\public\\modules\\modules\\template\\";
+        var manifest_file = fs.readJsonSync(baseFolder + "manifest.json", { throws: false });
+        
+        var manifestString = JSON.stringify(manifest_file);
+        manifestString = replaceAll("$$module_name$$", module_name, manifestString);        
+        manifest_file = JSON.parse(manifestString);
+        
+        ////for (var i = 0; i < manifest_file.files.length; i++) {
+        ////    manifest_file.files[i] = manifest_file.files[i].replace("$$module_name$$" , module_name);
+             
+        ////}
+        
+        ////for (var i = 0; i < manifest_file.scripts.length; i++) {
+        ////    manifest_file.scripts[i] = manifest_file.scripts[i].replace("$$module_name$$" , module_name);
+             
+        ////}
+        
+        ////for (var i = 0; i < manifest_file.routes.length; i++) {
+        ////    manifest_file.routes[i].route = manifest_file.routes[i].route.replace("$$module_name$$" , module_name);
+        ////    manifest_file.routes[i].path = manifest_file.routes[i].path.replace("$$module_name$$" , module_name);
+             
+        ////}
+        
+        ////for (var i = 0; i < manifest_file.navigation.length; i++) {
+        ////    manifest_file.navigation[i].route = manifest_file.routes[i].route.replace("$$module_name$$" , module_name);
+        ////    manifest_file.navigation[i].path = manifest_file.routes[i].path.replace("$$module_name$$" , module_name);
+             
+        ////}
+        
+        
+
+        var zip = new JSZip();
+        var filesArr = [];
+        
+        var fileContent = fs.readFileSync(baseFolder + "\\template.js", "utf-8");
+        fileContent = replaceAll("$$module_name$$", module_name, fileContent);    
+        zip.file(module_name + ".js" , fileContent);
+        
+        var fileContent = fs.readFileSync(baseFolder + "\\template.html", "utf-8");
+        fileContent = replaceAll("$$module_name$$", module_name, fileContent);    
+        zip.file(module_name + ".html" , fileContent);        
+  
+        zip.file("manifest.json" , JSON.stringify(manifest_file));       
+
+         
+        
+        
+        var fileContent = fs.readFileSync(baseFolder + "\\about.html", "utf-8");
+        fileContent = replaceAll("$$module_name$$", module_name, fileContent);        
+        zip.folder("about").file("about.html", fileContent);
+        
+        
+        
+        var fileContent = fs.readFileSync(baseFolder + "\\routes\\template.js");
+        zip.folder("routes").file(module_name +".js", fileContent);               
+
+
+        //get manifest template:
+        content = zip.generate({ type : "nodebuffer" });
+        var packageFileName = global.appRoot + "/nodulus_modules/" + module_name + ".zip";
+        var packageBackupFileName = global.appRoot + "/nodulus_modules/" + module_name + "/" + module_name + "." + timestamp() + ".zip";
+        
+        if (fs.existsSync(packageFileName)) {
+            fs.ensureDirSync(global.appRoot + "/nodulus_modules/" + module_name);
+            fs.renameSync(packageFileName, packageBackupFileName);
+        }
+        
+        
+        //var oldPackage  = fs.readFileSync(global.appRoot + "/nodulus_modules/" + module_name + ".zip");
+        
+        // see FileSaver.js
+        fs.writeFile(packageFileName, content, function (err) {
+            if (err) throw err;
+            callback(null, manifest_file);
+        });
+    }    
     function _pack(module_name, callback) {
         var baseFolder = global.appRoot + "\\public\\modules\\" + module_name + "\\";
         var manifest_file = fs.readJsonSync(baseFolder + "manifest.json", { throws: false });
@@ -87,24 +231,6 @@
 
     }
     
-    
-    
-    
-    function timestamp() {
-        var date = new Date();
-        var components = [
-            date.getYear(),
-            date.getMonth(),
-            date.getDate(),
-            date.getHours(),
-            date.getMinutes(),
-            date.getSeconds(),
-            date.getMilliseconds()
-        ];
-        
-        return components.join("");
-
-    }
     
     function _install(module_name, callback) {
         var baseFolder = global.appRoot + "\\public\\modules\\" + module_name + "\\";
@@ -211,55 +337,38 @@
             
            
         });
-    }
-    
-    
-    
+    }   
     //var module = require(global.appRoot + "/nodulus_modules/" + module_name +"/setup.js");
     //module.install(module_name);
     
     
-    function npm_install(packagePair, callback) {
-        var exec = require('child_process').exec,
-            child;
-        
-        child = exec('npm install ' + packagePair.name + ' --save',
- function (error, stdout, stderr) {
-            
-            callback(stderr, stdout);
-                //console.log('stdout: ' + stdout);
-                //console.log('stderr: ' + stderr);
-                //if (error !== null) {
-                //    console.log('exec error: ' + error);
-                //}
-        });
-    }
-    
-    
-    
-    var deleteFolderRecursive = function (path) {
-        if (fs.existsSync(path)) {
-            fs.readdirSync(path).forEach(function (file, index) {
-                var curPath = path + "/" + file;
-                if (fs.lstatSync(curPath).isDirectory()) { // recurse
-                    deleteFolderRecursive(curPath);
-                } else { // delete file
-                    fs.unlinkSync(curPath);
-                }
-            });
-            fs.rmdirSync(path);
-        }
-    }
+
     
     function _uninstall(module_name, callback) {
         
+      
+            
+           
+            
+           var  modules_file = fs.readJsonSync(global.appRoot + "\\modules.json");
+            
+            
+             
+        
+        if (modules_file[module_name] !== undefined) {
+            delete modules_file[module_name];
+        }
+        
+             fs.writeFileSync(global.appRoot + "\\modules.json", JSON.stringify(modules_file));
+             
+             
+               try{
         var manifest_file = fs.readJsonSync(global.appRoot + "\\public\\modules\\" + module_name + "\\manifest.json", { throws: false });
         //merge the manifest into the modules.json file
         if (manifest_file === null)
             callback("invalid json, try using ascii file");
         
-        modules_file = fs.readJsonSync(global.appRoot + "\\modules.json");
-        
+       
         
         
         dal.connect(function (err, db) {
@@ -270,25 +379,30 @@
                 });
             }
         })
-        
-        if (modules_file[module_name] !== undefined) {
-            delete modules_file[module_name];
-        }
+       
         
         //delete module folder
         deleteFolderRecursive(global.appRoot + "\\public\\modules\\" + module_name + "\\");
         
         
         
-        fs.writeFileSync(global.appRoot + "\\modules.json", JSON.stringify(modules_file));
-        callback("ok");
+       
+            callback("ok");
+        }
+        catch(e)
+        {
+            callback("ok");
+        }
     }
     
     return {
         list: _list,
         pack: _pack,
         install: _install,
-        uninstall: _uninstall
+        uninstall: _uninstall,
+        validateModuleName : _validateModuleName,
+        createPackage : _createPackage,
+
     };
 })();
 // node.js module export
