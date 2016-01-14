@@ -1,0 +1,33 @@
+{
+
+  "files": [
+    "modules.js",
+    "modules.html"
+  ],
+  "scripts": [
+    "modules.js"
+    
+  ],
+  "dependencies": [ 
+    
+  ],
+  "routes": [
+    {
+      "route": "/modules",
+      "path": "modules.js"
+    }
+  ],
+  "module": {
+    "name": "modules"
+
+  },
+  "npm": {
+
+  },
+  "navigation": [
+
+  ]
+
+
+
+}

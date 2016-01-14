@@ -454,7 +454,7 @@ var DynamicData = angular.module('ApiAdmin', nodulus_dependecies)
 
         $scope.LoadModulesPage = function () {
 
-            $IDE.ShowLobby("Modules", "modules/modules/modules.html");
+            $IDE.ShowLobby({"label": "Modules"}, "modules/modules/modules.html");
         }
 
     })

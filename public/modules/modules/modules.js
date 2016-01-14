@@ -1,9 +1,10 @@
-﻿angular.module('ApiAdmin').controller("ModulesController", function ($scope, $Alerts, $IDE, $translate, $resource, $Language ,$mdDialog ) {
+﻿angular.module('ApiAdmin').controller("ModulesController", function ($scope, $Alerts, $IDE, $translate, $resource, $Language ,$mdDialog,$TreeMenu ) {
 
 
     $scope.LoadAbout = function (pack) {
+        debugger
         var module = pack.module;
-        $IDE.ShowLobby(module, "modules/" + module.name + "/" + module.about);
+        $IDE.ShowLobby({"label": module.name, _id: module.name +"_about"}, "modules/" + module.name + "/" + pack.about);
     }
 
     $scope.Install = function () {
@@ -28,6 +29,37 @@
     
     
     }
+    
+    $scope.Create = function () {
+        
+        $scope.ModuleLoading = true;
+        var createRes = $resource("/modules/create");
+        createRes.save({ name: $scope.Module.NewName }, function (data) {
+            
+            
+            var setupRes = $resource("/modules/install");
+            setupRes.save({ name: $scope.Module.NewName }, function (data) {
+                  $Alerts.add({ type: 'success', msg: 'module: ' + $scope.Module.NewName + ' installed', 'icon': 'fa fa-check' });
+                  
+                    $scope.LoadAbout(data);            
+                    $scope.ListModules();
+                    $TreeMenu.initTreeMenu();
+                
+            });
+            
+       
+          
+        }, function () {
+            $Alerts.add({ type: 'danger', msg: 'module: ' + $scope.Module.Name + ' not installed', 'icon': 'fa fa-close' });
+            $scope.ModuleLoading = false;
+        })
+
+
+    
+    
+    }
+    
+
     $scope.Pack = function (module) {
         
         $scope.ModuleLoading = true;
@@ -59,11 +91,11 @@
         //.targetEvent(ev);
         $mdDialog.show(confirm).then(function () {
             $scope.ModuleLoading = true;
-            debugger
+            
             var setupRes = $resource("/modules/uninstall");
             setupRes.save({ "name": module.name }, function (data) {
-                
-                $Alerts.add({ type: 'success', msg: 'module: ' + $scope.Module.Name + ' removed', 'icon': 'fa fa-recycle' });
+                 
+                $Alerts.add({ type: 'success', msg: 'module: ' + module.name + ' removed', 'icon': 'fa fa-recycle' });
                 $scope.ListModules();
                 $TreeMenu.initTreeMenu();
             })
