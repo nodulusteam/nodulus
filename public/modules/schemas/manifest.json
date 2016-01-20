@@ -1,0 +1,50 @@
+{
+
+  "files": [
+    "Schemas.js",
+    "Schemas.html",
+    "SchemaInput.html",
+    "subform.html",
+    "propertiesDialog.html",
+    "lobby.js",
+    "lobby.html",
+    "item.js",
+    "item.html",
+    "designer.js",
+    "designer.html",
+    "confirmDialog.html"
+  ],
+  "scripts": [
+    "papaparse.min.js",
+    "tv4.js",
+    "ObjectPath.js",
+    "schema-form.js",
+    "bootstrap-decorator.min.js",
+    "schem-form-definitions.js",
+    "angular-schema-form-dynamic-select.js",
+    "bootstrap-ui-ace.min.js"  ,
+    "app.js"
+  ],
+  "dependencies": [ 
+      "schemaForm"     
+  ],
+  "routes": [
+    {
+      "route": "/schemas",
+      "path": "schemas.js"
+    }
+  ],
+  "module": {
+    "name": "schemas"
+
+  },
+  "npm": {
+
+  },
+  "navigation": [
+
+  ]
+
+
+
+}
