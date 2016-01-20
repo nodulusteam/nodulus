@@ -23,7 +23,8 @@ var app = express();
 
 
 var http = require("http").createServer(app);
-var io = require("socket.io")(http);
+var server = require('http').Server(app);
+//var io = require("socket.io")(http).listen(server);
 //http.listen(8080, "127.0.0.1");
 
 
@@ -32,7 +33,7 @@ var io = require("socket.io")(http);
  
 
 
-var server = require('http').Server(app);
+
 webServer.start(server, app, function () {
     
     var socket = require('socket.io')(server);

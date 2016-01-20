@@ -35,12 +35,14 @@ for (var module_name in nodulus_mapping) {
     nodulus_dependecies.push(module.dependencies[i]);
   }
 
+  
 
-    if (!delay_bootstraping) {
-        angular.element(document).ready(function () {            
-            angular.bootstrap(document, ['ApiAdmin']);
-        });
-    }
 
 }
 
+    if (!delay_bootstraping) {
+        angular.element(document).ready(function () {      
+              
+            angular.bootstrap(document, ['ApiAdmin']);
+        });
+    }

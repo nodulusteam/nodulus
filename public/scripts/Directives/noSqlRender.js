@@ -30,7 +30,7 @@
                    
                 },
                 post: function (scope, element, attr) {
-                    debugger                                     
+                                                          
                     if (scope.c !== undefined)
                         element.find(".nosqlInput").append(scope.c);
                     else
