@@ -1,4 +1,15 @@
-﻿/*jslint node: true */
+﻿/*                 _       _           
+                 | |     | |          
+  _ __   ___   __| |_   _| |_   _ ___ 
+ | '_ \ / _ \ / _` | | | | | | | / __|
+ | | | | (_) | (_| | |_| | | |_| \__ \
+ |_| |_|\___/ \__,_|\__,_|_|\__,_|___/
+ @ewave open source | ©Roi ben haim  ®2016    
+ */
+  
+ 
+
+/*jslint node: true */
 "use strict";
 if (!location.origin)
     location.origin = location.protocol + "//" + location.host;
@@ -698,6 +709,17 @@ var DynamicData = angular.module('ApiAdmin', nodulus_dependecies)
     }
 
 
+}).directive('navLoader', function($compile){
+  return {
+    restrict: 'E',
+    link: function(scope, elem, attrs){   
+        
+        var htm = '<div>' +'<' + attrs.navname +'></' + attrs.navname +'></div>';
+        var compiled = $compile(htm)(scope);
+        elem.append(compiled);
+     
+    }
+  }
 });
 
 
@@ -726,6 +748,9 @@ function initSocketEvents($scope, $User, $Config, $Alerts) {
         }
     });
 }
+
+
+ 
 
 
 DynamicData.controller('Directives.BaseController', ['$scope', '$rootScope', '$Models', '$Broker', '$Cache', function ($scope, $rootScope, $Models, $Broker, $Cache) {

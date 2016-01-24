@@ -12,7 +12,9 @@
     "item.html",
     "designer.js",
     "designer.html",
-    "confirmDialog.html"
+    "confirmDialog.html",
+    "nav.html",
+    "SchemaTreeMenu.html"
   ],
   "scripts": [
     "papaparse.min.js",
@@ -22,12 +24,15 @@
     "bootstrap-decorator.min.js",
     "schem-form-definitions.js",
     "angular-schema-form-dynamic-select.js",
-    "bootstrap-ui-ace.min.js"  ,
+    "bootstrap-ui-ace.min.js",
+    "nav.js",
     "app.js"
   ],
-  "dependencies": [ 
-      "schemaForm"     
+  "dependencies": [
+    "schemaForm",
+    "nodulus_schemas"
   ],
+  "navname": "schemas_nav",
   "routes": [
     {
       "route": "/schemas",

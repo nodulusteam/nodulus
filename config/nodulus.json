@@ -1,0 +1,4 @@
+﻿{
+  "pages": "/pages",
+  "exclude": [ "/modules"]
+}

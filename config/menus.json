@@ -1,0 +1,14 @@
+﻿{
+  "navigation": [
+    {
+      "module": "cms"
+
+    },
+    {
+      "module": "schemas"
+
+    }
+
+  ]
+
+}

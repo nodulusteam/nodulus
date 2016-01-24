@@ -308,3 +308,10 @@ md-dialog .panel {
     top: 25px;
     right: 0;
 }
+
+.spacer{
+    width: 15px;
+}
+.margined {
+    margin-right: 5px; margin-left: 5px;
+}

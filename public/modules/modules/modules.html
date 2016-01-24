@@ -50,7 +50,9 @@
                             </div>
                             <div class="col-md-6 col-lg-6">
 
-                                <span class="btn btn-sm btn-danger" ng-click="UnInstall(package.module)"><span class="fa fa-recycle"></span> {{"Delete"| translate}} </span>
+                                <span class="btn btn-sm  " ng-class="{'btn-danger': package.state!='locked',   disabled: package.state=='locked'}" ng-click="UnInstall(package.module)"><span class="fa fa-recycle"></span> {{"Delete"| translate}} </span>
+                                
+                                
                                 <span class="btn btn-sm btn-info" ng-click="Pack(package.module)"><span class="fa fa-file-archive-o"></span> {{"Pack"| translate}}</span>
 
                                 <span class="btn btn-sm btn-warning" ng-click="Configure(package.module)"><span class="fa fa-cog"></span> {{"Configure"| translate}} </span>

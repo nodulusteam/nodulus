@@ -36,7 +36,10 @@
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
 
-                <div class="panel panel-primary">
+
+                <nav-loader navname="{{menu.navname}}"></nav-loader>
+
+                <!--<div class="panel panel-primary">
                     <div class="panel-heading" role="tab" id="{{menu.name}}">
                         <span role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{menu.name}}"
                               aria-expanded="true" aria-controls="collapse{{menu.name}}">
@@ -64,7 +67,7 @@
                             </abn-tree>
                         </div>
                     </div>
-                </div>
+                </div>-->
 
             </div>
             <!--on-node-toggle="loadSelected(node, expanded)"
@@ -97,18 +100,18 @@
 
                         <span ng-bind="tab.name" ng-hide="tab.menutoggle"></span>
 
- 
+
                         <span class="btn-xs dropdown-toggle" data-toggle="dropdown" type="button" ng-click="tab.menutoggle = !tab.menutoggle">
 
                             <span ng-class="{ 'fa fa-caret-right' : tab.menutoggle, 'fa fa-caret-down' : !tab.menutoggle}"></span>
-                            
-                            
+
+
                         </span>
-                        
+
                         <span ng-show="tab.menutoggle">
                             <button ng-click="Refresh(tab)" class="btn btn-xs btn-primary"><span class="fa fa-refresh"></span></button>
-                             <button ng-click="CopyLink(tab)" class="btn btn-xs btn-warning"><span class="fa fa-copy"></span></button>
-                             <button ng-click="PopLink(tab)" class="btn btn-xs btn-success"><span class="fa fa-external-link"></span></button>
+                            <button ng-click="CopyLink(tab)" class="btn btn-xs btn-warning"><span class="fa fa-copy"></span></button>
+                            <button ng-click="PopLink(tab)" class="btn btn-xs btn-success"><span class="fa fa-external-link"></span></button>
                         </span>
                         <!--<ul class="dropdown-menu">
                             <li ng-click="Refresh(tab)"><span class="fa fa-refresh"></span></li>

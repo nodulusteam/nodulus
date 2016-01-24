@@ -2,7 +2,12 @@
 
   "files": [
     "modules.js",
-    "modules.html"
+    "modules.html",
+    "template/about.html",
+    "template/manifest.json",
+    "template/template.html",
+    "template/template.js",
+    "template/routes/template.js"
   ],
   "scripts": [
     "modules.js"

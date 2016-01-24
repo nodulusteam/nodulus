@@ -2,23 +2,25 @@
     <div class="container-fluid">
 
 
-        <div class="well"> 
-            <a class="navbar-brand">{{modelName}}</a>
+       
+          
             
 
-            <div id="navbar" class="navbar-collapse collapse pull-left">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><button ng-click="CreateNewItem()" class="navbar-btn btn btn-info" ><span class="fa fa-plus"></span> {{"New" | translate}}</button></li>
-                    <li><button ng-click="onBtExport()" class="btn navbar-btn btn-info"><span class="fa fa fa-file-excel-o"></span> {{"Export" | translate}}</button></li>
-                    <li><button class="btn navbar-btn btn-default">({{LobbyItemsCount}}  {{"Items" | translate}} )</button></li>
-                    <!--<li><a ng-click='ShowAdvancedSearch()'><span class="fa fa-search"></span> {{"Advanced search" | translate}}Advanced search</a></li>-->
-                </ul>
+            <div id="navbar" class="container navbar-inverse navbar pull-left">
+                <a class="navbar-brand">{{modelName}}</a>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="navbar-btn"><button ng-click="CreateNewItem()" class="margined btn btn-info" ><span class="fa fa-plus"></span> {{"New" | translate}}</button></li>
+                <li class="navbar-btn"><button ng-click="onBtExport()" class="margined btn btn-info"><span class="fa fa fa-file-excel-o"></span> {{"Export" | translate}}</button></li>
+                <li class="navbar-btn"><button class="margined btn btn-default">({{LobbyItemsCount}}  {{"Items" | translate}} )</button></li>
+                <li class="spacer"></li>
+                <!--<li><a ng-click='ShowAdvancedSearch()'><span class="fa fa-search"></span> {{"Advanced search" | translate}}Advanced search</a></li>-->
+            </ul>
                 <form class="navbar-form navbar-right">
                     <input type="text" class="form-control" placeholder="Search..." ng-model="quickFilterText" ng-model-options="{updateOn:'blur'}" data-update-model-on-enter-key-pressed>
                 </form>
             </div>
             <div class="clear"></div>
-        </div>
+        
 
 
        
