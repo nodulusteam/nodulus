@@ -16,7 +16,7 @@
 
     this.ResolvePropertyValue = function (strKey, obj, tabs) {
         
-        ////debugger
+         
         var tt = strKey.split('.');
         var curProp = {};
         if (this.Models[obj])
@@ -27,7 +27,7 @@
         lastKeyIndex = keyPath.length - 1;
         
         for (var i = 0; i < lastKeyIndex; ++i) {
-            ////debugger
+            
             key = keyPath[i];
             if (!(key in obj))
                 obj[key] = {}
@@ -40,7 +40,7 @@
     }
     
     this.Set = function (modelId, key, value) {
-        //debugger
+        
         if (this.Models[modelId] === undefined) {
             this.Models[modelId] = {};
         }

@@ -24,75 +24,6 @@ var mod;
 var nodulus = {}
 var regModules = ["ng"];
 
-//
-// define(["angular"], function (angular) {
-//     // Returns a angular module, searching for its name, if it's a string
-//     function get(name) {
-//         if (typeof name === "string") {
-//             return angular.module(name);
-//         }
-//
-//         return name;
-//     };
-//
-//     var moduleExtender = function (sourceModule) {
-//         var modules = Array.prototype.slice.call(arguments);
-//
-//         // Take sourceModule out of the array
-//         modules.shift();
-//
-//         // Parse the source module
-//         sourceModule = get(sourceModule);
-//         if (!sourceModule._amdDecorated) {
-//             throw new Error("Can't extend a module which hasn't been decorated.");
-//         }
-//
-//         // Merge all modules into the source module
-//         modules.forEach(function (module) {
-//             module = get(module);
-//             module._invokeQueue.reverse().forEach(function (call) {
-//                 // call is in format [ provider, function, args ]
-//                 var provider = sourceModule._lazyProviders[call[0]];
-//
-//                 // Same as for example $controllerProvider.register("Ctrl", function() { ... })
-//                 provider && provider[call[1]].apply(provider, call[2]);
-//             });
-//         });
-//     };
-//
-//     var moduleDecorator = function (module) {
-//         module = get(module);
-//         module.extend = moduleExtender.bind(null, module);
-// debugger
-//         // Add config to decorate with lazy providers
-//         module.config([
-//             "$compileProvider",
-//             "$controllerProvider",
-//             "$filterProvider",
-//             "$provide",
-//             function ($compileProvider, $controllerProvider, $filterProvider, $provide) {
-//                 module._lazyProviders = {
-//                     $compileProvider: $compileProvider,
-//                     $controllerProvider: $controllerProvider,
-//                     $filterProvider: $filterProvider,
-//                     $provide: $provide
-//                 };
-//
-//                 module.lazy = {
-//                     // ...controller, directive, etc, all functions to define something in angular are here, just like the project mentioned in the question
-//                 };
-//                 module._amdDecorated = true;
-//             }
-//         ]);
-//     };
-//
-//     // Tadaaa, all done!
-//     return {
-//         decorate: moduleDecorator
-//     };
-// });
-//
-
 mod = angular.module('infinite-scroll', []);
 
 mod.directive('infiniteScroll', [
@@ -314,14 +245,6 @@ var DynamicData = angular.module('ApiAdmin', nodulus_dependecies)
 
         }
     }])
-//.service('$Config', ['$resource', '$http', function ($resource, $http) {
-
-//		var self = this;
-//        $http.get("config/client.json").success(function (data) {
-//            debugger
-//			self.site = data;
-//		})
-//	}])
     .provider("$Config", function () {
     var type;
     return {
@@ -449,22 +372,7 @@ var DynamicData = angular.module('ApiAdmin', nodulus_dependecies)
     });
     $scope.Module = {};
     
-    //$scope.Install = function () {
-    
-    
-    //    var setupRes = $resource("/modules/install");
-    //    setupRes.save({ name: $scope.Module.Name }, function (data) {
-    //        $Alerts.add({ type: 'success', msg: 'module ' + $scope.Module.Name +' successfully installed', autoClose: 10000000, 'icon': 'fa fa-check' });
-    
-    //    })
-    
-    
-    //}
-    
-    
     initSocketEvents($scope, $User, $Config, $Alerts);
-    
-    
     
     $scope.LoadSettingsPage = function () {
         $IDE.ShowLobby({ "_id": "settings", "label": "Settings" }, "partials/settings.html");
@@ -709,17 +617,17 @@ var DynamicData = angular.module('ApiAdmin', nodulus_dependecies)
     }
 
 
-}).directive('navLoader', function($compile){
-  return {
-    restrict: 'E',
-    link: function(scope, elem, attrs){   
-        
-        var htm = '<div>' +'<' + attrs.navname +'></' + attrs.navname +'></div>';
-        var compiled = $compile(htm)(scope);
-        elem.append(compiled);
+}).directive('navLoader', function ($compile) {
+    return {
+        restrict: 'E',
+        link: function (scope, elem, attrs) {
+            
+            var htm = '<div>' + '<' + attrs.navname + '></' + attrs.navname + '></div>';
+            var compiled = $compile(htm)(scope);
+            elem.append(compiled);
      
+        }
     }
-  }
 });
 
 
@@ -750,7 +658,7 @@ function initSocketEvents($scope, $User, $Config, $Alerts) {
 }
 
 
- 
+
 
 
 DynamicData.controller('Directives.BaseController', ['$scope', '$rootScope', '$Models', '$Broker', '$Cache', function ($scope, $rootScope, $Models, $Broker, $Cache) {
@@ -768,28 +676,11 @@ DynamicData.controller('Directives.BaseController', ['$scope', '$rootScope', '$M
                 $rootScope.models = {};
             
             
-            //if (_.isEmpty($Models.Models)) {
-            //	$scope.ComplexType = {};
-            //	$scope.ComplexType.input = $scope.$Broker.Objects[$scope.schemaName + "_" + $scope.dataId][$scope.FieldName];
-            
-            
-            //}
-            //if ($Models.Models[$scope.db._id] !== undefined) {//&& $Models[$scope.tab.id][$scope.FieldName] !== undefined
-            //	$scope.ComplexType = $Models.ResolvePropertyValue($scope.FieldName, $scope.db._id, $scope.tab);
-            
-            //}
-            //else
-            
-            
-            //if ($scope.dataId !== undefined && $scope.modelname === undefined)
-            //    $scope.ComplexType.input = $scope.$Broker.Objects[$scope.schemaName + "_" + $scope.dataId][$scope.FieldName];
             if ($Models.Models[$scope.db._id] !== undefined) {//&& $Models[$scope.tab.id][$scope.FieldName] !== undefined
                 $scope.ComplexType = $Models.ResolvePropertyValue($scope.FieldName, $scope.db._id, $scope.tab);
             }
             else
                 $scope.ComplexType = {};
-            //if ($scope.modelname !== undefined)
-            //	$scope.ComplexType.input = $scope.$Broker.Objects[$scope.schemaName + "_" + $scope.dataId][$scope.modelname].input[$scope.FieldName]
             if ($scope.dataId !== undefined)
                 $scope.ComplexType.input = $scope.$Broker.Objects[$scope.schemaName + "_" + $scope.dataId][$scope.FieldName];
             if ($scope.ComplexType !== undefined) {
@@ -805,11 +696,5 @@ DynamicData.controller('Directives.BaseController', ['$scope', '$rootScope', '$M
 
 
         }
-//if($scope.family !== undefined)
-//    $scope.models[$scope.family.name] = $scope.family.name;
-
-//if ($scope.$parent.family!== undefined)
-//    $scope.models[$scope.$parent.family.name] = $scope.$parent.family.name;
-
-
+ 
     }]);

@@ -78,9 +78,9 @@ DynamicData.directive("egenDropdown", function (RecursionHelper) {
 		compile: function (element, $controller) {
 			return RecursionHelper.compile(element, {
 				pre: function (scope, element, attr, ngModelCtrl) {
-					//debugger
+					 
 					scope.FieldName = attr.fieldname;
-					////debugger
+				 
 					scope.ApplyData();
 				},
 				post: function (scope, element, attr, ngModelCtrl) {
@@ -108,20 +108,11 @@ DynamicData.directive("egenInput", function (RecursionHelper) {
 		compile: function (element, $controller) {
 			return RecursionHelper.compile(element, {
 				pre: function (scope, element, attr, ngModelCtrl) {
-					//debugger
+					 
 					if (attr.modelname !== undefined)
 						scope.modelname = attr.modelname;
 					scope.FieldName = attr.fieldname;
-					//if (!_.isUndefined(scope.col))
-					//	if (_.isObject(scope.col.grid)) {
-					//		for (key in scope.$Broker.Objects) {
-					//			var arr = key.split("_");
-					//			scope.schemaName = arr[0];
-					//			scope.dataId = arr[1];
-					//		}
-					//	}
-
-					////debugger
+					 
 					scope.ApplyData();
 				},
 				post: function (scope, element, attr, ngModelCtrl) {
@@ -164,9 +155,9 @@ DynamicData.directive("egenDate", function (RecursionHelper) {
 		compile: function (element, $controller) {
 			return RecursionHelper.compile(element, {
 				pre: function (scope, element, attr, ngModelCtrl) {
-					//debugger
+					 
 					scope.FieldName = attr.fieldname;
-					////debugger
+				 
 					scope.ApplyData();
 
 
@@ -220,9 +211,9 @@ DynamicData.directive("egenEmail", function (RecursionHelper) {
 		compile: function (element, $controller) {
 			return RecursionHelper.compile(element, {
 				pre: function (scope, element, attr, ngModelCtrl) {
-					//debugger
+					 
 					scope.FieldName = attr.fieldname;
-					////debugger
+					 
 					scope.ApplyData();
 				},
 				post: function (scope, element, attr, ngModelCtrl) {
@@ -250,9 +241,9 @@ DynamicData.directive("egenImage", function (RecursionHelper) {
 		compile: function (element, $controller) {
 			return RecursionHelper.compile(element, {
 				pre: function (scope, element, attr, ngModelCtrl) {
-					//debugger
+					 
 					scope.FieldName = attr.fieldname;
-					////debugger
+					 
 					scope.ApplyData();
 				},
 				post: function (scope, element, attr, ngModelCtrl) {
@@ -280,9 +271,9 @@ DynamicData.directive("egenCkeditor", function (RecursionHelper) {
 		compile: function (element, $controller) {
 			return RecursionHelper.compile(element, {
 				pre: function (scope, element, attr, ngModelCtrl) {
-					//debugger
+					 
 					scope.FieldName = attr.fieldname;
-					////debugger
+					 
 					scope.ApplyData();
 				},
 				post: function (scope, element, attr, ngModelCtrl) {

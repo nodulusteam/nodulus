@@ -217,28 +217,11 @@ angular.module('ApiAdmin').controller('ideController', function ($scope, $User, 
      $Alerts, $location, $compile, $Language, $mdSidenav, $mdBottomSheet, $Theme, $translate, $IDE) {
     
     $scope.Languages = $Language.languages;
-    // $scope.Language = $Language.language;
-    
-    $scope.Language = $Language.getByLCID(localStorage.getItem("lcid"));
-    
+    $scope.Language = $Language.getByLCID(localStorage.getItem("lcid"));    
     if ($scope.Language !== undefined && $scope.Language.direction == 'rtl') {
         $('link[id="languageCssfile"]').attr('href', "styles/bootstrap.rtl.css");
     }
-    
-    
-    
-    
-    
-    //if (language === null)
-    //    language = { name: "english", shortname: "eng", "lcid": 1033 };
-    //else
-    //    language = angular.fromJson(language);
-    
-    
-    
-    //$scope.Language = language;
-    
-    
+     
     $scope.SetLanguage = function () {
         $Language.set($scope.Language).$promise.then(function (response) {
             
@@ -449,7 +432,7 @@ angular.module('ApiAdmin').controller('ideController', function ($scope, $User, 
             
             // Register the controls/directives/services we just loaded
             var queue = angular.module('ApiAdmin')._invokeQueue;
-            ////debugger
+           
             for (var i = queueLen; i < queue.length; i++) {
                 var call = queue[i - 1];
                 
@@ -460,17 +443,17 @@ angular.module('ApiAdmin').controller('ideController', function ($scope, $User, 
                 // call is in the form [providerName, providerFunc, providerArguments]
                 var provider = providers[call[0]];
                 if (provider) {
-                    ////debugger
+                    
                     // e.g. $controllerProvider.register("Ctrl", function() { ... })
                     provider[call[1]].apply(provider, call[2], scope);
                 }
             }
             
-            ////debugger
+           
             var c = element.injector().invoke(function ($compile) {
                 $compile(element.contents())(scope);
             }, this, scope);
-            ////debugger
+           
             
 
         },
