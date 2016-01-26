@@ -3540,11 +3540,12 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
       });
 
       var getMatchesAsync = function(inputValue) {
-
+                    debugger
         var locals = {$viewValue: inputValue};
         isLoadingSetter(originalScope, true);
         $q.when(parserResult.source(originalScope, locals)).then(function(matches) {
-
+                        
+            debugger
           //it might happen that several async queries were in progress if a user were typing fast
           //but we are interested only in responses that correspond to the current view value
           var onCurrentRequest = (inputValue === modelCtrl.$viewValue);
@@ -3651,12 +3652,12 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
           return candidateViewValue!== emptyViewValue ? candidateViewValue : modelValue;
         }
       });
-
+               
       scope.select = function (activeIdx) {
         //called from within the $digest() cycle
         var locals = {};
         var model, item;
-
+       
         locals[parserResult.itemName] = item = scope.matches[activeIdx].model;
         model = parserResult.modelMapper(originalScope, locals);
         $setModelValue(originalScope, model);
@@ -3796,4 +3797,8 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
     return function(matchItem, query) {
       return query ? ('' + matchItem).replace(new RegExp(escapeRegexp(query), 'gi'), '<strong>$&</strong>') : matchItem;
     };
-  });
+});
+
+
+
+alert("X");

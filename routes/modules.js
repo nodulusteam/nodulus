@@ -142,7 +142,7 @@ var moduleUtiliity = (function () {
         
         var fileContent = fs.readFileSync(baseFolder + "\\about.html", "utf-8");
         fileContent = replaceAll("$$module_name$$", module_name, fileContent);
-        zip.folder("about").file("about.html", fileContent);
+        zip.file("about.html", fileContent);
         
         
         
@@ -206,13 +206,13 @@ var moduleUtiliity = (function () {
         
         
         
-        if (manifest_file.module.about !== undefined) {
+       
             
-            if (fs.existsSync(baseFolder + manifest_file.module.about)) {
-                var fileContent = fs.readFileSync(baseFolder + manifest_file.module.about);
-                zip.folder("about").file(manifest_file.module.about, fileContent);
+            if (fs.existsSync(baseFolder + "about.html")) {
+                var fileContent = fs.readFileSync(baseFolder + "about.html");
+                zip.file("about.html", fileContent);
             }
-        }
+       
         
         
         
@@ -293,14 +293,14 @@ var moduleUtiliity = (function () {
                 }
             }
             
-            if (manifest_file.about !== undefined) {
-                var filename = manifest_file.about;
-                if (zip.folder("about").file(filename) !== null) {
-                    var fileData = zip.folder("about").file(filename).asText();
+             
+                var filename = "about.html";
+                if (zip.file(filename) !== null) {
+                    var fileData = zip.file(filename).asText();
                     fs.writeFileSync(baseFolder + filename, fileData, 'utf8');
                 }
                
-            }
+            
             
             
             
@@ -320,13 +320,14 @@ var moduleUtiliity = (function () {
             if (manifest_file === null)
                 callback("invalid json, try using ascii file");
             
-            //update navigation 
-            dal.connect(function (err, db) {
-                
-                for (var i = 0; i < manifest_file.navigation.length; i++) {
-                    db.collection("Navigation").save(manifest_file.navigation[i]);
-                }
-            })
+            //update navigation
+            if(manifest_file.navigation) 
+                dal.connect(function (err, db) {
+                    
+                    for (var i = 0; i < manifest_file.navigation.length; i++) {
+                        db.collection("Navigation").save(manifest_file.navigation[i]);
+                    }
+                })
             
             
             modules_file[module_name] = manifest_file;
@@ -368,20 +369,25 @@ var moduleUtiliity = (function () {
     
     
     function _uninstall(module_name, callback) {
-        
-        
-        
-        
-        
-        var modules_file = fs.readJsonSync(global.appRoot + "\\modules.json");
-        
-        
-        
-        
+        var modules_file = fs.readJsonSync(global.appRoot + "\\modules.json");        
         if (modules_file[module_name] !== undefined) {
+            
+            for (var i = 0; i < modules_file[module_name].routes.length;i++ )
+            {
+                fs.unlinkSync(global.appRoot +"\\routes\\" + modules_file[module_name].routes[i].path);
+            }
+            
+            
+
             delete modules_file[module_name];
         }
         
+        
+        
+         
+        
+        
+
         fs.writeFileSync(global.appRoot + "\\modules.json", JSON.stringify(modules_file));
         
         
@@ -395,12 +401,15 @@ var moduleUtiliity = (function () {
             
             
             dal.connect(function (err, db) {
-                for (var i = 0; i < manifest_file.navigation.length; i++) {
+                if(manifest_file.navigation){
+                            for (var i = 0; i < manifest_file.navigation.length; i++) {
                     db.collection("Navigation").remove({ "_id": manifest_file.navigation[i]._id }, function (err, data) { 
                 
                 
                     });
                 }
+                }
+        
             })
             
             
@@ -427,6 +436,34 @@ var moduleUtiliity = (function () {
 
     };
 })();
+
+router.get("/listsearch", function (req, res) {
+    //var glob = require("glob")
+    
+      fs.readdir(global.appRoot + "\\nodulus_modules\\", function (err, files) {
+          var arrRes = [];
+          for(var i=0;i< files.length;i++)
+          {
+                if(files[i].indexOf(".zip") > -1 &&  files[i].indexOf(req.query.name) > -1)
+                        arrRes.push(files[i].replace(".zip", ""))    
+          }
+       res.json(arrRes);
+    });  
+    
+    
+//     // options is optional
+//     glob(global.appRoot + "\\nodulus_modules\\*" + req.query.name + "*/*.zip",  function (er, files) {
+//         res.json(files);
+//   // files is an array of filenames.
+//   // If the `nonull` option is set, and nothing
+//   // was found, then files is ["**/*.js"]
+//   // er is an error object or null.
+//     })
+    
+
+     
+});
+
 
 
 

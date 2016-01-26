@@ -6756,7 +6756,8 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position'])
 					return false;
 				};
 				
-				var getMatchesAsync = function (inputValue) {
+                var getMatchesAsync = function (inputValue) {
+                    debugger
 					var locals = { $viewValue: inputValue };
 					isLoadingSetter(originalScope, true);
 					isNoResultsSetter(originalScope, false);

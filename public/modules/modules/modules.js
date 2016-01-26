@@ -9,15 +9,30 @@
   
  
 
-angular.module('ApiAdmin').controller("ModulesController", function ($scope, $Alerts, $IDE, $translate, $resource, $Language , $mdDialog, $TreeMenu) {
+angular.module('ApiAdmin').controller("ModulesController", function ($http, $scope, $Alerts, $IDE, $translate, $resource, $Language , $mdDialog, $TreeMenu) {
 
 
     $scope.LoadAbout = function (pack) {
-        debugger
+         
         var module = pack.module;
-        $IDE.ShowLobby({"label": module.name, _id: module.name +"_about"}, "modules/" + module.name + "/" + pack.about);
+        $IDE.ShowLobby({"label": module.name, _id: module.name +"_about"}, "modules/" + module.name + "/about.html");
     }
+    $scope.getModules = function (str)
+    {
+        
+         return $http.get("/modules/listsearch?name=" + escape(str)).then(function (response) {
+            return response.data;
+        });
+        //return searchResource.get({ "name": str }, function (data) {
+             
 
+        //    return data;
+        //})
+        ////searchResource.query({ "name": str }).then(function (response) {
+        ////    alert(response);
+        ////    return response;
+        ////});;
+    }
     $scope.Install = function () {
         
         $scope.ModuleLoading = true;

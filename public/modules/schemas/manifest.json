@@ -14,7 +14,8 @@
     "designer.html",
     "confirmDialog.html",
     "nav.html",
-    "SchemaTreeMenu.html"
+    "SchemaTreeMenu.html",
+    "schemaDialog.html"
   ],
   "scripts": [
     "papaparse.min.js",

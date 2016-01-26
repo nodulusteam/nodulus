@@ -19,7 +19,13 @@ var api = require("../classes/api.js");
 var moment = require('moment');
 router.get('/collections', function (req, res) {  
     dal.connect(function (err, db) {
-        var names = db.listCollections().toArray(function (err, names) { 
+          db.listCollections().toArray(function (err, names) {
+            names.sort(function (a, b) {
+            if (a.name < b.name) return 1;
+            if (b.name < a.name) return -1;
+            return 0;
+        });
+
             res.json(names);
         });        
     });    

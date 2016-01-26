@@ -315,3 +315,6 @@ md-dialog .panel {
 .margined {
     margin-right: 5px; margin-left: 5px;
 }
+.link {
+    cursor: pointer;
+}
