@@ -1,6 +1,6 @@
 ﻿
 
-angular.module('ApiAdmin').controller('WebsitesController', ['$scope', '$Config', '$resource', '$location', '$compile', '$mdDialog', '$Theme', function ($scope, $Config,$resource, $location, $compile, $mdDialog, $Theme) {
+angular.module('nodulus').controller('WebsitesController', ['$scope', '$Config', '$resource', '$location', '$compile', '$mdDialog', '$Theme', function ($scope, $Config,$resource, $location, $compile, $mdDialog, $Theme) {
 
     $scope.$Theme = $Theme;
 

@@ -45,9 +45,9 @@ var server = require('http').Server(app);
 
 
 
-webServer.start(server, app, function () {
+webServer.start(server, app, function (app) {
     
-    var socket = require('socket.io')(server);
+    var socket = require('socket.io');
     var io = socket.listen(server);
     
     console.log("*** websocket is active");

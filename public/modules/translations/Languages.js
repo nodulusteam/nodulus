@@ -7,7 +7,7 @@
  @ewave open source | ©Roi ben haim  ®2016    
  */
 
-angular.module('ApiAdmin').controller('LanguagesController', ['$scope', '$Config', '$resource', '$location', '$compile', '$mdDialog', '$Theme','$IDE', function ($scope, $Config,$resource, $location, $compile, $mdDialog, $Theme, $IDE) {
+angular.module('nodulus').controller('LanguagesController', ['$scope', '$Config', '$resource', '$location', '$compile', '$mdDialog', '$Theme','$IDE', function ($scope, $Config,$resource, $location, $compile, $mdDialog, $Theme, $IDE) {
 
     $scope.$Theme = $Theme;
 

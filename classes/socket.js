@@ -9,13 +9,11 @@
   
  
 var socketuse = function (io) {    
-    var dal = require('./dal');    
-    var rooms = [];
-    io.on('connection', function (socket) {
+    //var dal = require('./dal');    
+    //var rooms = [];
+    io.on('connection', function (socket) {       
         
-        
-        socket.on('console connect', function (data) {
-            var xx = 1;
+        socket.on('console connect', function (data) {       
             socket.emit('console connected', data);
              
         });

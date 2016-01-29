@@ -9,7 +9,7 @@
   
 "use strict";
 
-angular.module('ApiAdmin').controller('ideController', function ($scope, $User, $TreeMenu, $resource, $location, $compile,
+angular.module('nodulus').controller('ideController', function ($scope, $User, $TreeMenu, $resource, $location, $compile,
      $Language, $mdSidenav, $mdBottomSheet, $Theme, $mdDialog, $Cache, $IDE) {
     $scope.$Theme = $Theme;
     $scope.$User = $User;
@@ -343,7 +343,7 @@ angular.module('ApiAdmin').controller('ideController', function ($scope, $User, 
         templateUrl: 'partials/dialog.html',
         link: function (scope, element, attr, $compile) {
             
-            var queueLen = angular.module('ApiAdmin')._invokeQueue.length;
+            var queueLen = angular.module('nodulus')._invokeQueue.length;
             
             var scriptSrc = attr.anyDialog.replace(".aspx", ".js");
             var subControllerName = attr.anyDialog.replace(".aspx", "controller").toLowerCase();
@@ -367,7 +367,7 @@ angular.module('ApiAdmin').controller('ideController', function ($scope, $User, 
             
             
             // Register the controls/directives/services we just loaded
-            var queue = angular.module('ApiAdmin')._invokeQueue;
+            var queue = angular.module('nodulus')._invokeQueue;
             
             for (var i = queueLen; i < queue.length; i++) {
                 var call = queue[i - 1];
@@ -405,7 +405,7 @@ angular.module('ApiAdmin').controller('ideController', function ($scope, $User, 
         templateUrl: 'partials/any.html',
         link: function (scope, element, attr, $compile) {
             
-            var queueLen = angular.module('ApiAdmin')._invokeQueue.length;
+            var queueLen = angular.module('nodulus')._invokeQueue.length;
             
             var scriptSrc = attr.anyLobby.replace(".aspx", ".js");
             var subControllerName = attr.anyLobby.replace(".aspx", "controller").toLowerCase();
@@ -431,7 +431,7 @@ angular.module('ApiAdmin').controller('ideController', function ($scope, $User, 
             
             
             // Register the controls/directives/services we just loaded
-            var queue = angular.module('ApiAdmin')._invokeQueue;
+            var queue = angular.module('nodulus')._invokeQueue;
            
             for (var i = queueLen; i < queue.length; i++) {
                 var call = queue[i - 1];
@@ -754,11 +754,12 @@ angular.module('ApiAdmin').controller('ideController', function ($scope, $User, 
             instance.treeOptions = {
                 nodeChildren: "Children"
             };
-            
+             
             
             instance.Menus = [
                 { "module": "cms", navname: "cms-nav" },
-                { "module": "schemas", navname: "schemas-nav" }
+                { "module": "schemas", navname: "schemas-nav" },
+                { "module": "scripter", navname: "scripter-nav" }
             ];
             
             

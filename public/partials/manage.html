@@ -25,14 +25,14 @@
     </div>
 </nav>
 
-<md-progress-linear mode="indeterminate" data-ng-show="TreeLoading"></md-progress-linear>
+<md-progress-linear md-mode="indeterminate" data-ng-show="TreeLoading"></md-progress-linear>
 
 <div class="container-full" style="height: {{PaneHeight-150}}px;direction: {{$Language.language.direction}}">
-
+    
     <div id="sidebar" class="col-lg-2 col-md-3 col-sm-3 col-xs-3 sidebar" style="height: {{PaneHeight}}px;">
         <div ng-repeat="menu in $TreeMenu.Menus" layout="column">
 
-
+          
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
 
@@ -70,6 +70,7 @@
                 </div>-->
 
             </div>
+            
             <!--on-node-toggle="loadSelected(node, expanded)"
             tree-model="menu"
             selected-node="ActiveTreeNode"

@@ -1,4 +1,4 @@
-﻿angular.module('ApiAdmin')
+﻿angular.module('nodulus')
     .controller('CategoryDialog', function ($scope, $resource, $location, $compile, $DataTable, $mdDialog, $Theme, $Config) {
 
         $scope.$Theme = $Theme;

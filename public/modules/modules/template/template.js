@@ -10,7 +10,7 @@
  
 
 
-angular.module('ApiAdmin').controller("$$module_name$$Controller", function ($scope, $Alerts, $IDE, $translate, $resource, $Language) {
+angular.module('nodulus').controller("$$module_name$$Controller", function ($scope, $Alerts, $IDE, $translate, $resource, $Language) {
 
      
 })

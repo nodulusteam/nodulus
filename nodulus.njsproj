@@ -48,6 +48,7 @@
     <Content Include="public\modules\modules\template\manifest.json" />
     <Content Include="public\modules\modules\template\template.html" />
     <Content Include="public\modules\schemas\about.html" />
+    <Content Include="public\modules\scripter\block-gallery.html" />
     <Content Include="public\modules\schemas\confirmDialog.html" />
     <Content Include="public\modules\schemas\designer.html" />
     <Content Include="public\modules\schemas\item.html" />
@@ -59,6 +60,12 @@
     <Content Include="public\modules\schemas\Schemas.html" />
     <Content Include="public\modules\schemas\SchemaTreeMenu.html" />
     <Content Include="public\modules\schemas\subform.html" />
+    <Content Include="public\modules\scripter\about.html" />
+    <Content Include="public\modules\scripter\pipeline.html" />
+    <Content Include="public\modules\scripter\scripter_nav.html" />
+    <Content Include="public\modules\scripter\manifest.json" />
+    <Content Include="public\modules\scripter\nav.html" />
+    <Content Include="public\modules\scripter\scripter.html" />
     <Content Include="public\modules\translations\about.html" />
     <Content Include="public\modules\translations\Language.html" />
     <Content Include="public\modules\translations\Languages.html" />
@@ -77,6 +84,7 @@
     <Compile Include="app.js" />
     <Compile Include="classes\socket.js" />
     <Compile Include="public\modules\cms\CMS.js" />
+    <Compile Include="public\modules\cms\scripts\nav.js" />
     <Compile Include="public\modules\modules\modules.js" />
     <Compile Include="public\modules\modules\template\routes\template.js" />
     <Compile Include="public\modules\modules\template\template.js" />
@@ -87,6 +95,12 @@
     <Compile Include="public\modules\schemas\Schemas.js" />
     <Compile Include="public\modules\schemas\scripts\bootstrap-decorator.min.js" />
     <Compile Include="public\modules\schemas\scripts\papaparse.min.js" />
+    <Compile Include="public\modules\scripter\pipeline.js" />
+    <Compile Include="public\modules\scripter\scripter.js" />
+    <Compile Include="public\modules\scripter\scripts\bootstrap-dialog.js" />
+    <Compile Include="public\modules\scripter\scripts\scripterShell.js" />
+    <Compile Include="public\modules\scripter\scripts\sortable.js" />
+    <Compile Include="public\modules\scripter\scripts\toolbox.js" />
     <Compile Include="public\modules\translations\Language.js" />
     <Compile Include="public\modules\translations\Languages.js" />
     <Compile Include="public\partials\manage\Website.js" />
@@ -94,6 +108,7 @@
     <Compile Include="routes\cms.js" />
     <Compile Include="routes\modules.js" />
     <Compile Include="routes\schemas.js" />
+    <Compile Include="routes\scripter.js" />
     <Compile Include="routes\translations.js" />
     <Compile Include="routes\users.js" />
     <Compile Include="classes\api.js" />
@@ -1312,6 +1327,8 @@
     <Folder Include="public\modules\schemas\" />
     <Folder Include="public\modules\schemas\scripts\" />
     <Folder Include="public\app\" />
+    <Folder Include="public\modules\scripter\" />
+    <Folder Include="public\modules\scripter\scripts\" />
     <Folder Include="public\modules\translations\" />
     <Folder Include="public\modules\users\" />
     <Folder Include="public\modules\users\scripts\" />

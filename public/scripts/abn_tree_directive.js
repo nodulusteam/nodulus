@@ -142,7 +142,7 @@
                 return b.uid = "" + Math.random();
               }
             });
-            console.log('UIDs are set.');
+             
             for_each_branch(function(b) {
               var child, _i, _len, _ref, _results;
               if (angular.isArray(b.children)) {
@@ -243,7 +243,7 @@
             });
           }
           n = scope.treeData.length;
-          console.log('num root branches = ' + n);
+           
           for_each_branch(function(b, level) {
             b.level = level;
             return b.expanded = b.level < expand_level;

@@ -35,7 +35,7 @@ for (var module_name in nodulus_mapping) {
       {
         angular.element(document).ready(function () {
           
-          angular.bootstrap(document, ['ApiAdmin']);
+          angular.bootstrap(document, ['nodulus']);
         });
       }
     }
@@ -54,6 +54,6 @@ for (var module_name in nodulus_mapping) {
     if (!delay_bootstraping) {
         angular.element(document).ready(function () {      
               
-            angular.bootstrap(document, ['ApiAdmin']);
+            angular.bootstrap(document, ['nodulus']);
         });
     }

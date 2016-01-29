@@ -9,7 +9,7 @@
   
  
 
-angular.module('ApiAdmin').controller("ModulesController", function ($http, $scope, $Alerts, $IDE, $translate, $resource, $Language , $mdDialog, $TreeMenu) {
+angular.module('nodulus').controller("ModulesController", function ($http, $scope, $Alerts, $IDE, $translate, $resource, $Language , $mdDialog, $TreeMenu) {
 
 
     $scope.LoadAbout = function (pack) {

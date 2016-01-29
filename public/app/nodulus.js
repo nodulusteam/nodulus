@@ -89,7 +89,7 @@ var providers = {};
 //'schemaForm'
 
 
-var DynamicData = angular.module('ApiAdmin', nodulus_dependecies)
+var DynamicData = angular.module('nodulus', nodulus_dependecies)
     .config(['$controllerProvider', '$resourceProvider', '$routeProvider', '$mdThemingProvider', '$compileProvider', '$provide', '$injector', '$translateProvider',
     function ($controllerProvider, $resourceProvider, $routeProvider, $mdThemingProvider, $compileProvider, $provide, $injector, $translateProvider) {
         // $resourceProvider.defaults.stripTrailingSlashes = false;
@@ -101,7 +101,7 @@ var DynamicData = angular.module('ApiAdmin', nodulus_dependecies)
             $injector: $injector
         };
         
-        
+        $translateProvider.useSanitizeValueStrategy(null);
         $translateProvider.useUrlLoader('/translations/languages');
         
         
@@ -637,6 +637,8 @@ function initSocketEvents($scope, $User, $Config, $Alerts) {
         if (!socketsInitialized) {
             
             socket = io(location.origin);
+            
+            
             //$Config.site.appRoot + ":" + $Config.site.po  rt
             if ($User.User !== null)
                 if ($User.User._id)
@@ -653,6 +655,7 @@ function initSocketEvents($scope, $User, $Config, $Alerts) {
                     $Alerts.add({ type: 'success', msg: 'client connected', autoClose: 10000000, 'icon': 'fa fa-check' });
                 });
             });
+           
         }
     });
 }

@@ -1,6 +1,6 @@
 ﻿
 
-angular.module('ApiAdmin').controller('WebsiteController', ['$scope', '$Config', '$resource', '$location', '$compile', '$mdDialog', '$Theme', function ($scope, $Config, $resource, $location, $compile, $mdDialog, $Theme) {
+angular.module('nodulus').controller('WebsiteController', ['$scope', '$Config', '$resource', '$location', '$compile', '$mdDialog', '$Theme', function ($scope, $Config, $resource, $location, $compile, $mdDialog, $Theme) {
         
         $scope.$Theme = $Theme;
         $scope.FullSize = false;
