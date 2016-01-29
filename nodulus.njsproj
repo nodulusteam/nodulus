@@ -30,6 +30,7 @@
     <Content Include="nodulus_modules\cms.zip" />
     <Content Include="nodulus_modules\modules.zip" />
     <Content Include="nodulus_modules\schemas.zip" />
+    <Content Include="nodulus_modules\scripter.zip" />
     <Content Include="nodulus_modules\translations.zip" />
     <Content Include="nodulus_modules\users.zip" />
     <Content Include="platform-images\login-screen.jpg" />
