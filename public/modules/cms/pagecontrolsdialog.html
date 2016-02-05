@@ -1,0 +1,91 @@
+﻿ 
+
+
+<md-dialog aria-label="Category information" style="width: 80%">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Components
+        </div>
+        <div class="panel-body">
+            <form style="padding: 20px;" name="CategoryForm">
+
+
+                <div class="form-group">
+                    <label>Name</label>
+                    <input required name="name" ng-model="EditCategory.label" class="form-control">
+                    <div ng-messages="CategoryForm.name.$error">
+                        <div ng-message="required">This is required.</div>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Alias</label>
+                    <input required name="alias" ng-model="EditCategory.Alias" class="form-control">
+                    <div ng-messages="CategoryForm.alias.$error">
+                        <div ng-message="required">This is required.</div>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Url</label>
+                    <input required name="Url" ng-model="EditCategory.Url" class="form-control">
+                    <div ng-messages="CategoryForm.Url.$error">
+                        <div ng-message="required">This is required.</div>
+
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-default btn-sm pull-left" ng-click="Cancel()">
+                <i class="glyphicon glyphicon-edit"></i> Cancel
+
+            </a>
+            <a class="btn btn-primary btn-sm pull-right" ng-click="Update()">
+                <i class="glyphicon glyphicon-ok"></i> OK
+
+            </a> &nbsp;
+
+
+            <div style="clear: both;"></div>
+        </div>
+
+    </div>
+
+
+
+</md-dialog>
+
+
+
+
+
+
+<!--<md-dialog aria-label="Category information" style="width: 50%" layout md-theme="{{$Theme.theme}}">
+    <md-content>
+
+
+        <div ng-controller="CategoryDialog" id="CategoryDialogScope">
+
+            <md-toolbar md-theme="{{$Theme.theme}}">
+                <h1 class="md-toolbar-tools">Category information </h1>
+
+            </md-toolbar>
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+    </md-content>
+
+</md-dialog>-->

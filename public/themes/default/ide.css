@@ -318,3 +318,7 @@ md-dialog .panel {
 .link {
     cursor: pointer;
 }
+
+.panel-group .panel {
+   overflow: visible;
+}

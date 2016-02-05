@@ -39,8 +39,10 @@
     <Content Include="public\modules\cms\about.html" />
     <Content Include="public\modules\cms\CMS.html" />
     <Content Include="public\modules\cms\cms_nav.html" />
+    <Content Include="public\modules\cms\layouts.html" />
     <Content Include="public\modules\cms\manifest.json" />
     <Content Include="public\modules\cms\nav.html" />
+    <Content Include="public\modules\cms\pagecontrolsdialog.html" />
     <Content Include="public\modules\cms\TreeMenu.html" />
     <Content Include="public\modules\modules\about.html" />
     <Content Include="public\modules\modules\manifest.json" />
@@ -84,7 +86,9 @@
     <Content Include="README.md" />
     <Compile Include="app.js" />
     <Compile Include="classes\socket.js" />
+    <Compile Include="public\modules\cms\scripts\pagecontrolsdialog.js" />
     <Compile Include="public\modules\cms\CMS.js" />
+    <Compile Include="public\modules\cms\layouts.js" />
     <Compile Include="public\modules\cms\scripts\nav.js" />
     <Compile Include="public\modules\modules\modules.js" />
     <Compile Include="public\modules\modules\template\routes\template.js" />
@@ -1317,6 +1321,7 @@
     <Folder Include="classes" />
     <Folder Include="classes\impl" />
     <Folder Include="config" />
+    <Folder Include="typings\" />
     <Folder Include="nodulus_modules\" />
     <Folder Include="platform-images\" />
     <Folder Include="public\modules\" />
@@ -1606,6 +1611,12 @@
     <Folder Include="public\themes\superhero" />
     <Folder Include="public\themes\themes" />
     <Folder Include="public\themes\United" />
+    <Folder Include="typings\node\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="app.ts" />
+    <TypeScriptCompile Include="classes\startup.ts" />
+    <TypeScriptCompile Include="typings\node\node.d.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <!--Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them.-->
