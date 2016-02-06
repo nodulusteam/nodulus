@@ -25,6 +25,7 @@
     <Content Include="config\menus.json" />
     <Content Include="config\nodulus.json" />
     <Content Include="modules.json" />
+    <Compile Include="classes\socket.js" />
     <Compile Include="gulpfile.js" />
     <Compile Include="public\app\modules.js" />
     <Content Include="nodulus_modules\cms.zip" />
@@ -85,7 +86,6 @@
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Compile Include="app.js" />
-    <Compile Include="classes\socket.js" />
     <Compile Include="public\modules\cms\scripts\pagecontrolsdialog.js" />
     <Compile Include="public\modules\cms\CMS.js" />
     <Compile Include="public\modules\cms\layouts.js" />
@@ -1615,6 +1615,11 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app.ts" />
+    <TypeScriptCompile Include="classes\api.ts" />
+    <TypeScriptCompile Include="classes\config.ts" />
+    <TypeScriptCompile Include="classes\dal.ts" />
+    <TypeScriptCompile Include="classes\impl\mongodb.ts" />
+    <TypeScriptCompile Include="classes\socket.ts" />
     <TypeScriptCompile Include="classes\startup.ts" />
     <TypeScriptCompile Include="typings\node\node.d.ts" />
   </ItemGroup>
