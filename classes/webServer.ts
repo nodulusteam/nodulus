@@ -6,16 +6,17 @@
  |_| |_|\___/ \__,_|\__,_|_|\__,_|___/
  @ewave open source | ©Roi ben haim  ®2016    
  */
-  
- 
-var _webServer = (function () {    
-    var config = require('./config.js');   
+
+
+/// <reference path="../typings/node/node.d.ts" /> 
+var _webServer = (function () {
+    var config = require('./config.js');
     function _start(server, app, callback) {
         
         var activeport = config.appSettings().port;
         if (process.env.PORT !== undefined)
             activeport = process.env.PORT;
-       
+        
         server.listen(activeport, function () {
             
             console.log('*** nodulus is running on port ' + activeport);
@@ -27,8 +28,8 @@ var _webServer = (function () {
 
             
         });
-
-
+        
+        
         app.get('/', function (req, res) {
             var options = {
                 root: global.appRoot,
@@ -50,7 +51,7 @@ var _webServer = (function () {
         return url.split('?')[0];
 
     }
-
+    
     return {
         start: _start
     };

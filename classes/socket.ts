@@ -6,7 +6,7 @@
  |_| |_|\___/ \__,_|\__,_|_|\__,_|___/
  @ewave open source | ©Roi ben haim  ®2016    
  */
-/// <reference path="../typings/node/node.d.ts" />
+/// <reference path="../typings/node/node.d.ts" /> 
 
 var socketuse = function (io) {    
     //var dal = require('./dal');    
