@@ -1609,6 +1609,13 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app.ts" />
+    <TypeScriptCompile Include="classes\api.ts" />
+    <TypeScriptCompile Include="classes\config.ts" />
+    <TypeScriptCompile Include="classes\dal.ts" />
+    <TypeScriptCompile Include="classes\impl\mongodb.ts" />
+    <TypeScriptCompile Include="classes\socket.ts" />
+    <TypeScriptCompile Include="classes\startup.ts" />
+    <TypeScriptCompile Include="classes\webServer.ts" />
     <TypeScriptCompile Include="typings\node\node.d.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />

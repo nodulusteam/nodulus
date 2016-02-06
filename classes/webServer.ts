@@ -32,7 +32,7 @@ var _webServer = (function () {
         
         app.get('/', function (req, res) {
             var options = {
-                root: global.appRoot,
+                root: global["appRoot"],
                 dotfiles: 'deny',
                 headers: {
                     'x-timestamp': Date.now(),
