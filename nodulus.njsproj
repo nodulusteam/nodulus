@@ -25,7 +25,6 @@
     <Content Include="config\menus.json" />
     <Content Include="config\nodulus.json" />
     <Content Include="modules.json" />
-    <Compile Include="classes\socket.js" />
     <Compile Include="gulpfile.js" />
     <Compile Include="public\app\modules.js" />
     <Content Include="nodulus_modules\cms.zip" />
@@ -116,10 +115,6 @@
     <Compile Include="routes\scripter.js" />
     <Compile Include="routes\translations.js" />
     <Compile Include="routes\users.js" />
-    <Compile Include="classes\api.js" />
-    <Compile Include="classes\config.js" />
-    <Compile Include="classes\dal.js" />
-    <Compile Include="classes\webServer.js" />
     <Content Include="config\client.json" />
     <Content Include="config\site.json" />
     <Content Include="public\default.html" />
@@ -127,7 +122,6 @@
     <Content Include="public\favicon.png" />
     <Compile Include="public\app\nodulus.js" />
     <Compile Include="public\app\ide.js" />
-    <Compile Include="classes\impl\mongodb.js" />
     <Content Include="public\partials\manage\Websites.html" />
     <Compile Include="public\partials\manage\Websites.js" />
     <Content Include="public\config\client.json" />
@@ -1615,12 +1609,6 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app.ts" />
-    <TypeScriptCompile Include="classes\api.ts" />
-    <TypeScriptCompile Include="classes\config.ts" />
-    <TypeScriptCompile Include="classes\dal.ts" />
-    <TypeScriptCompile Include="classes\impl\mongodb.ts" />
-    <TypeScriptCompile Include="classes\socket.ts" />
-    <TypeScriptCompile Include="classes\startup.ts" />
     <TypeScriptCompile Include="typings\node\node.d.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
