@@ -30,14 +30,15 @@
 <div class="container-full" style="height: {{PaneHeight-150}}px;direction: {{$Language.language.direction}}">
     
     <div id="sidebar" class="col-lg-2 col-md-3 col-sm-3 col-xs-3 sidebar" style="height: {{PaneHeight}}px;">
+       
         <div ng-repeat="menu in $TreeMenu.Menus" layout="column">
 
           
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
+              
 
-
-                <nav-loader navname="{{menu.navname}}"></nav-loader>
+                <nav-loader navname="menu.navname" module="menu"></nav-loader>
 
                 <!--<div class="panel panel-primary">
                     <div class="panel-heading" role="tab" id="{{menu.name}}">

@@ -4,7 +4,7 @@
         var instance = this;
         this.ActiveTreeNode = {};
         this.Tabs = [];
-         
+        this.TabsObject = {};
 
         this.ShowLobby = function (item, itemUrl) {
           
@@ -36,15 +36,23 @@
             
             
             //item.Url = "schemas.html";
+            
+             
+
             var tabPane = $("<div data-any-lobby=\"" + itemUrl + "\" itemkey='" + item.itemKey + "' schemaid='" + item.schemaid + "'></div>");
             tabwrapper = $("<div></div>");
             tabwrapper.append(tabPane);
             $("#TabContainer").append(tabwrapper);
             // item.tabPane = tabPane;
             var element = angular.element(tabPane);
-            instance.Tabs.push(item);  
-            var $scope = angular.element("#TabsCollection").scope();
-            $compile(tabwrapper.contents())($scope);
+            instance.Tabs.push(item);
+            instance.TabsObject[item.itemKey] = item;
+             
+            
+            var tabScope = element.scope();
+            //var tabScope = $scope.$new(true);
+            tabScope.item = item;
+            $compile(tabwrapper.contents())(tabScope);
             instance.focusMe(item.itemKey);
 
 

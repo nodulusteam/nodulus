@@ -620,9 +620,14 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
 }).directive('navLoader', function ($compile) {
     return {
         restrict: 'E',
+        scope: {
+            "navname": "=",
+            "module": "="
+
+        },
         link: function (scope, elem, attrs) {
             
-            var htm = '<div>' + '<' + attrs.navname + '></' + attrs.navname + '></div>';
+            var htm = '<div>' + '<' + scope.navname + '></' + scope.navname + '></div>';
             var compiled = $compile(htm)(scope);
             elem.append(compiled);
      

@@ -17,6 +17,14 @@ angular.module('nodulus').controller("ModulesController", function ($http, $scop
         var module = pack.module;
         $IDE.ShowLobby({"label": module.name, _id: module.name +"_about"}, "modules/" + module.name + "/about.html");
     }
+    
+    
+    $scope.Configure = function (pack) {
+        
+        var module = pack.module;
+        $IDE.ShowLobby({ "label": module.name, _id: module.name + "_configuration" , configModule: pack }, "modules/modules/configuration.html");
+    }
+
     $scope.getModules = function (str)
     {
         

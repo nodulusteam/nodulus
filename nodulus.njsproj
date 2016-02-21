@@ -29,11 +29,13 @@
     <Compile Include="gulpfile.js" />
     <Compile Include="public\app\modules.js" />
     <Content Include="nodulus_modules\cms.zip" />
+    <Content Include="nodulus_modules\codulus.zip" />
     <Content Include="nodulus_modules\modules.zip" />
     <Content Include="nodulus_modules\schemas.zip" />
     <Content Include="nodulus_modules\scripter.zip" />
     <Content Include="nodulus_modules\translations.zip" />
     <Content Include="nodulus_modules\users.zip" />
+    <Content Include="nodulus_modules\zipem.zip" />
     <Content Include="platform-images\login-screen.jpg" />
     <Content Include="platform-images\modules.jpg" />
     <Content Include="public\config\module_map.json" />
@@ -45,14 +47,21 @@
     <Content Include="public\modules\cms\nav.html" />
     <Content Include="public\modules\cms\pagecontrolsdialog.html" />
     <Content Include="public\modules\cms\TreeMenu.html" />
+    <Content Include="public\modules\codulus\about.html" />
+    <Content Include="public\modules\codulus\codulus.html" />
+    <Content Include="public\modules\codulus\codulus_nav.html" />
+    <Content Include="public\modules\codulus\manifest.json" />
+    <Content Include="public\modules\codulus\nav.html" />
     <Content Include="public\modules\modules\about.html" />
+    <Content Include="public\modules\modules\modules_nav.html" />
     <Content Include="public\modules\modules\manifest.json" />
+    <Content Include="public\modules\modules\configuration.html" />
     <Content Include="public\modules\modules\modules.html" />
+    <Content Include="public\modules\modules\nav.html" />
     <Content Include="public\modules\modules\template\about.html" />
     <Content Include="public\modules\modules\template\manifest.json" />
     <Content Include="public\modules\modules\template\template.html" />
     <Content Include="public\modules\schemas\about.html" />
-    <Content Include="public\modules\scripter\block-gallery.html" />
     <Content Include="public\modules\schemas\confirmDialog.html" />
     <Content Include="public\modules\schemas\designer.html" />
     <Content Include="public\modules\schemas\item.html" />
@@ -64,12 +73,6 @@
     <Content Include="public\modules\schemas\Schemas.html" />
     <Content Include="public\modules\schemas\SchemaTreeMenu.html" />
     <Content Include="public\modules\schemas\subform.html" />
-    <Content Include="public\modules\scripter\about.html" />
-    <Content Include="public\modules\scripter\pipeline.html" />
-    <Content Include="public\modules\scripter\scripter_nav.html" />
-    <Content Include="public\modules\scripter\manifest.json" />
-    <Content Include="public\modules\scripter\nav.html" />
-    <Content Include="public\modules\scripter\scripter.html" />
     <Content Include="public\modules\translations\about.html" />
     <Content Include="public\modules\translations\Language.html" />
     <Content Include="public\modules\translations\Languages.html" />
@@ -77,6 +80,9 @@
     <Content Include="public\modules\users\about.html" />
     <Content Include="public\modules\users\manifest.json" />
     <Content Include="public\modules\schemas\schemaDialog.html" />
+    <Content Include="public\modules\zipem\about.html" />
+    <Content Include="public\modules\zipem\manifest.json" />
+    <Content Include="public\modules\zipem\zipem.html" />
     <Content Include="public\partials\manage\Website.html" />
     <Content Include="public\partials\SchemaTreeMenu.html" />
     <Content Include="public\styles\bootstrap.rtl.css" />
@@ -89,7 +95,11 @@
     <Compile Include="public\modules\cms\CMS.js" />
     <Compile Include="public\modules\cms\layouts.js" />
     <Compile Include="public\modules\cms\scripts\nav.js" />
+    <Compile Include="public\modules\codulus\codulus.js" />
+    <Compile Include="public\modules\codulus\scripts\nav.js" />
+    <Compile Include="public\modules\modules\configuration.js" />
     <Compile Include="public\modules\modules\modules.js" />
+    <Compile Include="public\modules\modules\scripts\nav.js" />
     <Compile Include="public\modules\modules\template\routes\template.js" />
     <Compile Include="public\modules\modules\template\template.js" />
     <Compile Include="public\modules\schemas\designer.js" />
@@ -99,20 +109,11 @@
     <Compile Include="public\modules\schemas\Schemas.js" />
     <Compile Include="public\modules\schemas\scripts\bootstrap-decorator.min.js" />
     <Compile Include="public\modules\schemas\scripts\papaparse.min.js" />
-    <Compile Include="public\modules\scripter\pipeline.js" />
-    <Compile Include="public\modules\scripter\scripter.js" />
-    <Compile Include="public\modules\scripter\scripts\bootstrap-dialog.js" />
-    <Compile Include="public\modules\scripter\scripts\scripterShell.js" />
-    <Compile Include="public\modules\scripter\scripts\sortable.js" />
-    <Compile Include="public\modules\scripter\scripts\toolbox.js" />
     <Compile Include="public\modules\translations\Language.js" />
     <Compile Include="public\modules\translations\Languages.js" />
+    <Compile Include="public\modules\zipem\zipem.js" />
     <Compile Include="public\partials\manage\Website.js" />
     <Compile Include="public\scripts\socket.io-1.3.5.js" />
-    <Compile Include="routes\cms.js" />
-    <Compile Include="routes\modules.js" />
-    <Compile Include="routes\schemas.js" />
-    <Compile Include="routes\scripter.js" />
     <Compile Include="routes\translations.js" />
     <Compile Include="routes\users.js" />
     <Content Include="config\client.json" />
@@ -1315,6 +1316,11 @@
     <Folder Include="classes" />
     <Folder Include="classes\impl" />
     <Folder Include="config" />
+    <Folder Include="public\modules\codulus\" />
+    <Folder Include="public\modules\codulus\scripts\" />
+    <Folder Include="public\modules\modules\scripts\" />
+    <Folder Include="public\modules\zipem\" />
+    <Folder Include="public\modules\zipem\scripts\" />
     <Folder Include="typings\" />
     <Folder Include="nodulus_modules\" />
     <Folder Include="platform-images\" />
@@ -1327,8 +1333,6 @@
     <Folder Include="public\modules\schemas\" />
     <Folder Include="public\modules\schemas\scripts\" />
     <Folder Include="public\app\" />
-    <Folder Include="public\modules\scripter\" />
-    <Folder Include="public\modules\scripter\scripts\" />
     <Folder Include="public\modules\translations\" />
     <Folder Include="public\modules\users\" />
     <Folder Include="public\modules\users\scripts\" />
@@ -1616,6 +1620,9 @@
     <TypeScriptCompile Include="classes\socket.ts" />
     <TypeScriptCompile Include="classes\startup.ts" />
     <TypeScriptCompile Include="classes\webServer.ts" />
+    <TypeScriptCompile Include="routes\modules.ts">
+      <Publish>True</Publish>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="typings\node\node.d.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />

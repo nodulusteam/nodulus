@@ -7,6 +7,13 @@
  @ewave open source | ©Roi ben haim  ®2016    
  */
 /// <reference path="typings/node/node.d.ts" />
+/// <reference path="classes/startup" />
+
+ 
 global["appRoot"] = __dirname;
-var app = require('./classes/startup.js');
-module.exports = app;
+import * as nodulus from "./classes/startup";
+
+module.exports = new nodulus.Startup();
+
+
+ 

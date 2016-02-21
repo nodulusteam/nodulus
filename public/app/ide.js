@@ -404,7 +404,7 @@ angular.module('nodulus').controller('ideController', function ($scope, $User, $
     return {
         templateUrl: 'partials/any.html',
         link: function (scope, element, attr, $compile) {
-            
+            debugger
             var queueLen = angular.module('nodulus')._invokeQueue.length;
             
             var scriptSrc = attr.anyLobby.replace(".aspx", ".js");
@@ -428,7 +428,7 @@ angular.module('nodulus').controller('ideController', function ($scope, $User, $
             
             // element.append("<div ng-include=\"'" + scope.InsidePartial + "'\" aria-label=''></div> ");
             
-            
+             
             
             // Register the controls/directives/services we just loaded
             var queue = angular.module('nodulus')._invokeQueue;
@@ -449,8 +449,9 @@ angular.module('nodulus').controller('ideController', function ($scope, $User, $
                 }
             }
             
-           
+          
             var c = element.injector().invoke(function ($compile) {
+                 
                 $compile(element.contents())(scope);
             }, this, scope);
            
@@ -494,6 +495,7 @@ angular.module('nodulus').controller('ideController', function ($scope, $User, $
         
         //},
         scope: {
+            'itemobject': '@itemobject',
             'itemKey': '@itemkey',
             'schemaid': '@', // OK
             'lcid': '@lcid', // OK
@@ -743,27 +745,34 @@ angular.module('nodulus').controller('ideController', function ($scope, $User, $
 })
 .service("$TreeMenu", function ($resource, $mdDialog, $mdBottomSheet) {
     
-    var TreeResource = $resource("/modules/navigation");
+    var TreeResource = $resource("/modules/listnav");
     var instance = this;
     instance.initTreeMenu = function () {
         TreeResource.query(function (data) {
             
              
-            var navs = data.items;
             
+            instance.Menus = [];
+            for (var i = 0; i < data.length; i++) {
+                data[i].module = data[i].module.name;
+                instance.Menus.push(data[i]);
+            }
+         
             instance.treeOptions = {
                 nodeChildren: "Children"
             };
-             
             
-            instance.Menus = [
-                { "module": "cms", navname: "cms-nav" },
-                { "module": "schemas", navname: "schemas-nav" },
-                { "module": "scripter", navname: "scripter-nav" }
-            ];
+           
+
+            
+            //instance.Menus = [
+            //    { "module": "cms", navname: "cms-nav" },
+            //    { "module": "schemas", navname: "schemas-nav" },
+            //    { "module": "scripter", navname: "scripter-nav" }
+            //];
             
             
-            instance.Menu = navs;
+            //instance.Menu = navs;
             
           
         });
