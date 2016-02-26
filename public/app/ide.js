@@ -9,39 +9,14 @@
   
 "use strict";
 
-angular.module('nodulus').controller('ideController', function ($scope, $User, $TreeMenu, $resource, $location, $compile,
+angular.module('nodulus').controller('ideController', 
+    function ($scope, $User, $TreeMenu, $resource, $location, $compile,
      $Language, $mdSidenav, $mdBottomSheet, $Theme, $mdDialog, $Cache, $IDE) {
     $scope.$Theme = $Theme;
     $scope.$User = $User;
     $scope.$TreeMenu = $TreeMenu;
     $scope.$IDE = $IDE;
-    //$scope.Language = $Language.getActive();
     $scope.$Language = $Language;
-    
-    
-    //var setupRes = $resource("/modules/list");
-    //setupRes.query({}, function (data) {
-    
-    //    for (var x = 0; x < data.length; x++) {
-    //        var module_name = data[x].module.name;
-    //        var module = data[x];
-    //        if (module.scripts !== undefined) {
-    //            for (var i = 0; i < module.scripts.length; i++) {
-    
-    //                var script = document.createElement('script');
-    //                script.type = 'text/javascript';
-    //                script.async = false;   
-    //                script.src ="modules/" +  module_name +"/scripts/" +  module.scripts[i];                    
-    //                document.getElementsByTagName('head')[0].appendChild(script);
-    
-    //            }
-    
-    //        }
-    //    }
-    
-    //})
-    
-    
     
     if (localStorage.getItem("ApiUser") !== undefined) {
         $scope.User = JSON.parse(localStorage.getItem("ApiUser"));
@@ -60,7 +35,6 @@ angular.module('nodulus').controller('ideController', function ($scope, $User, $
     $scope.ShowSettings = false;
     $scope.toggleRight = function () {
         $scope.ShowSettings = !$scope.ShowSettings;
-        //$mdSidenav('right').toggle();
     }
     
     $scope.GetLanguageName = function (lcid) {
@@ -69,7 +43,6 @@ angular.module('nodulus').controller('ideController', function ($scope, $User, $
     
     $scope.ActiveTreeNode = {};
     $scope.selectedTabIndex = 0;
-    
     
     $scope.EditItem = function (item) {
         item.Name = item.name;
@@ -84,13 +57,9 @@ angular.module('nodulus').controller('ideController', function ($scope, $User, $
         tabwrapper = $("<div></div>");
         tabwrapper.append(tabPane);
         $("#TabContainer").append(tabwrapper);
-        //item.tabPane = tabPane;
         var element = angular.element(tabPane);
-        
         $compile(tabwrapper.contents())($scope);
         $scope.focusMe(itemKey);
-
-
     }
     
     $scope.showSelected = function (node) {
@@ -101,60 +70,32 @@ angular.module('nodulus').controller('ideController', function ($scope, $User, $
     }
     
     $scope.loadSelected = function (node, expanded) {
-        
-        
-        
         if (node !== undefined && expanded && node.Children != null && node.Children.length === undefined) {
-            
             $scope.TreeLoading = true;
             $scope.subTreeResource.get({ ParentId: node.Id, skeletonid: node.skeletonId, lcid: 1037 }, function (data) {
-                
-                
-                //for (var i = 0; i < data.items.length; i++)
-                //    if (data.items[i].Left + 1 < data.items[i].Right)
-                //        data.items[i].Children = {};
-                
                 node.Children = data.items;
                 $scope.TreeLoading = false;
-                // $scope.$apply(node.Children);
             });
-
         }
     }
     
-    
-    
-    
-    
     $scope.showTreeBottomSheet = function ($event, node) {
-        
         $scope.alert = '';
-        
         $mdBottomSheet.show({
             templateUrl: 'partials/TreeMenu.html',
             controller: 'TreeMenuCtrl',
             targetEvent: $event
         }).then(function (clickedItem) {
-            
             clickedItem.method($event);
-            //$scope.alert = clickedItem.name + ' clicked!';
         });
     };
     
-    
-    
     $TreeMenu.initTreeMenu();
-    
-    
-    
     
     $scope.SetActiveMenu = function (menu) {
         $scope.ActiveMenu = menu;
     }
     $scope.ActiveMenu = null;
-     
-
-
 })
 
 .controller('CategoryDialog', function ($scope, $resource, $location, $compile, $mdDialog, $Theme, $Config, $EditCategory, $NodeCollection, $rootScope, $Cache) {
@@ -171,15 +112,9 @@ angular.module('nodulus').controller('ideController', function ($scope, $User, $
     $scope.LoadData = function (boneid) {
         $scope.RequestActive = true;
         lobbyResource.get({ boneid: boneid }, function (data) {
-            
-            
             $scope.EditCategory = data;
-          
         });
-
-
     }
-    
     
     $scope.LoadForParent = function (parentid) {
         $scope.RequestActive = true;
@@ -187,28 +122,20 @@ angular.module('nodulus').controller('ideController', function ($scope, $User, $
             $scope.RequestActive = false;
             $scope.Results = data.d;
         });
-
-
     }
     
     $scope.Update = function () {
-        
-        
-        
         $scope.RequestActive = true;
         lobbyResource.save($scope.EditCategory, function (data) {
             $NodeCollection.push($scope.EditCategory);
             $scope.RequestActive = false;
             $mdDialog.hide();
         });
-        
-
-
     };
+    
     $scope.Cancel = function () {
         $mdDialog.hide();
     };
-
 })
 
 
@@ -217,24 +144,18 @@ angular.module('nodulus').controller('ideController', function ($scope, $User, $
      $Alerts, $location, $compile, $Language, $mdSidenav, $mdBottomSheet, $Theme, $translate, $IDE) {
     
     $scope.Languages = $Language.languages;
-    $scope.Language = $Language.getByLCID(localStorage.getItem("lcid"));    
+    $scope.Language = $Language.getByLCID(localStorage.getItem("lcid"));
     if ($scope.Language !== undefined && $scope.Language.direction == 'rtl') {
         $('link[id="languageCssfile"]').attr('href', "styles/bootstrap.rtl.css");
     }
-     
+    
     $scope.SetLanguage = function () {
         $Language.set($scope.Language).$promise.then(function (response) {
-            
-            
             $translate.use($scope.Language.shortname);
             $translate.preferredLanguage($scope.Language.shortname);
             $translate.fallbackLanguage($scope.Language.shortname);
             $translate.refresh();
-            
-            
-            
             localStorage.setItem("lcid", $scope.Language.lcid);
-            
             if ($scope.Language !== undefined && $scope.Language.direction == 'rtl') {
                 $('link[id="languageCssfile"]').attr('href', "styles/bootstrap.rtl.css");
             } else {
@@ -245,25 +166,10 @@ angular.module('nodulus').controller('ideController', function ($scope, $User, $
            
                 }
             }
-                   
-            //var resourceSetResolves = {};
-            //var arr = angular.fromJson(response.Results);
-            //for (var i = 0; i < arr.length; i++) {                
-            //    resourceSetResolves[arr[i].Key] = arr[i].Value;
-            //}
-            ////$scope.DataTables = data.Tables;
-            //$scope.LNG = resourceSetResolves;
-            
-            //angular.element("html").scope().LNG = resourceSetResolves;
-            //$scope.$apply(angular.element("html").scope());
-
-
         });
-
     }
     
     $scope.Theme = $Theme.theme;
-    
     
     $scope.Themes = ["amelia", "blooming", "cerulean", "desert" , "paper", "green", "readable", "simplex", "spacelab", "Liquorice Schnitzel", "flat", "cyborg", "United", "superhero", "journal", "Lumen"];
     var theme = localStorage.getItem("theme");
@@ -281,27 +187,6 @@ angular.module('nodulus').controller('ideController', function ($scope, $User, $
             localStorage.setItem("theme", theme_name);
         }
     });
-    
-
-  
-    //$scope.SetTheme = function (theme) {
-    
-    //    $Theme.setTheme($scope.Theme);
-    //    //$scope.$parent.$parent.Theme = $scope.Theme;
-    //    $scope.bootstrapThemeLink = "themes/" + $scope.Theme;
-    //    var stylers = $('link[styler="true"]');
-    //    stylers.each(function () {
-    
-    //        $(this).attr('href', $scope.bootstrapThemeLink + $(this).attr("styler-path"));
-    //    })
-    
-    
-    
-    //    localStorage.setItem("theme", $scope.Theme);
-    //}
-    //$scope.Themes = ['default', 'amber', 'blue', 'brown', 'cyan', 'deep-orange', 'grey', 'red', 'teal', 'pink', 'lime', 'green'];
-  
-
 })
 .directive('ckEditor', [function () {
         return {
@@ -391,20 +276,14 @@ angular.module('nodulus').controller('ideController', function ($scope, $User, $
                 $compile(element.contents())(scope);
                 
                 element.scope().ParentCategory = scope.ParentCategory;
-
-                    // $(element).css("opacity", "100");
             });
-
-
         }
-
     };
 })
 .directive('anyLobby', function () {
     return {
         templateUrl: 'partials/any.html',
         link: function (scope, element, attr, $compile) {
-            debugger
             var queueLen = angular.module('nodulus')._invokeQueue.length;
             
             var scriptSrc = attr.anyLobby.replace(".aspx", ".js");
@@ -425,14 +304,9 @@ angular.module('nodulus').controller('ideController', function ($scope, $User, $
             scope.InsidePartial = src;
             
             $("div", element).html("<div ng-include=\"'" + scope.InsidePartial + "'\" aria-label=''></div> ");
-            
-            // element.append("<div ng-include=\"'" + scope.InsidePartial + "'\" aria-label=''></div> ");
-            
-             
-            
             // Register the controls/directives/services we just loaded
             var queue = angular.module('nodulus')._invokeQueue;
-           
+            
             for (var i = queueLen; i < queue.length; i++) {
                 var call = queue[i - 1];
                 
@@ -449,51 +323,15 @@ angular.module('nodulus').controller('ideController', function ($scope, $User, $
                 }
             }
             
-          
+            
             var c = element.injector().invoke(function ($compile) {
-                 
+                
                 $compile(element.contents())(scope);
             }, this, scope);
            
             
 
-        },
-        //    compile: function (element, attributes) {
-        //        return {
-        //            pre: function (scope, element, attributes, controller, transcludeFn) {                     
-        
-        
-        //            },
-        //            post: function (scope, element, attributes, controller, transcludeFn) {
-        
-        
-        //                //element.injector().invoke(function ($compile) {
-        
-        //                //    $compile(element)(scope)
-        //                //    scope.$apply();
-        //                //});
-        
-        
-        //                alert(ProfilesController);
-        
-        //            }
-        
-        //        //    ,
-        //        //link: function (scope, element, attr) {             
-        //        //    var src = attr.anyLobby.replace(".aspx", ".html");
-        //        //    scope.InsidePartial = "partials/manage/" +  src;
-        //        //}
-        //}
-        //    },
-        
-        
-        
-        
-        //controller: function () {
-        
-        
-        
-        //},
+        }, 
         scope: {
             'itemobject': '@itemobject',
             'itemKey': '@itemkey',
@@ -507,13 +345,7 @@ angular.module('nodulus').controller('ideController', function ($scope, $User, $
     return {
         replace: true,
         link: function (scope, element, attrs) {
-            
-            
-            
             attrs.$observe("staticInclude", function (newVal, oldVal) {
-                
-                
-                
                 var templatePath = attrs.staticInclude;
                 if (templatePath == "")
                     return;
@@ -532,13 +364,13 @@ angular.module('nodulus').controller('ideController', function ($scope, $User, $
                         
                         
                         var contents = element.html(response).contents();
-                        //$(element).addClass("animated").addClass("fadeIn").removeClass("fadeOut");
+                        
                         
                         $compile(contents)(scope);
                         
                         var invoker = $parse(attrs.complete);
                         invoker(scope);
-                        //$(".articlelistposition .articleBannerWrapper").addClass("animated").addClass("zoomInLeft").removeClass("zoomOutRight");
+                         
                        // ngProgress.complete();
                     });
 
@@ -550,7 +382,7 @@ angular.module('nodulus').controller('ideController', function ($scope, $User, $
             })
         }
     }
-}) 
+})
 .directive('egenPage', function () {
     return {
         templateUrl: 'partials/page.html',
@@ -750,30 +582,19 @@ angular.module('nodulus').controller('ideController', function ($scope, $User, $
     instance.initTreeMenu = function () {
         TreeResource.query(function (data) {
             
-             
+            
             
             instance.Menus = [];
             for (var i = 0; i < data.length; i++) {
                 data[i].module = data[i].module.name;
                 instance.Menus.push(data[i]);
             }
-         
+            
             instance.treeOptions = {
                 nodeChildren: "Children"
             };
             
-           
-
-            
-            //instance.Menus = [
-            //    { "module": "cms", navname: "cms-nav" },
-            //    { "module": "schemas", navname: "schemas-nav" },
-            //    { "module": "scripter", navname: "scripter-nav" }
-            //];
-            
-            
-            //instance.Menu = navs;
-            
+ 
           
         });
     };

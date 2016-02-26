@@ -152,8 +152,12 @@
     <div class="col-md-3 show-grid pull-right" style="position: absolute;bottom: 0; right: 0;">
         <uib-alert ng-repeat="alert in $Alerts.alerts"
                    type="{{alert.type}}"
-                   dismiss-on-timeout="5000"
-                   close="$Alerts.remove(alert)"><span class="{{alert.icon}}"></span>{{alert.msg}}</uib-alert>
+                   dismiss-on-timeout="{{alert.timeout}}"
+                   close="$Alerts.remove(alert)">
+            <span class="{{alert.icon}}"></span>
+            <p ng-bind-html="alert.msg"></p>
+             
+        </uib-alert>
     </div>
 
 
