@@ -96,6 +96,19 @@ angular.module('nodulus').controller('ideController',
         $scope.ActiveMenu = menu;
     }
     $scope.ActiveMenu = null;
+
+    $scope.Refresh = function (tab) {
+        
+        debugger;
+
+        var refresh_delegate = angular.element("#" + tab.itemKey +" div[ng-controller]").scope().refresh;
+        if (refresh_delegate)
+            refresh_delegate();
+
+    
+    
+    }
+
 })
 
 .controller('CategoryDialog', function ($scope, $resource, $location, $compile, $mdDialog, $Theme, $Config, $EditCategory, $NodeCollection, $rootScope, $Cache) {

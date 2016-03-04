@@ -8,7 +8,7 @@ angular.module('nodulus_modules', ['ngMaterial', 'nodulus', 'ui.bootstrap'])
             var module = $scope.module;
             $scope.$Language = $Language;        
             $scope.menu = {
-                id: module.module, 'name': module.module , icon: 'fa fa-folder-open', type: 'categories',
+                id: module.module, 'name': "Modules" , icon: 'fa fa-folder-open', type: 'categories',
             }
             $scope.subTreeResource = $resource('modules/navigation/', {});
             $scope.TreeLoading = true;

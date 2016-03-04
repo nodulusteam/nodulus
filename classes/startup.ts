@@ -94,10 +94,10 @@
 
             console.log("***_____________________________________________________________________***");
 
-
+            app.use("/nodulus", require('../routes/nodulus.js'));
             api.start(app);
             console.log("***_____________________________________________________________________***");
-            app.use(require("nodulus-run"));
+           // app.use(require("nodulus-run"));
 
 
         }

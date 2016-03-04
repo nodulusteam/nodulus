@@ -7,6 +7,11 @@
  @ewave open source | ©Roi ben haim  ®2016    
  */
 /// <reference path="../typings/node/node.d.ts" />  
+  
+
+import { nodulus } from "../classes/consts";
+
+
 var express = require('express');
 var router = express.Router();
 var util = require('util');
@@ -18,10 +23,26 @@ var moment = require('moment');
 
 var appRoot = global["appRoot"];
 
-class ModuleUtiliity  {
-    
+
+var deleteFolderRecursive = function (path) {
+    if (fs.existsSync(path)) {
+        fs.readdirSync(path).forEach(function (file, index) {
+            var curPath = path + "/" + file;
+            if (fs.lstatSync(curPath).isDirectory()) { // recurse
+                deleteFolderRecursive(curPath);
+            } else { // delete file
+                fs.unlinkSync(curPath);
+            }
+        });
+        fs.rmdirSync(path);
+    }
+}
+
+
+class ModuleUtiliity {
+
     constructor() {
-        
+
     }
     /**
      * install the module package
@@ -30,7 +51,7 @@ class ModuleUtiliity  {
      */
     install(module_name, callback) {
         var instance = this;
-        var baseFolder = appRoot + "\\public\\modules\\" + module_name + "\\";
+        var baseFolder = appRoot + nodulus.consts.MODULES_PATH + module_name + "\\";
 
         fs.ensureDirSync(appRoot + "\\public\\modules\\");
         fs.ensureDirSync(baseFolder);
@@ -158,10 +179,12 @@ class ModuleUtiliity  {
         if (modules_file[module_name] !== undefined) {
 
             for (var i = 0; i < modules_file[module_name].routes.length; i++) {
-                fs.unlinkSync(appRoot + "\\routes\\" + modules_file[module_name].routes[i].path);
+                try {
+                    fs.unlinkSync(appRoot + "\\routes\\" + modules_file[module_name].routes[i].path);
+                } catch (e) { }
             }
 
-
+            deleteFolderRecursive(appRoot + "\\public\\modules\\" + module_name);
 
             delete modules_file[module_name];
         }
@@ -210,238 +233,239 @@ class ModuleUtiliity  {
         }
     }
 
-timestamp() : string
-{
-var date = new Date();
-var components = [
-    date.getFullYear(),
-    date.getMonth(),
-    date.getDate(),
-    date.getHours(),
-    date.getMinutes(),
-    date.getSeconds(),
-    date.getMilliseconds()
-];
 
-return components.join("");
+
+    timestamp(): string {
+        var date = new Date();
+        var components = [
+            date.getFullYear(),
+            date.getMonth(),
+            date.getDate(),
+            date.getHours(),
+            date.getMinutes(),
+            date.getSeconds(),
+            date.getMilliseconds()
+        ];
+
+        return components.join("");
 
     };
-npm_install(packagePair, callback) {
-    var exec = require('child_process').exec,
-        child;
-    
-    child = exec('npm install ' + packagePair.name + ' --save',
-       function (error, stdout, stderr) {
-        
-        callback(stderr, stdout);
+    npm_install(packagePair, callback) {
+        var exec = require('child_process').exec,
+            child;
+
+        child = exec('npm install ' + packagePair.name + ' --save',
+            function (error, stdout, stderr) {
+
+                callback(stderr, stdout);
                 //console.log('stdout: ' + stdout);
                 //console.log('stderr: ' + stderr);
                 //if (error !== null) {
                 //    console.log('exec error: ' + error);
                 //}
-    });
-};
- replaceAll(replaceThis, withThis, inThis) {
-    withThis = withThis.replace(/\$/g, "$$$$");
-    return inThis.replace(new RegExp(replaceThis.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|<>\-\&])/g, "\\$&"), "g"), withThis);
-};
-deleteFolderRecursive (path) {
-    if (fs.existsSync(path)) {
-        fs.readdirSync(path).forEach(function (file, index) {
-            var curPath = path + "/" + file;
-            if (fs.lstatSync(curPath).isDirectory()) { // recurse
-                this.deleteFolderRecursive(curPath);
-            } else { // delete file
-                fs.unlinkSync(curPath);
-            }
+            });
+    };
+    replaceAll(replaceThis, withThis, inThis) {
+        withThis = withThis.replace(/\$/g, "$$$$");
+        return inThis.replace(new RegExp(replaceThis.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|<>\-\&])/g, "\\$&"), "g"), withThis);
+    };
+    deleteFolderRecursive(path) {
+        if (fs.existsSync(path)) {
+            fs.readdirSync(path).forEach(function (file, index) {
+                var curPath = path + "/" + file;
+                if (fs.lstatSync(curPath).isDirectory()) { // recurse
+                    this.deleteFolderRecursive(curPath);
+                } else { // delete file
+                    fs.unlinkSync(curPath);
+                }
+            });
+            fs.rmdirSync(path);
+        }
+    };
+    list(callback) {
+
+
+        fs.readJson(appRoot + "\\modules.json", function (err, data) {
+
+            callback(data);
+
+
         });
-        fs.rmdirSync(path);
+
     }
-};
-list(callback) {
-    
-    
-    fs.readJson(appRoot + "\\modules.json", function (err, data) {
-        
-        callback(data);
+    validateModuleName(module_name, callback) {
 
-
-    });
-
-}
-validateModuleName(module_name, callback) {
-    
-    if (fs.existsSync(appRoot + "/nodulus_modules/" + module_name + ".zip")) {
-        return callback(true);
-    }
-    return callback(false);
-}
-createPackage(module_name, callback) {
-    var baseFolder = appRoot + "\\public\\modules\\modules\\template\\";
-    var manifest_file = fs.readJsonSync(baseFolder + "manifest.json", { throws: false });
-    
-    var manifestString = JSON.stringify(manifest_file);
-    manifestString = this.replaceAll("$$module_name$$", module_name, manifestString);
-    manifest_file = JSON.parse(manifestString);
-    
-    ////for (var i = 0; i < manifest_file.files.length; i++) {
-    ////    manifest_file.files[i] = manifest_file.files[i].replace("$$module_name$$" , module_name);
-    
-    ////}
-    
-    ////for (var i = 0; i < manifest_file.scripts.length; i++) {
-    ////    manifest_file.scripts[i] = manifest_file.scripts[i].replace("$$module_name$$" , module_name);
-    
-    ////}
-    
-    ////for (var i = 0; i < manifest_file.routes.length; i++) {
-    ////    manifest_file.routes[i].route = manifest_file.routes[i].route.replace("$$module_name$$" , module_name);
-    ////    manifest_file.routes[i].path = manifest_file.routes[i].path.replace("$$module_name$$" , module_name);
-    
-    ////}
-    
-    ////for (var i = 0; i < manifest_file.navigation.length; i++) {
-    ////    manifest_file.navigation[i].route = manifest_file.routes[i].route.replace("$$module_name$$" , module_name);
-    ////    manifest_file.navigation[i].path = manifest_file.routes[i].path.replace("$$module_name$$" , module_name);
-    
-    ////}
-    
-    
-    
-    var zip = new JSZip();
-    var filesArr = [];
-    
-    var fileContent = fs.readFileSync(baseFolder + "\\template.js", "utf-8");
-    fileContent = this.replaceAll("$$module_name$$", module_name, fileContent);
-    zip.file(module_name + ".js" , fileContent);
-    
-    var fileContent = fs.readFileSync(baseFolder + "\\template.html", "utf-8");
-    fileContent = this.replaceAll("$$module_name$$", module_name, fileContent);
-    zip.file(module_name + ".html" , fileContent);
-    
-    zip.file("manifest.json" , JSON.stringify(manifest_file));
-    
-    
-    
-    
-    var fileContent = fs.readFileSync(baseFolder + "\\about.html", "utf-8");
-    fileContent = this.replaceAll("$$module_name$$", module_name, fileContent);
-    zip.file("about.html", fileContent);
-    
-    
-    
-    var fileContent = fs.readFileSync(baseFolder + "\\routes\\template.js");
-    zip.folder("routes").file(module_name + ".js", fileContent);
-    
-    
-    //get manifest template:
-    var content = zip.generate({ type : "nodebuffer" });
-    var packageFileName = appRoot + "/nodulus_modules/" + module_name + ".zip";
-    var packageBackupFileName = appRoot + "/nodulus_modules/" + module_name + "/" + module_name + "." + this.timestamp() + ".zip";
-    
-    if (fs.existsSync(packageFileName)) {
-        fs.ensureDirSync(appRoot + "/nodulus_modules/" + module_name);
-        fs.renameSync(packageFileName, packageBackupFileName);
-    }
-    
-    
-    //var oldPackage  = fs.readFileSync(global.appRoot + "/nodulus_modules/" + module_name + ".zip");
-    
-    // see FileSaver.js
-    fs.writeFile(packageFileName, content, function (err) {
-        if (err) throw err;
-        callback(null, manifest_file);
-    });
-}
-pack(module_name, callback) {
-    var baseFolder = appRoot + "\\public\\modules\\" + module_name + "\\";
-    var manifest_file = fs.readJsonSync(baseFolder + "manifest.json", { throws: false });
-    //merge the manifest into the modules.json file
-    if (manifest_file === null)
-        callback("invalid json, try using ascii file");
-    
-    
-    var zip = new JSZip();
-    var filesArr = [];
-    for (var i = 0; i < manifest_file.files.length; i++) {
-        if (fs.existsSync(baseFolder + manifest_file.files[i])) {
-            var fileContent = fs.readFileSync(baseFolder + manifest_file.files[i]);
-            zip.file(manifest_file.files[i], fileContent);
-
-
+        if (fs.existsSync(appRoot + "/nodulus_modules/" + module_name + ".zip")) {
+            return callback(true);
         }
-             
-
+        return callback(false);
     }
+    createPackage(module_name, callback) {
+        var baseFolder = appRoot + "\\public\\modules\\modules\\template\\";
+        var manifest_file = fs.readJsonSync(baseFolder + "manifest.json", { throws: false });
+
+        var manifestString = JSON.stringify(manifest_file);
+        manifestString = this.replaceAll("$$module_name$$", module_name, manifestString);
+        manifest_file = JSON.parse(manifestString);
     
-    if (manifest_file.routes !== undefined) {
-        for (var i = 0; i < manifest_file.routes.length; i++) {
-            if (fs.existsSync(appRoot + "/routes/" + manifest_file.routes[i].path)) {
-                var fileContent = fs.readFileSync(appRoot + "/routes/" + manifest_file.routes[i].path);
-                zip.folder("routes").file(manifest_file.routes[i].path, fileContent);
-            }
-            
-            var tsfile = appRoot + "/routes/" + manifest_file.routes[i].path.replace('.js', '.ts');
-            if (fs.existsSync(tsfile)) {
-                var fileContent = fs.readFileSync(tsfile);
-                zip.folder("routes").file(manifest_file.routes[i].path.replace('.js', '.ts'), fileContent);
-            }
+        ////for (var i = 0; i < manifest_file.files.length; i++) {
+        ////    manifest_file.files[i] = manifest_file.files[i].replace("$$module_name$$" , module_name);
+    
+        ////}
+    
+        ////for (var i = 0; i < manifest_file.scripts.length; i++) {
+        ////    manifest_file.scripts[i] = manifest_file.scripts[i].replace("$$module_name$$" , module_name);
+    
+        ////}
+    
+        ////for (var i = 0; i < manifest_file.routes.length; i++) {
+        ////    manifest_file.routes[i].route = manifest_file.routes[i].route.replace("$$module_name$$" , module_name);
+        ////    manifest_file.routes[i].path = manifest_file.routes[i].path.replace("$$module_name$$" , module_name);
+    
+        ////}
+    
+        ////for (var i = 0; i < manifest_file.navigation.length; i++) {
+        ////    manifest_file.navigation[i].route = manifest_file.routes[i].route.replace("$$module_name$$" , module_name);
+        ////    manifest_file.navigation[i].path = manifest_file.routes[i].path.replace("$$module_name$$" , module_name);
+    
+        ////}
+    
+    
+    
+        var zip = new JSZip();
+        var filesArr = [];
+
+        var fileContent = fs.readFileSync(baseFolder + "\\template.js", "utf-8");
+        fileContent = this.replaceAll("$$module_name$$", module_name, fileContent);
+        zip.file(module_name + ".js", fileContent);
+
+        var fileContent = fs.readFileSync(baseFolder + "\\template.html", "utf-8");
+        fileContent = this.replaceAll("$$module_name$$", module_name, fileContent);
+        zip.file(module_name + ".html", fileContent);
+
+        zip.file("manifest.json", JSON.stringify(manifest_file));
 
 
-        }
-    }
-    
-    
-    if (manifest_file.scripts !== undefined) {
-        for (var i = 0; i < manifest_file.scripts.length; i++) {
-            if (fs.existsSync(baseFolder + "/scripts/" + manifest_file.scripts[i])) {
-                var fileContent = fs.readFileSync(baseFolder + "/scripts/" + manifest_file.scripts[i]);
-                zip.folder("scripts").file(manifest_file.scripts[i], fileContent);
-            }
-        }
-    }
-    
-    
-    
-    
-    
-    if (fs.existsSync(baseFolder + "about.html")) {
-        var fileContent = fs.readFileSync(baseFolder + "about.html");
+
+
+        var fileContent = fs.readFileSync(baseFolder + "\\about.html", "utf-8");
+        fileContent = this.replaceAll("$$module_name$$", module_name, fileContent);
         zip.file("about.html", fileContent);
+
+
+
+        var fileContent = fs.readFileSync(baseFolder + "\\routes\\template.js");
+        zip.folder("routes").file(module_name + ".js", fileContent);
+    
+    
+        //get manifest template:
+        var content = zip.generate({ type: "nodebuffer" });
+        var packageFileName = appRoot + "/nodulus_modules/" + module_name + ".zip";
+        var packageBackupFileName = appRoot + "/nodulus_modules/" + module_name + "/" + module_name + "." + this.timestamp() + ".zip";
+
+        if (fs.existsSync(packageFileName)) {
+            fs.ensureDirSync(appRoot + "/nodulus_modules/" + module_name);
+            fs.renameSync(packageFileName, packageBackupFileName);
+        }
+    
+    
+        //var oldPackage  = fs.readFileSync(global.appRoot + "/nodulus_modules/" + module_name + ".zip");
+    
+        // see FileSaver.js
+        fs.writeFile(packageFileName, content, function (err) {
+            if (err) throw err;
+            callback(null, manifest_file);
+        });
     }
+    pack(module_name, callback) {
+        var baseFolder = appRoot + "\\public\\modules\\" + module_name + "\\";
+        var manifest_file = fs.readJsonSync(baseFolder + "manifest.json", { throws: false });
+        //merge the manifest into the modules.json file
+        if (manifest_file === null)
+            callback("invalid json, try using ascii file");
+
+
+        var zip = new JSZip();
+        var filesArr = [];
+        for (var i = 0; i < manifest_file.files.length; i++) {
+            if (fs.existsSync(baseFolder + manifest_file.files[i])) {
+                var fileContent = fs.readFileSync(baseFolder + manifest_file.files[i]);
+                zip.file(manifest_file.files[i], fileContent);
+
+
+            }
+
+
+        }
+
+        if (manifest_file.routes !== undefined) {
+            for (var i = 0; i < manifest_file.routes.length; i++) {
+                if (fs.existsSync(appRoot + "/routes/" + manifest_file.routes[i].path)) {
+                    var fileContent = fs.readFileSync(appRoot + "/routes/" + manifest_file.routes[i].path);
+                    zip.folder("routes").file(manifest_file.routes[i].path, fileContent);
+                }
+
+                var tsfile = appRoot + "/routes/" + manifest_file.routes[i].path.replace('.js', '.ts');
+                if (fs.existsSync(tsfile)) {
+                    var fileContent = fs.readFileSync(tsfile);
+                    zip.folder("routes").file(manifest_file.routes[i].path.replace('.js', '.ts'), fileContent);
+                }
+
+
+            }
+        }
+
+
+        if (manifest_file.scripts !== undefined) {
+            for (var i = 0; i < manifest_file.scripts.length; i++) {
+                if (fs.existsSync(baseFolder + "/scripts/" + manifest_file.scripts[i])) {
+                    var fileContent = fs.readFileSync(baseFolder + "/scripts/" + manifest_file.scripts[i]);
+                    zip.folder("scripts").file(manifest_file.scripts[i], fileContent);
+                }
+            }
+        }
+
+
+
+
+
+        if (fs.existsSync(baseFolder + "about.html")) {
+            var fileContent = fs.readFileSync(baseFolder + "about.html");
+            zip.file("about.html", fileContent);
+        }
+
+
+
+
+        var manifestContent = fs.readFileSync(baseFolder + "manifest.json");
+        zip.file("manifest.json", manifestContent);
+
+
+        var content = zip.generate({ type: "nodebuffer" });
+        var packageFileName = appRoot + "/nodulus_modules/" + module_name + ".zip";
+        var packageBackupFileName = appRoot + "/nodulus_modules/" + module_name + "/" + module_name + "." + this.timestamp() + ".zip";
+
+        if (fs.existsSync(packageFileName)) {
+            fs.ensureDirSync(appRoot + "/nodulus_modules/" + module_name);
+            fs.renameSync(packageFileName, packageBackupFileName);
+        }
     
     
+        //var oldPackage  = fs.readFileSync(global.appRoot + "/nodulus_modules/" + module_name + ".zip");
     
-    
-    var manifestContent = fs.readFileSync(baseFolder + "manifest.json");
-    zip.file("manifest.json", manifestContent);
-    
-    
-    var content = zip.generate({ type : "nodebuffer" });
-    var packageFileName = appRoot + "/nodulus_modules/" + module_name + ".zip";
-    var packageBackupFileName = appRoot + "/nodulus_modules/" + module_name + "/" + module_name + "." + this.timestamp() + ".zip";
-    
-    if (fs.existsSync(packageFileName)) {
-        fs.ensureDirSync(appRoot + "/nodulus_modules/" + module_name);
-        fs.renameSync(packageFileName, packageBackupFileName);
+        // see FileSaver.js
+        fs.writeFile(packageFileName, content, function (err) {
+            if (err) throw err;
+            callback(null, manifest_file);
+        });
+
+
+
     }
-    
-    
-    //var oldPackage  = fs.readFileSync(global.appRoot + "/nodulus_modules/" + module_name + ".zip");
-    
-    // see FileSaver.js
-    fs.writeFile(packageFileName, content, function (err) {
-        if (err) throw err;
-        callback(null, manifest_file);
-    });
 
 
 
-}
 
-
-
- 
 };
 
 router.get("/listsearch", function (req, res) {
@@ -457,14 +481,14 @@ router.get("/listsearch", function (req, res) {
     });
     
     
-//     // options is optional
-//     glob(appRoot + "\\nodulus_modules\\*" + req.query.name + "*/*.zip",  function (er, files) {
-//         res.json(files);
-//   // files is an array of filenames.
-//   // If the `nonull` option is set, and nothing
-//   // was found, then files is ["**/*.js"]
-//   // er is an error object or null.
-//     })
+    //     // options is optional
+    //     glob(appRoot + "\\nodulus_modules\\*" + req.query.name + "*/*.zip",  function (er, files) {
+    //         res.json(files);
+    //   // files is an array of filenames.
+    //   // If the `nonull` option is set, and nothing
+    //   // was found, then files is ["**/*.js"]
+    //   // er is an error object or null.
+    //     })
     
 
      
@@ -473,28 +497,28 @@ router.get("/listsearch", function (req, res) {
 
 //var moduleUtility = new ModuleUtiliity();
 router.get("/navigation", function (req, res) {
-     
+
     new ModuleUtiliity().list(function (data) {
         var arr = [];
         for (var x in data) {
             if (data[x].modules_navigation)
                 arr.push(data[x].modules_navigation[0]);
         }
-        
+
         res.json(arr);
-    
+
     })
 });
 router.get("/list", function (req, res) {
-    
+
     new ModuleUtiliity().list(function (data) {
         var arr = [];
         for (var x in data) {
             arr.push(data[x]);
         }
-        
+
         res.json(arr);
-    
+
     })
 })
 router.get("/listnav", function (req, res) {
@@ -503,16 +527,16 @@ router.get("/listnav", function (req, res) {
         var arr = [];
         for (var x in data) {
             if (data[x].navname !== undefined)
-                    arr.push(data[x]);
+                arr.push(data[x]);
         }
 
         res.json(arr);
 
     })
 })
- 
+
 router.get("/nodulus_mapping.js", function (req, res) {
-    
+
     var str = " var nodulus_mapping =";
     new ModuleUtiliity().list(function (data) {
         var mapping_result = {};
@@ -529,36 +553,36 @@ router.get("/nodulus_mapping.js", function (req, res) {
                 }
             }
         }
-        
+
         res.type("application/javascript").send(str + JSON.stringify(mapping_result));
-    
+
     })
 })
 router.post("/pack", function (req, res) {
-    
+
     new ModuleUtiliity().pack(req.body.name, function (data) {
-        
+
         res.json(data);
-    
+
     })
 });
 router.post('/install', function (req, res) {
-if (!req.body)
-return res.sendStatus(400);
+    if (!req.body)
+        return res.sendStatus(400);
 
-var module_name = req.body.name;
+    var module_name = req.body.name;
 
-if (module_name === "" || module_name === undefined)
-return res.sendStatus(400);
+    if (module_name === "" || module_name === undefined)
+        return res.sendStatus(400);
 
     new ModuleUtiliity().install(module_name, function (err, manifest_json) {
-if (err !== null)
-return res.sendStatus(400);
+        if (err !== null)
+            return res.sendStatus(400);
 
 
-res.json(manifest_json);
+        res.json(manifest_json);
 
-});
+    });
 
 
 
@@ -567,26 +591,26 @@ res.json(manifest_json);
 
 });
 router.post('/create', function (req, res) {
-if (!req.body)
-return res.sendStatus(400);
+    if (!req.body)
+        return res.sendStatus(400);
 
-var module_name = req.body.name;
+    var module_name = req.body.name;
 
-if (module_name === "" || module_name === undefined)
-return res.sendStatus(400);
+    if (module_name === "" || module_name === undefined)
+        return res.sendStatus(400);
     new ModuleUtiliity().validateModuleName(module_name, function (exists) {
-if (exists)
-return res.json({ "Error": "module name exists" });
+        if (exists)
+            return res.json({ "Error": "module name exists" });
 
         new ModuleUtiliity().createPackage(module_name, function (err, manifest_json) {
-if (err !== null)
-return res.sendStatus(400);
+            if (err !== null)
+                return res.sendStatus(400);
 
 
-res.json(manifest_json);
+            res.json(manifest_json);
 
-})
-})
+        })
+    })
 
 
 
@@ -596,15 +620,15 @@ res.json(manifest_json);
 
 });
 router.post('/uninstall', function (req, res) {
-if (!req.body) return res.sendStatus(400);
+    if (!req.body) return res.sendStatus(400);
 
-var module_name = req.body.name;
+    var module_name = req.body.name;
 
     new ModuleUtiliity().uninstall(module_name, function (err, result) {
 
-res.json({ "status": "ok" });
+        res.json({ "status": "ok" });
 
-});
+    });
 });
 
 

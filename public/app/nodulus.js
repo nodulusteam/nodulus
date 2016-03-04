@@ -88,7 +88,9 @@ mod.directive('infiniteScroll', [
 var providers = {};
 //'schemaForm'
 
-
+/**
+ * module declaration
+ */
 var DynamicData = angular.module('nodulus', nodulus_dependecies)
     .config(['$controllerProvider', '$resourceProvider', '$routeProvider', '$mdThemingProvider', '$compileProvider', '$provide', '$injector', '$translateProvider',
     function ($controllerProvider, $resourceProvider, $routeProvider, $mdThemingProvider, $compileProvider, $provide, $injector, $translateProvider) {
@@ -144,12 +146,16 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
         
         
         $routeProvider.
+                when("/setup", { templateUrl: "partials/setup.html", controller: "setupController" }).
                 when("/login", { templateUrl: "partials/login.html", controller: "loginController" }).
                 when("/register", { templateUrl: "partials/register.html", controller: "registerController" }).
                 when("/manage", { templateUrl: "partials/manage.html", controller: "ideController" }).
                 //when("/drivers/:id", { templateUrl: "partials/driver.html", controller: "driverController" }).
-                otherwise({ redirectTo: '/login' });
+                otherwise({ redirectTo: '/manage' });
     }])
+    /**
+     * language provider
+     */
     .provider('$Language', [function () {
         
         
@@ -315,6 +321,13 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
         }
     }])
     .controller('shellController', function ($scope, $mdDialog, $resource, $location, $compile, $Alerts, $Language, $Theme, $User, $Models, $Cache, $Config, $IDE, $nodulus) {
+    
+    
+    
+    
+
+    
+
     $scope.$Alerts = $Alerts;
     $scope.$IDE = $IDE;
     $scope.$nodulus = $nodulus;
@@ -381,6 +394,13 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
         $IDE.ShowLobby({ "_id": "modules", "label": "Modules" }, "modules/modules/modules.html");
     }
 
+
+    $resource("config/setup.json").get({} ,function () { }, function () { 
+         
+        $location.url("/setup");
+    });
+
+
 })
     .controller('loginController', function ($scope, $resource, $location, $mdToast, $animate, $mdDialog, $Theme, $User) {
     
@@ -392,7 +412,8 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
             $location.path("/manage");
         }
         
-        
+        alert("here");
+
         $mdDialog.show({
             controller: function ($scope, $resource, $mdToast, $location) {
                 $scope.Login = function () {
@@ -617,7 +638,8 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
     }
 
 
-}).directive('navLoader', function ($compile) {
+})
+    .directive('navLoader', function ($compile) {
     return {
         restrict: 'E',
         scope: {
@@ -633,6 +655,150 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
      
         }
     }
+})
+    .controller('setupController', function ($scope, $modal) {
+    var app = this;
+    
+    app.closeAlert = function () {
+        app.reason = null;
+    };
+    
+    app.open = function () {
+        var modalInstance = $modal.open({
+            templateUrl: 'setup/partials/wizard.html',
+            controller: 'ModalCtrl'
+            
+        });
+        
+        modalInstance.result
+                .then(function (data) {
+            app.closeAlert();
+            app.summary = data;
+        }, function (reason) {
+            app.reason = reason;
+        });
+    };
+
+    app.open();
+    $scope.app = app;
+
+
+})
+    .controller('ModalCtrl', function ($scope, $location, $modalInstance, $Language, $Theme, $translate, $resource) {
+    var modal = {};
+
+   
+    modal.steps = ['Welcome', 'Persistence mode', 'Admin credentials'];
+    modal.step = 0;
+    modal.wizard = { tacos: 2 };
+    
+
+    modal.isFirstStep = function () {
+        return modal.step === 0;
+    };
+    
+    modal.isLastStep = function () {
+        return modal.step === (modal.steps.length - 1);
+    };
+    
+    modal.isCurrentStep = function (step) {
+        return modal.step === step;
+    };
+    
+    modal.setCurrentStep = function (step) {
+        modal.step = step;
+    };
+    
+    modal.getCurrentStep = function () {
+        return modal.steps[modal.step];
+    };
+    
+    modal.getNextLabel = function () {
+        return (modal.isLastStep()) ? 'Submit' : 'Next';
+    };
+    
+    modal.handlePrevious = function () {
+        modal.step -= (modal.isFirstStep()) ? 0 : 1;
+    };
+    
+    modal.handleNext = function () {
+        if (modal.isLastStep()) {
+            
+            
+            //persist settings
+            var resource = $resource("/nodulus/setup");
+            resource.save(modal, function (result) {
+            debugger
+                $location.url("/login");
+            
+            })
+
+            
+
+            $modalInstance.close(modal.wizard);
+        } else {
+            modal.step += 1;
+        }
+    };
+    
+    modal.dismiss = function (reason) {
+        $modalInstance.dismiss(reason);
+    };
+
+
+   
+
+
+
+
+
+
+    modal.Languages = $Language.languages;
+    modal.Language = $Language.getByLCID(localStorage.getItem("lcid"));
+    if (modal.Language !== undefined && modal.Language.direction == 'rtl') {
+        $('link[id="languageCssfile"]').attr('href', "styles/bootstrap.rtl.css");
+    }
+    
+    modal.SetLanguage = function () {
+        $Language.set(modal.Language).$promise.then(function (response) {
+            $translate.use(modal.Language.shortname);
+            $translate.preferredLanguage(modal.Language.shortname);
+            $translate.fallbackLanguage(modal.Language.shortname);
+            $translate.refresh();
+            localStorage.setItem("lcid", modal.Language.lcid);
+            if (modal.Language !== undefined && modal.Language.direction == 'rtl') {
+                $('link[id="languageCssfile"]').attr('href', "styles/bootstrap.rtl.css");
+            } else {
+                
+                if ($Theme.theme !== undefined) {
+                    var themelink = "themes/" + $Theme.theme + "/bootstrap.min.css";
+                    $('link[id="languageCssfile"]').attr('href', themelink);
+           
+                }
+            }
+        });
+    }
+    
+    modal.Theme = $Theme.theme;
+    
+    modal.Themes = ["amelia", "blooming", "cerulean", "desert" , "paper", "green", "readable", "simplex", "spacelab", "Liquorice Schnitzel", "flat", "cyborg", "United", "superhero", "journal", "Lumen"];
+    var theme = localStorage.getItem("theme");
+    if (theme !== null && theme !== undefined) {
+        modal.Theme = theme;
+    }
+    else {
+        modal.Theme = "paper";
+    }
+    
+    $scope.$watch("modal.Theme", function (theme_name, oldVal) {
+        if (theme_name !== undefined) {
+            var theme = "themes/" + theme_name + "/bootstrap.min.css";
+            $('link[id="mainthemefile"]').attr('href', theme);
+            localStorage.setItem("theme", theme_name);
+        }
+    });
+    $scope.modal = modal;
+
 });
 
 

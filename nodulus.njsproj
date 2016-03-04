@@ -5,9 +5,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{2cb23b19-1ae4-436b-9fc2-5fdb472c2db6}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ProjectFiles</ProjectView>
-    <StartupFile>
-    </StartupFile>
+    <ProjectView>ShowAllFiles</ProjectView>
+    <StartupFile>app.js</StartupFile>
     <WorkingDirectory>D:\ewave-open-source\nodulus-master</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
@@ -25,6 +24,24 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
+    <Compile Include="public\modules\schemas\designer.js" />
+    <Compile Include="public\modules\schemas\item.js" />
+    <Compile Include="public\modules\schemas\lobby.js" />
+    <Compile Include="public\modules\schemas\Schemas.js" />
+    <Compile Include="public\modules\schemas\scripts\angular-schema-form-dynamic-select.js" />
+    <Compile Include="public\modules\schemas\scripts\app.js" />
+    <Compile Include="public\modules\schemas\scripts\bootstrap-decorator.min.js" />
+    <Compile Include="public\modules\schemas\scripts\bootstrap-ui-ace.min.js" />
+    <Compile Include="public\modules\schemas\scripts\nav.js" />
+    <Compile Include="public\modules\schemas\scripts\ObjectPath.js" />
+    <Compile Include="public\modules\schemas\scripts\papaparse.min.js" />
+    <Compile Include="public\modules\schemas\scripts\schem-form-definitions.js" />
+    <Compile Include="public\modules\schemas\scripts\schema-form.js" />
+    <Compile Include="public\modules\schemas\scripts\tv4.js" />
+    <Compile Include="public\setup\angular-wizard.js" />
+    <Compile Include="public\setup\angular-wizard.min.js" />
+    <Compile Include="public\setup\app.js" />
+    <Compile Include="routes\nodulus.js" />
     <Content Include="config\menus.json" />
     <Content Include="config\nodulus.json" />
     <Content Include="modules.json" />
@@ -41,6 +58,23 @@
     <Content Include="platform-images\login-screen.jpg" />
     <Content Include="platform-images\modules.jpg" />
     <Content Include="public\config\module_map.json" />
+    <Content Include="public\css\nodulus-codes.css" />
+    <Content Include="public\css\nodulus-embedded.css" />
+    <Content Include="public\css\nodulus-ie7-codes.css" />
+    <Content Include="public\css\nodulus-ie7.css" />
+    <Content Include="public\css\nodulus.css" />
+    <Content Include="public\fonts\fontawesome-webfont.eot" />
+    <Content Include="public\fonts\fontawesome-webfont.ttf" />
+    <Content Include="public\fonts\fontawesome-webfont.woff" />
+    <Content Include="public\fonts\fontawesome-webfont.woff2" />
+    <Content Include="public\fonts\FontAwesome.otf" />
+    <Content Include="public\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="public\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="public\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="public\font\nodulus.eot" />
+    <Content Include="public\font\nodulus.svg" />
+    <Content Include="public\font\nodulus.ttf" />
+    <Content Include="public\font\nodulus.woff" />
     <Content Include="public\modules\modules\about.html" />
     <Content Include="public\modules\modules\modules_nav.html" />
     <Content Include="public\modules\modules\manifest.json" />
@@ -50,6 +84,21 @@
     <Content Include="public\modules\modules\template\about.html" />
     <Content Include="public\modules\modules\template\manifest.json" />
     <Content Include="public\modules\modules\template\template.html" />
+    <Content Include="public\modules\schemas\about.html" />
+    <Content Include="public\modules\schemas\confirmDialog.html" />
+    <Content Include="public\modules\schemas\decorators\bootstrap\table.html" />
+    <Content Include="public\modules\schemas\decorators\ckeditor\ckeditor.html" />
+    <Content Include="public\modules\schemas\designer.html" />
+    <Content Include="public\modules\schemas\item.html" />
+    <Content Include="public\modules\schemas\lobby.html" />
+    <Content Include="public\modules\schemas\manifest.json" />
+    <Content Include="public\modules\schemas\nav.html" />
+    <Content Include="public\modules\schemas\propertiesDialog.html" />
+    <Content Include="public\modules\schemas\schemaDialog.html" />
+    <Content Include="public\modules\schemas\SchemaInput.html" />
+    <Content Include="public\modules\schemas\Schemas.html" />
+    <Content Include="public\modules\schemas\SchemaTreeMenu.html" />
+    <Content Include="public\modules\schemas\subform.html" />
     <Content Include="public\modules\translations\about.html" />
     <Content Include="public\modules\translations\Language.html" />
     <Content Include="public\modules\translations\Languages.html" />
@@ -58,6 +107,13 @@
     <Content Include="public\modules\users\manifest.json" />
     <Content Include="public\partials\manage\Website.html" />
     <Content Include="public\partials\SchemaTreeMenu.html" />
+    <Content Include="public\partials\setup.html" />
+    <Content Include="public\setup\angular-wizard.css" />
+    <Content Include="public\setup\angular-wizard.less" />
+    <Content Include="public\setup\angular-wizard.min.css" />
+    <Content Include="public\setup\app.css" />
+    <Content Include="public\setup\index.html" />
+    <Content Include="public\setup\partials\wizard.html" />
     <Content Include="public\styles\bootstrap.rtl.css" />
     <Content Include="public\welcome.html" />
     <Content Include="robots.txt" />
@@ -1269,7 +1325,15 @@
     <Folder Include="classes" />
     <Folder Include="classes\impl" />
     <Folder Include="config" />
+    <Folder Include="public\font\" />
     <Folder Include="public\modules\modules\scripts\" />
+    <Folder Include="public\modules\schemas\" />
+    <Folder Include="public\modules\schemas\decorators\" />
+    <Folder Include="public\modules\schemas\decorators\bootstrap\" />
+    <Folder Include="public\modules\schemas\decorators\ckeditor\" />
+    <Folder Include="public\modules\schemas\scripts\" />
+    <Folder Include="public\setup\" />
+    <Folder Include="public\setup\partials\" />
     <Folder Include="typings\" />
     <Folder Include="nodulus_modules\" />
     <Folder Include="platform-images\" />
@@ -1560,6 +1624,7 @@
     <TypeScriptCompile Include="app.ts" />
     <TypeScriptCompile Include="classes\api.ts" />
     <TypeScriptCompile Include="classes\config.ts" />
+    <TypeScriptCompile Include="classes\consts.ts" />
     <TypeScriptCompile Include="classes\dal.ts" />
     <TypeScriptCompile Include="classes\impl\mongodb.ts" />
     <TypeScriptCompile Include="classes\socket.ts" />

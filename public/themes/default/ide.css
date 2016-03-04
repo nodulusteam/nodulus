@@ -10,6 +10,16 @@
     margin: 0 auto;
     width: 100%;
 }
+
+.iconsize-menu{
+    font-size: 20px;
+     
+}
+.iconsize-18{
+    font-size: 34px;
+     
+}
+
 .well
 {
     padding: 5px!important;
@@ -321,4 +331,38 @@ md-dialog .panel {
 
 .panel-group .panel {
    overflow: visible;
+}
+
+
+
+.panel-footer .dropdown
+{
+    width: 100%;
+    margin: 0;
+    
+
+}
+
+.panel-footer .dropdown .dropdown-toggle{
+    width: 100%;
+}
+
+.panel-footer
+{
+    padding: 4px 4px 4px 4px; 
+
+}
+
+
+ 
+
+.animate-show.ng-hide-add.ng-hide-add-active,
+.animate-show.ng-hide-remove.ng-hide-remove-active {
+  -webkit-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+}
+
+.animate-show.ng-hide {
+  line-height:0;
+  opacity:0; 
 }

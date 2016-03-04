@@ -1,10 +1,10 @@
-/*                 _       _           
+/*                _       _           
                  | |     | |          
   _ __   ___   __| |_   _| |_   _ ___ 
  | '_ \ / _ \ / _` | | | | | | | / __|
  | | | | (_) | (_| | |_| | | |_| \__ \
  |_| |_|\___/ \__,_|\__,_|_|\__,_|___/
- @ewave open source | ©Roi ben haim  ®2016    
+ @ewave open source | ï¿½Roi ben haim  ï¿½2016    
  */
   
  
@@ -14,10 +14,12 @@ var loader_count = 0;
  
 
 
-
+/**
+ * basic nodulus dependencies
+ */
 var nodulus_dependecies = ['infinite-scroll', 'ngCkeditor', 'anguFixedHeaderTable', 'm43nu.auto-height',
     'mgcrea.ngStrap', 'mj.scrollingTabs', 'ui.bootstrap', 'ui.ace', 'ngSanitize', 'ngRoute', 'ngResource', 'angular.filter', 'angularBootstrapNavTree',
-    'treeControl', 'ngMaterial', 'ngMessages', 'RecursionHelper', 'DynamicDataSerivces', 'Cache', 'IDE', 'pascalprecht.translate'];
+    'treeControl', 'ngMaterial', 'ngMessages','ngAnimate', 'RecursionHelper', 'DynamicDataSerivces', 'Cache', 'IDE', 'pascalprecht.translate'];
 
 var delay_bootstraping = false;
 
