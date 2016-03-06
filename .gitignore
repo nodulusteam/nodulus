@@ -11,7 +11,7 @@ tmp/
 *.bak
 *.swp
 *~.nib
-local.properties
+local.properties 
 .classpath
 .settings/
 .loadpath

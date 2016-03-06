@@ -12,13 +12,17 @@
                             "<li ng-repeat=\"row in tree_rows | filter:{visible:true} track by row.branch.uid\" " +
                             "ng-animate=\"'abn-tree-animate'\" " +
                             "ng-class=\"'level-' + {{ row.level }} + (row.branch.selected ? ' active':'') + ' ' +row.classes.join(' ')\" class=\"abn-tree-row\">" +
-                            "<a ng-click=\"user_clicks_branch(row.branch)\">" +
-                            "<i ng-class=\"row.tree_icon\" ng-click=\"row.branch.expanded = !row.branch.expanded\" class=\"indented tree-icon {{branch.tree_icon}}\"> </i>" +
+                               "<a ng-click=\"user_clicks_branch(row.branch)\">" +
+                              "<i class=\"{{row.tree_icon}} indented\" ng-click=\"expand_branch(row.branch);\"> </i>" +
+                       
+                            "<i   class=\"indented tree-icon {{row.branch.tree_icon}}\"> </i>" +
                             "<span class=\"indented tree-label\">{{ row.label }}</span></a></li></ul>",
                 replace: true,
                 scope: {
                     treeData: '=',
                     onSelect: '&',
+                    onExpandbranch: '&',
+                    
                     initialSelection: '@',
                     treeControl: '='
                 },
@@ -30,13 +34,13 @@
                         return void 0;
                     };
                     if (attrs.iconExpand == null) {
-                        attrs.iconExpand = 'icon-plus  glyphicon glyphicon-plus  fa fa-plus';
+                        attrs.iconExpand = 'fa fa-plus-square';
                     }
                     if (attrs.iconCollapse == null) {
-                        attrs.iconCollapse = 'icon-minus glyphicon glyphicon-minus fa fa-minus';
+                        attrs.iconCollapse = 'fa fa-minus-square';
                     }
                     if (attrs.iconLeaf == null) {
-                        attrs.iconLeaf = 'icon-file  glyphicon glyphicon-file  fa fa-file';
+                        attrs.iconLeaf = 'fa icon-placeholder';
                     }
                     
                     
@@ -109,8 +113,65 @@
                                 });
                             }
                         }
+
+
+
+                      
+
+
             //}
                     };
+                    
+                    scope.expand_branch = function (branch) {
+                        
+                        debugger
+                        if (!branch) {
+                            if (selected_branch != null) {
+                                selected_branch.selected = false;
+                            }
+                            selected_branch = null;
+                            return;
+                        }
+                        
+                        
+                        branch.expanded = !branch.expanded;
+                        
+                        if (branch.children.length > 0)
+                            return;
+
+                        //if (branch !== selected_branch) {
+                        if (selected_branch != null) {
+                            selected_branch.selected = false;
+                        }
+                        branch.selected = true;
+                        selected_branch = branch;
+                        expand_all_parents(branch);
+                         
+                        
+                        if (branch.onExpandbranch != null) {
+                            return $timeout(function () {
+                                return branch.onExpandbranch(branch);
+                            });
+                        } else {
+                            if (scope.onExpandbranch != null) {
+                                return $timeout(function () {
+                                    return scope.onExpandbranch({
+                                        branch: branch 
+                                        
+                            
+                                    } );
+                                });
+                            }
+                        }
+
+
+
+                       // 
+
+
+            //}
+                    };
+                    
                     scope.user_clicks_branch = function (branch) {
                         //if (branch !== selected_branch) {
                         
@@ -194,6 +255,7 @@
                             }
                         });
                         add_branch_to_list = function (level, branch, visible) {
+                            
                             var child, child_visible, tree_icon, _i, _len, _ref, _results;
                             if (branch.expanded == null) {
                                 branch.expanded = false;
@@ -209,12 +271,18 @@
                                     branch.classes.push("leaf");
                                 }
                             } else {
+                                
                                 if (branch.expanded) {
+                                    
                                     tree_icon = attrs.iconCollapse;
                                 } else {
+                                    
                                     tree_icon = attrs.iconExpand;
                                 }
                             }
+                            
+                            
+                            
                             scope.tree_rows.push({
                                 level: level,
                                 branch: branch,

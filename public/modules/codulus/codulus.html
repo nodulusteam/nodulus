@@ -1,0 +1,27 @@
+﻿<div ng-controller="codulusController">
+
+
+ 
+    <div id="navbar" class="container-full navbar-inverse navbar pull-left">
+        <!--<a class="navbar-brand"> </a>-->
+        <ul class="nav navbar-nav navbar-right">
+
+            <li class="navbar-btn" style="margin: 2px;">
+                <button ng-click="SaveItem()" class="margined btn btn-sm btn-primary" ng-class="{'btn-success': Saved, 'btn-warning': EditFile.dirty}"><span ng-class="{'fa fa-circle-o-notch fa-spin': Saving,'fa fa-save': !Saving }"></span> {{"Save" | translate}}</button>
+            </li>
+
+               <li class="spacer" style="margin: 2px;"></li>
+            <!--<li><a ng-click='ShowAdvancedSearch()'><span class="fa fa-search"></span> {{"Advanced search" | translate}}Advanced search</a></li>-->
+        </ul>
+    
+    </div>
+    <div class="clear"></div>
+
+
+
+    <md-progress-linear md-mode='indeterminate'   data-ng-show="ModuleLoading"></md-progress-linear>
+
+    <div ui-ace="aceOptions" style="height: {{PaneHeight-110}}px;" ng-model="EditFile.content"></div>
+ 
+
+</div>

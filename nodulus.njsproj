@@ -24,6 +24,9 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
+    <Compile Include="public\modules\codulus\codulus_configuration.js" />
+    <Compile Include="public\modules\codulus\codulus.js" />
+    <Compile Include="public\modules\codulus\scripts\nav.js" />
     <Compile Include="public\modules\schemas\designer.js" />
     <Compile Include="public\modules\schemas\item.js" />
     <Compile Include="public\modules\schemas\lobby.js" />
@@ -38,6 +41,7 @@
     <Compile Include="public\modules\schemas\scripts\schem-form-definitions.js" />
     <Compile Include="public\modules\schemas\scripts\schema-form.js" />
     <Compile Include="public\modules\schemas\scripts\tv4.js" />
+    <Compile Include="public\scripts\require.js" />
     <Compile Include="public\setup\angular-wizard.js" />
     <Compile Include="public\setup\angular-wizard.min.js" />
     <Compile Include="public\setup\app.js" />
@@ -75,6 +79,12 @@
     <Content Include="public\font\nodulus.svg" />
     <Content Include="public\font\nodulus.ttf" />
     <Content Include="public\font\nodulus.woff" />
+    <Content Include="public\modules\codulus\about.html" />
+    <Content Include="public\modules\codulus\codulus_configuration.html" />
+    <Content Include="public\modules\codulus\codulus.html" />
+    <Content Include="public\modules\codulus\codulus_nav.html" />
+    <Content Include="public\modules\codulus\manifest.json" />
+    <Content Include="public\modules\codulus\nav.html" />
     <Content Include="public\modules\modules\about.html" />
     <Content Include="public\modules\modules\modules_nav.html" />
     <Content Include="public\modules\modules\manifest.json" />
@@ -1326,12 +1336,17 @@
     <Folder Include="classes\impl" />
     <Folder Include="config" />
     <Folder Include="public\font\" />
+    <Folder Include="public\modules\codulus\" />
+    <Folder Include="public\modules\codulus\scripts\" />
     <Folder Include="public\modules\modules\scripts\" />
     <Folder Include="public\modules\schemas\" />
+    <Folder Include="public\modules\schemas\" />
+    <Folder Include="public\modules\schemas\decorators\" />
     <Folder Include="public\modules\schemas\decorators\" />
     <Folder Include="public\modules\schemas\decorators\bootstrap\" />
     <Folder Include="public\modules\schemas\decorators\ckeditor\" />
     <Folder Include="public\modules\schemas\scripts\" />
+    <Folder Include="public\scripts\angular-hotkeys\" />
     <Folder Include="public\setup\" />
     <Folder Include="public\setup\partials\" />
     <Folder Include="typings\" />

@@ -13,6 +13,8 @@ import { nodulus } from "../classes/consts";
 
 
 var express = require('express');
+var app = express();
+
 var router = express.Router();
 var util = require('util');
 var path = require('path');
@@ -20,6 +22,8 @@ var dal = require("../classes/dal.js");
 var fs = require("fs-extra");
 var JSZip = require("jszip");
 var moment = require('moment');
+var mkdirp = require('mkdirp');
+
 
 var appRoot = global["appRoot"];
 
@@ -71,6 +75,16 @@ class ModuleUtiliity {
                     var filename = manifest_file.files[i];
                     if (zip.file(filename)) {
                         var fileData = zip.file(filename).asText();
+
+                        if (filename.indexOf('/') > -1) {
+                            var directoryPath = (baseFolder + "\\" + filename.replace(/\//g, '\\'));
+                            directoryPath = directoryPath.substr(0, directoryPath.lastIndexOf('\\'));
+                            if (!fs.existsSync(directoryPath))
+                                mkdirp.sync(directoryPath); 
+                        }
+
+                  
+
                         fs.writeFileSync(baseFolder + "\\" + filename, fileData, 'utf8');
                     }
 
@@ -85,6 +99,9 @@ class ModuleUtiliity {
                         fs.writeFileSync(appRoot + "\\routes\\" + filename, fileData, 'utf8');
                     }
 
+
+                    //attach the new route to express
+                    app.use(module_name , require('../routes/' + filename));
                 }
             }
 

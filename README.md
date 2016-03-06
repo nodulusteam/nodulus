@@ -1,4 +1,4 @@
-﻿# nodulus 
+# nodulus 
 ##by ewave@open-source
 
 

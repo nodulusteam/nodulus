@@ -24,6 +24,7 @@
     "jszip": "^2.5.0",
     "kerberos": "0.0.17",
     "media-typer": "^0.3.0",
+    "mkdirp": "^0.5.1",
     "moment": "^2.10.6",
     "mongodb": "^2.0.40",
     "node-uuid": "^1.4.7",
@@ -33,6 +34,7 @@
     "socket-io-server": "^1.0.5",
     "socket.io": "^1.4.5",
     "sshpk": "^1.7.1",
+    "strip-bom": "^2.0.0",
     "stylus": "^0.53.0",
     "wildcard": "^1.1.2"
   }

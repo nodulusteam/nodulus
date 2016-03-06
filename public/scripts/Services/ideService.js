@@ -5,7 +5,16 @@
         this.ActiveTreeNode = {};
         this.Tabs = [];
         this.TabsObject = {};
+        
+        
+        this.setDirty = function (itemKey) {
 
+            this.TabsObject[itemKey].dirty = true;
+        }
+        this.clearDirty = function (itemKey) {
+            this.TabsObject[itemKey].dirty = false;
+        }
+        
         this.ShowLobby = function (item, itemUrl) {
           
             instance.ActiveTreeNode = item;

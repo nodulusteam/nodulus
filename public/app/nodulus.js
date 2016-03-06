@@ -92,10 +92,10 @@ var providers = {};
  * module declaration
  */
 var DynamicData = angular.module('nodulus', nodulus_dependecies)
-    .config(['$controllerProvider', '$resourceProvider', '$routeProvider', '$mdThemingProvider', '$compileProvider', '$provide', '$injector', '$translateProvider',
-    function ($controllerProvider, $resourceProvider, $routeProvider, $mdThemingProvider, $compileProvider, $provide, $injector, $translateProvider) {
+    .config(['$controllerProvider', '$resourceProvider', '$routeProvider', '$mdThemingProvider', '$compileProvider', '$provide', '$injector', '$translateProvider','hotkeysProvider',
+    function ($controllerProvider, $resourceProvider, $routeProvider, $mdThemingProvider, $compileProvider, $provide, $injector, $translateProvider, hotkeysProvider) {
         // $resourceProvider.defaults.stripTrailingSlashes = false;
-        
+        hotkeysProvider.includeCheatSheet = true;
         providers = {
             $controllerProvider: $controllerProvider,
             $compileProvider: $compileProvider,
@@ -872,3 +872,14 @@ DynamicData.controller('Directives.BaseController', ['$scope', '$rootScope', '$M
         }
  
     }]);
+
+
+
+
+$(document).bind('keydown', function (e) {
+    if (e.ctrlKey && (e.which == 83)) {
+        e.preventDefault();
+       
+        return false;
+    }
+});

@@ -19,7 +19,7 @@ var loader_count = 0;
  */
 var nodulus_dependecies = ['infinite-scroll', 'ngCkeditor', 'anguFixedHeaderTable', 'm43nu.auto-height',
     'mgcrea.ngStrap', 'mj.scrollingTabs', 'ui.bootstrap', 'ui.ace', 'ngSanitize', 'ngRoute', 'ngResource', 'angular.filter', 'angularBootstrapNavTree',
-    'treeControl', 'ngMaterial', 'ngMessages','ngAnimate', 'RecursionHelper', 'DynamicDataSerivces', 'Cache', 'IDE', 'pascalprecht.translate'];
+    'treeControl', 'ngMaterial', 'ngMessages','ngAnimate', 'RecursionHelper', 'DynamicDataSerivces', 'Cache', 'IDE', 'pascalprecht.translate', 'cfp.hotkeys'];
 
 var delay_bootstraping = false;
 

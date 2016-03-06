@@ -22,7 +22,7 @@ angular.module('nodulus').controller("ModulesController", function ($http, $scop
     $scope.Configure = function (pack) {
         
         var module = pack.module;
-        $IDE.ShowLobby({ "label": module.name, _id: module.name + "_configuration" , configModule: pack }, "modules/modules/configuration.html");
+        $IDE.ShowLobby({ "label": module.name, _id: module.name + "_configuration" , configModule: pack }, "modules/"+ module.name+"/" + module.name +"_configuration.html");
     }
 
     $scope.getModules = function (str)

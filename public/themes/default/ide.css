@@ -366,3 +366,8 @@ md-dialog .panel {
   line-height:0;
   opacity:0; 
 }
+
+.icon-placeholder
+{
+    width: 18px;
+}
