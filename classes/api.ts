@@ -92,7 +92,7 @@ var _api = (function () {
             .get(function (req, res) {
                 var entity = req.params[0];
                 var searchCommand = new SearchCommand();
-                var specialCommand = new  SpecialCommand();
+                var specialCommand = new SpecialCommand();
                 var aggregateCommand = new AggregateCommand();
                 var sortCommand = {};
                 var projection = {};
@@ -156,7 +156,7 @@ var _api = (function () {
                     } else {
                         db.collection(entity).find(searchCommand).toArray(function (err, result) {
 
-                            var data = { items: result, count: result.length }
+                            var data = { items: result !== null ? result : [], count: result !== null ? result.length : 0 }
                             res.json(data);
                         });
                     }
@@ -313,7 +313,7 @@ class SearchCommand {
 
 class AggregateCommand {
     $project: any;
-     
+
 
 }
 

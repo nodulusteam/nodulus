@@ -3,7 +3,13 @@
   "url": "",
   "port": "3001",
   "appRoot": "/",
-  "mongodb": { "host": "mongodb://localhost:27017/nodulussite" },
+  "mongodb": { "host": "mongodb://localhost:27017/dma" },
+  "diskDb": { "host": "D:\\ewave-open-source\\diskdb" },
+
+
+ 
+
+
   "mimeTypes": {
     ".html": "text/html",
     ".css": "text/css",
@@ -12,7 +18,7 @@
     ".json": "application/json",
     ".ttf": "application/font-woff",
     ".woff": "application/font-woff"
-  } 
+  }
 
 
 }

@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{2cb23b19-1ae4-436b-9fc2-5fdb472c2db6}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ShowAllFiles</ProjectView>
+    <ProjectView>ProjectFiles</ProjectView>
     <StartupFile>app.js</StartupFile>
     <WorkingDirectory>D:\ewave-open-source\nodulus-master</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -1641,6 +1641,7 @@
     <TypeScriptCompile Include="classes\config.ts" />
     <TypeScriptCompile Include="classes\consts.ts" />
     <TypeScriptCompile Include="classes\dal.ts" />
+    <TypeScriptCompile Include="classes\impl\diskdb.ts" />
     <TypeScriptCompile Include="classes\impl\mongodb.ts" />
     <TypeScriptCompile Include="classes\socket.ts" />
     <TypeScriptCompile Include="classes\startup.ts" />

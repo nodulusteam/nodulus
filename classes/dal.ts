@@ -15,9 +15,14 @@ var dalModule = (function () {
     var util = require('util');
     var fs = require('fs');
     var path = require('path');
-
+    var config = require('./config.js');
     var impl = require('./impl/mongodb.js');
     
+    if (config.appSettings().diskDb)
+        impl = require('./impl/diskdb.js');
+    else
+        impl = require('./impl/mongodb.js');
+
     //fs.readFile('./config/site.json', 'utf8', function (err, data) {
     //    if (err) throw err;
     //    obj = JSON.parse(data);
@@ -30,6 +35,12 @@ var dalModule = (function () {
         impl.query(queryStr, params, callback);
     }
     function _connect(callback) {
+
+
+
+        var db = require('diskdb');
+
+
         impl.connect(callback);
     }
     function _getAll(queryStr, params, callback) {

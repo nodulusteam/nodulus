@@ -412,7 +412,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
             $location.path("/manage");
         }
         
-        alert("here");
+      
 
         $mdDialog.show({
             controller: function ($scope, $resource, $mdToast, $location) {
