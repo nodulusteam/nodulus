@@ -137,7 +137,7 @@ var Dal = (function () {
 
 
     function _getAll(callback) {
-        var url = config.appSettings().mongodb.host;
+        var url = config.appSettings().database.mongodb.host;
         var Db = require('mongodb').Db;
         var Server = require('mongodb').Server;
 
@@ -182,7 +182,7 @@ var Dal = (function () {
 
     this.db = null;
     function _connect(callback) {
-        var url = config.appSettings().mongodb.host;
+        var url = config.appSettings().database.mongodb.host;
         var MongoClient = require('mongodb').MongoClient;
         if (Dal.db === null) {
             MongoClient.connect(url, function (err, db) {
@@ -217,7 +217,7 @@ var Dal = (function () {
     //}
 
     function _deleteCollection(collection, id, callback) {
-        var url = config.appSettings().mongodb.host;
+        var url = config.appSettings().database.mongodb.host;
         var MongoClient = require('mongodb').MongoClient;
         _connect(function (err, db) {
             assert.equal(null, err);

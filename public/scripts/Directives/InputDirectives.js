@@ -1,4 +1,4 @@
-﻿DynamicData.directive('ckEditor', [function () {
+DynamicData.directive('ckEditor', [function () {
 		return {
 			require: '?ngModel',
 			link: function ($scope, elm, attr, ngModel) {
@@ -9,7 +9,7 @@
 					$scope.$apply(function () {
 						ngModel.$setViewValue(ck.getData());
 					});
-				});
+				}); 
 				
 				ngModel.$render = function (value) {
 					ck.setData(ngModel.$modelValue);

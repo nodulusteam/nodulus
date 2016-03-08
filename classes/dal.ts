@@ -18,15 +18,14 @@ var dalModule = (function () {
     var config = require('./config.js');
     var impl = require('./impl/mongodb.js');
     
-    if (config.appSettings().diskDb)
-        impl = require('./impl/diskdb.js');
-    else
-        impl = require('./impl/mongodb.js');
+    if (config.appSettings().database) {
+        if (config.appSettings().database.diskdb)
+            impl = require('./impl/diskdb.js');
+        else
+            impl = require('./impl/mongodb.js');
+    }
 
-    //fs.readFile('./config/site.json', 'utf8', function (err, data) {
-    //    if (err) throw err;
-    //    obj = JSON.parse(data);
-    //});   
+ 
     
     var private_variable = 'value';
   
@@ -38,7 +37,7 @@ var dalModule = (function () {
 
 
 
-        var db = require('diskdb');
+         
 
 
         impl.connect(callback);

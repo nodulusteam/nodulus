@@ -149,7 +149,9 @@ class ModuleUtiliity {
                 dal.connect(function (err, db) {
 
                     for (var i = 0; i < manifest_file.navigation.length; i++) {
-                        db.collection("Navigation").save(manifest_file.navigation[i]);
+                        db.collection("Navigation").save(manifest_file.navigation[i], function (err, data) {
+
+                        });
                     }
                 })
 
@@ -518,8 +520,8 @@ router.get("/navigation", function (req, res) {
     new ModuleUtiliity().list(function (data) {
         var arr = [];
         for (var x in data) {
-            if (data[x].modules_navigation)
-                arr.push(data[x].modules_navigation[0]);
+            if (data[x].navigation &&  data[x].navigation.length >0)
+                arr.push(data[x].navigation[0]);
         }
 
         res.json(arr);

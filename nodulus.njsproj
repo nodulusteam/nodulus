@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{2cb23b19-1ae4-436b-9fc2-5fdb472c2db6}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <StartupFile>app.js</StartupFile>
     <WorkingDirectory>D:\ewave-open-source\nodulus-master</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -24,6 +24,9 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
+    <Compile Include="classes\diskdb\collection.js" />
+    <Compile Include="classes\diskdb\diskdb.js" />
+    <Compile Include="classes\diskdb\util.js" />
     <Compile Include="public\modules\codulus\codulus_configuration.js" />
     <Compile Include="public\modules\codulus\codulus.js" />
     <Compile Include="public\modules\codulus\scripts\nav.js" />
@@ -46,8 +49,9 @@
     <Compile Include="public\setup\angular-wizard.min.js" />
     <Compile Include="public\setup\app.js" />
     <Compile Include="routes\nodulus.js" />
-    <Content Include="config\menus.json" />
-    <Content Include="config\nodulus.json" />
+    <Content Include="config\config - Copy.json" />
+    <Content Include="config\config.json" />
+    <Content Include="HTML1.html" />
     <Content Include="modules.json" />
     <Compile Include="gulpfile.js" />
     <Compile Include="public\app\modules.js" />
@@ -141,8 +145,6 @@
     <Compile Include="public\scripts\socket.io-1.3.5.js" />
     <Compile Include="routes\translations.js" />
     <Compile Include="routes\users.js" />
-    <Content Include="config\client.json" />
-    <Content Include="config\site.json" />
     <Content Include="public\default.html" />
     <Content Include="public\ewaveLogo.png" />
     <Content Include="public\favicon.png" />
@@ -151,7 +153,6 @@
     <Content Include="public\partials\manage\Websites.html" />
     <Compile Include="public\partials\manage\Websites.js" />
     <Content Include="public\config\client.json" />
-    <Content Include="public\config\site.json" />
     <Content Include="public\css\font-awesome.css" />
     <Content Include="public\css\font-awesome.min.css" />
     <Content Include="public\fonts\fontawesome-webfont.svg" />
@@ -1334,6 +1335,7 @@
   <ItemGroup>
     <Folder Include="classes" />
     <Folder Include="classes\impl" />
+    <Folder Include="classes\diskdb\" />
     <Folder Include="config" />
     <Folder Include="public\font\" />
     <Folder Include="public\modules\codulus\" />
@@ -1645,6 +1647,7 @@
     <TypeScriptCompile Include="classes\impl\mongodb.ts" />
     <TypeScriptCompile Include="classes\socket.ts" />
     <TypeScriptCompile Include="classes\startup.ts" />
+    <TypeScriptCompile Include="classes\users.ts" />
     <TypeScriptCompile Include="classes\webServer.ts" />
     <TypeScriptCompile Include="routes\modules.ts">
       <Publish>True</Publish>

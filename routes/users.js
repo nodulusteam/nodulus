@@ -18,66 +18,10 @@ var dal = require("../classes/dal.js");
 var api = require("../classes/api.js");
 var moment = require('moment');
  
+ 
+var usermanager = require("../classes/users").users;
 
-
-function _login(email, password, callback) {
-    
-    var query = "SELECT * FROM users WHERE email=@email AND password=@password;";
-    dal.query(query, { "email": email, "password": password }, function (user) {
-        
-        if (user.length == 0) {
-            
-            user = { error: { message: "not found" } };
-            callback(user);
-        }
-        else {
-            callback(user[0]);
-        }
-            
-                
-            
-
-
-    });
-
-        
-        
-
-        
-}
-function _register(user, callback) {    
-    var query = "SELECT * FROM users WHERE email=@email;";
-    dal.query(query, { "email": user.Email }, function (exuser) {
-        if (exuser.length == 0) {
-            
-            
-            var query = "INSERT INTO users email=@email,password=@password;";
-            dal.query(query, { "email": user.Email , "password": user.Password }, function (user) {
-                
-                callback(user.result.upserted[0]);
-                
-            });
-                    
-                    
-
-              
-        }
-        else {
-            user = { error: { message: "user exists" } };
-            callback(user);
-        }
-            
-           
-            
-
-
-    });
-
-        
-        
-
-        
-}
+ 
 
 
 router.post('/login', function (req, res) {
@@ -88,7 +32,7 @@ router.post('/login', function (req, res) {
     var email = req.body.Email;
     var password = req.body.Password;
     
-    _login(email, password, function (user) {
+    usermanager.login(email, password, function (user) {
         
         
         res.json(user);
@@ -126,7 +70,7 @@ router.post('/register', function (req, res) {
     var email = req.body.Email;
     var password = req.body.Password;
     
-    _register(req.body, function (user) {
+    usermanager.register(req.body, function (user) {
         
         
         res.json(user);

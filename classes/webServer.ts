@@ -23,7 +23,7 @@ var _webServer = (function () {
 
             console.log('*** nodulus is running on port ' + activeport +'                                     ***');
             console.log('*** you can change port and other configuration options in the          ***');
-            console.log('*** site.json configuration file                                        ***');
+            console.log('*** config.json configuration file                                        ***');
             console.log('*** thank you for using nodulus                                         ***');
             console.log("***************************************************************************");
             callback(app);

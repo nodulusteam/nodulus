@@ -16,7 +16,7 @@ var util = require('util');
 var fs = require("fs-extra");
 var path = require('path');
 var config = require('../classes/config.js');
- 
+var dal = require("../classes/dal.js");
 var appRoot = global["appRoot"];
 
 router.post("/setup", function (req, res) {
@@ -24,9 +24,37 @@ router.post("/setup", function (req, res) {
     var setupConfig = req.body;
     var setupConfigPath = appRoot + "\\public\\config\\setup.json";
   
-    fs.writeFileSync(setupConfigPath,JSON.stringify(setupConfig), 'utf8');
+    fs.writeFileSync(setupConfigPath,JSON.stringify({active: new Date()}), 'utf8');
+    
+    var configurationPath = appRoot + "\\config\\config.json";
+    
+     
+    var configurationObject = JSON.parse(fs.readFileSync(configurationPath, 'utf8').replace(/^\uFEFF/, ''));
+    configurationObject["database"] = setupConfig["database"];
 
-    res.status(200).json(setupConfig);
+    //for (var key in configurationObject) {
+    //    if (setupConfig[key]) {
+    //        configurationObject[key] = setupConfig[key];
+    //    }
+
+    //}
+    fs.writeFileSync(configurationPath, JSON.stringify(configurationObject), 'utf8');
+    
+    var userObj = {
+        Email: setupConfig.Email,
+        Password: setupConfig.Password
+    
+    }
+   
+    //register the default user
+    var userDB = require("../classes/users").users;
+    userDB.register(userObj, function () { 
+        res.status(200).json(setupConfig);
+    
+    })
+    
+
+    
 
 });
 
