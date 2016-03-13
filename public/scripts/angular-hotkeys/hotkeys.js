@@ -342,7 +342,7 @@
 
         // these elements are prevented by the default Mousetrap.stopCallback():
         var preventIn = ['INPUT', 'SELECT', 'TEXTAREA'];
-
+          debugger
         // Determine if object format was given:
         var objType = Object.prototype.toString.call(combo);
 
@@ -608,12 +608,13 @@
         var keys = [],
             allowIn;
 
+           debugger
         angular.forEach(scope.$eval(attrs.hotkey), function (func, hotkey) {
           // split and trim the hotkeys string into array
           allowIn = typeof attrs.hotkeyAllowIn === "string" ? attrs.hotkeyAllowIn.split(/[\s,]+/) : [];
 
           keys.push(hotkey);
-
+            
           hotkeys.add({
             combo: hotkey,
             description: attrs.hotkeyDescription,
@@ -1256,7 +1257,8 @@
          * @param {Event} e
          * @returns void
          */
-        self._handleKey = function(character, modifiers, e) {
+        self._handleKey = function (character, modifiers, e) {
+            
             var callbacks = _getMatches(character, modifiers, e);
             var i;
             var doNotReset = {};

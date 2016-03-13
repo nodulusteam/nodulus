@@ -76,14 +76,34 @@ module.exports = function (db, collectionName) {
            // callback(null, retCollection)
            // return retCollection;
         } {
-            data._id = uuid.v4().replace(/-/g, '');
-            collection.push(data);
+            
+            var index = this.exists(data, collection);
+            if (index !== false) {
+                collection[index] = data;
+            }
+            else {
+                data._id = uuid.v4().replace(/-/g, '');
+                collection.push(data);
+            }
+            
+           
             util.writeToFile(this._f, collection);
             callback(null, { result: { upserted: [data] } });
             //return data;
         }
     };
     
+    coltn.exists = function (obj, collection)
+    {
+        for (var i = 0; i < collection.length; i++) {
+            if (obj["_id"] === collection[i]["_id"])
+                return i;
+        }
+        return false;
+
+    }
+    
+
     coltn.update = function (query, data, options) {
         var ret = {},
             collection = JSON.parse(util.readFromFile(this._f)); // update

@@ -16,14 +16,9 @@ var dalModule = (function () {
     var fs = require('fs');
     var path = require('path');
     var config = require('./config.js');
-    var impl = require('./impl/mongodb.js');
+    var impl = null;// require('./impl/mongodb.js');
     
-    if (config.appSettings().database) {
-        if (config.appSettings().database.diskdb)
-            impl = require('./impl/diskdb.js');
-        else
-            impl = require('./impl/mongodb.js');
-    }
+  
 
  
     
@@ -31,16 +26,39 @@ var dalModule = (function () {
   
 
     function _query(queryStr, params, callback) {
+        if (impl === null) {
+            if (config.appSettings().database) {
+                if (config.appSettings().database.diskdb)
+                    impl = require('./impl/diskdb.js');
+                else
+                    impl = require('./impl/mongodb.js');
+            }
+        }
+
+
         impl.query(queryStr, params, callback);
     }
     function _connect(callback) {
 
+        if (impl === null) {
+            if (config.appSettings().database) {
+                if (config.appSettings().database.diskdb)
+                    impl = require('./impl/diskdb.js');
+                else
+                    impl = require('./impl/mongodb.js');
+            }
+        }
 
 
-         
+
+        if (impl!== null) {
 
 
-        impl.connect(callback);
+            impl.connect(callback);
+        } else {
+            callback({ "error": "no database option" }, null);
+
+        }
     }
     function _getAll(queryStr, params, callback) {
         impl.getAll(queryStr, params, callback);

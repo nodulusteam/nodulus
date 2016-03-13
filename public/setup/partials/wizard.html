@@ -27,8 +27,8 @@
 
 
 
-                <div class="panel">
-                    <fieldset>
+                <div class="pad10">
+                    <fieldset class="well pad10">
                         <div class="form-group">
                             <label>Language:</label>
 
@@ -50,55 +50,62 @@
                 </div>
             </div>
             <div ng-switch-when="Persistence mode" class="wave">
-                <fieldset>
-                    
-                    <label>database type</label>
+                <div class="pad10">
+                    <fieldset class="well pad10">
 
-                    <div class="radio">
-                        <label><input type="radio" name="dbtype" ng-model="modal.database" ng-value="{'diskdb':''}">FileDB</label>
+                        <label>database type</label>
 
-                        <input type="text" ng-model="modal.database.diskdb.host" value="c:\nodulus\data\" class="form-control" placeholder="c:\nodulus\data\" />
-                    </div>
-                    <div class="radio">
-                        <label><input type="radio" name="dbtype"  ng-model="modal.database" ng-value="{'mongodb':''}" value="mongodb">mongoDB</label>
-                        <input type="text" ng-model="modal.database.mongodb.host" placeholder="mongodb:" class="form-control" />
-                    </div>
+                        <div class="radio">
+                            <label><input type="radio" name="dbtype" ng-model="modal.database" ng-value="{'diskdb':''}">FileDB</label>
 
-
-
+                            <input type="text" ng-model="modal.database.diskdb.host" value="c:\nodulus\data\" class="form-control" placeholder="c:\nodulus\data\" />
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="dbtype" ng-model="modal.database" ng-value="{'mongodb':''}" value="mongodb">mongoDB</label>
+                            <input type="text" ng-model="modal.database.mongodb.host" placeholder="mongodb:" class="form-control" />
+                        </div>
 
 
-                </fieldset>
-            </div>
+
+
+
+                    </fieldset>
+                </div>
+                </div>
             <div ng-switch-when="Admin credentials" class="wave">
-                <fieldset>
-                    <form name="RegisterForm" novalidate>
-                        <div class="form-group">
-                            <label>Email:</label>
-                            <input type="text" class="form-control" ng-model="modal.Email" />
-                        </div>
-                        <div class="form-group">
-                            <label>Password:</label>
-                            <input type="password" id="Password" class="form-control" ng-model="modal.Password" />
-                            <div ng-messages="LoginForm.Password.$error">
-                                <div ng-message="required">This is required.</div>
-                                <!--<div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>-->
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label>Confirm password:</label>
-                            <input type="password" id="Password2" class="form-control" ng-model="modal.Password2" />
-                            <div ng-messages="LoginForm.Password2.$error">
-                                <div ng-message="required">This is required.</div>
-                                <!--<div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>-->
-                            </div>
-                        </div>
+                <div class="pad10">
+                    <fieldset class="well pad10">
 
-                    </form>
-                </fieldset>
+
+                        <form name="RegisterForm" novalidate>
+                            <div class="form-group">
+                                <label>Email:</label>
+                                <input type="text" class="form-control" ng-model="modal.Email" />
+                            </div>
+                            <div class="form-group">
+                                <label>Password:</label>
+                                <input type="password" id="Password" class="form-control" ng-model="modal.Password" />
+                                <div ng-messages="LoginForm.Password.$error">
+                                    <div ng-message="required">This is required.</div>
+                                    <!--<div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>-->
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Confirm password:</label>
+                                <input type="password" id="Password2" class="form-control" ng-model="modal.Password2" />
+                                <div ng-messages="LoginForm.Password2.$error">
+                                    <div ng-message="required">This is required.</div>
+                                    <!--<div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>-->
+                                </div>
+                            </div>
+
+                        </form>
+                    </fieldset>
+                </div>
+                </div>
             </div>
-        </div>
     </div>
 </div>
 <div class="modal-footer">

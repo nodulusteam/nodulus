@@ -136,6 +136,10 @@ var _api = (function () {
 
 
                 dal.connect(function (err, db) {
+                    if (db === null) {
+                        return res.json(err);
+                    }
+
                     db.collection(entity).ensureIndex(
                         { "$**": "text" },
                         { name: "TextIndex" }

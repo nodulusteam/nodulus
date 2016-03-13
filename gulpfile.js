@@ -1,68 +1,52 @@
-﻿var gulp = require('gulp'),
-    plumber = require('gulp-plumber'),
-    rename = require('gulp-rename');
-var autoprefixer = require('gulp-autoprefixer');
-var concat = require('gulp-concat');
+﻿var gulp = require('gulp');
+var minify = require('gulp-minify');
+var typescript = require('gulp-typescript');
+var debug = require('gulp-debug');
+var path = require('path');
 var uglify = require('gulp-uglify');
-var imagemin = require('gulp-imagemin'),
-    cache = require('gulp-cache');
-var minifycss = require('gulp-minify-css');
-var sass = require('gulp-sass');
-var browserSync = require('browser-sync');
+var copy = require('gulp-copy');
 
-gulp.task('browser-sync', function () {
-    browserSync({
-        server: {
-            baseDir: "./"
-        }
-    });
-});
-
-gulp.task('bs-reload', function () {
-    browserSync.reload();
-});
-
-gulp.task('images', function () {
-    gulp.src('src/images/**/*')
-    .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
-    .pipe(gulp.dest('dist/images/'));
-});
-
-gulp.task('styles', function () {
-    gulp.src(['src/styles/**/*.scss'])
-    .pipe(plumber({
-        errorHandler: function (error) {
-            console.log(error.message);
-            this.emit('end');
-        }
-    }))
-    .pipe(sass())
-    .pipe(autoprefixer('last 2 versions'))
-    .pipe(gulp.dest('dist/styles/'))
-    .pipe(rename({ suffix: '.min' }))
-    .pipe(minifycss())
-    .pipe(gulp.dest('dist/styles/'))
-    .pipe(browserSync.reload({ stream: true }))
-});
-
-gulp.task('scripts', function () {
-    return gulp.src('src/scripts/**/*.js')
-    .pipe(plumber({
-        errorHandler: function (error) {
-            console.log(error.message);
-            this.emit('end');
-        }
-    }))
-    .pipe(concat('main.js'))
-    .pipe(gulp.dest('dist/scripts/'))
-    .pipe(rename({ suffix: '.min' }))
+gulp.task('uglifynode', ['compile'], function () {
+    return gulp.src(['./release/routes/*.js', './release/classes/**/*.js'])
+    .pipe(debug())
     .pipe(uglify())
-    .pipe(gulp.dest('dist/scripts/'))
-    .pipe(browserSync.reload({ stream: true }))
+    .pipe(gulp.dest(function (file) {
+        return path.join('./', path.dirname(file.path));
+    }))
+    .pipe(debug());
 });
 
-gulp.task('default', ['browser-sync'], function () {
-    gulp.watch("src/styles/**/*.scss", ['styles']);
-    gulp.watch("src/scripts/**/*.js", ['scripts']);
-    gulp.watch("*.html", ['bs-reload']);
+
+gulp.task('compress', function () {
+    gulp.src('public/**/*.*')
+
+    .pipe(copy("release"));
+    //.pipe(debug())
+    //.pipe(minify({
+    //    exclude: ['tasks'],
+    //    ignoreFiles: ['.combo.js', '-min.js']
+    //}))
+    //.pipe(gulp.dest('release/public'))
 });
+
+
+
+
+gulp.task('compiledev', function () {
+    var tsProject = typescript.createProject('tsconfig.json');
+    var tsResult = tsProject.src()
+      .pipe(debug())
+		.pipe(typescript(tsResult));
+    return tsResult.js.pipe(gulp.dest('./'));
+
+});
+
+gulp.task('compile', function () {
+    var tsProject = typescript.createProject('tsconfig.json');
+    var tsResult = tsProject.src()
+		.pipe(typescript(tsResult));
+    return tsResult.js.pipe(gulp.dest('release'));
+});
+
+
+gulp.task('default', ['compile', 'compress']);

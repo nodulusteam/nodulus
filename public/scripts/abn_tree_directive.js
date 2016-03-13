@@ -124,7 +124,7 @@
                     
                     scope.expand_branch = function (branch) {
                         
-                        debugger
+                         
                         if (!branch) {
                             if (selected_branch != null) {
                                 selected_branch.selected = false;

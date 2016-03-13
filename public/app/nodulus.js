@@ -131,7 +131,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
             }
 
         }
-                ;
+        ;
         if (lcid === null)
             lcid = 1033;
         
@@ -202,14 +202,14 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
 
                 },
                 languages: [{
-                        name: "english",
-                        shortname: "eng",
-                        "lcid": 1033,
-                        "align": "left",
-                        "direction": "ltr",
-                        "alignInvert": "right",
-                        "directionInvert": "rtl"
-                    },
+                    name: "english",
+                    shortname: "eng",
+                    "lcid": 1033,
+                    "align": "left",
+                    "direction": "ltr",
+                    "alignInvert": "right",
+                    "directionInvert": "rtl"
+                },
                     {
                         name: "hebrew",
                         shortname: "heb",
@@ -252,38 +252,38 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
         }
     }])
     .provider("$Config", function () {
-    var type;
-    return {
-        setType: function (value) {
-            type = value;
-        },
-        $get: function ($http) {
-            var self = this;
+        var type;
+        return {
+            setType: function (value) {
+                type = value;
+            },
+            $get: function ($http) {
+                var self = this;
             
-            $http.get("../../config/client.json").success(function (data) {
+                $http.get("../../config/client.json").success(function (data) {
                 
-                self.site = data;
-            })
+                    self.site = data;
+                })
             
-            return {
-                ready: function (callback) {
-                    var self = this;
-                    if (this.site === undefined) {
-                        $http.get("../../config/client.json").success(function (data) {
+                return {
+                    ready: function (callback) {
+                        var self = this;
+                        if (this.site === undefined) {
+                            $http.get("../../config/client.json").success(function (data) {
                             
-                            self.site = data;
+                                self.site = data;
+                                callback();
+                            })
+                        } else {
                             callback();
-                        })
-                    } else {
-                        callback();
-                    }
+                        }
 
-                },
-                site: self.site
-            };
-        }
-    };
-})
+                    },
+                    site: self.site
+                };
+            }
+        };
+    })
     .provider('$Theme', [function () {
         
         
@@ -328,118 +328,190 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
 
     
 
-    $scope.$Alerts = $Alerts;
-    $scope.$IDE = $IDE;
-    $scope.$nodulus = $nodulus;
-    nodulus = $scope.$nodulus;
-    $Cache.ready("schemas", function (data) {
-        var schemasObject = {};
-        for (var i = 0; i < data.length; i++) {
-            schemasObject[data[i].name] = data[i];
-        }
-        $Cache.setCache("schemasByName", schemasObject);
-    })
-    $scope.$User = $User;
-    //$Models.getSchemas();
-    var theme = localStorage.getItem("theme");
-    
-    if (theme === null)
-        theme = "paper";
-    
-    
-    $Theme.setTheme(theme);
-    //$scope.Theme = theme;
-    
-    
-    if (theme !== undefined) {
-        var themelink = "themes/" + theme + "/bootstrap.min.css";
-        $('link[id="mainthemefile"]').attr('href', themelink);
-        localStorage.setItem("theme", theme);
-    }
-    
-    
-    $scope.PaneHeight = $(window).height() - 110;
-    window.onresize = function () {
-        $scope.PaneHeight = $(window).height() - 110;
-        $scope.$apply($scope.PaneHeight);
-    };
-    
-    
-    var lcid = localStorage.getItem("lcid");
-    $scope.Language = $Language.getByLCID(lcid);
-    $Language.set($scope.Language)
-            .$promise.then(function (response) {
-        
-        var resourceSetResolves = {};
-        var arr = angular.fromJson(response.Results);
-        if (arr !== undefined) {
-            for (var i = 0; i < arr.length; i++) {
-                
-                resourceSetResolves[arr[i].Key] = arr[i].Value;
-            }
-        }
-        //$scope.DataTables = data.Tables;
-        $scope.LNG = resourceSetResolves;
-
-
-    });
-    $scope.Module = {};
-    
-    initSocketEvents($scope, $User, $Config, $Alerts);
-    
-    $scope.LoadSettingsPage = function () {
-        $IDE.ShowLobby({ "_id": "settings", "label": "Settings" }, "partials/settings.html");
-    }
-    $scope.LoadModulesPage = function () {
-        $IDE.ShowLobby({ "_id": "modules", "label": "Modules" }, "modules/modules/modules.html");
-    }
-
-
-    $resource("config/setup.json").get({} ,function () { }, function () { 
+        $scope.$Alerts = $Alerts;
+        $scope.$IDE = $IDE;
+        $scope.$nodulus = $nodulus;
+        nodulus = $scope.$nodulus;
          
-        $location.url("/setup");
-    });
+        $Cache.ready("schemas", function (data) {
+            var schemasObject = {};
+            for (var i = 0; i < data.length; i++) {
+                schemasObject[data[i].name] = data[i];
+            }
+            $Cache.setCache("schemasByName", schemasObject);
+        })
+        $scope.$User = $User;
+        //$Models.getSchemas();
+        var theme = localStorage.getItem("theme");
+    
+        if (theme === null)
+            theme = "paper";
+    
+    
+        $Theme.setTheme(theme);
+        //$scope.Theme = theme;
+    
+    
+        if (theme !== undefined) {
+            var themelink = "themes/" + theme + "/bootstrap.min.css";
+            $('link[id="mainthemefile"]').attr('href', themelink);
+            localStorage.setItem("theme", theme);
+        }
+    
+    
+        $scope.PaneHeight = $(window).height() - 110;
+        window.onresize = function () {
+            $scope.PaneHeight = $(window).height() - 110;
+            $scope.$apply($scope.PaneHeight);
+        };
+    
+    
+        var lcid = localStorage.getItem("lcid");
+        $scope.Language = $Language.getByLCID(lcid);
+        $Language.set($scope.Language)
+                .$promise.then(function (response) {
+        
+                    var resourceSetResolves = {};
+                    var arr = angular.fromJson(response.Results);
+                    if (arr !== undefined) {
+                        for (var i = 0; i < arr.length; i++) {
+                
+                            resourceSetResolves[arr[i].Key] = arr[i].Value;
+                        }
+                    }
+                    //$scope.DataTables = data.Tables;
+                    $scope.LNG = resourceSetResolves;
 
 
-})
+                });
+        $scope.Module = {};
+    
+        initSocketEvents($scope, $User, $Config, $Alerts);
+    
+        $scope.LoadSettingsPage = function () {
+            $IDE.ShowLobby({ "_id": "settings", "label": "Settings" }, "partials/settings.html");
+        }
+        $scope.LoadModulesPage = function () {
+            $IDE.ShowLobby({ "_id": "modules", "label": "Modules" }, "modules/modules/modules.html");
+        }
+
+
+        $resource("config/setup.json").get({} ,function () { }, function () { 
+         
+            $location.url("/setup");
+        });
+
+
+    })
     .controller('loginController', function ($scope, $resource, $location, $mdToast, $animate, $mdDialog, $Theme, $User) {
     
     
-    $scope.$Theme = $Theme;
-    if (localStorage.getItem("ApiUser") !== undefined) {
-        logedinuser = JSON.parse(localStorage.getItem("ApiUser"));
-        if (logedinuser != null && logedinuser !== undefined) {
-            $location.path("/manage");
-        }
+        $scope.$Theme = $Theme;
+        if (localStorage.getItem("ApiUser") !== undefined) {
+            logedinuser = JSON.parse(localStorage.getItem("ApiUser"));
+            if (logedinuser != null && logedinuser !== undefined) {
+                $location.path("/manage");
+            }
         
       
 
-        $mdDialog.show({
+            $mdDialog.show({
+                controller: function ($scope, $resource, $mdToast, $location) {
+                    $scope.Login = function () {
+                    
+                        if ($scope.LoginForm.$dirty && $scope.LoginForm.$invalid)
+                            return;
+                    
+                    
+                        $scope.LoginLoading = true;
+                        var LoginResource = $resource('/Users/login/', { Email: "@email", Password: "@password" });
+                    
+                        LoginResource.save({ Email: $scope.Username, Password: $scope.Password }, function (data) {
+                            $scope.LoginLoading = false;
+                        
+                        
+                            if (data != null && data.error === undefined) {
+                                $mdDialog.cancel();
+                            
+                            
+                                $User.set(data);
+                            
+                                //localStorage.setItem("ApiUser", JSON.stringify(data));
+                                $location.path("/manage");
+                            } else {
+                                $mdToast.show({
+                                    template: '<md-toast>Incorrect user name or password.</md-toast>',
+                                    hideDelay: 2000,
+                                    position: "bottom"
+                                });
+                            }
+                        });
+
+
+                    }
+
+                },
+            
+                templateUrl: 'partials/manage/dialogs/login.html'
+
+            });
+
+
+        }
+        $scope.Email = "";
+        $scope.Password = "";
+        $scope.CookieTimeOut = 0;
+        $scope.LoginLoading = false;
+        $scope.Login = function () {
+        
+            if ($scope.LoginForm.$dirty && $scope.LoginForm.$invalid)
+                return;
+        
+        
+            $scope.LoginLoading = true;
+            var LoginResource = $resource(apiUrl + '/Users/Login/', { Email: "@email", Password: "@password" });
+        
+            LoginResource.get({ Email: $scope.Username, Password: $scope.Password }, function (data) {
+                $scope.LoginLoading = false;
+                if (data != null && data._id !== undefined) {
+                    localStorage.setItem("ApiUser", JSON.stringify(data));
+                    $location.path("/manage");
+                } else {
+                    $mdToast.show({
+                        template: '<md-toast>Incorrect user name or password.</md-toast>',
+                        hideDelay: 2000,
+                        position: "bottom"
+                    });
+                }
+            });
+
+
+        }
+
+
+    })
+    .controller('registerController', function ($scope, $resource, $location, $mdToast, $animate, $mdDialog) {
+    
+    
+        var regDialog = $mdDialog.show({
             controller: function ($scope, $resource, $mdToast, $location) {
-                $scope.Login = function () {
-                    
-                    if ($scope.LoginForm.$dirty && $scope.LoginForm.$invalid)
+                $scope.Register = function () {
+                    if ($scope.RegisterForm.$dirty && $scope.RegisterForm.$invalid)
                         return;
-                    
-                    
-                    $scope.LoginLoading = true;
-                    var LoginResource = $resource('/Users/login/', { Email: "@email", Password: "@password" });
-                    
-                    LoginResource.save({ Email: $scope.Username, Password: $scope.Password }, function (data) {
-                        $scope.LoginLoading = false;
-                        
-                        
-                        if (data != null && data.error === undefined) {
-                            $mdDialog.cancel();
-                            
-                            
-                            $User.set(data);
-                            
-                            //localStorage.setItem("ApiUser", JSON.stringify(data));
+                
+                
+                    $scope.RegisterLoading = true;
+                    var RegisterResource = $resource('/Users/register/', { Email: "@email", Password: "@password" });
+                
+                    RegisterResource.save({ Email: $scope.Username, Password: $scope.Password }, function (data) {
+                        $scope.RegisterLoading = false;
+                        if (data != null && data._id !== undefined) {
+                            localStorage.setItem("ApiUser", JSON.stringify(data));
+                            $mdDialog.hide();
                             $location.path("/manage");
                         } else {
                             $mdToast.show({
-                                template: '<md-toast>Incorrect user name or password.</md-toast>',
+                                template: '<md-toast>' + data.error.message + '</md-toast>',
                                 hideDelay: 2000,
                                 position: "bottom"
                             });
@@ -450,300 +522,243 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
                 }
 
             },
-            
-            templateUrl: 'partials/manage/dialogs/login.html'
+        
+            templateUrl: 'partials/manage/dialogs/register.html'
 
         });
-
-
-    }
-    $scope.Email = "";
-    $scope.Password = "";
-    $scope.CookieTimeOut = 0;
-    $scope.LoginLoading = false;
-    $scope.Login = function () {
-        
-        if ($scope.LoginForm.$dirty && $scope.LoginForm.$invalid)
-            return;
-        
-        
-        $scope.LoginLoading = true;
-        var LoginResource = $resource(apiUrl + '/Users/Login/', { Email: "@email", Password: "@password" });
-        
-        LoginResource.get({ Email: $scope.Username, Password: $scope.Password }, function (data) {
-            $scope.LoginLoading = false;
-            if (data != null && data._id !== undefined) {
-                localStorage.setItem("ApiUser", JSON.stringify(data));
-                $location.path("/manage");
-            } else {
-                $mdToast.show({
-                    template: '<md-toast>Incorrect user name or password.</md-toast>',
-                    hideDelay: 2000,
-                    position: "bottom"
-                });
-            }
-        });
-
-
-    }
-
-
-})
-    .controller('registerController', function ($scope, $resource, $location, $mdToast, $animate, $mdDialog) {
     
     
-    var regDialog = $mdDialog.show({
-        controller: function ($scope, $resource, $mdToast, $location) {
-            $scope.Register = function () {
-                if ($scope.RegisterForm.$dirty && $scope.RegisterForm.$invalid)
-                    return;
-                
-                
-                $scope.RegisterLoading = true;
-                var RegisterResource = $resource('/Users/register/', { Email: "@email", Password: "@password" });
-                
-                RegisterResource.save({ Email: $scope.Username, Password: $scope.Password }, function (data) {
-                    $scope.RegisterLoading = false;
-                    if (data != null && data._id !== undefined) {
-                        localStorage.setItem("ApiUser", JSON.stringify(data));
-                        $mdDialog.hide();
-                        $location.path("/manage");
-                    } else {
-                        $mdToast.show({
-                            template: '<md-toast>' + data.error.message + '</md-toast>',
-                            hideDelay: 2000,
-                            position: "bottom"
-                        });
-                    }
-                });
+        $scope.Email = "";
+        $scope.Password = "";
+        $scope.CookieTimeOut = 0;
+        $scope.LoginLoading = false;
 
 
-            }
-
-        },
-        
-        templateUrl: 'partials/manage/dialogs/register.html'
-
-    });
-    
-    
-    $scope.Email = "";
-    $scope.Password = "";
-    $scope.CookieTimeOut = 0;
-    $scope.LoginLoading = false;
-
-
-})
+    })
     .service('$User', function ($resource, $Config) {
     
-    var instance = this;
+        var instance = this;
     
     
-    this.set = function (user) {
-        user.Password = null;
-        localStorage.setItem("ApiUser", JSON.stringify(user));
-        instance.user = user;
+        this.set = function (user) {
+            user.Password = null;
+            localStorage.setItem("ApiUser", JSON.stringify(user));
+            instance.user = user;
 
-    }
+        }
     
-    this.get = function () {
+        this.get = function () {
         
-        var user = localStorage.getItem("ApiUser");
-        if (user === undefined)
-            return false;
-        else
-            return JSON.parse(user);
+            var user = localStorage.getItem("ApiUser");
+            if (user === undefined)
+                return false;
+            else
+                return JSON.parse(user);
 
-
-    }
-    
-    
-    this.User = this.get();
-    
-    
-    this.ready = function (callback) {
-        if (instance.Patients !== undefined) {
-            callback();
-        }
-        else {
-            this.LoadPatients(callback);
 
         }
-    }
+    
+    
+        this.User = this.get();
+    
+    
+        this.ready = function (callback) {
+            if (instance.Patients !== undefined) {
+                callback();
+            }
+            else {
+                this.LoadPatients(callback);
 
-})
+            }
+        }
+
+    })
     .service('$Alerts', function ($resource, $Config) {
     
-    var instance = this;
-    instance.alerts = [];
+        var instance = this;
+        instance.alerts = [];
     
     
-    this.add = function (alert) {
-        instance.alerts.push(alert);
+        this.add = function (alert) {
+            instance.alerts.push(alert);
 
 
-    }
-    this.remove = function (alert) {
-        instance.alerts.splice(instance.alerts.indexOf(alert), 1);
-    }
+        }
+        this.remove = function (alert) {
+            instance.alerts.splice(instance.alerts.indexOf(alert), 1);
+        }
 
 
-})
+    })
 
 
     .service('$nodulus', function ($resource, $Config, $injector, $log) {
     
-    var instance = this;
+        var instance = this;
     
     
-    this.register = function (registerModules) {
+        this.register = function (registerModules) {
         
-        //$injector, providersx,
-        var i, ii, k, invokeQueue, moduleName, moduleFn, invokeArgs, provider;
-        if (registerModules) {
-            var runBlocks = [];
-            for (k = registerModules.length - 1; k >= 0; k--) {
-                moduleName = registerModules[k];
-                regModules.push(moduleName);
-                moduleFn = angular.module(moduleName);
-                DynamicData.requires.push(moduleName);
+            //$injector, providersx,
+            var i, ii, k, invokeQueue, moduleName, moduleFn, invokeArgs, provider;
+            if (registerModules) {
+                var runBlocks = [];
+                for (k = registerModules.length - 1; k >= 0; k--) {
+                    moduleName = registerModules[k];
+                    regModules.push(moduleName);
+                    moduleFn = angular.module(moduleName);
+                    DynamicData.requires.push(moduleName);
                 
                 
-                runBlocks = runBlocks.concat(moduleFn._runBlocks);
-                try {
-                    for (invokeQueue = moduleFn._invokeQueue, i = 0, ii = invokeQueue.length; i < ii; i++) {
-                        invokeArgs = invokeQueue[i];
+                    runBlocks = runBlocks.concat(moduleFn._runBlocks);
+                    try {
+                        for (invokeQueue = moduleFn._invokeQueue, i = 0, ii = invokeQueue.length; i < ii; i++) {
+                            invokeArgs = invokeQueue[i];
                         
-                        if (providers.hasOwnProperty(invokeArgs[0])) {
-                            provider = providers[invokeArgs[0]];
-                        } else {
-                            return $log.error("unsupported provider " + invokeArgs[0]);
+                            if (providers.hasOwnProperty(invokeArgs[0])) {
+                                provider = providers[invokeArgs[0]];
+                            } else {
+                                return $log.error("unsupported provider " + invokeArgs[0]);
+                            }
+                            provider[invokeArgs[1]].apply(provider, invokeArgs[2]);
                         }
-                        provider[invokeArgs[1]].apply(provider, invokeArgs[2]);
+                    } catch (e) {
+                        if (e.message) {
+                            e.message += ' from ' + moduleName;
+                        }
+                        $log.error(e.message);
+                        throw e;
                     }
-                } catch (e) {
-                    if (e.message) {
-                        e.message += ' from ' + moduleName;
-                    }
-                    $log.error(e.message);
-                    throw e;
+                    registerModules.pop();
                 }
-                registerModules.pop();
+                angular.forEach(runBlocks, function (fn) {
+                    $injector.invoke(fn);
+                });
             }
-            angular.forEach(runBlocks, function (fn) {
-                $injector.invoke(fn);
-            });
+            return null;
         }
-        return null;
-    }
 
 
-})
+    })
     .directive('navLoader', function ($compile) {
-    return {
-        restrict: 'E',
-        scope: {
-            "navname": "=",
-            "module": "="
+        return {
+            restrict: 'E',
+            scope: {
+                "navname": "=",
+                "module": "="
 
-        },
-        link: function (scope, elem, attrs) {
+            },
+            link: function (scope, elem, attrs) {
             
-            var htm = '<div>' + '<' + scope.navname + '></' + scope.navname + '></div>';
-            var compiled = $compile(htm)(scope);
-            elem.append(compiled);
+                var htm = '<div>' + '<' + scope.navname + '></' + scope.navname + '></div>';
+                var compiled = $compile(htm)(scope);
+                elem.append(compiled);
      
+            }
         }
-    }
-})
-    .controller('setupController', function ($scope, $modal) {
-    var app = this;
+    })
+    .controller('setupController', function ($scope, $uibModal) {
+        var app = this;
     
-    app.closeAlert = function () {
-        app.reason = null;
-    };
+        app.closeAlert = function () {
+            app.reason = null;
+        };
     
-    app.open = function () {
-        var modalInstance = $modal.open({
-            templateUrl: 'setup/partials/wizard.html',
-            controller: 'ModalCtrl'
+        app.open = function () {
+            var modalInstance = $uibModal.open({
+                templateUrl: 'setup/partials/wizard.html',
+                controller: 'ModalCtrl'
             
-        });
+            });
         
-        modalInstance.result
-                .then(function (data) {
-            app.closeAlert();
-            app.summary = data;
-        }, function (reason) {
-            app.reason = reason;
-        });
-    };
+            modalInstance.result
+                    .then(function (data) {
+                        app.closeAlert();
+                        app.summary = data;
+                    }, function (reason) {
+                        app.reason = reason;
+                    });
+        };
 
-    app.open();
-    $scope.app = app;
+        app.open();
+        $scope.app = app;
 
 
-})
+    })
     .controller('ModalCtrl', function ($scope, $location, $modalInstance, $Language, $Theme, $translate, $resource) {
-    var modal = {};
+        var modal = {};
 
    
-    modal.steps = ['Welcome', 'Persistence mode', 'Admin credentials'];
-    modal.step = 0;
-    modal.wizard = { tacos: 2 };
+        modal.steps = ['Welcome', 'Persistence mode', 'Admin credentials'];
+        modal.step = 0;
+     
     
 
-    modal.isFirstStep = function () {
-        return modal.step === 0;
-    };
+        modal.isFirstStep = function () {
+            return modal.step === 0;
+        };
     
-    modal.isLastStep = function () {
-        return modal.step === (modal.steps.length - 1);
-    };
+        modal.isLastStep = function () {
+            return modal.step === (modal.steps.length - 1);
+        };
     
-    modal.isCurrentStep = function (step) {
-        return modal.step === step;
-    };
+        modal.isCurrentStep = function (step) {
+            return modal.step === step;
+        };
     
-    modal.setCurrentStep = function (step) {
-        modal.step = step;
-    };
+        modal.setCurrentStep = function (step) {
+            modal.step = step;
+        };
     
-    modal.getCurrentStep = function () {
-        return modal.steps[modal.step];
-    };
+        modal.getCurrentStep = function () {
+            return modal.steps[modal.step];
+        };
     
-    modal.getNextLabel = function () {
-        return (modal.isLastStep()) ? 'Submit' : 'Next';
-    };
+        modal.getNextLabel = function () {
+            return (modal.isLastStep()) ? 'Submit' : 'Next';
+        };
     
-    modal.handlePrevious = function () {
-        modal.step -= (modal.isFirstStep()) ? 0 : 1;
-    };
+        modal.handlePrevious = function () {
+            modal.step -= (modal.isFirstStep()) ? 0 : 1;
+        };
     
-    modal.handleNext = function () {
-        if (modal.isLastStep()) {
+        modal.handleNext = function () {
+      
+            if (modal.isLastStep()){
+                if(modal.database && (modal.database.diskdb !== "" || modal.database.mongodb != "" )) {
             
+                     
+                   
+                    //persist settings
+                    var resource = $resource("/nodulus/setup");
+                    resource.save(modal, function (result) {
+          
+                        $location.url("/login");
             
-            //persist settings
-            var resource = $resource("/nodulus/setup");
-            resource.save(modal, function (result) {
-            debugger
-                $location.url("/login");
-            
-            })
+                    })
 
             
 
-            $modalInstance.close(modal.wizard);
-        } else {
+                    $modalInstance.close(modal.wizard);
+                }
+                else
+                {
+                    modal.step = 1;
+
+                }
+
+
+
+            } else {
+               
+
             modal.step += 1;
         }
     };
     
-    modal.dismiss = function (reason) {
-        $modalInstance.dismiss(reason);
-    };
+modal.dismiss = function (reason) {
+    $modalInstance.dismiss(reason);
+};
 
 
    
@@ -753,51 +768,51 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
 
 
 
-    modal.Languages = $Language.languages;
-    modal.Language = $Language.getByLCID(localStorage.getItem("lcid"));
-    if (modal.Language !== undefined && modal.Language.direction == 'rtl') {
-        $('link[id="languageCssfile"]').attr('href', "styles/bootstrap.rtl.css");
-    }
+modal.Languages = $Language.languages;
+modal.Language = $Language.getByLCID(localStorage.getItem("lcid"));
+if (modal.Language !== undefined && modal.Language.direction == 'rtl') {
+    $('link[id="languageCssfile"]').attr('href', "styles/bootstrap.rtl.css");
+}
     
-    modal.SetLanguage = function () {
-        $Language.set(modal.Language).$promise.then(function (response) {
-            $translate.use(modal.Language.shortname);
-            $translate.preferredLanguage(modal.Language.shortname);
-            $translate.fallbackLanguage(modal.Language.shortname);
-            $translate.refresh();
-            localStorage.setItem("lcid", modal.Language.lcid);
-            if (modal.Language !== undefined && modal.Language.direction == 'rtl') {
-                $('link[id="languageCssfile"]').attr('href', "styles/bootstrap.rtl.css");
-            } else {
+modal.SetLanguage = function () {
+    $Language.set(modal.Language).$promise.then(function (response) {
+        $translate.use(modal.Language.shortname);
+        $translate.preferredLanguage(modal.Language.shortname);
+        $translate.fallbackLanguage(modal.Language.shortname);
+        $translate.refresh();
+        localStorage.setItem("lcid", modal.Language.lcid);
+        if (modal.Language !== undefined && modal.Language.direction == 'rtl') {
+            $('link[id="languageCssfile"]').attr('href', "styles/bootstrap.rtl.css");
+        } else {
                 
-                if ($Theme.theme !== undefined) {
-                    var themelink = "themes/" + $Theme.theme + "/bootstrap.min.css";
-                    $('link[id="languageCssfile"]').attr('href', themelink);
+            if ($Theme.theme !== undefined) {
+                var themelink = "themes/" + $Theme.theme + "/bootstrap.min.css";
+                $('link[id="languageCssfile"]').attr('href', themelink);
            
-                }
             }
-        });
-    }
-    
-    modal.Theme = $Theme.theme;
-    
-    modal.Themes = ["amelia", "blooming", "cerulean", "desert" , "paper", "green", "readable", "simplex", "spacelab", "Liquorice Schnitzel", "flat", "cyborg", "United", "superhero", "journal", "Lumen"];
-    var theme = localStorage.getItem("theme");
-    if (theme !== null && theme !== undefined) {
-        modal.Theme = theme;
-    }
-    else {
-        modal.Theme = "paper";
-    }
-    
-    $scope.$watch("modal.Theme", function (theme_name, oldVal) {
-        if (theme_name !== undefined) {
-            var theme = "themes/" + theme_name + "/bootstrap.min.css";
-            $('link[id="mainthemefile"]').attr('href', theme);
-            localStorage.setItem("theme", theme_name);
         }
     });
-    $scope.modal = modal;
+}
+    
+modal.Theme = $Theme.theme;
+    
+modal.Themes = ["amelia", "blooming", "cerulean", "desert" , "paper", "green", "readable", "simplex", "spacelab", "Liquorice Schnitzel", "flat", "cyborg", "United", "superhero", "journal", "Lumen"];
+var theme = localStorage.getItem("theme");
+if (theme !== null && theme !== undefined) {
+    modal.Theme = theme;
+}
+else {
+    modal.Theme = "paper";
+}
+    
+$scope.$watch("modal.Theme", function (theme_name, oldVal) {
+    if (theme_name !== undefined) {
+        var theme = "themes/" + theme_name + "/bootstrap.min.css";
+        $('link[id="mainthemefile"]').attr('href', theme);
+        localStorage.setItem("theme", theme_name);
+    }
+});
+$scope.modal = modal;
 
 });
 
@@ -836,42 +851,42 @@ function initSocketEvents($scope, $User, $Config, $Alerts) {
 
 
 DynamicData.controller('Directives.BaseController', ['$scope', '$rootScope', '$Models', '$Broker', '$Cache', function ($scope, $rootScope, $Models, $Broker, $Cache) {
-        $scope.Admin = $scope.$root.Admin;
-        $scope.cahce = $Cache;
+    $scope.Admin = $scope.$root.Admin;
+    $scope.cahce = $Cache;
         
-        $scope.$Broker = $Broker;
+    $scope.$Broker = $Broker;
         
-        $scope.ApplyData = function () {
+    $scope.ApplyData = function () {
             
-            $scope.model = $scope.FieldName;
-            
-            
-            if ($rootScope.models === undefined)
-                $rootScope.models = {};
+        $scope.model = $scope.FieldName;
             
             
-            if ($Models.Models[$scope.db._id] !== undefined) {//&& $Models[$scope.tab.id][$scope.FieldName] !== undefined
-                $scope.ComplexType = $Models.ResolvePropertyValue($scope.FieldName, $scope.db._id, $scope.tab);
-            }
-            else
-                $scope.ComplexType = {};
-            if ($scope.dataId !== undefined)
-                $scope.ComplexType.input = $scope.$Broker.Objects[$scope.schemaName + "_" + $scope.dataId][$scope.FieldName];
-            if ($scope.ComplexType !== undefined) {
-                $scope.$watch("ComplexType", function (newVal, oldVal) {
+        if ($rootScope.models === undefined)
+            $rootScope.models = {};
+            
+            
+        if ($Models.Models[$scope.db._id] !== undefined) {//&& $Models[$scope.tab.id][$scope.FieldName] !== undefined
+            $scope.ComplexType = $Models.ResolvePropertyValue($scope.FieldName, $scope.db._id, $scope.tab);
+        }
+        else
+            $scope.ComplexType = {};
+        if ($scope.dataId !== undefined)
+            $scope.ComplexType.input = $scope.$Broker.Objects[$scope.schemaName + "_" + $scope.dataId][$scope.FieldName];
+        if ($scope.ComplexType !== undefined) {
+            $scope.$watch("ComplexType", function (newVal, oldVal) {
                     
                     
-                    $scope.$Broker.set($scope.schemaName, $scope.dataId, $scope.FieldName, newVal);
+                $scope.$Broker.set($scope.schemaName, $scope.dataId, $scope.FieldName, newVal);
 
 
-                }, true);
-
-            }
-
+            }, true);
 
         }
+
+
+    }
  
-    }]);
+}]);
 
 
 

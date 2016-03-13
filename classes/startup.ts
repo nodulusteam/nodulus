@@ -36,13 +36,15 @@
 
             var http = require("http").createServer(app);
             var server = require('http').Server(app);
+            var socket = require('socket.io');
+            var io = socket.listen(server);
+            global["socket"] = io;
+            console.log("*** websocket is active");
+            SocketUse(io);
+
             webServer.start(server, app, function (app) {
 
-                var socket = require('socket.io');
-                var io = socket.listen(server);
-                global["socket"] = io;
-                console.log("*** websocket is active");
-                SocketUse(io);
+               
 
             });
 

@@ -99,7 +99,7 @@ angular.module('nodulus').controller('ideController',
 
     $scope.Refresh = function (tab) {
         
-        debugger;
+       
 
         var refresh_delegate = angular.element("#" + tab.itemKey +" div[ng-controller]").scope().refresh;
         if (refresh_delegate)

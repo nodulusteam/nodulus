@@ -347,14 +347,7 @@ var Dal = (function () {
 
                     break;
 
-                    db.collection(oQuery.collection).remove(oQuery.where
-                        , function (err, result) {
-                            assert.equal(err, null);
-                            console.log("deleted document from " + oQuery.collection);
-                            callback(result);
-                        });
-
-                    break;
+                   
                 case "UPDATE":
                     db.collection(oQuery.collection).update(oQuery.where, oQuery.values
                         , function (err, result) {

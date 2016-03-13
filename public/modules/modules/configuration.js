@@ -11,7 +11,7 @@
 
 angular.module('nodulus').controller("ModulesConfigurationController", function ($http, $scope, $Alerts, $IDE, $translate, $resource, $Language , $mdDialog, $TreeMenu) {
 
-    debugger
+     
     $scope.SaveConfiguration = function () { 
     
     

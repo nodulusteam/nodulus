@@ -23,6 +23,8 @@ var socketuse = function (io) {
             socket.emit('console connected', data);
 
         });
+
+        
     });
 
 

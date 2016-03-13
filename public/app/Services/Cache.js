@@ -30,17 +30,22 @@ service('$Cache', function ($resource, $Config) {
                     this.states[collectionName].status = 'loading';
                     var genres = $resource("/api/" + collectionName);
                     genres.get({}, function (data) {
-                        var col = {};
-                        for (var i = 0; i < data.items.length; i++) {
-                            col[data.items[i]["_id"]] = data.items[i];
-                        }
-                        
-                        instance[collectionName] = col;
-                        instance.states[collectionName].status = 'ready';
-                        callback(toArray(instance[collectionName]));
-                        for (var i = 0; i < instance.states[collectionName].callbacks.length; i++)
-                            instance.states[collectionName].callbacks[i](toArray(instance[collectionName]));
 
+                        if (data != null && data.items)
+                        {
+                            var col = {};
+                            for (var i = 0; i < data.items.length; i++) {
+                                col[data.items[i]["_id"]] = data.items[i];
+                            }
+
+                            instance[collectionName] = col;
+                            instance.states[collectionName].status = 'ready';
+                            callback(toArray(instance[collectionName]));
+                            for (var i = 0; i < instance.states[collectionName].callbacks.length; i++)
+                                instance.states[collectionName].callbacks[i](toArray(instance[collectionName]));
+
+                        }
+                      
                     });
                     
                     break;
@@ -55,22 +60,7 @@ service('$Cache', function ($resource, $Config) {
             }
            
 
-            //if (this[collectionName] === undefined) {
-            //    var genres = $resource("/api/" + collectionName);
-            //    genres.get({}, function (data) {
-            //        var col = {};
-            //        for (var i = 0; i < data.items.length; i++) {
-            //            col[data.items[i]["_id"]] = data.items[i];
-            //        }
-                    
-            //        instance[collectionName] = col;
-            //        callback(instance[collectionName]);
-            //    });
-                
-            //}
-            //else {
-            //    callback(instance[collectionName]);
-            //}
+            
         }
         else {
             if (this[collectionName] === undefined)
