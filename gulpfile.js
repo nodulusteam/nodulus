@@ -17,10 +17,12 @@ gulp.task('uglifynode', ['compile'], function () {
 });
 
 
-gulp.task('compress', function () {
-    gulp.src('public/**/*.*')
-
-    .pipe(copy("release"));
+gulp.task('create_client', function () {
+    gulp.src('client/**/*.*')   
+    .pipe(copy("release/client",{prefix: 1}));
+    // .pipe(debug())
+    //, {prefix: 2}
+   // .pipe(debug());
     //.pipe(debug())
     //.pipe(minify({
     //    exclude: ['tasks'],
@@ -30,6 +32,17 @@ gulp.task('compress', function () {
 });
 
 
+gulp.task('create_server', function () {
+    gulp.src('server/**/*.*')    
+    .pipe(copy("release/server",{prefix: 1}));
+   // .pipe(debug());
+    //.pipe(debug())
+    //.pipe(minify({
+    //    exclude: ['tasks'],
+    //    ignoreFiles: ['.combo.js', '-min.js']
+    //}))
+    //.pipe(gulp.dest('release/public'))
+});
 
 
 gulp.task('compiledev', function () {
@@ -42,11 +55,11 @@ gulp.task('compiledev', function () {
 });
 
 gulp.task('compile', function () {
-    var tsProject = typescript.createProject('tsconfig.json');
+    var tsProject = typescript.createProject('server/tsconfig.json');
     var tsResult = tsProject.src()
 		.pipe(typescript(tsResult));
-    return tsResult.js.pipe(gulp.dest('release'));
+    return tsResult.js.pipe(gulp.dest('./'));
 });
 
 
-gulp.task('default', ['compile', 'compress']);
+gulp.task('default', ['compile', 'create_client', 'create_server']);

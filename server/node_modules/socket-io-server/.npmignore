@@ -1,0 +1,11 @@
+# Ignored files:
+.DS_Store
+lib/.DS_Store
+
+npm-debug.log
+lib/npm-debug.log
+
+
+# Ignored directories:
+node_modules
+coverage

@@ -1,0 +1,90 @@
+﻿<div ng-controller="zipemController">
+
+
+    <h1>Zip'em</h1>
+
+
+    <md-progress-linear md-mode='indeterminate' data-ng-show="ModuleLoading"></md-progress-linear>
+
+
+
+
+
+
+    <div class="container pull-left" style="width: 50%;">
+        <div class="panel panel-primary ">
+            <div class="panel-heading">{{"Installed modules" | translate}}</div>
+            <div class="panel-body" style="overflow: auto;height: {{PaneHeight-150}}px;">
+
+
+                <div class="form-group">
+                    <label>Project path (copy & paste)</label>
+                    <div class="input-group">
+                       {{ProjectPath}}
+                        <input type="text" ng-model="ProjectPath" 
+                               class="form-control" 
+                               uib-typeahead="file for file in getFolders($viewValue)"
+                               typeahead-loading="loadingFolders" 
+                               typeahead-editable="false" 
+                               typeahead-show-hint="true" 
+                               typeahead-no-results="noResults" placeholder="Path...">
+
+
+
+                       
+                        <span class="input-group-btn">
+                            <a class="btn btn-primary" ng-click="browseFolder(ProjectPath)">show</a>
+                        </span>
+                    </div>
+
+</div>
+
+
+
+                    <div class="form-group">
+
+                        <label>changeset date:</label>
+                       
+                        <uib-datepicker ng-model="dt" min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></uib-datepicker>
+
+
+                    </div>
+
+                <div class="form-group">
+                    <label>exclude files:</label>
+                    <textarea class="form-control" ng-model="ExcludeList"></textarea>
+                    </div>
+                    <a class="btn btn-primary" ng-click="zipit()">Zip'em!</a>
+
+                </div>
+        </div>
+    </div>
+    <div class="container pull-right" style="width: 50%;">
+        <div class="panel panel-primary ">
+            <div class="panel-heading">{{"Files" | translate}}</div>
+            <div class="panel-body" style="overflow: auto;height: {{PaneHeight-150}}px;">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="file in FolderFileList">
+                            <td ng-bind="file.name"></td>
+                            <td ng-bind="file.mtime | date"></td>
+
+                        </tr>
+                    </tbody>
+                    
+                </table>
+               
+
+            </div>
+        </div>
+    </div>
+
+
+    </div>
