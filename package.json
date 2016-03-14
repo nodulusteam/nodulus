@@ -11,7 +11,9 @@
     "email": "roi@ewave.co.il"
   },
   "dependencies": {
-   
+    "fs-extra": "^0.26.5",
+    "jszip": "^2.5.0",
+    "wildcard": "^1.1.2"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

@@ -36,3 +36,4 @@ router.get('/languages', function (req, res) {
     });
 });
 module.exports = router;
+//# sourceMappingURL=translations.js.map
