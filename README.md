@@ -114,3 +114,9 @@ nodulus can be translated using this nodule (todo - add  translation via the man
 ##### Modules setup
 ﻿![Alt text](platform-images/modules.jpg?raw=true "Modules")
 
+
+[slack](https://nodulus.slack.com/messages/general/)
+
+
+[cookbook](https://roibh.gitbooks.io/nodulus)
+
