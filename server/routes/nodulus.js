@@ -8,7 +8,7 @@ var dal = require("../app/dal.js");
 var appRoot = global["appRoot"];
 router.post("/setup", function (req, res) {
     var setupConfig = req.body;
-    var setupConfigPath = appRoot + "\\public\\config\\setup.json";
+    var setupConfigPath = global.clientAppRoot + "\\config\\setup.json";
     fs.writeFileSync(setupConfigPath, JSON.stringify({ active: new Date() }), 'utf8');
     var configurationPath = appRoot + "\\config\\config.json";
     var configurationObject = JSON.parse(fs.readFileSync(configurationPath, 'utf8').replace(/^\uFEFF/, ''));

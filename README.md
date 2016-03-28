@@ -1,5 +1,5 @@
 # nodulus 
-##by ewave@open-source
+ 
 
 
 a modular back-office for node.js using angular.js and mongoDB.

@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{2cb23b19-1ae4-436b-9fc2-5fdb472c2db6}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ShowAllFiles</ProjectView>
+    <ProjectView>ProjectFiles</ProjectView>
     <StartupFile>server/app.js</StartupFile>
     <WorkingDirectory>D:\ewave-open-source\nodulus-master</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -1474,6 +1474,18 @@
     <Content Include="server\typings.json" />
     <Content Include="tsconfig.json" />
     <Content Include="web.config" />
+    <TypeScriptCompile Include="server\typings\main\ambient\body-parser\index.d.ts" />
+    <TypeScriptCompile Include="server\typings\main\ambient\errorhandler\index.d.ts" />
+    <TypeScriptCompile Include="server\typings\main\ambient\es6-promise\index.d.ts" />
+    <TypeScriptCompile Include="server\typings\main\ambient\express-serve-static-core\index.d.ts" />
+    <TypeScriptCompile Include="server\typings\main\ambient\express\index.d.ts" />
+    <TypeScriptCompile Include="server\typings\main\ambient\method-override\index.d.ts" />
+    <TypeScriptCompile Include="server\typings\main\ambient\mime\index.d.ts" />
+    <TypeScriptCompile Include="server\typings\main\ambient\mongodb\index.d.ts" />
+    <TypeScriptCompile Include="server\typings\main\ambient\node\index.d.ts" />
+    <TypeScriptCompile Include="server\typings\main\ambient\serve-static\index.d.ts" />
+    <TypeScriptCompile Include="server\typings\main\ambient\socket.io\index.d.ts" />
+    <TypeScriptCompile Include="server\typings\nodulus\nodulus.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="client\" />
@@ -1733,6 +1745,20 @@
     <Folder Include="server\routes\" />
     <Folder Include="platform-images\" />
     <Folder Include="server\typings\" />
+    <Folder Include="server\typings\main\" />
+    <Folder Include="server\typings\main\ambient\" />
+    <Folder Include="server\typings\main\ambient\body-parser\" />
+    <Folder Include="server\typings\main\ambient\errorhandler\" />
+    <Folder Include="server\typings\main\ambient\es6-promise\" />
+    <Folder Include="server\typings\main\ambient\express-serve-static-core\" />
+    <Folder Include="server\typings\main\ambient\express\" />
+    <Folder Include="server\typings\main\ambient\method-override\" />
+    <Folder Include="server\typings\main\ambient\mime\" />
+    <Folder Include="server\typings\main\ambient\mongodb\" />
+    <Folder Include="server\typings\main\ambient\node\" />
+    <Folder Include="server\typings\main\ambient\serve-static\" />
+    <Folder Include="server\typings\main\ambient\socket.io\" />
+    <Folder Include="server\typings\nodulus\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="server\app.ts" />
