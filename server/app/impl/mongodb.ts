@@ -139,7 +139,7 @@ export class dal implements nodulus.IDal {
 
 
         public getAll(callback: Function) {
-            var url = config.appSettings().database.mongodb.host;
+            var url = global.config.appSettings().database.mongodb.host;
             var Db = require('mongodb').Db;
             var Server = require('mongodb').Server;
 
@@ -184,7 +184,7 @@ export class dal implements nodulus.IDal {
 
 
         public connect(callback: Function) {
-            var url = config.appSettings().database.mongodb.host;
+            var url = global.config.appSettings().database.mongodb.host;
             var MongoClient = require('mongodb').MongoClient;
             if (this.db === null) {
                 MongoClient.connect(url, function (err: any, db: any) {
@@ -211,7 +211,7 @@ export class dal implements nodulus.IDal {
         //function _insertOrUpdate(queryStr, params, callback) {
 
         //    var oQuery = parse(queryStr, params);
-        //    var url = config.appSettings().mongodb.host;
+        //    var url = global.config.appSettings().mongodb.host;
         //    var MongoClient = require('mongodb').MongoClient;
 
         //    collection.insert({ hello: 'world_no_safe' });
@@ -219,7 +219,7 @@ export class dal implements nodulus.IDal {
         //}
 
         public deleteCollection(collection: string, id: string, callback: Function) {
-            var url = config.appSettings().database.mongodb.host;
+            var url = global.config.appSettings().database.mongodb.host;
             var MongoClient = require('mongodb').MongoClient;
             this.connect(function (err: any, db: any) {
                 assert.equal(null, err);

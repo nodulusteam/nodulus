@@ -10,21 +10,25 @@
   
 /// <reference path="../typings/main.d.ts" />
 
+import {consts} from "../app/consts";
+import {dal} from "../app/dal";
+import {config} from "../app/config";
+import {users as userDB} from "../app/users";
+
+
 var express = require('express');
 var router = express.Router();
 var util = require('util');
 var fs = require("fs-extra");
 var path = require('path');
-var config = require('../app/config.js');
-var dal = require("../app/dal.js");
-var appRoot = global["appRoot"];
+ 
+
+var appRoot = global.appRoot;
 
 router.post("/setup", function (req: any, res: any) {
 
     var setupConfig = req.body;
-    var setupConfigPath = global.clientAppRoot + "\\config\\setup.json";
-  
-    fs.writeFileSync(setupConfigPath,JSON.stringify({active: new Date()}), 'utf8');
+
     
     var configurationPath = appRoot + "\\config\\config.json";
     
@@ -32,6 +36,8 @@ router.post("/setup", function (req: any, res: any) {
     var configurationObject = JSON.parse(fs.readFileSync(configurationPath, 'utf8').replace(/^\uFEFF/, ''));
     configurationObject["database"] = setupConfig["database"];
 
+    if (configurationObject["database"].diskdb)
+        fs.ensureDirSync(configurationObject["database"].diskdb.host);
     //for (var key in configurationObject) {
     //    if (setupConfig[key]) {
     //        configurationObject[key] = setupConfig[key];
@@ -39,18 +45,20 @@ router.post("/setup", function (req: any, res: any) {
 
     //}
     fs.writeFileSync(configurationPath, JSON.stringify(configurationObject), 'utf8');
-    
+
+    global.config = new config();
+
     var userObj = {
         Email: setupConfig.Email,
         Password: setupConfig.Password
     
     }
    
-    //register the default user
-    var userDB = require("../app/users").users;
+    //register the default user    
     userDB.register(userObj, function () { 
-        res.status(200).json(setupConfig);
-    
+        var setupConfigPath = global.clientAppRoot + "\\config\\setup.json";
+        fs.writeFileSync(setupConfigPath, JSON.stringify({ active: new Date() }), 'utf8');
+        res.status(200).json(setupConfig);    
     })
     
 

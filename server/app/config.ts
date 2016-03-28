@@ -18,19 +18,13 @@
             var fs = require('fs');
             var path = require('path');
 
-            this.appSettings = JSON.parse(fs.readFileSync(global["appRoot"] + '\\config\\config.json', 'utf8').replace(/^\uFEFF/, ''));
-            this.modulesSettings = JSON.parse(fs.readFileSync(global["appRoot"] + '\\modules.json', 'utf8').replace(/^\uFEFF/, ''));
+            this.appSettings = JSON.parse(fs.readFileSync(global.appRoot + '\\config\\config.json', 'utf8').replace(/^\uFEFF/, ''));
+            this.modulesSettings = JSON.parse(fs.readFileSync(global.appRoot + '\\modules.json', 'utf8').replace(/^\uFEFF/, ''));
         }
 
     }
  
 
-//namespace nodulus {
-//    export namespace configuration {
-
-
-//    }
-//}
 
 
 

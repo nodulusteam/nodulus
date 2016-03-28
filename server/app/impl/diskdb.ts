@@ -15,7 +15,7 @@ var assert = require('assert');
  
  
 import * as diskdata from "./diskdb/diskdb";
-
+import {config} from "../config";
 
 
 
@@ -271,7 +271,7 @@ export class dal implements nodulus.IDal {
 
 
         public deleteCollection(collection: string, id: string, callback: Function) {
-            var url = config.appSettings().database.diskdb.host;
+            var url = global.config.appSettings().database.diskdb.host;
             var MongoClient = require('mongodb').MongoClient;
             this.connect(function (err: any, db: nodulus.IDb) {
                 assert.equal(null, err);

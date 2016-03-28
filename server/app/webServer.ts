@@ -11,11 +11,13 @@
 
 
 var path = require("path");
+ 
+
 export class webServer {
       
         public start(server: any, app: any, callback: Function) {
 
-            var activeport = config.appSettings.port;
+            var activeport = global.config.appSettings.port;
             if (process.env.PORT !== undefined)
                 activeport = process.env.PORT;
 
