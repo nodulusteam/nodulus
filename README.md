@@ -21,7 +21,7 @@ it uses a manifest file to define the nodule files, scripts, dependencies, route
 2. run `npm install`
 3. run `start.bat`
 
-use the configuration file at /config/site.json to set the database name and the application port, default port is 3001.
+use the configuration file at /config/site.json to set the database name and the application port, default port is 4000.
 
 
 
