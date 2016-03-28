@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{2cb23b19-1ae4-436b-9fc2-5fdb472c2db6}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <StartupFile>server/app.js</StartupFile>
     <WorkingDirectory>D:\github\nodulus\nodulus</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -1463,9 +1463,6 @@
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="server\config\config.json" />
-    <Content Include="server\data\Languages.json" />
-    <Content Include="server\data\Navigation.json" />
-    <Content Include="server\data\schemas.json" />
     <Content Include="server\modules.json" />
     <Content Include="server\nodulus.njsproj" />
     <Content Include="server\package.json" />
@@ -1739,7 +1736,6 @@
     <Folder Include="server\app\impl\diskdb\" />
     <Folder Include="server\app\impl\" />
     <Folder Include="server\config\" />
-    <Folder Include="server\data\" />
     <Folder Include="server\routes\" />
     <Folder Include="platform-images\" />
     <Folder Include="server\typings\" />
