@@ -59,7 +59,7 @@ class ModuleUtiliity {
         var instance = this;
         var baseFolder = appRoot + consts.MODULES_PATH + module_name + "\\";
 
-        fs.ensureDirSync(appRoot + "\\public\\modules\\");
+        fs.ensureDirSync(global.clientAppRoot + "\\modules\\");
         fs.ensureDirSync(baseFolder);
     
         // read a zip file
@@ -205,7 +205,7 @@ class ModuleUtiliity {
                 } catch (e) { }
             }
 
-            deleteFolderRecursive(appRoot + "\\public\\modules\\" + module_name);
+            deleteFolderRecursive(global.clientAppRoot + "\\modules\\" + module_name);
 
             delete modules_file[module_name];
         }
@@ -220,7 +220,7 @@ class ModuleUtiliity {
 
 
         try {
-            var manifest_file = fs.readJsonSync(appRoot + "\\public\\modules\\" + module_name + "\\manifest.json", { throws: false });
+            var manifest_file = fs.readJsonSync(global.clientAppRoot + "\\modules\\" + module_name + "\\manifest.json", { throws: false });
             //merge the manifest into the modules.json file
             if (manifest_file === null)
                 callback("invalid json, try using ascii file");
@@ -242,7 +242,7 @@ class ModuleUtiliity {
         
         
             //delete module folder
-            this.deleteFolderRecursive(appRoot + "\\public\\modules\\" + module_name + "\\");
+            this.deleteFolderRecursive(global.clientAppRoot+ "\\modules\\" + module_name + "\\");
 
 
 
@@ -322,7 +322,7 @@ class ModuleUtiliity {
         return callback(false);
     }
     createPackage(module_name: string, callback: Function) {
-        var baseFolder = appRoot + "\\public\\modules\\modules\\template\\";
+        var baseFolder = global.clientAppRoot + "\\modules\\modules\\template\\";
         var manifest_file = fs.readJsonSync(baseFolder + "manifest.json", { throws: false });
 
         var manifestString = JSON.stringify(manifest_file);
@@ -399,7 +399,7 @@ class ModuleUtiliity {
         });
     }
     pack(module_name: string, callback: Function) {
-        var baseFolder = appRoot + "\\public\\modules\\" + module_name + "\\";
+        var baseFolder = global.clientAppRoot + "\\modules\\" + module_name + "\\";
         var manifest_file = fs.readJsonSync(baseFolder + "manifest.json", { throws: false });
         //merge the manifest into the modules.json file
         if (manifest_file === null)

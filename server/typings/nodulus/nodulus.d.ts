@@ -31,6 +31,7 @@ declare module nodulus {
 declare module NodeJS {
     interface Global {
         appRoot: string;
+        clientAppRoot: string;
         eventServer: any;
         socket: any;
         rooms: any;

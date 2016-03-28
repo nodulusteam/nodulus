@@ -22,7 +22,7 @@ var appRoot = global["appRoot"];
 router.post("/setup", function (req: any, res: any) {
 
     var setupConfig = req.body;
-    var setupConfigPath = appRoot + "\\public\\config\\setup.json";
+    var setupConfigPath = global.clientAppRoot + "\\config\\setup.json";
   
     fs.writeFileSync(setupConfigPath,JSON.stringify({active: new Date()}), 'utf8');
     
