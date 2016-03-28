@@ -1,0 +1,1010 @@
+﻿<div ng-controller="pipelineController">
+
+    <div class="container-fluid" style="z-index: 3;">
+
+
+        <div class="well small notopradius">
+
+            <div class="row">
+
+                <div class="col-md-4 col-lg-4 col-sm-3 col-xs-3">
+                    <div class="tool-group input-group ">
+
+                        <a id="drop5" role="button" class="btn btn-primary" ng-click="FileOptions();">
+                            <span class="glyphicon glyphicon-cog white"></span><span style="display: inline-block">
+                                <span class="visible-lg">
+                                    <span class="spacer"></span>{{"File Options" | translate}}
+
+                                </span>
+                            </span>
+                        </a>
+
+
+
+                        <a id="SaveBtn" class="btn btn-primary SaveBtn"><i class="fa fa-spin fa-refresh indicator hidden"></i> <i class="glyphicon glyphicon-floppy-disk preindicator"></i><span style="display: inline-block"><span class="visible-lg"><span class="spacer"></span>{{"Save" | translate}}</span></span></a>
+
+
+                        <a id="LoadRulesBtn" class="btn btn-primary"><i class="glyphicon glyphicon-check"></i><span style="display: inline-block"><span class="visible-lg"><span class="spacer"></span>{{"Load rules" | translate}}</span></span></a>
+
+
+                        <div class="input-group-btn">
+                            <a role="button" data-toggle="dropdown" class="btn btn-primary" href="#"><span class="glyphicon glyphicon-wrench white"></span><span style="display: inline-block"><span class="visible-lg"><span class="spacer"></span>{{"Tools" | translate}}</span></span> <b class="caret white"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#" rel="<%=WebSite.Id%>" addr="<%=WebSite.Url%>" class="runpage">
+                                        <i class="glyphicon glyphicon-play"></i><span class="spacer"></span>{{"Run Page" | translate}}
+                                    </a>
+                                </li>
+                                <li><a href="#" id="PreviewBtn" data-ng-click="PreviewScript()"><i class="glyphicon glyphicon-eye-open"></i><span class="spacer"></span>{{"Preview script" | translate}}  </a></li>
+                                <li><a href="#" id="ShareBtn" data-ng-click="OpenShares()"><i class="glyphicon glyphicon-bullhorn"></i><span class="spacer"></span>{{"Share" | translate}}  </a></li>
+                                <%--
+                                <li><a href="#" id="OperatorsBtn"><i class="glyphicon glyphicon-user"></i><span class="spacer"></span>{{"Operators" | translate}}  </a></li>--%>
+                            </ul>
+                        </div>
+
+
+
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-3 col-xs-3">
+
+                    <div class="tool-group">
+
+
+
+                        <a id="ShowBlocks" class="btn btn-info ShowBlocks"><span class="glyphicon glyphicon-th"></span><span style="display: inline-block"><span class="visible-lg"><span class="spacer"></span>{{"Blocks" | translate}}</span></span></a>
+
+                        <a id="ShowFiles" class="btn btn-info ShowFiles" data-toggle="modal"><i class="glyphicon glyphicon-file"></i><span style="display: inline-block"><span class=" visible-lg"><span class="spacer"></span>{{"Files" | translate}}</span></span></a>
+
+
+                        <a id="ShowRules" class="btn btn-info ShowRules"><i class="glyphicon glyphicon-book"></i><span style="display: inline-block"><span class="visible-lg"><span class="spacer"></span>{{"Rules" | translate}}</span></span></a>
+
+
+
+
+                        <a id="ShowMacros" class="btn btn-info ShowMacros"><i class="glyphicon glyphicon-flag"></i><span style="display: inline-block"><span class=" visible-lg"><span class="spacer"></span>{{"Macros" | translate}}</span></span></a>
+
+
+                    </div>
+                </div>
+
+
+                <script>
+                    $(function () {
+                        $('.settings-menu li').click(function (e) {
+                            e.stopPropagation();
+                        });
+
+                    })
+
+                </script>
+
+
+                <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6 " id="PipeBlocksFilter">
+
+
+
+
+
+                    <div class="tool-group">
+
+
+
+
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <span class="visible-md visible-lg">{{"Status" | translate}}: </span>
+                                <span class="visible-xs visible-sm"><span class="glyphicon glyphicon-eye-open" title="{{"Status" | translate}}"></span></span>
+                            </span>
+
+
+                            <select class="form-control" ng-model="Filter.Status" ng-change="ApplyFilter()">
+                                <option value="">{{"All" | translate}} </option>
+                                <option value="1">{{"On" | translate}} </option>
+                                <option value="0">{{"Off" | translate}} </option>
+                            </select>
+
+                            <span class="input-group-addon"><span class="visible-md visible-lg">{{"Type" | translate}}: </span><span class="visible-xs visible-sm"><span class="glyphicon glyphicon-th" title="{{"Type" | translate}}"></span></span></span>
+
+                            <select class="form-control" ng-options="block.key as block.value for block in BlockTypes" ng-model="Filter.Object_Type" ng-change="ApplyFilter()">
+                                <option value="">{{"All" | translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+    <section>
+
+
+
+        <script type="text/javascript">
+            var websiteid = "<%=WebSite.Id%>";
+
+        </script>
+        <div style="clear: both; height: 145px;" id="IDEGAP">
+        </div>
+
+         
+        <block-gallery></block-gallery>
+
+
+
+        <div id="FileModal" style="position: relative; display: none;">
+
+
+
+            <h4 class="margin5">{{"File Options" | translate}}</h4>
+            <div class="input-group margin5" style="width: 100%!important;">
+
+                <span class="input-group-addon" style="width: 150px;">{{"xxx" | translate}}<%=Language.Res.Print("Project name") %>:</span>
+                <input type="text" id="SiteName" class="form-control" ng-model="WebSite.Name" />
+
+
+
+            </div>
+            <div class="input-group margin5" style="width: 100%!important;">
+
+                <span class="input-group-addon" style="width: 150px;">{{"xxx" | translate}}<%=Language.Res.Print("Project url") %>:</span>
+                <input type="text" id="SiteUrl" class="form-control" ng-model="WebSite.Url" />
+                <a href="<%=WebSite.Url %>" target="_blank" class="input-group-addon">{{"xxx" | translate}}<%=Language.Res.Print("Browse") %></a>
+
+
+            </div>
+
+            <div class="input-group margin5" style="width: 100%!important;">
+
+                <span class="input-group-addon" style="width: 150px;">{{"xxx" | translate}}<%=Language.Res.Print("File name") %>:</span>
+                <input type="text" ng-model="PipeLine.Name" id="FileName" class="form-control" data-placement="left" data-content="<%=Language.Res.Print(" Please set a new name for your file.") %>" />
+
+            </div>
+
+
+            <div class="input-group margin5" style="width: 100%!important;">
+
+
+
+
+                <span class="input-group-addon" style="width: 150px;">{{"xxx" | translate}}<%=Language.Res.Print("Load at") %>:</span>
+
+                <select id="ScriptPosition" class="form-control" ng-model="PipeLine.ScriptPosition">
+                    <option value="Inline">{{"xxx" | translate}}<%=Language.Res.Print("Head - Inline") %></option>
+                    <option value="Head">{{"xxx" | translate}}<%=Language.Res.Print("Head") %></option>
+
+                    <option value="BodyStart">{{"xxx" | translate}}<%=Language.Res.Print("Body Start") %></option>
+                    <option value="BodyEnd">{{"xxx" | translate}}<%=Language.Res.Print("Body End") %></option>
+                </select>
+            </div>
+
+
+        </div>
+
+
+
+
+        <!-- Modal -->
+        <div id="FilesModal" style="position: relative; display: none;">
+
+            <div class="input-group form-group">
+                <input type="text" class="form-control fileFilter" placeholder="<%=Language.Res.Print(" Filter") %>" />
+                <span class="input-group-btn">
+                    <button class="btn btn-primary  addFile" title="{{"xxx" | translate}}< <%=Language.Res.Print(" New File ") %> >" rel="<%=Guid.NewGuid().ToString() %>"><span class="glyphicon glyphicon-plus"></span></button>
+                </span>
+
+            </div>
+
+
+
+
+
+
+
+
+            <div id="OtherFiles" class="list-group" >
+                
+
+                        <a ng-repeat="file in files" rel="<%#Eval(" Id") %>
+                            " class="list-group-item"><span rel="<%#Eval(" Id") %>" title="<%#Eval("Name") %>"><%#Eval("Name") %></span>
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-info btn-md editfile"><span class="glyphicon glyphicon-pencil"></span></button>
+                                <button type="button" class="btn btn-danger btn-md delfile"><span class="glyphicon glyphicon-trash"></span></button>
+                            </div>
+
+                            <div class="clearboth"></div>
+                        </a>
+                 
+            </div>
+            <div class="alert alert-danger" style="display: none;">
+                {{"no results" | translate}}
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+        <script>
+            $(function(){
+
+                $("#BlockSelector .modal-dialog").height($(window).height());
+
+            })
+
+        </script>
+
+
+
+
+
+
+
+
+        <div id="PipeBlocksBox" class="container-fluid" ng-controller="blocksController" ng-cloak>
+
+
+            <section class="alert alert-warning no-blocks" ng-hide="Blocks.length >0">
+               {{"No blocks defined" | translate}}  
+                <a class="ShowBlocks btn btn-primary" ng-click="showBlocks()">
+                    <span class="glyphicon glyphicon-th"></span><span>
+                      {{"Select App block" | translate}}
+                    </span>
+                </a>
+            </section>
+            <ul id="PipeBlocks">
+
+
+                <li ng-repeat="block in Blocks | orderBy : 'Sort'" ng-show="MatchFilter(block)"
+                    blockid="{{block.Id}}" codename="{{block.Object.Type}}" class="blockContainer">
+
+                     
+
+
+                    <div class="panel panel-flex" ng-class="{'panel-info': (block.Status==1),'panel-danger': (block.Status==0),'panel-primary': (block.IsNew) ,'panel-warning': (block.IsDirty)}   ">
+                        <div class="panel-heading ">
+                            <div class="form-inline row" role="form">
+
+                                <div class="pull-left" style="margin: 0 10px;">
+                                    <div class="tool-group  normal " style="margin: 0;">
+                                        <a class="btn btn-info gliph" style="background-size: contain; background-image: url('{{block.Gliph}}')"><span class="glyphicon glyphicon-sort" style="visibility: hidden"></span></a>
+                                        <a class=" blocksorthandle btn btn-info hanlde" style="cursor: move;"><i class="glyphicon glyphicon-sort"></i></a>
+                                        <a class="collapseindicator btn btn-info" style="cursor: pointer;"><i class="glyphicon glyphicon-chevron-down"></i></a>
+
+                                    </div>
+                                </div>
+
+                                <div class="tool-group pull-left col-xs-2 fullscreen" style="margin: 0; display: none;">
+                                    <a class="btn btn-info gliph" style="background-size: contain; background-image: url('{{block.Gliph}}')"><span class="glyphicon glyphicon-sort" style="visibility: hidden"></span></a>
+
+
+                                    <a  class="btn btn-info ShowBlocks" ng-click="showBlocks()"><span class="glyphicon glyphicon-th"></span></a>
+
+                                    <a id="A7" class="btn btn-info ShowFiles" data-toggle="modal"><span class="glyphicon glyphicon-file"></span></a>
+
+
+                                    <a id="A8" class="btn btn-info ShowRules"><span class="glyphicon glyphicon-book"></span></a>
+
+
+
+
+                                    <a id="A9" class="btn btn-info ShowMacros"><span class="glyphicon glyphicon-flag"></span></a>
+
+
+                                    <a id="A10" class="btn btn-info SaveBtn"><i class="glyphicon glyphicon-floppy-disk"></i></a>
+
+                                </div>
+
+
+
+
+                                <div class="pull-left" style="max-width: 400px;margin: 0 10px;">
+                                    <div class="input-group ">
+                                        <span class="input-group-addon"><span class="visible-lg visible-md"><%=Language.Res.Print("Name") %></span></span>
+                                        <input type="text" class="blockdata form-control" required ng-model="block.Name" ng-change="SetBlock(block);" />
+                                    </div>
+                                </div>
+                                <div class="pull-left visible-lg" style="max-width: 400px;">
+                                    <div class="input-group  margleft">
+                                        <span class="input-group-addon">{{"xxx" | translate}}<%=Language.Res.Print("Description") %></span>
+                                        <input type="text" class="blockdata form-control" ng-model="block.Description" ng-change="SetBlock(block);" />
+                                    </div>
+                                </div>
+
+
+                                <div class="pull-left  visible-lg" style="max-width: 400px;">
+                                    <div class="input-group  margleft">
+                                        <span class="input-group-addon">{{"xxx" | translate}}<%=Language.Res.Print("Test page") %>:</span>
+
+                                        <input type="text" ng-model="block.TestUrl" ng-change="SetBlock(block);" class="blockdata form-control col-xs-3" placeholder="http://www." />
+
+                                        <span class="input-group-btn">
+
+                                            <a class="btn btn-info runtestpage" ng-class="{'disabled': block.TestUrl == '' }" ng-click="RunTestUrl(block.TestUrl)" style="display: inline-block;"><%=Language.Res.Print("Run Page") %></a>
+                                        </span>
+                                    </div>
+                                </div>
+                                <%--     <div class="input-group pull-left col-xs-1 margleft">
+                                    <span class="input-group-addon">Status</span>
+                                    <select rel="status" class="blockdata form-control" style="width: 100px;">
+                                        <option value="1">On</option>
+                                        <option value="0">Off</option>
+                                    </select>
+                                </div>--%>
+
+
+                                <div class="btn-group pull-right" style="margin-right: 7px;">
+
+                                    <button type="button" class="btn btn-danger btn-md" ng-click="DeleteBlock(block);"><span class="glyphicon glyphicon-trash"></span></button>
+                                    <button type="button" class="btn btn-info btn-md expandblock" ng-click="Expandblock(block)"><span class="glyphicon " ng-class="{'glyphicon-fullscreen': !block.Expanded, 'glyphicon-ok': block.Expanded }"></span></button>
+
+
+
+                                    <button type="button" class="btn btn-info btn-md detachblock"><span class="glyphicon glyphicon-share"></span></button>
+                                    <span type="button" class="btn btn-default btn-md" style="padding: 0;">
+                                        <select rel="status" class="blockdata form-control" style="margin: 0;" ng-model="block.Status" ng-change="SetBlock(block);">
+                                            <option value="1">{{"xxx" | translate}}<%=Language.Res.Print("On") %></option>
+                                            <option value="0">{{"xxx" | translate}}<%=Language.Res.Print("Off") %></option>
+                                        </select>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body panel-body-flex" bindproperties>
+
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <Scripter:Macro ID="Macro1" runat="server" />
+            <Scripter:Rule ID="Rule1" runat="server" />
+
+
+            <div id="RulesModal" style="display: none;">
+                <div class="input-group form-group">
+                    <input type="text" class="form-control ruleFilter" id="ruleFilter" name="ruleFilter" ng-model="ruleFilter" placeholder="<%=Language.Res.Print(" Filter") %>" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" title="< <%=Language.Res.Print(" New rule") %>  >" ng-click="NewRule();"><span class="glyphicon glyphicon-plus"></span></button>
+                    </span>
+                </div>
+
+
+
+
+
+
+                <div class="list-group">
+
+                    <a rel="{{rule.Id}}" class="list-group-item" ng-repeat="rule in Rules |filter: ruleFilter| orderBy: 'Name'">
+                        <label rel="{{rule.Id}}">{{rule.Name}}</label>
+
+                        <span class="badge" style="float: none;" ng-bind="rule.RuleType +' ' + GetRuleDescription(rule)"></span>
+                        <div class="btn-group pull-right">
+                            <button type="button" class="btn btn-info btn-md" ng-click="EditRule(rule);"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button type="button" class="btn btn-danger btn-md" ng-click="DeleteRule(rule);"><span class="glyphicon glyphicon-trash"></span></button>
+                        </div>
+                        <div class="clearboth"></div>
+                    </a>
+
+
+                </div>
+                <div class="alert alert-danger" style="display: none;">
+                    no results
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <div id="BlockData" style="display: none;">
+
+            <div class="panel panel-flex">
+                <div class="panel-heading ">
+                    <div class="form-inline row" role="form">
+
+
+                        <div class="tool-group pull-left col-xs-2 normal" style="margin: 0;">
+                            <a class="btn btn-info gliph" style="background-size: contain;"><span class="glyphicon glyphicon-sort" style="visibility: hidden"></span></a>
+                            <a class="blocksorthandle btn btn-info hanlde" style="cursor: move;"><i class="glyphicon glyphicon-sort"></i></a>
+                            <a class="collapseindicator btn btn-info" style="cursor: pointer;"><i class="glyphicon glyphicon-chevron-right"></i></a>
+
+                        </div>
+
+                        <div class="tool-group pull-left col-xs-2 fullscreen" style="margin: 0; display: none;">
+                            <a class="btn btn-info gliph" style="background-size: contain;"><span class="glyphicon glyphicon-sort" style="visibility: hidden"></span></a>
+
+
+                            <a id="A1" class="btn btn-info ShowBlocks"><span class="glyphicon glyphicon-th"></span></a>
+
+                            <a id="A2" class="btn btn-info ShowFiles" data-toggle="modal"><span class="glyphicon glyphicon-file"></span></a>
+
+
+                            <a id="A3" class="btn btn-info ShowRules"><span class="glyphicon glyphicon-book"></span></a>
+
+
+
+
+                            <a id="A4" class="btn btn-info ShowMacros"><span class="glyphicon glyphicon-flag"></span></a>
+
+
+                            <a id="A5" class="btn btn-info SaveBtn"><i class="glyphicon glyphicon-floppy-disk"></i></a>
+
+                        </div>
+
+
+
+
+
+                        <div class="input-group pull-left col-xs-2">
+                            <span class="input-group-addon"><%=Language.Res.Print("Name") %></span>
+                            <input type="text" rel="name" class="blockdata form-control" />
+                        </div>
+                        <div class="input-group pull-left col-xs-3 margleft">
+                            <span class="input-group-addon"><%=Language.Res.Print("Description") %></span>
+                            <input type="text" rel="description" class="blockdata form-control" />
+                        </div>
+
+
+
+                        <div class="input-group pull-left col-xs-3 margleft">
+                            <span class="input-group-addon"><%=Language.Res.Print("Test page") %>:</span>
+
+                            <input type="text" rel="testurl" class="blockdata form-control col-xs-3" placeholder="http://www." />
+
+                            <span class="input-group-btn">
+
+                                <a href="#" class="btn btn-info runtestpage" style="display: inline-block;"><%=Language.Res.Print("Run Page") %></a>
+                            </span>
+                        </div>
+
+                        <%--     <div class="input-group pull-left col-xs-1 margleft">
+                            <span class="input-group-addon">Status</span>
+                            <select rel="status" class="blockdata form-control" style="width: 100px;">
+                                <option value="1">On</option>
+                                <option value="0">Off</option>
+                            </select>
+                        </div>--%>
+
+
+                        <div class="btn-group pull-right" style="margin-right: 7px;">
+
+                            <button type="button" class="btn btn-danger btn-md delblock"><span class="glyphicon glyphicon-trash"></span></button>
+                            <button type="button" class="btn btn-info btn-md expandblock"><span class="glyphicon glyphicon-fullscreen"></span></button>
+
+
+
+                            <button type="button" class="btn btn-info btn-md detachblock"><span class="glyphicon glyphicon-share"></span></button>
+                            <span type="button" class="btn btn-default btn-md" style="padding: 0;">
+                                <select rel="status" class="blockdata form-control" style="margin: 0;">
+                                    <option value="1"><%=Language.Res.Print("On") %></option>
+                                    <option value="0"><%=Language.Res.Print("Off") %></option>
+                                </select>
+                            </span>
+
+                        </div>
+
+
+
+
+                    </div>
+
+
+
+
+                </div>
+                <div class="panel-body panel-body-flex">
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+        <div id="ExpressionTemplate" style="display: none;">
+
+            <div class="row panel">
+
+                <div class="col-md-10">
+
+
+
+
+
+
+
+                    <div class="form-group">
+
+                        <div class="input-group">
+                            <span class="input-group-addon input-sm"><%=Language.Res.Print("Macro name") %>: </span>
+
+                            <select class="RuleMacros form-control input-sm"></select>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary  NewMacro btn-sm" title="< <%=Language.Res.Print(" New macro") %>  >"><span class="glyphicon glyphicon-plus"></span></button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon input-sm"><%=Language.Res.Print("Operator") %>: </span>
+
+                            <select class="RuleMacrosOperator form-control input-sm"></select>
+
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon input-sm"><%=Language.Res.Print("Value") %>: </span>
+
+                            <input type="text" class="RuleMacrosValue form-control input-sm" />
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group pull-right ">
+                        <div class="input-group-btn">
+
+                            <a title='remove expression' class="delexpression btn btn-danger btn-sm  "><span class="glyphicon glyphicon glyphicon-remove"></span></a>
+                            <a title="add expression" class="btn btn-danger   addExpressionBtn  btn-sm "><span class="glyphicon glyphicon-plus"></span></a>
+
+                        </div>
+
+                    </div>
+                </div>
+                <%--                  <div class="form-group">
+
+
+
+                    <div class="input-group-btn">
+                        <a class="macroRuleBtn ui-button">
+                            <span class="ui-icon ui-icon-carat-2-e-w"
+                                  title="edit macros"></span>
+                        </a>
+                        <a class="clearmacroBtn ui-button">
+                            <span class="ui-icon ui-icon-close"
+                                  title="clear macros"></span>
+                        </a>
+                    </div>
+                </div>--%>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <div id="block-operators-form" title="Operators" style="display: none;">
+
+            <form>
+                <fieldset>
+                    <legend></legend>
+                    <a class="AddOperatorToBlock ui-button-primary ui-button" style="float: right;"><%=Language.Res.Print("Add") %></a>
+
+
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>{{"xxx" | translate}}<%=Language.Res.Print("Name") %> </td>
+                                <td>{{"xxx" | translate}}<%=Language.Res.Print("Email") %> </td>
+                            </tr>
+
+                        </thead>
+                        <tbody class="BlockOperatorsList"></tbody>
+
+
+
+
+                    </table>
+
+
+
+
+
+
+
+                </fieldset>
+            </form>
+        </div>
+        <div id="new-operators-form" title="Add operator" style="display: none;">
+
+            <form>
+                <fieldset>
+                    <legend></legend>
+
+                    <div id="new-operators-form-div">
+                        <label>
+                            <input type="radio" name="blockoperatorway" value="existing" class="blockoperatorway" id="blockoperatorway-existing" />
+                            <select id="ExistingBlockOperators" class="ExistingBlockOperators">
+                                <option value="">{{"xxx" | translate}}<%=Language.Res.Print("select") %></option>
+                                <%-- <%
+                                if (WebSite.Rules != null)
+                                {
+                                foreach (Scripter.Pipeline.Model.Rule rule in WebSite.Rules.Values)
+                                { %>
+                                <option value="<%=rule.Name%>">
+                                    <%=rule.Name%>
+                                </option>
+                                <%}
+                                } %>--%>
+                            </select>
+                        </label>
+                        <br />
+                        <div id="NewBlockOperatorSection">
+                            <label>
+                                <input type="radio" name="blockoperatorway" value="new" class="blockoperatorway" id="blockoperatorway-new" />
+                                {{"xxx" | translate}}<%=Language.Res.Print("New block operator") %>
+                            </label>
+                            <br />
+                            <label>{{"xxx" | translate}}<%=Language.Res.Print("Name") %></label>
+                            <input type="text" id="BlockOperatorFirstName" class="text ui-widget-content ui-corner-all" placeholder="first name" />
+                            <input type="text" id="BlockOperatorLastName" class="text ui-widget-content ui-corner-all" placeholder="last name" /><br />
+                            <label>{{"xxx" | translate}}<%=Language.Res.Print("Email") %></label>
+                            <input type="text" id="BlockOperatorEmail" class="text ui-widget-content ui-corner-all" placeholder="Email" /><br />
+                            <label>{{"xxx" | translate}}<%=Language.Res.Print("Password") %></label>
+                            <input type="text" id="BlockOperatorPassword" class="text ui-widget-content ui-corner-all" placeholder="Password" /><br />
+                        </div>
+
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <Scripter:Share runat="server" ID="Share" />
+
+
+
+        <div id="versions-form" title="Versions" style="display: none;">
+
+            <fieldset>
+                <a id="VersionAddBtn" class="ui-button-primary ui-button" style="float: right;"><%=Language.Res.Print("Add") %></a>
+
+
+
+                <table id="VersionsGrid" class="ui-widget ui-widget-content">
+                    <thead>
+                        <tr class="ui-widget-header ">
+                            <th>
+                                <%=Language.Res.Print("Id") %>
+                            </th>
+                            <th>
+                                <%=Language.Res.Print("Creation Date") %>
+                            </th>
+                            <th>
+                                <%=Language.Res.Print("Last Changed") %>
+                            </th>
+                            <th>
+                                &nbsp;<%=Language.Res.Print("Delete") %>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="VersionsGridPH"></tbody>
+                </table>
+            </fieldset>
+
+        </div>
+        <div id="BrowserDialog" style="display: none;">
+
+            <div class="form-inline">
+                <div class="input-group">
+                    <span class="input-group-addon"><%=Language.Res.Print("Url") %>: </span>
+
+                    <input type="text" id="BrowserUrl" class="form-control" value="<%=WebSite.Url %>" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary GoBrowse"><%=Language.Res.Print("Go") %></button>
+                    </span>
+                </div>
+            </div>
+            <div id="BrowserPane" style="height: 100%;">
+                <iframe src="" style="width: 100%; height: 90%; border: none;" frameborder="0"></iframe>
+
+
+
+
+
+            </div>
+
+
+
+
+
+        </div>
+
+        <div class="hidden">
+            <div class="form-inline SelectorForm">
+                <div class="input-group">
+                    <span class="input-group-addon"><%=Language.Res.Print("Element selector") %>: </span>
+
+                    <input type="text" id="ElementSelectorTemp" class="ElementSelector form-control" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-success SelectElement"><%=Language.Res.Print("OK") %></button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div id="BlockTabs" style="display: none;">
+            <h4>{{BlockName}}</h4>
+            <div class="blockui tabs tabs-flex ">
+                <ul class="nav nav-tabs">
+                    <li class="properties-tab active"><a><%=Language.Res.Print("Properties") %></a></li>
+                    <li class="rules-tab"><a><%=Language.Res.Print("Rules") %></a></li>
+                    <li class="operators-tab"><a><%=Language.Res.Print("Operators") %></a></li>
+                </ul>
+                <div class="tab-content panel panel-default ">
+                    <div class="properties-tab-page tab-pane" style="display: block;">*Properties*</div>
+                    <div class="rules-tab-page tab-pane">*Rules*</div>
+                    <div class="operators-tab-page tab-pane">*Operators*</div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+    </section>
+    <!--<script type="text/javascript">
+
+        var PipeLine =   <%=GetPipeLineJson() %>;
+        if(PipeLine.Rules!= null)
+            PipeLine.Rules = JSON.parse(PipeLine.Rules);
+
+        var GlobalUserId = "<%=user.Id%>";
+
+
+        var WebSite =   <%=GetWebSiteJson() %>;
+
+
+
+        var SiteId = "<%=WebSite.Id.ToString() %>";
+        var EmptyGuid = "<%=Guid.Empty.ToString()%>";
+        var NewGuid = "<%=Guid.NewGuid().ToString()%>";
+        var RulesDictionaryDataSource =  <%=GetRulesJson() %>;
+
+        var MacrosDictionaryDataSource =  <%=GetMacrosJson() %>;
+
+        var OperatorsJson =  <%=GetOperatorsJson() %>;
+        var BlockOperators =  <%=GetBlockOperatorsJson() %>;
+        var VersionsList =  <%=GetVersionsJson() %>;
+        var SharesDataSource = <%=GetProjectShares()%>;
+        var ProjectFiles =<%=GetProjectFiles()%>;
+        var BrowsersApproachDataSource = <%=GetBrowsersApproachDataSource()%>;
+
+        var NextVersion=0;
+
+        function GetDate(jsonDate) {
+            var value = new Date(parseInt(jsonDate.substr(6)));
+            return value.getMonth() + 1 + "/" + value.getDate() + "/" + value.getFullYear();
+        }
+
+
+
+        function SetSelector(uniqeselector){
+
+            $("#ElementSelector").val(uniqeselector);
+        }
+        $(function () {
+
+            // Prevent bootstrap dialog from blocking focusin
+            $(document).on('focusin', function(e) {
+
+
+                if ($(e.target).closest(".mce-window").length) {
+                    e.stopImmediatePropagation();
+                }
+            });
+
+            <%if (Request["gallery"] == "true")
+              {%>
+
+            $(".ShowBlocks").eq(0).click();
+            <%}%>
+
+            if(PipeLine.Blocks.length >0)
+                $(".no-blocks").hide();
+            //$("#Spacer").height($("#fixedToolBar").height() + $(".topbar").height() );
+
+
+            $("body").on("click",".blockContainer .collapseindicator",function(){
+
+
+
+                var parentblock = $(this).parents(".blockContainer");
+                if($(parentblock).data("state") == "opened" || $(parentblock).data("state")  === undefined)
+                {
+                    $(parentblock).data("state",  "closed");
+                    State.set(".blockContainer[blockid=\""+$(parentblock ).attr("blockid") +"\"]" , "closed", "collapseHcallback" );
+                    //State.apply(".blockContainer[blockid=\""+$(parentblock ).attr("blockid") +"\"]");
+                 //   $("i", this).removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-right");
+
+
+                    //$(this).data("state", "closed");
+                    //parentblock.css("overflow","hidden");
+                    //parentblock.height(40);
+                    //State.set("#" + obj[0].id, $(this).data("state"), "collapseHcallback" );
+                }else
+                {
+                    $(parentblock).data("state",  "opened");
+                    //$("i", this).removeClass("glyphicon-chevron-right").addClass("glyphicon-chevron-down");
+
+                    InitializeCodeBlocks($(parentblock));
+                    State.set(".blockContainer[blockid=\""+$(parentblock ).attr("blockid") +"\"]" , "opened", "collapseHcallback" );
+
+
+                    //State.apply(".blockContainer[blockid=\""+$(parentblock ).attr("blockid") +"\"]");
+                    //$(this).data("state", "open");
+                    //parentblock.css("overflow","visible");
+                    //parentblock.height("auto");
+
+                }
+
+
+            });
+
+          //  $.tmpl( $("#BlockOperatorsTemplate"), BlockOperators).appendTo($("#BlockOperatorsList"));
+
+
+
+
+            //$("body").on("change","#blocktypefilter", function(){
+            //    var selectedVal = $(this).val();
+
+            //    if(selectedVal =="")
+            //    {
+            //        $(".blockContainer").show();
+            //        return;
+            //    }
+
+            //    $(".blockContainer").each(function(){
+            //        if($(this).attr("codename") != selectedVal)
+            //        {
+            //            $(this).hide();
+            //        }else{
+            //            $(this).show();
+            //        }
+
+
+            //    });
+            //});
+
+
+            //$(".blockdata[rel='status']").on("change", function(){
+            //    if ($(this).val()== 1) {
+            //        $(this).parents(".panel").addClass("panel-primary").removeClass("panel-danger");
+            //    } else {
+            //        $(this).parents(".panel").addClass("panel-danger").removeClass("panel-primary");
+
+            //    }
+
+            //});
+
+            //$("#blockstatusfilter").on("change", function(){
+            //    var selectedVal = $(this).val();
+            //    if(selectedVal =="")
+            //    {
+            //        $(".blockContainer").show();
+            //        return;
+            //    }
+
+            //    $(".blockdata[rel='status']").each(function(){
+            //        if($(this).val() != selectedVal)
+            //        {
+            //            $(this).parents(".blockContainer").hide();
+            //        }else{
+            //            $(this).parents(".blockContainer").show();
+            //        }
+
+
+            //    });
+            //});
+            //$(".componentgliph").hover(function(){
+            //    var img = $(this).attr("src");
+            //    img = img.replace(".png","_hover.png");
+            //    $(this).attr("src", img);
+            //},
+            //    function(){
+            //        var img = $(this).attr("src");
+            //        img = img.replace("_hover.png",".png");
+            //        $(this).attr("src", img);
+            //    }
+            //);
+
+            $(".btn-group a").click(function () {
+                $(this).next().toggle();
+            });
+
+
+            <%if (!string.IsNullOrEmpty(Request["blockshow"]))
+              {%>
+
+            var parentblock = $("li[blockid='<%=Request["blockshow"]%>']");
+            if($(parentblock).data("state") == "closed" || $(parentblock).data("state")  === undefined)
+            {
+                $("li[blockid='<%=Request["blockshow"]%>'] .collapseindicator").click();
+
+            }
+            $("li[blockid='<%=Request["blockshow"]%>'] .expandblock").click();
+
+
+
+            <%}%>
+
+
+
+
+            $("#menuitem-websites").addClass("active");
+
+
+
+        });
+
+
+    </script>-->
+</div>

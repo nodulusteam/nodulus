@@ -1,0 +1,230 @@
+﻿<div ng-controller="scripterController">
+
+
+    <div class="container-fluid">
+        <div class="page-header">
+            <h3 class="pull-left">{{"Scripter explorer" | translate}} </h3>
+            <div class="clearboth"></div>
+        </div>
+    </div>
+    <div>
+        <div class="container-fluid" ng-controller="projectsController" ng-cloak>
+            <div id="SiteDialog" style="display: none;">
+                <form name="ProjectInformationForm">
+                    <input type="hidden" id="SiteId" />
+                    <div class="form-group" ng-class="{ 'has-error': ProjectInformationForm.SiteName.$invalid }">
+                        <label>{{"Project name" | translate}}
+                            :
+                        </label>
+                        <input type="text" id="SiteName" name="SiteName" class="form-control" required ng-model="Project.Name" />
+                        <span class="help-block">{{"A name for your project" | translate}}</span>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error': ProjectInformationForm.SiteDomain.$invalid || (Project.Url.indexOf('https://') != 0 && Project.Url.indexOf('http://') != 0) }">
+                        <label>
+                           {{"Site domain name" | translate}} :
+
+                        </label>
+                        <input type="text" name="SiteDomain" class="form-control" required placeholder="http://www" ng-model="Project.Url" style="direction: ltr;" />
+                        <span class="help-block">{{"Include both prefix(eg. http://) and full domain name (eg. www)." | translate}}</span>
+                    </div>
+
+
+
+
+                    <div class="form-group">
+                        <label>
+
+                            {{"Installation mode:" | translate}} 
+                        </label>
+
+                        <label>
+                          {{"Dynamic" | translate}}  
+                            <input type="radio" name="InstallationMode" data-ng-model="Project.ProjectMeta.InstallationMode" value="dynamic" />
+                        </label>
+                        <label>
+                          {{"Static" | translate}}  
+                            <input type="radio" name="InstallationMode" data-ng-model="Project.ProjectMeta.InstallationMode" value="static" />
+                        </label>
+
+                    </div>
+
+
+                    <div class="form-group embedcode" ng-show="Project._id !== undefined &&  Project.ProjectMeta.InstallationMode=='dynamic'">
+                        <label>{{"Script identifier" | translate}}: {{project._id}}</label>
+                        <textarea rows="100" style="width: 100%; height: 100px; font-size: 0.8em; direction: ltr;" class="form-control">
+                            <!-- Start Scripter Code-->
+                            <script type="text/javascript">
+
+        var sc = document.createElement('script'); sc.type = 'text/javascript'; sc.async = true;
+        sc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + '<%=Request.Url.Host %>/ScripterLoader.aspx?id={{Project._id}}';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sc, s);
+
+                            </script>
+                            <!-- End Scripter Code -->
+                        </textarea>
+
+                    </div>
+
+
+
+                    <div class="form-group" ng-show="Project.ProjectMeta.InstallationMode=='static'">
+                        <label>
+                            {{"Script path" | translate}}:
+
+                        </label>
+                        <input type="text" class="form-control" data-ng-model="Project.ProjectMeta.ScriptPath" style="direction: ltr;" />
+                        <span class="help-block"><%=Language.Res.Print("the application script path") %></span>
+                    </div>
+
+                    <div class="form-group embedcode" ng-show="Project._id !== undefined &&  Project.ProjectMeta.InstallationMode=='static'">
+                        <label><%=Language.Res.Print("Script identifier") %>: {{project._id}}</label>
+                        <textarea rows="100" style="width: 100%; height: 100px; font-size: 0.8em; direction: ltr;" class="form-control">
+                            <!-- Start Scripter Code-->
+                            <script type="text/javascript">
+
+        var sc = document.createElement('script'); sc.type = 'text/javascript'; sc.async = true;
+        sc.src = '{{Project.ProjectMeta.ScriptPath}}/scripterloader.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sc, s);
+
+                            </script>
+                            <!-- End Scripter Code -->
+                        </textarea>
+
+                    </div>
+
+                </form>
+            </div>
+
+
+
+            <div class="row">
+
+                <div class="col-xs-12 col-sm-12 col-md-4">
+
+                    <div class="btn-group bottom-margin">
+                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                         {{"Projects" | translate}}  <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>  <a class="link" ng-click="EditProject({})"> <span class="glyphicon glyphicon-globe"></span> &nbsp;{{"New project" | translate}}</a></li>
+                             
+                        </ul>
+                    </div>
+
+
+                    <h5 ng-show="Projects.length ==0"><%=Language.Res.Print("No projects") %> </h5>
+
+                    <div class="list-group" id="ListOfSites">
+
+
+                        <a   class="list-group-item" rel="{{project._id}}" ng-repeat="project in Projects | orderBy:'Name'" ng-click="SetProject(project);" ng-class="{ 'active': project == Project} ">
+                            <span>
+                                {{project.Name}}
+                            </span>
+
+
+                            <div class="btn-group pull-right">
+                                <span type="button" class="btn btn-info btn-sm projectproperties" ng-click="OpenShares(project);"><i class="glyphicon glyphicon-user"></i></span>
+                                <span type="button" class="btn btn-success btn-sm" ng-click="EditProject( project);"><i class="fa fa-cog" ng-class="Project.spin"></i></span>
+                                <span type="button" class="btn btn-danger btn-sm projectdelete" ng-click="DeleteProject( project);"><span class="glyphicon glyphicon-trash"></span></span>
+                                <span type="button" class="btn btn-default btn-sm">{{project.Files.length}} {{"Files" | translate}}</span>
+
+                            </div>
+                            <div class="clearboth"></div>
+
+                        </a>
+
+
+                    </div>
+
+                </div>
+
+
+
+
+                <div class="col-xs-12 col-sm-12 col-md-4 ">
+                    <a name="filesanchor"></a>
+
+                    <div class="btn-group    bottom-margin" ng-show="Project != null">
+                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                         {{"Files" | translate}} <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a   guid="{{guid}}" id="NewFile" ng-click="NewFile(guid())"><span class="glyphicon glyphicon-file"></span>{{"New File" | translate}}</a></li>
+
+
+                       
+                        </ul>
+                    </div>
+
+                    <h5 ng-show="Project.Files.length ==0">{{"No files" | translate}}</h5>
+
+                    <div class="list-group" id="ListOfFiles">
+
+
+                        <a ng-repeat="file in Project.Files | orderBy : 'Name'" ng-click="SetFile(file);" ng-class="{'active': file == File}" href="#blockssanchor" class="list-group-item" rel="{{file._id}}" projectid="{{Project._id}}">
+                            {{file.Name}}
+
+                            <div class="btn-group pull-right">
+
+                                <span type="button" class="btn btn-info btn-sm" ng-click="EditFile(file);"><span class="glyphicon glyphicon-pencil"></span></span>
+                                <span type="button" class="btn btn-danger btn-sm" ng-click="DeleteFile(file);"><span class="glyphicon glyphicon-trash"></span></span>
+                                <span type="button" class="btn btn-default btn-sm">{{file.Blocks.length}} {{"Blocks" | translate}}</span>
+
+                            </div>
+                            <div class="clearboth"></div>
+
+                        </a>
+
+
+                    </div>
+                </div>
+
+
+
+
+                <div class="col-xs-12 col-sm-12 col-md-4">
+                    <a name="blockssanchor"></a>
+                    <div class="btn-group bottom-margin" ng-show="File != null">
+                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                           {{"Blocks" | translate}} <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#blockssanchor" ng-click="NewBlock()"><span class="glyphicon glyphicon-file"></span><%=Language.Res.Print("New Block") %></a></li>
+                            <%--
+                            <li><a href="#" id="A2"><span class="glyphicon glyphicon-upload"></span> Import block</a></li>--%>
+                        </ul>
+                    </div>
+                    <h5 ng-show="File.Blocks.length ==0"><%=Language.Res.Print("No blocks") %></h5>
+
+                    <div class="list-group" id="ListOfBlocks">
+
+
+                        <a ng-repeat="block in File.Blocks | orderBy :'Name'" ng-click="SetBlock(block);"
+                           class="list-group-item" ng-class="{'active': block == Block}" rel="{{block._id}}" fileid="{{File._id}}">
+
+                            <div class="btn btn-info btn-sm gliph" style="background-size: contain; background-image: url('handlers/icon.ashx?t={{block.Type}}')"><span class="glyphicon glyphicon-sort" style="visibility: hidden"></span></div>
+                            {{block.Name}}
+
+
+                            <div class="btn-group pull-right">
+
+                                <button type="button" class="btn btn-info btn-sm" ng-click="EditBlock(block, File);"><span class="glyphicon glyphicon-pencil"></span></button>
+
+
+
+                            </div>
+                            <div class="clearboth"></div>
+                        </a>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>

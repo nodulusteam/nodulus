@@ -5,10 +5,14 @@
     "removeComments": true,
     "preserveConstEnums": true,
     
+
     "sourceMap": false
   },
-    "exclude": [
-        "node_modules",
-        "wwwroot"
-    ]
+
+  "exclude": [
+    "server/node_modules",
+    "client/node_modules",
+    "node_modules",
+    "wwwroot"
+  ]
 }

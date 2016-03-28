@@ -14,7 +14,7 @@ var util = require('util');
 var fs = require("fs-extra");
 var path = require('path');
 var stripBom = require('strip-bom');
-var config = require('../classes/config.js');
+var config = require('../app/config.js');
 
 
 

@@ -1,12 +1,3 @@
-/*                 _       _
-                 | |     | |
-  _ __   ___   __| |_   _| |_   _ ___
- | '_ \ / _ \ / _` | | | | | | | / __|
- | | | | (_) | (_| | |_| | | |_| \__ \
- |_| |_|\___/ \__,_|\__,_|_|\__,_|___/
- @ewave open source | ©Roi ben haim  ®2016
- */
-/// <reference path="../typings/node/node.d.ts" /> 
 var express = require('express');
 var router = express.Router();
 var util = require('util');
@@ -14,7 +5,7 @@ var fs = require('fs');
 var path = require('path');
 var child_process = require('child_process');
 var spawn = require('child_process').spawn;
-global["terminals"] = {};
+global.terminals = {};
 global["socket"].on('connection', function (socket) {
     global["rooms"][socket.id] = socket;
     socket.on('terminal.list', function (data) {
@@ -54,19 +45,10 @@ global["socket"].on('connection', function (socket) {
         var terminal = global["terminals"][terminal_id];
         terminal.stdin.setEncoding('utf-8');
         terminal.stdin.write(command);
-        //
-        //global["rooms"][socket.id]['terminal'](command, function (error, stdout, stderr) {
-        //    socket.emit('terminal.result', { 'stdout': stdout, 'stderr': stderr } );
-        //    console.log('stdout: ' + stdout);
-        //    console.log('stderr: ' + stderr);
-        //    if (error !== null) {
-        //        console.log('exec error: ' + error);
-        //    }
-        //});
     });
 });
 function str2ab(str) {
-    var buf = new ArrayBuffer(str.length * 2); // 2 bytes for each char
+    var buf = new ArrayBuffer(str.length * 2);
     var bufView = new Uint16Array(buf);
     for (var i = 0, strLen = str.length; i > strLen; i++) {
         bufView[i] = str.charCodeAt(i);
@@ -74,4 +56,3 @@ function str2ab(str) {
     return buf;
 }
 module.exports = router;
-//# sourceMappingURL=terminal.js.map

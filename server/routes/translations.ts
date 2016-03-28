@@ -8,33 +8,36 @@
  */
   
   
-/// <reference path="../typings/node/node.d.ts" /> 
+/// <reference path="../typings/main.d.ts" />
  
 
 var express = require('express');
 var http = require('http');
 var querystring = require('querystring');
-var router = express.Router();
-var util = require('util');
+var router = express.Router(); 
+var util = require('util'); 
 var fs = require('fs');
 var path = require('path');
-var dal = require("../classes/dal.js");
-var api = require("../classes/api.js");
+ 
+var api = require("../app/api.js");
 var moment = require('moment');
 
+import {dal} from "../app/dal";
 
-router.get('/languages', function (req, res) {
+
+router.get('/languages', function (req: any, res: any) {
 
     var lang = req.query.lang;
-    dal.connect(function (err, db) {
+    
+    dal.connect(function (err: any, db: any) {
 
         if (db === null) {
             return res.json(err);
 
         }
 
-        db.collection("Languages").find({"name": lang}).toArray(function (err, data) {
-            var result = {}
+        db.collection("Languages").find({ "name": lang }).toArray(function (err: any, data: any) {
+            var result: any = {}
             if (data !== null && data.length > 0) {
                 data = data[0]
                 for (var i = 0; i < data.values.length; i++) {

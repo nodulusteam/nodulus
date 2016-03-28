@@ -13,6 +13,7 @@
   "dependencies": {
     "fs-extra": "^0.26.5",
     "jszip": "^2.5.0",
+    "strip-bom": "^2.0.0",
     "wildcard": "^1.1.2"
   },
   "devDependencies": {

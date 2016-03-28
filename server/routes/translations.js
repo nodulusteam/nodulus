@@ -1,12 +1,4 @@
-/*                 _       _
-                 | |     | |
-  _ __   ___   __| |_   _| |_   _ ___
- | '_ \ / _ \ / _` | | | | | | | / __|
- | | | | (_) | (_| | |_| | | |_| \__ \
- |_| |_|\___/ \__,_|\__,_|_|\__,_|___/
- @ewave open source | ©Roi ben haim  ®2016
- */
-/// <reference path="../typings/node/node.d.ts" /> 
+"use strict";
 var express = require('express');
 var http = require('http');
 var querystring = require('querystring');
@@ -14,12 +6,12 @@ var router = express.Router();
 var util = require('util');
 var fs = require('fs');
 var path = require('path');
-var dal = require("../classes/dal.js");
-var api = require("../classes/api.js");
+var api = require("../app/api.js");
 var moment = require('moment');
+var dal_1 = require("../app/dal");
 router.get('/languages', function (req, res) {
     var lang = req.query.lang;
-    dal.connect(function (err, db) {
+    dal_1.dal.connect(function (err, db) {
         if (db === null) {
             return res.json(err);
         }
@@ -36,4 +28,3 @@ router.get('/languages', function (req, res) {
     });
 });
 module.exports = router;
-//# sourceMappingURL=translations.js.map

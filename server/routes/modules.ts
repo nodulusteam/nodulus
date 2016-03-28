@@ -6,10 +6,12 @@
  |_| |_|\___/ \__,_|\__,_|_|\__,_|___/
  @ewave open source | ©Roi ben haim  ®2016    
  */
-/// <reference path="../typings/node/node.d.ts" />  
+/// <reference path="../typings/main.d.ts" />
   
 
-import { nodulus } from "../classes/consts";
+ 
+import {consts} from "../app/consts";
+import {dal} from "../app/dal";
 
 
 var express = require('express');
@@ -18,19 +20,19 @@ var app = express();
 var router = express.Router();
 var util = require('util');
 var path = require('path');
-var dal = require("../classes/dal.js");
+ 
 var fs = require("fs-extra");
 var JSZip = require("jszip");
 var moment = require('moment');
 var mkdirp = require('mkdirp');
 
 
-var appRoot = global["appRoot"];
+var appRoot = global.appRoot;
 
 
-var deleteFolderRecursive = function (path) {
+var deleteFolderRecursive = function (path: string) {
     if (fs.existsSync(path)) {
-        fs.readdirSync(path).forEach(function (file, index) {
+        fs.readdirSync(path).forEach(function (file: string, index: number) {
             var curPath = path + "/" + file;
             if (fs.lstatSync(curPath).isDirectory()) { // recurse
                 deleteFolderRecursive(curPath);
@@ -53,15 +55,15 @@ class ModuleUtiliity {
      * @param module_name
      * @param callback
      */
-    install(module_name, callback) {
+    install(module_name: string, callback: Function) {
         var instance = this;
-        var baseFolder = appRoot + nodulus.consts.MODULES_PATH + module_name + "\\";
+        var baseFolder = appRoot + consts.MODULES_PATH + module_name + "\\";
 
         fs.ensureDirSync(appRoot + "\\public\\modules\\");
         fs.ensureDirSync(baseFolder);
     
         // read a zip file
-        fs.readFile(appRoot + "\\nodulus_modules\\" + module_name + ".zip", function (err, data) {
+        fs.readFile(appRoot + "\\nodulus_modules\\" + module_name + ".zip", function (err: any, data: any) {
             if (err) throw err;
 
             var zip = new JSZip(data);
@@ -131,7 +133,7 @@ class ModuleUtiliity {
         
             //register the module to the modules.json file
             fs.ensureFileSync(appRoot + "\\modules.json");
-            var modules_file = {};
+            var modules_file: any = {};
 
             modules_file = fs.readJsonSync(appRoot + "\\modules.json");
 
@@ -146,10 +148,10 @@ class ModuleUtiliity {
         
             //update navigation
             if (manifest_file.navigation)
-                dal.connect(function (err, db) {
+                dal.connect(function (err: any, db: any) {
 
                     for (var i = 0; i < manifest_file.navigation.length; i++) {
-                        db.collection("Navigation").save(manifest_file.navigation[i], function (err, data) {
+                        db.collection("Navigation").save(manifest_file.navigation[i], function (err: any, data: any) {
 
                         });
                     }
@@ -159,7 +161,7 @@ class ModuleUtiliity {
             modules_file[module_name] = manifest_file;
 
             if (manifest_file.npm !== undefined) {
-                var arr = [];
+                var arr: Array<any> = [];
                 for (var x in manifest_file.npm) {
                     arr.push({ name: x, ver: manifest_file.npm[x] });
                 }
@@ -193,7 +195,7 @@ class ModuleUtiliity {
      * @param module_name
      * @param callback
      */
-    uninstall(module_name, callback) {
+    uninstall(module_name: string, callback: Function) {
         var modules_file = fs.readJsonSync(appRoot + "\\modules.json");
         if (modules_file[module_name] !== undefined) {
 
@@ -226,10 +228,10 @@ class ModuleUtiliity {
 
 
 
-            dal.connect(function (err, db) {
+            dal.connect(function (err: any, db: any) {
                 if (manifest_file.navigation) {
                     for (var i = 0; i < manifest_file.navigation.length; i++) {
-                        db.collection("Navigation").remove({ "_id": manifest_file.navigation[i]._id }, function (err, data) {
+                        db.collection("Navigation").remove({ "_id": manifest_file.navigation[i]._id }, function (err: any, data: any) {
 
 
                         });
@@ -269,12 +271,12 @@ class ModuleUtiliity {
         return components.join("");
 
     };
-    npm_install(packagePair, callback) {
+    npm_install(packagePair: any, callback:Function) {
         var exec = require('child_process').exec,
-            child;
+            child: any;
 
         child = exec('npm install ' + packagePair.name + ' --save',
-            function (error, stdout, stderr) {
+            function (error: any, stdout: any, stderr: any) {
 
                 callback(stderr, stdout);
                 //console.log('stdout: ' + stdout);
@@ -284,13 +286,13 @@ class ModuleUtiliity {
                 //}
             });
     };
-    replaceAll(replaceThis, withThis, inThis) {
+    replaceAll(replaceThis: string, withThis: string, inThis: string) {
         withThis = withThis.replace(/\$/g, "$$$$");
         return inThis.replace(new RegExp(replaceThis.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|<>\-\&])/g, "\\$&"), "g"), withThis);
     };
-    deleteFolderRecursive(path) {
+    deleteFolderRecursive(path: string) {
         if (fs.existsSync(path)) {
-            fs.readdirSync(path).forEach(function (file, index) {
+            fs.readdirSync(path).forEach(function (file: string, index: number) {
                 var curPath = path + "/" + file;
                 if (fs.lstatSync(curPath).isDirectory()) { // recurse
                     this.deleteFolderRecursive(curPath);
@@ -301,10 +303,10 @@ class ModuleUtiliity {
             fs.rmdirSync(path);
         }
     };
-    list(callback) {
+    list(callback: Function) {
 
 
-        fs.readJson(appRoot + "\\modules.json", function (err, data) {
+        fs.readJson(appRoot + "\\modules.json", function (err: any, data: any) {
 
             callback(data);
 
@@ -312,14 +314,14 @@ class ModuleUtiliity {
         });
 
     }
-    validateModuleName(module_name, callback) {
+    validateModuleName(module_name: string, callback: Function) {
 
         if (fs.existsSync(appRoot + "/nodulus_modules/" + module_name + ".zip")) {
             return callback(true);
         }
         return callback(false);
     }
-    createPackage(module_name, callback) {
+    createPackage(module_name: string, callback: Function) {
         var baseFolder = appRoot + "\\public\\modules\\modules\\template\\";
         var manifest_file = fs.readJsonSync(baseFolder + "manifest.json", { throws: false });
 
@@ -352,7 +354,7 @@ class ModuleUtiliity {
     
     
         var zip = new JSZip();
-        var filesArr = [];
+        var filesArr: Array<any> = [];
 
         var fileContent = fs.readFileSync(baseFolder + "\\template.js", "utf-8");
         fileContent = this.replaceAll("$$module_name$$", module_name, fileContent);
@@ -391,12 +393,12 @@ class ModuleUtiliity {
         //var oldPackage  = fs.readFileSync(global.appRoot + "/nodulus_modules/" + module_name + ".zip");
     
         // see FileSaver.js
-        fs.writeFile(packageFileName, content, function (err) {
+        fs.writeFile(packageFileName, content, function (err: any) {
             if (err) throw err;
             callback(null, manifest_file);
         });
     }
-    pack(module_name, callback) {
+    pack(module_name: string, callback: Function) {
         var baseFolder = appRoot + "\\public\\modules\\" + module_name + "\\";
         var manifest_file = fs.readJsonSync(baseFolder + "manifest.json", { throws: false });
         //merge the manifest into the modules.json file
@@ -405,7 +407,7 @@ class ModuleUtiliity {
 
 
         var zip = new JSZip();
-        var filesArr = [];
+        var filesArr: Array<any> = [];
         for (var i = 0; i < manifest_file.files.length; i++) {
             if (fs.existsSync(baseFolder + manifest_file.files[i])) {
                 var fileContent = fs.readFileSync(baseFolder + manifest_file.files[i]);
@@ -473,7 +475,7 @@ class ModuleUtiliity {
         //var oldPackage  = fs.readFileSync(global.appRoot + "/nodulus_modules/" + module_name + ".zip");
     
         // see FileSaver.js
-        fs.writeFile(packageFileName, content, function (err) {
+        fs.writeFile(packageFileName, content, function (err: any) {
             if (err) throw err;
             callback(null, manifest_file);
         });
@@ -487,11 +489,11 @@ class ModuleUtiliity {
 
 };
 
-router.get("/listsearch", function (req, res) {
+router.get("/listsearch", function (req: any, res: any) {
     //var glob = require("glob")
-    
-    fs.readdir(appRoot + "\\nodulus_modules\\", function (err, files) {
-        var arrRes = [];
+
+    fs.readdir(appRoot + "\\nodulus_modules\\", function (err: any, files: Array<string>) {
+        var arrRes: Array<any> = [];
         for (var i = 0; i < files.length; i++) {
             if (files[i].indexOf(".zip") > -1 && files[i].indexOf(req.query.name) > -1)
                 arrRes.push(files[i].replace(".zip", ""))
@@ -515,23 +517,23 @@ router.get("/listsearch", function (req, res) {
 
 
 //var moduleUtility = new ModuleUtiliity();
-router.get("/navigation", function (req, res) {
+router.get("/navigation", function (req: any, res: any) {
 
-    new ModuleUtiliity().list(function (data) {
-        var arr = [];
+    new ModuleUtiliity().list(function (data: any) {
+        var arr: Array<any> = [];
         for (var x in data) {
-            if (data[x].navigation &&  data[x].navigation.length >0)
-                arr.push(data[x].navigation[0]);
+            if (data[x].modules_navigation && data[x].modules_navigation.length >0)
+                arr.push(data[x].modules_navigation[0]);
         }
 
         res.json(arr);
 
     })
 });
-router.get("/list", function (req, res) {
+router.get("/list", function (req: any, res: any) {
 
-    new ModuleUtiliity().list(function (data) {
-        var arr = [];
+    new ModuleUtiliity().list(function (data: any) {
+        var arr: Array<any> = [];
         for (var x in data) {
             arr.push(data[x]);
         }
@@ -540,10 +542,10 @@ router.get("/list", function (req, res) {
 
     })
 })
-router.get("/listnav", function (req, res) {
+router.get("/listnav", function (req: any, res: any) {
 
-    new ModuleUtiliity().list(function (data) {
-        var arr = [];
+    new ModuleUtiliity().list(function (data: any) {
+        var arr: Array<any> = [];
         for (var x in data) {
             if (data[x].navname !== undefined)
                 arr.push(data[x]);
@@ -554,11 +556,11 @@ router.get("/listnav", function (req, res) {
     })
 })
 
-router.get("/nodulus_mapping.js", function (req, res) {
+router.get("/nodulus_mapping.js", function (req: any, res: any) {
 
     var str = " var nodulus_mapping =";
-    new ModuleUtiliity().list(function (data) {
-        var mapping_result = {};
+    new ModuleUtiliity().list(function (data: any) {
+        var mapping_result : any = {};
         for (var x in data) {
             mapping_result[x] = { dependencies: [], scripts: [] };
             if (data[x].scripts) {
@@ -577,15 +579,15 @@ router.get("/nodulus_mapping.js", function (req, res) {
 
     })
 })
-router.post("/pack", function (req, res) {
+router.post("/pack", function (req: any, res: any) {
 
-    new ModuleUtiliity().pack(req.body.name, function (data) {
+    new ModuleUtiliity().pack(req.body.name, function (data: any) {
 
         res.json(data);
 
     })
 });
-router.post('/install', function (req, res) {
+router.post('/install', function (req: any, res: any) {
     if (!req.body)
         return res.sendStatus(400);
 
@@ -594,7 +596,7 @@ router.post('/install', function (req, res) {
     if (module_name === "" || module_name === undefined)
         return res.sendStatus(400);
 
-    new ModuleUtiliity().install(module_name, function (err, manifest_json) {
+    new ModuleUtiliity().install(module_name, function (err: any, manifest_json: any) {
         if (err !== null)
             return res.sendStatus(400);
 
@@ -609,7 +611,7 @@ router.post('/install', function (req, res) {
 
 
 });
-router.post('/create', function (req, res) {
+router.post('/create', function (req: any, res: any) {
     if (!req.body)
         return res.sendStatus(400);
 
@@ -617,11 +619,11 @@ router.post('/create', function (req, res) {
 
     if (module_name === "" || module_name === undefined)
         return res.sendStatus(400);
-    new ModuleUtiliity().validateModuleName(module_name, function (exists) {
+    new ModuleUtiliity().validateModuleName(module_name, function (exists: boolean) {
         if (exists)
             return res.json({ "Error": "module name exists" });
 
-        new ModuleUtiliity().createPackage(module_name, function (err, manifest_json) {
+        new ModuleUtiliity().createPackage(module_name, function (err: any, manifest_json: any) {
             if (err !== null)
                 return res.sendStatus(400);
 
@@ -638,12 +640,12 @@ router.post('/create', function (req, res) {
 
 
 });
-router.post('/uninstall', function (req, res) {
+router.post('/uninstall', function (req: any, res: any) {
     if (!req.body) return res.sendStatus(400);
 
     var module_name = req.body.name;
 
-    new ModuleUtiliity().uninstall(module_name, function (err, result) {
+    new ModuleUtiliity().uninstall(module_name, function (err: any, result: boolean) {
 
         res.json({ "status": "ok" });
 

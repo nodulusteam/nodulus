@@ -8,18 +8,18 @@
  */
   
   
-/// <reference path="../typings/node/node.d.ts" /> 
+/// <reference path="../typings/main.d.ts" />
 
 var express = require('express');
 var router = express.Router();
 var util = require('util');
 var fs = require("fs-extra");
 var path = require('path');
-var config = require('../classes/config.js');
-var dal = require("../classes/dal.js");
+var config = require('../app/config.js');
+var dal = require("../app/dal.js");
 var appRoot = global["appRoot"];
 
-router.post("/setup", function (req, res) {
+router.post("/setup", function (req: any, res: any) {
 
     var setupConfig = req.body;
     var setupConfigPath = appRoot + "\\public\\config\\setup.json";
@@ -47,7 +47,7 @@ router.post("/setup", function (req, res) {
     }
    
     //register the default user
-    var userDB = require("../classes/users").users;
+    var userDB = require("../app/users").users;
     userDB.register(userObj, function () { 
         res.status(200).json(setupConfig);
     
