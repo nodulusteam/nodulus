@@ -8,7 +8,8 @@
  */
 /// <reference path="../typings/main.d.ts" />
 
-var dal = require("../app/dal.js");
+import {consts} from "../app/consts";
+import {dal} from "../app/dal";
 
 
 export class users {

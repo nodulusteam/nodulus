@@ -21,7 +21,7 @@ class dalClass {
 
 
 
-        public query(queryStr: string, params: Array<string>, callback: Function) {
+        public query(queryStr: string, params: any, callback: Function) {
             if (this.impl === null) {
                 if (global.config.appSettings.database) {
 

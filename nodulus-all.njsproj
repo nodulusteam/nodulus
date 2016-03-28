@@ -7,7 +7,7 @@
     <ProjectHome />
     <ProjectView>ProjectFiles</ProjectView>
     <StartupFile>server/app.js</StartupFile>
-    <WorkingDirectory>D:\ewave-open-source\nodulus-master</WorkingDirectory>
+    <WorkingDirectory>D:\github\nodulus\nodulus</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
     <TypeScriptSourceMap>true</TypeScriptSourceMap>
@@ -903,7 +903,6 @@
     <Content Include="client\config.json" />
     <Content Include="client\config\client.json" />
     <Content Include="client\config\module_map.json" />
-    <Content Include="client\config\setup.json" />
     <Content Include="client\css\animation.css" />
     <Content Include="client\css\font-awesome.css" />
     <Content Include="client\css\font-awesome.min.css" />
@@ -1463,7 +1462,6 @@
     <Content Include="favicon.ico" />
     <Content Include="package.json" />
     <Content Include="README.md" />
-    <Content Include="server\config\config - Copy.json" />
     <Content Include="server\config\config.json" />
     <Content Include="server\data\Languages.json" />
     <Content Include="server\data\Navigation.json" />
