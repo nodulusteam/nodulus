@@ -217,3 +217,5 @@ pip-log.txt
 
 *.js
 *.js.map
+node_modules
+nodulus_modules

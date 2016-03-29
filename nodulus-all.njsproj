@@ -899,7 +899,6 @@
     <TypeScriptCompile Include="server\app\impl\diskdb\diskdb.ts" />
     <TypeScriptCompile Include="server\app\impl\diskdb\util.ts" />
     <Compile Include="gulpfile.js" />
-    <Content Include="client\.vs\config\applicationhost.config" />
     <Content Include="client\config.json" />
     <Content Include="client\config\client.json" />
     <Content Include="client\config\module_map.json" />
@@ -1365,7 +1364,6 @@
     <Content Include="client\scripts\errors.json" />
     <Content Include="client\scripts\scrolling-tabs\scrolling-tabs.css" />
     <Content Include="client\scripts\version.json" />
-    <Content Include="client\setup.json" />
     <Content Include="client\setup\angular-wizard.css" />
     <Content Include="client\setup\angular-wizard.less" />
     <Content Include="client\setup\angular-wizard.min.css" />
@@ -1484,10 +1482,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="client\" />
-    <Folder Include="client\.vs\" />
-    <Folder Include="client\.vs\config\" />
-    <Folder Include="client\.vs\nodulus-client\" />
-    <Folder Include="client\.vs\nodulus-client\v14\" />
     <Folder Include="client\app\" />
     <Folder Include="client\app\directives\" />
     <Folder Include="client\app\Services\" />
