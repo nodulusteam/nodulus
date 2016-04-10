@@ -818,23 +818,14 @@ $scope.modal = modal;
 
 
 function initSocketEvents($scope, $User, $Config, $Alerts) {
-    $Config.ready(function () {
-        
-        if (!socketsInitialized) {
-            
+    $Config.ready(function () {        
+        if (!socketsInitialized && typeof(io) !== "undefined") {           
             socket = io(location.origin);
-            
-            
-            //$Config.site.appRoot + ":" + $Config.site.po  rt
+             
             if ($User.User !== null)
                 if ($User.User._id)
                     socket.emit('console connect', { UserId: $User.User._id });
             
-            //var user = localStorage.getItem("juntasuser");
-            //if (user !== null) {
-            //    user = JSON.parse(user);
-            
-            //}
             
             socket.on('console connected', function (navData) {
                 $scope.$apply(function () {

@@ -4,7 +4,7 @@
  | '_ \ / _ \ / _` | | | | | | | / __|
  | | | | (_) | (_| | |_| | | |_| \__ \
  |_| |_|\___/ \__,_|\__,_|_|\__,_|___/
- @nodulus open source | ©Roi ben haim  ®2016    
+ @ewave open source | ©Roi ben haim  ®2016    
  */
   
  
@@ -14,8 +14,9 @@ var router = express.Router();
 var util = require('util');
 var fs = require('fs');
 var path = require('path');
-var dal = require("../app/dal.js");
-var api = require("../app/api.js");
+var dal = require("../app/dal.js").dal;
+var api = require("../app/api.js").api;
+
 var moment = require('moment');
 router.get('/collections', function (req, res) {  
     dal.connect(function (err, db) {

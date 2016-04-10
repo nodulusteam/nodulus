@@ -52,11 +52,17 @@ export class Startup {
 
         var http = require("http").createServer(app);
         var server = require('http').Server(app);
-        var socket = require('socket.io');
-        var io = socket.listen(server);
-        global.socket = io;
-        console.log("*** websocket is active");
-        var SocketUse = new network.socket(io);
+
+        if (global.config.enableSockets) {
+            var socket = require('socket.io');
+            var io = socket.listen(server);
+            global.socket = io;
+            console.log("*** websocket is active");
+            var SocketUse = new network.socket(io);
+
+        }
+
+       
        
         webServer.start(server, app, function (app: any) {
         });
@@ -79,8 +85,8 @@ export class Startup {
         app.use(bodyParser.json()); // for parsing application/json
         app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
         app.use('/', express.static(path.resolve('./client/')));
-        global.clientAppRoot = path.resolve('./client/'); 
-
+        global.clientAppRoot = path.resolve('./client/');
+        
         //load modules
         var nodulus_modules = global.config.modulesSettings;
 

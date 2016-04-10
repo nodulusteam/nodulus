@@ -29,6 +29,7 @@ var mkdirp = require('mkdirp');
 
 var appRoot = global.appRoot;
 
+var modules_configuration_path = global.serverAppRoot + "\\modules.json";
 
 var deleteFolderRecursive = function (path: string) {
     if (fs.existsSync(path)) {
@@ -305,8 +306,9 @@ class ModuleUtiliity {
     };
     list(callback: Function) {
 
+        
 
-        fs.readJson(appRoot + "\\modules.json", function (err: any, data: any) {
+        fs.readJson(modules_configuration_path , function (err: any, data: any) {
 
             callback(data);
 
