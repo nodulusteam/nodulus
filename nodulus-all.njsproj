@@ -1464,7 +1464,10 @@
     <Content Include="server\modules.json" />
     <Content Include="server\nodulus.njsproj" />
     <Content Include="server\package.json" />
+    <Content Include="server\tsconfig.json" />
     <Content Include="server\typings.json" />
+    <Content Include="run.bat" />
+    <Content Include="setup.bat" />
     <Content Include="tsconfig.json" />
     <Content Include="web.config" />
     <TypeScriptCompile Include="server\typings\main\ambient\body-parser\index.d.ts" />
@@ -1725,6 +1728,7 @@
     <Folder Include="client\themes\spacelab\" />
     <Folder Include="client\themes\superhero\" />
     <Folder Include="client\themes\United\" />
+    <Folder Include="tests\" />
     <Folder Include="server\" />
     <Folder Include="server\app\" />
     <Folder Include="server\app\impl\diskdb\" />

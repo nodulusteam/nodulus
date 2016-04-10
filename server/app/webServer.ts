@@ -50,8 +50,7 @@ export class webServer {
 
                 res.sendFile(path.resolve("./client/default.html"));
 
-                //res.set('Content-Type',  mimeTypes[req.route.path.replace("/*", "")]);
-                // res.sendFile(_toPath("../client/default.html"), options);
+ 
             });
 
 

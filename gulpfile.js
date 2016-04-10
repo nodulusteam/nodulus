@@ -5,6 +5,12 @@ var debug = require('gulp-debug');
 var path = require('path');
 var uglify = require('gulp-uglify');
 var copy = require('gulp-copy');
+var rimraf = require('gulp-rimraf');
+var ignore = require('gulp-ignore');
+var runSequence = require('run-sequence');
+var del = require('del');
+var fs = require('fs');
+
 
 gulp.task('uglifynode', ['compile'], function () {
     return gulp.src(['./release/routes/*.js', './release/classes/**/*.js'])
@@ -45,6 +51,28 @@ gulp.task('create_server', function () {
 });
 
 
+
+gulp.task('clean_release', function () {
+    return del("release");
+    
+  
+   // .pipe(debug());
+    //.pipe(debug())
+    //.pipe(minify({
+    //    exclude: ['tasks'],
+    //    ignoreFiles: ['.combo.js', '-min.js']
+    //}))
+    //.pipe(gulp.dest('release/public'))
+});
+
+
+gulp.task('clean_server_release', function () {
+    return gulp.src(['release/server/**/*.ts' ,'release/server/**/*.njsproj','release/server/**/*.sln'], { read: false })// much faster 
+   .pipe(ignore('node_modules/**'))
+   .pipe(rimraf());
+});
+
+
 gulp.task('compiledev', function () {
     var tsProject = typescript.createProject('tsconfig.json');
     var tsResult = tsProject.src()
@@ -62,4 +90,12 @@ gulp.task('compile', function () {
 });
 
 
-gulp.task('default', ['compile', 'create_client', 'create_server']);
+gulp.task('build', function() {
+  runSequence('clean_release', 'compile',
+              ['compile', 'create_client', 'create_server'],
+              'clean_server_release'
+              );
+});
+
+
+gulp.task('default', ['build']);
