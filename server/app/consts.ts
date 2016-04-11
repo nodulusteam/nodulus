@@ -10,7 +10,13 @@
 
  
     export  class consts {
-        public static MODULES_PATH: string =  "//client//modules//";
+        public static MODULES_PATH: string = "//client//modules//";
+
+
+        public static MANIFEST_NAME: string = "manifest.json";
+        public static MODULES_NAME: string = "modules.json";
+        public static CONFIG_NAME: string = "config.json";
+        
     }
 
    

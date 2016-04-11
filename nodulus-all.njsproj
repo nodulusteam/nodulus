@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{2cb23b19-1ae4-436b-9fc2-5fdb472c2db6}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ShowAllFiles</ProjectView>
+    <ProjectView>ProjectFiles</ProjectView>
     <StartupFile>server/app.js</StartupFile>
     <WorkingDirectory>D:\github\nodulus\nodulus</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -24,6 +24,7 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
+    <Compile Include="app.js" />
     <Compile Include="client\app\directives\autoheight.js" />
     <Compile Include="client\app\directives\InputDirectives.js" />
     <Compile Include="client\app\directives\MetaDataDirective.js" />
@@ -892,9 +893,6 @@
     <Compile Include="client\setup\app.js" />
     <TypeScriptCompile Include="server\app\impl\dataFactory.ts" />
     <Compile Include="server\routes\cms.js" />
-    <Compile Include="server\routes\codulus.js" />
-    <Compile Include="server\routes\schemas.js" />
-    <Compile Include="server\routes\scripter.js" />
     <TypeScriptCompile Include="server\app\impl\diskdb\collection.ts" />
     <TypeScriptCompile Include="server\app\impl\diskdb\diskdb.ts" />
     <TypeScriptCompile Include="server\app\impl\diskdb\util.ts" />
@@ -1753,7 +1751,6 @@
     <Folder Include="server\typings\nodulus\" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="server\app.ts" />
     <TypeScriptCompile Include="server\app\api.ts" />
     <TypeScriptCompile Include="server\app\config.ts" />
     <TypeScriptCompile Include="server\app\consts.ts" />

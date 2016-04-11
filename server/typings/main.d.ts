@@ -9,3 +9,4 @@
 /// <reference path="main/ambient/node/index.d.ts" />
 /// <reference path="main/ambient/serve-static/index.d.ts" />
 /// <reference path="main/ambient/socket.io/index.d.ts" />
+/// <reference path="nodulus/nodulus.d.ts" />

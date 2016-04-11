@@ -1,4 +1,5 @@
-﻿/*                 _       _           
+﻿
+/*                 _       _           
                  | |     | |          
   _ __   ___   __| |_   _| |_   _ ___ 
  | '_ \ / _ \ / _` | | | | | | | / __|
@@ -7,7 +8,7 @@
  @nodulus open source | ©Roi ben haim  ®2016    
  */
 /// <reference path="../typings/main.d.ts" />
-
+import {consts} from "../app/consts";
  
     export class config {
         public appSettings: any;
@@ -18,10 +19,10 @@
             var fs = require('fs');
             var path = require('path');
 
-            this.appSettings = JSON.parse(fs.readFileSync(global.serverAppRoot + '\\config\\config.json', 'utf8').replace(/^\uFEFF/, ''));
-            this.modulesSettings = JSON.parse(fs.readFileSync(global.serverAppRoot + '\\modules.json', 'utf8').replace(/^\uFEFF/, ''));
+            this.appSettings = JSON.parse(fs.readFileSync(global.serverAppRoot + '\\config\\' + consts.CONFIG_NAME, 'utf8').replace(/^\uFEFF/, ''));
+            this.modulesSettings = JSON.parse(fs.readFileSync(global.serverAppRoot + '\\' + consts.MODULES_NAME, 'utf8').replace(/^\uFEFF/, ''));
 
-            console.log(this.modulesSettings);
+           
         }
 
     }

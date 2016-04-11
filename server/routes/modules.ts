@@ -28,8 +28,9 @@ var mkdirp = require('mkdirp');
 
 
 var appRoot = global.appRoot;
+var serverRoot = global.serverAppRoot;
 
-var modules_configuration_path = global.serverAppRoot + "\\modules.json";
+var modules_configuration_path = global.serverAppRoot + "\\" + consts.MODULES_NAME;
 
 var deleteFolderRecursive = function (path: string) {
     if (fs.existsSync(path)) {
@@ -68,9 +69,9 @@ class ModuleUtiliity {
             if (err) throw err;
 
             var zip = new JSZip(data);
-            var fileData = zip.file("manifest.json").asText();
-            fs.writeFileSync(baseFolder + "\\manifest.json", fileData, 'utf8');
-            var manifest_file = fs.readJsonSync(baseFolder + "\\manifest.json", { throws: true });
+            var fileData = zip.file(consts.MANIFEST_NAME).asText();
+            fs.writeFileSync(baseFolder + "\\" + consts.MANIFEST_NAME, fileData, 'utf8');
+            var manifest_file = fs.readJsonSync(baseFolder + "\\" + consts.MANIFEST_NAME, { throws: true });
 
 
             if (manifest_file.files !== undefined) {
@@ -99,7 +100,7 @@ class ModuleUtiliity {
                     var filename = manifest_file.routes[i].path;
                     if (zip.folder("routes").file(filename)) {
                         var fileData = zip.folder("routes").file(filename).asText();
-                        fs.writeFileSync(appRoot + "\\routes\\" + filename, fileData, 'utf8');
+                        fs.writeFileSync(serverRoot + "\\routes\\" + filename, fileData, 'utf8');
                     }
 
 
@@ -133,10 +134,10 @@ class ModuleUtiliity {
         
         
             //register the module to the modules.json file
-            fs.ensureFileSync(appRoot + "\\modules.json");
+            fs.ensureFileSync(modules_configuration_path);
             var modules_file: any = {};
 
-            modules_file = fs.readJsonSync(appRoot + "\\modules.json");
+            modules_file = fs.readJsonSync(modules_configuration_path);
 
             if (modules_file[module_name] === undefined) {
                 modules_file[module_name] = {}
@@ -171,7 +172,7 @@ class ModuleUtiliity {
                 async.each(arr, instance.npm_install, function () {
 
 
-                    fs.writeFileSync(appRoot + "\\modules.json", JSON.stringify(modules_file));
+                    fs.writeFileSync(modules_configuration_path, JSON.stringify(modules_file));
 
                     callback(null, manifest_file);
                 })
@@ -179,7 +180,7 @@ class ModuleUtiliity {
 
             }
             else {
-                fs.writeFileSync(appRoot + "\\modules.json", JSON.stringify(modules_file));
+                fs.writeFileSync(modules_configuration_path, JSON.stringify(modules_file));
                 callback(null, manifest_file);
             }
 
@@ -197,12 +198,12 @@ class ModuleUtiliity {
      * @param callback
      */
     uninstall(module_name: string, callback: Function) {
-        var modules_file = fs.readJsonSync(appRoot + "\\modules.json");
+        var modules_file = fs.readJsonSync(modules_configuration_path);
         if (modules_file[module_name] !== undefined) {
 
             for (var i = 0; i < modules_file[module_name].routes.length; i++) {
                 try {
-                    fs.unlinkSync(appRoot + "\\routes\\" + modules_file[module_name].routes[i].path);
+                    fs.unlinkSync(serverRoot + "\\routes\\" + modules_file[module_name].routes[i].path);
                 } catch (e) { }
             }
 
@@ -217,11 +218,11 @@ class ModuleUtiliity {
 
 
 
-        fs.writeFileSync(appRoot + "\\modules.json", JSON.stringify(modules_file));
+        fs.writeFileSync(modules_configuration_path, JSON.stringify(modules_file));
 
 
         try {
-            var manifest_file = fs.readJsonSync(global.clientAppRoot + "\\modules\\" + module_name + "\\manifest.json", { throws: false });
+            var manifest_file = fs.readJsonSync(global.clientAppRoot + "\\modules\\" + module_name + "\\" + consts.MANIFEST_NAME, { throws: false });
             //merge the manifest into the modules.json file
             if (manifest_file === null)
                 callback("invalid json, try using ascii file");
@@ -325,7 +326,7 @@ class ModuleUtiliity {
     }
     createPackage(module_name: string, callback: Function) {
         var baseFolder = global.clientAppRoot + "\\modules\\modules\\template\\";
-        var manifest_file = fs.readJsonSync(baseFolder + "manifest.json", { throws: false });
+        var manifest_file = fs.readJsonSync(baseFolder + consts.MANIFEST_NAME, { throws: false });
 
         var manifestString = JSON.stringify(manifest_file);
         manifestString = this.replaceAll("$$module_name$$", module_name, manifestString);
@@ -366,7 +367,7 @@ class ModuleUtiliity {
         fileContent = this.replaceAll("$$module_name$$", module_name, fileContent);
         zip.file(module_name + ".html", fileContent);
 
-        zip.file("manifest.json", JSON.stringify(manifest_file));
+        zip.file(consts.MANIFEST_NAME, JSON.stringify(manifest_file));
 
 
 
@@ -386,6 +387,13 @@ class ModuleUtiliity {
         var packageFileName = appRoot + "/nodulus_modules/" + module_name + ".zip";
         var packageBackupFileName = appRoot + "/nodulus_modules/" + module_name + "/" + module_name + "." + this.timestamp() + ".zip";
 
+
+        if (!fs.existsSync(appRoot + "/nodulus_modules/")) {
+            fs.ensureDirSync(appRoot + "/nodulus_modules/");
+        }
+
+           
+
         if (fs.existsSync(packageFileName)) {
             fs.ensureDirSync(appRoot + "/nodulus_modules/" + module_name);
             fs.renameSync(packageFileName, packageBackupFileName);
@@ -402,7 +410,7 @@ class ModuleUtiliity {
     }
     pack(module_name: string, callback: Function) {
         var baseFolder = global.clientAppRoot + "\\modules\\" + module_name + "\\";
-        var manifest_file = fs.readJsonSync(baseFolder + "manifest.json", { throws: false });
+        var manifest_file = fs.readJsonSync(baseFolder + consts.MANIFEST_NAME, { throws: false });
         //merge the manifest into the modules.json file
         if (manifest_file === null)
             callback("invalid json, try using ascii file");
@@ -422,13 +430,14 @@ class ModuleUtiliity {
         }
 
         if (manifest_file.routes !== undefined) {
+            var routeBase: string = serverRoot + "/routes/";
             for (var i = 0; i < manifest_file.routes.length; i++) {
-                if (fs.existsSync(appRoot + "/routes/" + manifest_file.routes[i].path)) {
-                    var fileContent = fs.readFileSync(appRoot + "/routes/" + manifest_file.routes[i].path);
+                if (fs.existsSync(routeBase + manifest_file.routes[i].path)) {
+                    var fileContent = fs.readFileSync(routeBase + manifest_file.routes[i].path);
                     zip.folder("routes").file(manifest_file.routes[i].path, fileContent);
                 }
 
-                var tsfile = appRoot + "/routes/" + manifest_file.routes[i].path.replace('.js', '.ts');
+                var tsfile = routeBase + manifest_file.routes[i].path.replace('.js', '.ts');
                 if (fs.existsSync(tsfile)) {
                     var fileContent = fs.readFileSync(tsfile);
                     zip.folder("routes").file(manifest_file.routes[i].path.replace('.js', '.ts'), fileContent);
@@ -460,8 +469,8 @@ class ModuleUtiliity {
 
 
 
-        var manifestContent = fs.readFileSync(baseFolder + "manifest.json");
-        zip.file("manifest.json", manifestContent);
+        var manifestContent = fs.readFileSync(baseFolder + consts.MANIFEST_NAME);
+        zip.file(consts.MANIFEST_NAME, manifestContent);
 
 
         var content = zip.generate({ type: "nodebuffer" });

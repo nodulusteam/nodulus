@@ -22,13 +22,17 @@
     "gulp-copy": "0.0.2",
     "gulp-debug": "^2.1.2",
     "gulp-ignore": "^2.0.1",
+    "gulp-inject": "^4.0.0",
     "gulp-minify": "0.0.5",
     "gulp-rimraf": "^0.2.0",
     "gulp-tsc": "^1.1.5",
+    "gulp-tslint": "^4.3.4",
     "gulp-typescript": "^2.12.1",
     "gulp-uglify": "^1.5.3",
     "mocha": "^2.4.5",
     "run-sequence": "^1.1.5",
+    "tslint": "^3.7.1",
+    "typescript": "^1.8.9",
     "unit.js": "^2.0.0"
   }
 }
