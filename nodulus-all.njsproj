@@ -1784,6 +1784,7 @@
     <Folder Include="client\themes\spacelab\" />
     <Folder Include="client\themes\superhero\" />
     <Folder Include="client\themes\United\" />
+    <Folder Include="server\typings\main\ambient\express\" />
     <Folder Include="tests\" />
     <Folder Include="server\" />
     <Folder Include="server\app\" />
@@ -1799,7 +1800,6 @@
     <Folder Include="server\typings\main\ambient\errorhandler\" />
     <Folder Include="server\typings\main\ambient\es6-promise\" />
     <Folder Include="server\typings\main\ambient\express-serve-static-core\" />
-    <Folder Include="server\typings\main\ambient\express\" />
     <Folder Include="server\typings\main\ambient\method-override\" />
     <Folder Include="server\typings\main\ambient\mime\" />
     <Folder Include="server\typings\main\ambient\mongodb\" />
