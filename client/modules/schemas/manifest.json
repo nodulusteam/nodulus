@@ -17,7 +17,8 @@
     "SchemaTreeMenu.html",
     "schemaDialog.html",
     "decorators/bootstrap/table.html",
-    "decorators/ckeditor/ckeditor.html"
+    "decorators/ckeditor/ckeditor.html",
+    "decorators/summernote/summernote.html"
   ],
   "scripts": [
     "papaparse.min.js",
@@ -28,8 +29,8 @@
     "schem-form-definitions.js",
     "angular-schema-form-dynamic-select.js",
     "bootstrap-ui-ace.min.js",
-    "nav.js",
-    "app.js"
+    "nav.js"
+    
   ],
   "dependencies": [
     "schemaForm",

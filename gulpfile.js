@@ -90,12 +90,13 @@ gulp.task('clean_release', function () {
 
 
 gulp.task('clean_server_release', function () {
+    del("release/server/node_modules");
+    //del("release/server/**/*.ts");
+    return del("release/server/nodulus_modules");
     
-    del("release/server/node_modules/*.*");
-    
-    return gulp.src(['release/server/**/*.ts' , 'release/server/**/*.njsproj', 'release/server/**/*.sln'], { read: false })// much faster 
-   .pipe(ignore('node_modules/**'))
-   .pipe(rimraf());
+   // return gulp.src(['release/server/**/*.ts' , 'release/server/**/*.njsproj', 'release/server/**/*.sln'], { read: false })// much faster 
+   ////.pipe(ignore('node_modules/**'))
+   //.pipe(rimraf());
 });
 
 

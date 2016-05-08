@@ -573,7 +573,7 @@ router.get("/nodulus_mapping.js", function (req: any, res: any) {
     new ModuleUtiliity().list(function (data: any) {
         var mapping_result : any = {};
         for (var x in data) {
-            mapping_result[x] = { dependencies: [], scripts: [] };
+            mapping_result[x] = { dependencies: [], scripts: [], styles: [] };
             if (data[x].scripts) {
                 for (var sc = 0; sc < data[x].scripts.length; sc++) {
                     mapping_result[x].scripts.push(data[x].scripts[sc]);
@@ -582,6 +582,11 @@ router.get("/nodulus_mapping.js", function (req: any, res: any) {
             if (data[x].dependencies) {
                 for (var dp = 0; dp < data[x].dependencies.length; dp++) {
                     mapping_result[x].dependencies.push(data[x].dependencies[dp]);
+                }
+            }
+            if (data[x].styles) {
+                for (var dp = 0; dp < data[x].styles.length; dp++) {
+                    mapping_result[x].styles.push(data[x].styles[dp]);
                 }
             }
         }

@@ -1,0 +1,76 @@
+﻿<div ng-controller="cms_layouts">
+
+    <nav style="height: 30px;width: 100%" flex>
+        <div class="btn-group pull-right">
+            <a ng-click="deleteItem()" class="btn btn-danger"><span class="fa fa-remove"></span> {{"Delete" | translate}}</a>
+            <a ng-click="JsonView = !JsonView" class="btn btn-info" ng-class="{'active': JsonView}"><span class="fa fa-code"></span> {{"JSON" | translate}} </a>
+            <a ng-click="Save()" class="btn btn-primary" ng-class="{'btn-success': Saved}"><span ng-class="{'fa fa-circle-o-notch fa-spin': Saving,'fa fa-save': !Saving }"></span> {{"Save" | translate}}</a>
+
+
+        </div>
+    </nav>
+    <div class="col-md-9 col-lg-9">
+
+        <div>
+
+            <div class="form-group">
+                <input class="form-control" ng-model="Layout.filename" />
+            </div>
+            <div class="form-group">
+                <input class="form-control" ng-model="Layout.name" />
+            </div>
+
+
+        </div>
+
+        <div class="panel panel-primary" ng-repeat="(key, value) in Layout.placeholders">
+            <div class="panel-heading">
+                {{key}}
+
+                <div class="btn-group pull-{{$Language.language.alignInvert}}">
+                    <a class="btn btn-info btn-xs" ng-click='AddPageControl(value)' title="{{menu.name}}"><i class="fa fa-plus"></i> </a>
+                </div>
+
+            </div>
+
+            <div class="panel-body">
+                <div ng-repeat="pagecontrol in value">
+                    {{pagecontrol}}
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-3 col-lg-3"><div class="panel-group pull-right">
+    <div class="panel panel-primary">
+        <div class="panel-heading" role="tab" id="{{menu.name}}">
+            <span role="button"
+                  aria-expanded="true" aria-controls="collapse{{menu.name}}">
+                <i class="{{menu.icon}}"></i>
+                {{menu.name | translate}}
+            </span>
+            <div class="btn-group pull-{{$Language.language.alignInvert}}">
+                <a class="btn btn-info btn-xs" ng-click='New()' title="{{menu.name}}"><i class="fa fa-plus"></i> </a>
+            </div>
+        </div>
+        <div role="tabpanel" aria-labelledby="{{menu.name}}">
+            <a ng-repeat="layout in Layouts" ng-click="Edit(layout)">{{layout.name}}</a>
+        </div>
+    </div>
+</div></div>
+    
+
+
+
+   
+
+
+    
+
+
+
+
+   
+</div>

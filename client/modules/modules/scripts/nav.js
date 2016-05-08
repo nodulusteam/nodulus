@@ -18,7 +18,7 @@ angular.module('nodulus_modules', ['ngMaterial', 'nodulus', 'ui.bootstrap'])
                 $scope.TreeLoading = false;
             });
             //$scope.ShowSelected = function (pagename) {
-            //    debugger
+            
             //    $IDE.ShowLobby({ "_id": pagename, "label": pagename }, "modules/cms/" + pagename + ".html");
             //}
             $scope.ShowSelected = function (node) {

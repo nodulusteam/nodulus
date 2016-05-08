@@ -1,0 +1,31 @@
+       <div class="panel panel-primary">
+                    <div class="panel-heading" role="tab" id="{{menu.name}}">
+                        <span role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{menu.name}}"
+                              aria-expanded="true" aria-controls="collapse{{menu.name}}">
+                            <i class="{{menu.icon}}"></i> {{menu.name | translate}}
+                        </span>
+
+                        
+                        <span class="pull-{{$Language.language.alignInvert}}">
+                            <a class="btn btn-info btn-xs" ng-click='menu.AddCategory(menu)' title="{{menu.name}}"><i class="fa fa-plus"></i> </a>
+                        </span>
+                    </div>
+                    <div id="collapse{{menu.name}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{menu.name}}">
+
+
+                        <div class="panel-body">
+                            <abn-tree tree-data="menu.children" ng-if="menu.children"
+                                      tree-control="menu"
+                                      icon-leaf="icon-file"
+                                      icon-expand="icon-plus-sign"
+                                      icon-collapse="icon-minus-sign"
+                                      on-select="showSelected(branch)"
+                                      expand-level="2"
+                                      initial-selection="">
+
+                            </abn-tree>
+                        </div>
+                    </div>
+                </div>
+
+           

@@ -6,7 +6,7 @@
     <div class="input form-inline form" layout="row">
         <div class="form-group">
 
-            <a class="btn btn-default btn-xs" 
+            <a class="btn btn-default btn-xs"
                ng-class="{'notvisible':property.type.name !== 'array' &&  property.type.name !== 'object'}"
                ng-click="(collapsed === undefined ? collapsed=false : collapsed = !collapsed)">
                 <i ng-class="{'fa fa-plus': (collapsed || collapsed===undefined), 'fa fa-minus': (!collapsed &&  collapsed!== undefined)}">
@@ -46,12 +46,15 @@
                 <option value="">Select Option</option>
             </select>
 
-            <a class="btn btn-succsess btn-sm" ng-click="TypeProperties(property)">
-                <div class="col-md-6"><span class="fa fa-cubes"></span> <span class="badge">{{property.form.type.name}}</span></div>
+            <a class="btn btn-default btn-sm row" style="min-width: 300px;" ng-click="TypeProperties(property)">
+                <div class="col-md-6">
+                    <span class="fa fa-cubes"></span>
+                    <span class="badge">{{property.form.type.name}}</span>
+                </div>
 
 
                 <div class="col-md-6">
-                    <span ng-show="property.form.lookup && property.form.lookupNameField"><small><i class="fa fa-list-alt"></i> {{property.form.lookup}} - {{property.form.lookupNameField}}</small></span>
+                    <span ng-show="property.form.lookup && property.form.lookupNameField"><small style="white-space: nowrap;"><i class="fa fa-list-alt"></i> {{property.form.lookup}} - {{property.form.lookupNameField}}</small></span>
                     <span ng-show="property.form.nameField"><small><i class="fa fa-header"></i></small> </span>
                 </div>
             </a>
@@ -99,7 +102,7 @@
         <ul class="list-group">
             <li class="list-group-item no-pad-right"
                 ng-hide="(collapsed || collapsed===undefined) "
-                 ng-class="{'list-group-item-info': overed, 'list-group-item-info':selected}"
+                ng-class="{'list-group-item-info': overed, 'list-group-item-info':selected}"
                 ng-mouseover="overed=true"
                 ng-click="selected=true"
                 ng-mouseleave="overed=false"

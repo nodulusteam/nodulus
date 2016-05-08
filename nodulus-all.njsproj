@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{2cb23b19-1ae4-436b-9fc2-5fdb472c2db6}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <StartupFile>server/app.js</StartupFile>
     <WorkingDirectory>D:\github\nodulus\nodulus</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -46,12 +46,53 @@
     <Compile Include="client\modules\modules\scripts\nav.js" />
     <Compile Include="client\modules\modules\template\routes\template.js" />
     <Compile Include="client\modules\modules\template\template.js" />
+    <Compile Include="client\modules\schemas\scripts\decorators\summernote\angular-summernote.min.js" />
+    <Compile Include="client\modules\schemas\scripts\decorators\summernote\bootstrap-summernote.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-ar-AR.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-bg-BG.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-ca-ES.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-cs-CZ.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-da-DK.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-de-DE.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-es-ES.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-es-EU.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-fa-IR.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-fi-FI.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-fr-FR.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-he-IL.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-hu-HU.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-id-ID.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-it-IT.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-ja-JP.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-ko-KR.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-lt-LT.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-nb-NO.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-nl-NL.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-pl-PL.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-pt-BR.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-pt-PT.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-ro-RO.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-ru-RU.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-sk-SK.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-sl-SI.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-sr-RS-Latin.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-sr-RS.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-sv-SE.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-th-TH.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-tr-TR.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-uk-UA.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-vi-VN.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-zh-CN.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\lang\summernote-zh-TW.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\plugin\hello\summernote-ext-hello.js" />
+    <Compile Include="client\modules\schemas\styles\decorators\summernote\plugin\specialchars\summernote-ext-specialchars.js" />
+    <Compile Include="client\modules\schemas\scripts\decorators\summernote\summernote.js" />
+    <Compile Include="client\modules\schemas\scripts\decorators\summernote\summernote.min.js" />
     <Compile Include="client\modules\schemas\designer.js" />
     <Compile Include="client\modules\schemas\item.js" />
     <Compile Include="client\modules\schemas\lobby.js" />
     <Compile Include="client\modules\schemas\Schemas.js" />
     <Compile Include="client\modules\schemas\scripts\angular-schema-form-dynamic-select.js" />
-    <Compile Include="client\modules\schemas\scripts\app.js" />
     <Compile Include="client\modules\schemas\scripts\bootstrap-decorator.min.js" />
     <Compile Include="client\modules\schemas\scripts\bootstrap-ui-ace.min.js" />
     <Compile Include="client\modules\schemas\scripts\nav.js" />
@@ -953,6 +994,12 @@
     <Content Include="client\modules\schemas\confirmDialog.html" />
     <Content Include="client\modules\schemas\decorators\bootstrap\table.html" />
     <Content Include="client\modules\schemas\decorators\ckeditor\ckeditor.html" />
+    <Content Include="client\modules\schemas\decorators\summernote\summernote.html" />
+    <Content Include="client\modules\schemas\styles\decorators\summernote\font\summernote.eot" />
+    <Content Include="client\modules\schemas\styles\decorators\summernote\font\summernote.ttf" />
+    <Content Include="client\modules\schemas\styles\decorators\summernote\font\summernote.woff" />
+    <Content Include="client\modules\schemas\styles\decorators\summernote\summernote.css" />
+    <Content Include="client\modules\schemas\styles\decorators\summernote\summernote.html" />
     <Content Include="client\modules\schemas\designer.html" />
     <Content Include="client\modules\schemas\item.html" />
     <Content Include="client\modules\schemas\lobby.html" />
@@ -1503,7 +1550,18 @@
     <Folder Include="client\modules\schemas\decorators\" />
     <Folder Include="client\modules\schemas\decorators\bootstrap\" />
     <Folder Include="client\modules\schemas\decorators\ckeditor\" />
+    <Folder Include="client\modules\schemas\decorators\summernote\" />
+    <Folder Include="client\modules\schemas\styles\decorators\summernote\font\" />
+    <Folder Include="client\modules\schemas\styles\decorators\summernote\lang\" />
+    <Folder Include="client\modules\schemas\styles\decorators\summernote\plugin\" />
+    <Folder Include="client\modules\schemas\styles\decorators\summernote\plugin\hello\" />
+    <Folder Include="client\modules\schemas\styles\decorators\summernote\plugin\specialchars\" />
+    <Folder Include="client\modules\schemas\styles\" />
     <Folder Include="client\modules\schemas\scripts\" />
+    <Folder Include="client\modules\schemas\scripts\decorators\" />
+    <Folder Include="client\modules\schemas\scripts\decorators\summernote\" />
+    <Folder Include="client\modules\schemas\styles\decorators\" />
+    <Folder Include="client\modules\schemas\styles\decorators\summernote\" />
     <Folder Include="client\modules\scripter\" />
     <Folder Include="client\modules\scripter\scripts\" />
     <Folder Include="client\modules\terminal\" />

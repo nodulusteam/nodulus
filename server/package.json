@@ -37,14 +37,5 @@
     "strip-bom": "^2.0.0",
     "stylus": "^0.53.0",
     "wildcard": "^1.1.2"
-  },
-  "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-copy": "0.0.2",
-    "gulp-debug": "^2.1.2",
-    "gulp-minify": "0.0.5",
-    "gulp-tsc": "^1.1.5",
-    "gulp-typescript": "^2.12.1",
-    "gulp-uglify": "^1.5.3"
-  }
+  } 
 }
