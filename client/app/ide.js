@@ -201,25 +201,25 @@ angular.module('nodulus').controller('ideController',
         }
     });
 })
-.directive('ckEditor', [function () {
-        return {
-            require: '?ngModel',
-            link: function ($scope, elm, attr, ngModel) {
+//.directive('ckEditor', [function () {
+//        return {
+//            require: '?ngModel',
+//            link: function ($scope, elm, attr, ngModel) {
                 
-                var ck = CKEDITOR.replace(elm[0]);
+//                var ck = CKEDITOR.replace(elm[0]);
                 
-                ck.on('pasteState', function () {
-                    $scope.$apply(function () {
-                        ngModel.$setViewValue(ck.getData());
-                    });
-                });
+//                ck.on('pasteState', function () {
+//                    $scope.$apply(function () {
+//                        ngModel.$setViewValue(ck.getData());
+//                    });
+//                });
                 
-                ngModel.$render = function (value) {
-                    ck.setData(ngModel.$modelValue);
-                };
-            }
-        };
-    }])
+//                ngModel.$render = function (value) {
+//                    ck.setData(ngModel.$modelValue);
+//                };
+//            }
+//        };
+//    }])
 .directive('egenLongClick', function ($parse) {
     return function (scope, element, attrs) {
         var fn = $parse(attrs.egenLongClick);

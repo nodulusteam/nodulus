@@ -1,22 +1,22 @@
-DynamicData.directive('ckEditor', [function () {
-		return {
-			require: '?ngModel',
-			link: function ($scope, elm, attr, ngModel) {
+//DynamicData.directive('ckEditor', [function () {
+//		return {
+//			require: '?ngModel',
+//			link: function ($scope, elm, attr, ngModel) {
 				
-				var ck = CKEDITOR.replace(elm[0]);
+//				var ck = CKEDITOR.replace(elm[0]);
 				
-				ck.on('pasteState', function () {
-					$scope.$apply(function () {
-						ngModel.$setViewValue(ck.getData());
-					});
-				}); 
+//				ck.on('pasteState', function () {
+//					$scope.$apply(function () {
+//						ngModel.$setViewValue(ck.getData());
+//					});
+//				}); 
 				
-				ngModel.$render = function (value) {
-					ck.setData(ngModel.$modelValue);
-				};
-			}
-		};
-	}]);
+//				ngModel.$render = function (value) {
+//					ck.setData(ngModel.$modelValue);
+//				};
+//			}
+//		};
+//	}]);
 DynamicData.directive("egenDropdown", function (RecursionHelper) {
 	return {
 		restrict: "E",
