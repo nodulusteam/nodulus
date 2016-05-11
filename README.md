@@ -1,4 +1,6 @@
 # nodulus 
+
+[![Join the chat at https://gitter.im/roibh/nodulus](https://badges.gitter.im/roibh/nodulus.svg)](https://gitter.im/roibh/nodulus?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
  
 
 
