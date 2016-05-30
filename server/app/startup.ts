@@ -84,8 +84,8 @@ export class Startup {
         }));
         app.use(bodyParser.json()); // for parsing application/json
         app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-        app.use('/', express.static(path.resolve('./client/')));
-        global.clientAppRoot = path.resolve('./client/');
+        app.use('/', express.static(global.clientAppRoot));
+        //global.clientAppRoot = path.resolve('./client/');
         
         //load modules
         var nodulus_modules = global.config.modulesSettings;

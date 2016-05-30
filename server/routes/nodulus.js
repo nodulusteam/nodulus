@@ -9,7 +9,7 @@ var path = require('path');
 var appRoot = global.appRoot;
 router.post("/setup", function (req, res) {
     var setupConfig = req.body;
-    var configurationPath = global.serverAppRoot + "\\config\\config.json";
+    var configurationPath = global.serverAppRoot + "config\\config.json";
     var configurationObject = JSON.parse(fs.readFileSync(configurationPath, 'utf8').replace(/^\uFEFF/, ''));
     configurationObject["database"] = setupConfig["database"];
     if (configurationObject["database"].diskdb)
@@ -21,7 +21,7 @@ router.post("/setup", function (req, res) {
         Password: setupConfig.Password
     };
     users_1.users.register(userObj, function () {
-        var setupConfigPath = global.clientAppRoot + "\\config\\setup.json";
+        var setupConfigPath = global.clientAppRoot + "config\\setup.json";
         fs.writeFileSync(setupConfigPath, JSON.stringify({ active: new Date() }), 'utf8');
         res.status(200).json(setupConfig);
     });

@@ -78,7 +78,7 @@
             options="treeOptions"
             on-selection="showSelected(node)"
             on-right-click="showTreeBottomSheet(node)"-->
-            <!--<md-button class="md-fab md-primary" md-theme="{{$Theme.theme}}" aria-label="Edit" ng-click='AddCategory()'>
+            <!--<md-button class="md-fab md-primary"  aria-label="Edit" ng-click='AddCategory()'>
                 <i class="fa fa-plus" style="font-size: 35px;"></i>
             </md-button>-->
         </div>
@@ -192,7 +192,25 @@
 
 
 <div style="clear: both;"></div>
-<footer class="navbar navbar-inverse navbar-fixed-bottom" style="height: 25px!important;min-height: 25px!important;">
+
+
+<footer id="navbar" class="navbar-inverse navbar navbar-fixed-bottom">
+    
+    <ul class="nav navbar-nav navbar-right">
+        <li class="navbar-btn"><a href="http://roibh.github.io/nodulus/" target="_blank" class="margined btn btn-sm btn-info" style="padding: 2px!important"><span class="icon-nodulus" style="font-size:28px;"></span>
+          </a></li>
+        <li class="navbar-btn"><a href="https://github.com/roibh/nodulus" target="_blank" class="margined btn btn-info btn-sm" style="padding: 2px!important"><span class="fa fa-github-square" style="font-size:28px;"></span>
+           </a></li>
+        
+        <li class="spacer"></li>
+      
+    </ul>
+   
+</footer>
+
+
+
+<!--<footer class="navbar navbar-inverse navbar-fixed-bottom" style="height: 25px!important;min-height: 25px!important;">
     <div class="container-full">
         <ul class="nav navbar-nav container-full">
             <li>
@@ -205,4 +223,4 @@
             <li class="pull-right flip"><a style="padding: 0!important;" href="https://github.com/roibh/nodulus" target="_blank" class="btn btn-default"><i class="fa fa-github-square" style="font-size:28px;"></i></a></li>
         </ul>
     </div>
-</footer>
+</footer>-->

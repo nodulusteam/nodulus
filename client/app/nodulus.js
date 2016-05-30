@@ -91,6 +91,8 @@ var providers = {};
 /**
  * module declaration
  */
+
+ 
 var DynamicData = angular.module('nodulus', nodulus_dependecies)
     .config(['$controllerProvider', '$resourceProvider', '$routeProvider', '$mdThemingProvider', '$compileProvider', '$provide', '$injector', '$translateProvider','hotkeysProvider',
     function ($controllerProvider, $resourceProvider, $routeProvider, $mdThemingProvider, $compileProvider, $provide, $injector, $translateProvider, hotkeysProvider) {

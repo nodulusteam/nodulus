@@ -17,7 +17,7 @@
 
 
     <div id="ProductDialogScope">
-        <md-progress-linear md-mode="indeterminate" data-ng-show="RequestActive" md-theme="{{$Theme.theme}}"></md-progress-linear>
+        <md-progress-linear md-mode="indeterminate" data-ng-show="RequestActive" ></md-progress-linear>
 
 
         <form style="padding: 20px;" name="websiteForm">
@@ -35,7 +35,7 @@
             <div class="form-group col-lg-6 col-md-6">
 
                 <label>Base URL</label>
-                <input class="form-control" required name="BaseUrl" ng-model="EditObject.BaseUrl" md-theme="{{$Theme.theme}}">
+                <input class="form-control" required name="BaseUrl" ng-model="EditObject.BaseUrl" >
 
                 <div ng-messages="websiteForm.BaseUrl.$error">
                     <div ng-message="required">This is required.</div>
@@ -47,7 +47,7 @@
             <div class="form-group col-lg-6 col-md-6">
 
                 <label>paging addition (eg. page={0})</label>
-                <input class="form-control" name="PagingAddition" ng-model="EditObject.PagingAddition" md-theme="{{$Theme.theme}}">
+                <input class="form-control" name="PagingAddition" ng-model="EditObject.PagingAddition" >
 
                 <div ng-messages="websiteForm.PagingAddition.$error">
 
@@ -56,7 +56,7 @@
 
             <div class="form-group col-lg-6 col-md-6">
                 <label>Number of pages for fetch</label>
-                <input class="form-control" name="NumberOfPagesForFetch" ng-model="EditObject.NumberOfPagesForFetch" md-theme="{{$Theme.theme}}">
+                <input class="form-control" name="NumberOfPagesForFetch" ng-model="EditObject.NumberOfPagesForFetch" >
 
                 <div ng-messages="websiteForm.NumberOfPagesForFetch.$error">
 

@@ -15,6 +15,7 @@ var nodulus_dependecies = ['infinite-scroll',  'anguFixedHeaderTable', 'm43nu.au
     'mgcrea.ngStrap', 'mj.scrollingTabs', 'ui.bootstrap', 'ui.ace', 'ngSanitize', 'ngRoute', 'ngResource', 'angular.filter', 'angularBootstrapNavTree',
     'treeControl', 'ngMaterial', 'ngMessages', 'ngAnimate', 'RecursionHelper', 'DynamicDataSerivces', 'Cache', 'IDE', 'pascalprecht.translate', 'cfp.hotkeys'];
 var delay_bootstraping = false;
+ 
 for (var module_name in nodulus_mapping) {
     var module = nodulus_mapping[module_name];
     for (var i = 0; i < module.scripts.length; i++) {
@@ -47,9 +48,11 @@ for (var module_name in nodulus_mapping) {
            
             document.getElementsByTagName('head')[0].appendChild(fileref);
         }
-        for (var i = 0; i < module.dependencies.length; i++) {
-            nodulus_dependecies.push(module.dependencies[i]);
-        }
+        
+    }
+
+    for (var i = 0; i < module.dependencies.length; i++) {
+        nodulus_dependecies.push(module.dependencies[i]);
     }
 }
 if (!delay_bootstraping) {

@@ -4,7 +4,7 @@
 
 
 
-    <a class="btn btn-primary pull-right" ng-click="New()" md-theme="{{$Theme.theme}}"><i class="fa fa-plus"></i>New Website</a>
+    <a class="btn btn-primary pull-right" ng-click="New()" ><i class="fa fa-plus"></i>New Website</a>
     <table class="table">
         <tr>
             <th>Name</th>
@@ -33,13 +33,13 @@
  
 
     <script type="text/ng-template" id="websitedialog.html">
-        <md-dialog aria-label="Site information" style="width: 80%" layout md-theme="{{$Theme.theme}}">
-            <md-content md-theme="{{$Theme.theme}}">
+        <md-dialog aria-label="Site information" style="width: 80%" layout >
+            <md-content >
 
 
                 <div id="ProductDialogScope">
-                    <md-progress-linear md-mode="indeterminate" data-ng-show="RequestActive" md-theme="{{$Theme.theme}}"></md-progress-linear>
-                    <md-toolbar md-theme="{{$Theme.theme}}">
+                    <md-progress-linear md-mode="indeterminate" data-ng-show="RequestActive" ></md-progress-linear>
+                    <md-toolbar >
                         <h1 class="md-toolbar-tools">{{EditObject.Name}} </h1>
 
                     </md-toolbar>
@@ -60,9 +60,9 @@
                             </md-input-container>
 
 
-                            <md-input-container flex="50" md-theme="{{$Theme.theme}}">
+                            <md-input-container flex="50" >
                                 <label>Base URL</label>
-                                <input md-maxlength="30" required name="BaseUrl" ng-model="EditObject.BaseUrl" md-theme="{{$Theme.theme}}">
+                                <input md-maxlength="30" required name="BaseUrl" ng-model="EditObject.BaseUrl" >
 
                                 <div ng-messages="websiteForm.BaseUrl.$error">
                                     <div ng-message="required">This is required.</div>
@@ -72,9 +72,9 @@
                             </div>
                             <div layout="row">
 
-                                <md-input-container flex="50" md-theme="{{$Theme.theme}}">
+                                <md-input-container flex="50" >
                                     <label>paging addtion (eg. page={0})</label>
-                                    <input md-maxlength="30" required name="PagingAddition" ng-model="EditObject.PagingAddition" md-theme="{{$Theme.theme}}">
+                                    <input md-maxlength="30" required name="PagingAddition" ng-model="EditObject.PagingAddition" >
 
                                     <div ng-messages="websiteForm.PagingAddition.$error">
                                         <!--<div ng-message="required">This is required.</div>
@@ -82,9 +82,9 @@
                                     </div>
                                 </md-input-container>
 
-                                <md-input-container flex="50" md-theme="{{$Theme.theme}}">
+                                <md-input-container flex="50" >
                                     <label>Number of pages for fetch</label>
-                                    <input md-maxlength="30" required name="NumberOfPagesForFetch" ng-model="EditObject.NumberOfPagesForFetch" md-theme="{{$Theme.theme}}">
+                                    <input md-maxlength="30" required name="NumberOfPagesForFetch" ng-model="EditObject.NumberOfPagesForFetch" >
 
                                     <div ng-messages="websiteForm.NumberOfPagesForFetch.$error">
                                         <!--<div ng-message="required">This is required.</div>
@@ -121,7 +121,7 @@
                             <md-option ng-repeat="type in ContentTypes" value="{{type.name}}">{{type.name}}</md-option>
                         </md-select>
 
-                        <md-switch ng-model="EditObject.Phantomize"  class="md-warn" aria-label="Phantomize" md-theme="{{$Theme.theme}}">
+                        <md-switch ng-model="EditObject.Phantomize"  class="md-warn" aria-label="Phantomize" >
                             Phantomize
                         </md-switch>
                             <div ui-ace ng-model="EditObject.PhantomScript" ng-show="EditObject.Phantomize"></div>
@@ -134,10 +134,10 @@
 </form>
 
 
-                    <md-button class="md-raised md-primary" ng-click="Update()" md-theme="{{$Theme.theme}}">
+                    <md-button class="md-raised md-primary" ng-click="Update()" >
                         Update
                     </md-button>
-                    <md-button class="md-raised md-primary" ng-click="Cancel()" md-theme="{{$Theme.theme}}">
+                    <md-button class="md-raised md-primary" ng-click="Cancel()" >
                         Cancel
                     </md-button>
 

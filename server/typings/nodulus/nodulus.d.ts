@@ -33,6 +33,7 @@ declare module NodeJS {
         appRoot: string;
         serverAppRoot: string;
         clientAppRoot: string;
+        nodulsRepo: string;
         eventServer: any;
         socket: any;
         rooms: any;

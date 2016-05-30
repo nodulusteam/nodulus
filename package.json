@@ -11,6 +11,7 @@
     "email": "roi@ewave.co.il"
   },
   "dependencies": {
+    "forever-monitor": "^1.7.0",
     "fs-extra": "^0.26.5",
     "jszip": "^2.5.0",
     "strip-bom": "^2.0.0",
