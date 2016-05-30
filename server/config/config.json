@@ -3,9 +3,6 @@
   "url": "",
   "port": "4000",
   "appRoot": "/",
-  "enableSockets": true,
-  "database": {
-    "mongodb": { "host": "mongodb://localhost:27017/dma" },
-    "diskdb1": { "host": "D:\\github\\nodulus\\nodulus\\server\\data" }
-  }
+  "enableSockets": true
+  
 }
