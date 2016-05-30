@@ -1390,7 +1390,6 @@
     <Content Include="README.md" />
     <Content Include="server\config\config.json" />
     <Content Include="server\modules.json" />
-    <Content Include="server\nodulus.njsproj" />
     <Content Include="server\package.json" />
     <Content Include="server\tsconfig.json" />
     <Content Include="server\typings.json" />
