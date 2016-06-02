@@ -831,7 +831,10 @@ function initSocketEvents($scope, $User, $Config, $Alerts) {
             
             socket.on('console connected', function (navData) {
                 $scope.$apply(function () {
+                  
+
                     $Alerts.add({ type: 'success', msg: 'client connected', autoClose: 10000000, 'icon': 'fa fa-check' });
+                    alert("go in ");
                 });
             });
            

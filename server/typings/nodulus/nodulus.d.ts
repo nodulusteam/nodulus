@@ -39,6 +39,7 @@ declare module NodeJS {
         rooms: any;
         config: any;
         terminals: any;
+        debug(...messages: Array<any>): void;
     }
 
 

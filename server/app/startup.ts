@@ -16,18 +16,9 @@ import * as configuration from "./config";
 import * as web from "./webserver";
 import * as network from "./socket";
 import * as rest from "./api";
-//import * as bodyParser from "body-parser";
-//import errorHandler = require("errorhandler");
-//import methodOverride = require("method-override");
-
-//import * as routes from "./routes/index";
-//import * as db from "./db";
-
-
 
 export class Startup {
-    constructor() {
-        
+    constructor() {        
         var fs = require('fs');
         var path = require('path');
         var express = require('express');
@@ -36,12 +27,9 @@ export class Startup {
         var bodyParser = require('body-parser');
         var url = require('url');
         var querystring = require('querystring');
+        var envs = require('envs');
 
-        global.config = new configuration.config();
-
-        //var dal = new nodulus.data.dal();// require('./dal.js');
-        //var config = require('./config.js');
-        
+        global.config = new configuration.config();       
         var webServer = new web.webServer();
         //var api = require('./api.js');
 
@@ -50,10 +38,17 @@ export class Startup {
         global.eventServer = new EventEmitter();
         var app = express();
 
+        
+
+        // If NODE_ENV is not set, 
+        // then this application will assume it's prod by default.
+        app.set('environment', envs('NODE_ENV', 'production')); 
+
+
         var http = require("http").createServer(app);
         var server = require('http').Server(app);
-
-        if (global.config.enableSockets) {
+         
+        if (global.config.appSettings.enableSockets) {
             var socket = require('socket.io');
             var io = socket.listen(server);
             global.socket = io;

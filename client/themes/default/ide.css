@@ -353,7 +353,10 @@ md-dialog .panel {
 
 }
 
-
+footer .navbar-btn{
+    margin-top:1px;
+    margin-bottom:1px;
+}
  
 
 .animate-show.ng-hide-add.ng-hide-add-active,

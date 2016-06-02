@@ -59,7 +59,10 @@ class ModuleUtiliity {
      */
     install(module_name: string, callback: Function) {
         var instance = this;
+         
         var baseFolder = appRoot + consts.MODULES_PATH + module_name + "\\";
+
+        global.debug("module path:", baseFolder + module_name + ".zip" );
 
         fs.ensureDirSync(global.clientAppRoot + "modules\\");
         fs.ensureDirSync(baseFolder);
@@ -587,9 +590,10 @@ router.post('/install',   (req: any, res: any) => {
 
     var module_name = req.body.name;
 
-    if (module_name === "" || module_name === undefined)
+    if (module_name === "" || module_name === undefined) {
+        global.debug("module name is missing");
         return res.sendStatus(400);
-
+    }
     new ModuleUtiliity().install(module_name,   (err: any, manifest_json: any) => {
         if (err !== null)
             return res.sendStatus(400);

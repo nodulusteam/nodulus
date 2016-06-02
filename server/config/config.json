@@ -3,6 +3,6 @@
   "url": "",
   "port": "4000",
   "appRoot": "/",
-  "enableSockets": true
-  
+  "enableSockets": true,
+  "database": { "diskdb": { "host": "server\\data" } }
 }
