@@ -12,6 +12,7 @@
     export class socket {
         constructor(io: SocketIO.Server) {
             global.rooms = {};
+            global.io = io;
             io.on('connection', function (socket: any) {
 
 

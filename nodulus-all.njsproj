@@ -876,7 +876,7 @@
     <Compile Include="client\setup\app.js" />
     <TypeScriptCompile Include="forever.ts" />
     <TypeScriptCompile Include="server\app.ts" />
-    <TypeScriptCompile Include="server\app\impl\dataFactory.ts" />
+    <TypeScriptCompile Include="server\app\impl\datafactory.ts" />
     <Compile Include="gulpfile.config.js" />
     <Compile Include="server\app\modules\localfs.js" />
     <TypeScriptCompile Include="server\app\impl\diskdb\collection.ts" />
@@ -1712,7 +1712,7 @@
     <TypeScriptCompile Include="server\app\socket.ts" />
     <TypeScriptCompile Include="server\app\startup.ts" />
     <TypeScriptCompile Include="server\app\users.ts" />
-    <TypeScriptCompile Include="server\app\webServer.ts" />
+    <TypeScriptCompile Include="server\app\webserver.ts" />
     <TypeScriptCompile Include="server\routes\modules.ts" />
     <TypeScriptCompile Include="server\routes\nodulus.ts" />
     <TypeScriptCompile Include="server\routes\translations.ts" />

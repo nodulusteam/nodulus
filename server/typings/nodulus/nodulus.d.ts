@@ -36,6 +36,7 @@ declare module NodeJS {
         nodulsRepo: string;
         eventServer: any;
         socket: any;
+        io: any;
         rooms: any;
         config: any;
         terminals: any;
