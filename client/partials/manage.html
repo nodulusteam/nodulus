@@ -2,41 +2,41 @@
 
 
 <nav class="navbar navbar-inverse navbar-fixed-top" style="direction: {{$Language.language.direction}}">
-    
-        <a class="navbar-header">
-            <div class="navbar-brand"><span class="icon-nodulus iconsize-18 pull-left"></span> nodulus&trade;</div><span class="navbar-brand" ng-click='Logoff()'>
-                <span class="fa fa-user"></span> {{$User.User.email}}
-            </span>
-        </a>
-        <div id="navbar" class="navbar-collapse collapse pull-right flip">
-            <ul class="nav navbar-nav nav-tabs">
-                <!--<li><a ng-click='dashboard()'>Dashboard</a></li>-->
-                <li><a ng-click='LoadSettingsPage()'>{{"Settings" | translate}}</a></li>
-                <li><a ng-click='LoadModulesPage()'>{{"Modules" | translate}}</a></li>
+
+    <a class="navbar-header">
+        <div class="navbar-brand"><span class="icon-nodulus iconsize-18 pull-left"></span> nodulus&trade;</div><span class="navbar-brand" ng-click='Logoff()'>
+            <span class="fa fa-user"></span> {{$User.User.email}}
+        </span>
+    </a>
+    <div id="navbar" class="navbar-collapse collapse pull-right flip">
+        <ul class="nav navbar-nav nav-tabs">
+            <!--<li><a ng-click='dashboard()'>Dashboard</a></li>-->
+            <li><a ng-click='LoadSettingsPage()'>{{"Settings" | translate}}</a></li>
+            <li><a ng-click='LoadModulesPage()'>{{"Modules" | translate}}</a></li>
 
 
-                <!--<li><a ng-click='profile()'>Profile</a></li>
-                <li><a ng-click='help()'>Help</a></li>-->
-            </ul>
-            <form class="navbar-form pull-right">
-                <input type="text" class="form-control" placeholder="Search...">
-            </form>
-        </div>
-     
+            <!--<li><a ng-click='profile()'>Profile</a></li>
+            <li><a ng-click='help()'>Help</a></li>-->
+        </ul>
+        <form class="navbar-form pull-right">
+            <input type="text" class="form-control" placeholder="Search...">
+        </form>
+    </div>
+
 </nav>
 
 <md-progress-linear md-mode="indeterminate" data-ng-show="TreeLoading"></md-progress-linear>
 
 <div class="container-full" style="height: {{PaneHeight-150}}px;direction: {{$Language.language.direction}}">
-    
+
     <div id="sidebar" class="col-lg-2 col-md-3 col-sm-3 col-xs-3 sidebar" style="height: {{PaneHeight}}px;">
-       
+
         <div ng-repeat="menu in $TreeMenu.Menus" layout="column">
 
-          
+
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-              
+
 
                 <nav-loader navname="menu.navname" module="menu"></nav-loader>
 
@@ -71,7 +71,7 @@
                 </div>-->
 
             </div>
-            
+
             <!--on-node-toggle="loadSelected(node, expanded)"
             tree-model="menu"
             selected-node="ActiveTreeNode"
@@ -102,7 +102,7 @@
 
                         <span ng-bind="tab.name" ng-hide="tab.menutoggle"></span>
                         <span ng-class="{'fa fa-save': tab.dirty}"></span>
-                      
+
 
                         <span class="btn-xs dropdown-toggle" data-toggle="dropdown" type="button" ng-click="tab.menutoggle = !tab.menutoggle">
 
@@ -145,19 +145,24 @@
     </div>
 
 </div>
- 
-{{$Alerts.alerts}}
-<section layout="horizontal" flex style="direction: {{$Language.language.direction}}">
-     
 
-    <div class="col-md-3 show-grid pull-right" style="position: absolute;bottom: 0; right: 0;">
+
+<section layout="horizontal" flex style="direction: {{$Language.language.direction}}">
+
+
+    <div class="col-md-3 show-grid pull-right" style="position: absolute;bottom: 35px; right: 0;">
         <uib-alert ng-repeat="alert in $Alerts.alerts"
                    type="{{alert.type}}"
-                   dismiss-on-timeout="{{alert.timeout}}"
                    close="$Alerts.remove(alert)">
-            <span class="{{alert.icon}}"></span>
-            <p ng-bind-html="alert.msg"></p>
-             
+
+
+            <p>
+                <span class="{{alert.icon}}"></span>
+                <span ng-bind-html="alert.msg">
+
+                </span>
+            </p>
+
         </uib-alert>
     </div>
 
@@ -195,17 +200,23 @@
 
 
 <footer id="navbar" class="navbar-inverse navbar navbar-fixed-bottom">
-    
+
     <ul class="nav navbar-nav navbar-right">
-        <li class="navbar-btn"><a href="http://roibh.github.io/nodulus/" target="_blank" class="margined btn btn-sm btn-info" style="padding: 2px!important"><span class="icon-nodulus" style="font-size:28px;"></span>
-          </a></li>
-        <li class="navbar-btn"><a href="https://github.com/roibh/nodulus" target="_blank" class="margined btn btn-info btn-sm" style="padding: 2px!important"><span class="fa fa-github-square" style="font-size:28px;"></span>
-           </a></li>
-        
+        <li class="navbar-btn">
+            <a href="http://roibh.github.io/nodulus/" target="_blank" class="margined btn btn-sm btn-info" style="padding: 2px!important">
+                <span class="icon-nodulus" style="font-size:28px;"></span>
+            </a>
+        </li>
+        <li class="navbar-btn">
+            <a href="https://github.com/roibh/nodulus" target="_blank" class="margined btn btn-info btn-sm" style="padding: 2px!important">
+                <span class="fa fa-github-square" style="font-size:28px;"></span>
+            </a>
+        </li>
+
         <li class="spacer"></li>
-      
+
     </ul>
-   
+
 </footer>
 
 
@@ -214,11 +225,11 @@
     <div class="container-full">
         <ul class="nav navbar-nav container-full">
             <li>
-                
-            </li>
-            
 
-           
+            </li>
+
+
+
             <li class="pull-right flip"><a style="padding: 0!important;" href="http://roibh.github.io/nodulus/" target="_blank" class="btn btn-default"><i class="icon-nodulus" style="font-size:28px;"></i></a></li>
             <li class="pull-right flip"><a style="padding: 0!important;" href="https://github.com/roibh/nodulus" target="_blank" class="btn btn-default"><i class="fa fa-github-square" style="font-size:28px;"></i></a></li>
         </ul>

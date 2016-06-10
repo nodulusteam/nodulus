@@ -102,7 +102,11 @@ export class Startup {
 
             if (nodulus_module.routes !== undefined) {
                 for (var x = 0; x < nodulus_module.routes.length; x++) {
-                    app.use(nodulus_module.routes[x].route, require('../routes/' + nodulus_module.routes[x].path));
+                    try {
+                        app.use(nodulus_module.routes[x].route, require('../routes/' + nodulus_module.routes[x].path));
+                    } catch (error) {
+                        console.error(error);
+                    }
                 }
             }
 

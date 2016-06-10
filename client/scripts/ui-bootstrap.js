@@ -423,7 +423,7 @@ angular.module('ui.bootstrap.alert', [])
 
 .controller('UibAlertController', ['$scope', '$attrs', '$timeout', function ($scope, $attrs, $timeout) {
 		$scope.closeable = !!$attrs.close;
-		
+		debugger
 		if (angular.isDefined($attrs.dismissOnTimeout)) {
 			$timeout(function () {
 				$scope.close();

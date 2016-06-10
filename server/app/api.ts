@@ -12,7 +12,7 @@
 import * as http from "http";
 import * as express from "express";
 import {dal} from "./dal";
-
+var ObjectID = require("mongodb").ObjectID;
  
 
     export class api {
@@ -171,6 +171,15 @@ import {dal} from "./dal";
                             });
                         });
                     } else {
+
+
+                        if (searchCommand.$query && searchCommand.$query["_id"]) {
+                            if (global.config.appSettings.database.mongodb.useObjectId) {
+                                searchCommand.$query["_id"] = ObjectID(searchCommand.$query["_id"]);
+                            }
+                        }
+
+
                         db.collection(entity).find(searchCommand).toArray(function (err: any, result: any) {
 
                             var data = { items: result !== null ? result : [], count: result !== null ? result.length : 0 }
