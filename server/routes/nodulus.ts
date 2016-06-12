@@ -56,7 +56,7 @@ router.post("/setup", function (req: any, res: any) {
    
     //register the default user    
     userDB.register(userObj, function () { 
-        var setupConfigPath = global.clientAppRoot + "config\\setup.json";
+        var setupConfigPath = path.join( global.clientAppRoot , "config", "setup.json");
         fs.writeFileSync(setupConfigPath, JSON.stringify({ active: new Date() }), 'utf8');
         res.status(200).json(setupConfig);    
     })
