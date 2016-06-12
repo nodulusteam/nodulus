@@ -369,6 +369,13 @@ export class dal implements nodulus.IDal {
 
                     break;
                 case "DELETE":
+                    
+                    if (global.config.appSettings.database.mongodb.useObjectId) {
+                        if (oQuery.where["$query"]["_id"] !== undefined) {
+                            oQuery.where["$query"]["_id"]["$eq"] = ObjectID(oQuery.where["$query"]["_id"]["$eq"]);
+                        }  
+                    }  
+
                     db.collection(oQuery.collection).remove(oQuery.where["$query"]
                         , function (err: any, result: any) {
                             //if (result.result.ok == 1) {
