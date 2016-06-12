@@ -10,8 +10,8 @@
  @nodulus open source | ©Roi ben haim  ®2016
  */
 
- 
 
+var path = require("path");
 
 var envs = require('envs');
 var nodulus = require("./server/app/startup");
@@ -21,9 +21,9 @@ global.debug = function (...messages: Array<any>) {
         console.log(messages.join(' '));
 };
 
-global.serverAppRoot = __dirname + "\\server\\";
-global.clientAppRoot = __dirname + "\\client\\";
-global.nodulsRepo = __dirname + "\\nodulus_modules\\";
+global.serverAppRoot = path.join( __dirname ,  "server");
+global.clientAppRoot = path.join(__dirname , "client");
+global.nodulsRepo = path.join(__dirname ,  "nodulus_modules");
 module.exports = new nodulus.Startup();
 
 
