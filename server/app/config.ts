@@ -19,8 +19,8 @@ import {consts} from "../app/consts";
             var fs = require('fs');
             var path = require('path');
 
-            this.appSettings = JSON.parse(fs.readFileSync(global.serverAppRoot + 'config\\' + consts.CONFIG_NAME, 'utf8').replace(/^\uFEFF/, ''));
-            this.modulesSettings = JSON.parse(fs.readFileSync(global.serverAppRoot + consts.MODULES_NAME, 'utf8').replace(/^\uFEFF/, ''));
+            this.appSettings = JSON.parse(fs.readFileSync(path.join(global.serverAppRoot ,  'config', consts.CONFIG_NAME), 'utf8').replace(/^\uFEFF/, ''));
+            this.modulesSettings = JSON.parse(fs.readFileSync(path.join(global.serverAppRoot ,  consts.MODULES_NAME), 'utf8').replace(/^\uFEFF/, ''));
 
            
         }
