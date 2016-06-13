@@ -14,7 +14,7 @@
 var path = require("path");
 
 var envs = require('envs');
-var nodulus = require("./server/app/startup");
+var startup = require("./server/app/startup");
 global.appRoot = __dirname;
 global.debug = function (...messages: Array<any>) { 
     if (envs("NODULUS_LOG") === "true")
@@ -24,7 +24,7 @@ global.debug = function (...messages: Array<any>) {
 global.serverAppRoot = path.join( __dirname ,  "server");
 global.clientAppRoot = path.join(__dirname , "client");
 global.nodulsRepo = path.join(__dirname ,  "nodulus_modules");
-module.exports = new nodulus.Startup();
+module.exports = new startup.Startup();
 
 
 

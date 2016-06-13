@@ -146,49 +146,54 @@ var ObjectID = require("mongodb").ObjectID;
 
 
 
+                dal.get(entity, searchCommand, specialCommand, aggregateCommand, (result: any) => {
+                   
+                    res.json(result);
+
+                });
 
 
-                dal.connect(function (err: any, db: any) {
-                    if (db === null) {
-                        return res.json(err);
-                    }
+                //dal.connect(function (err: any, db: any) {
+                //    if (db === null) {
+                //        return res.json(err);
+                //    }
 
-                    db.collection(entity).ensureIndex(
-                        { "$**": "text" },
-                        { name: "TextIndex" }
-                    )
-
-
-                    if (specialCommand.$skip && specialCommand.$limit) {
+                //    db.collection(entity).ensureIndex(
+                //        { "$**": "text" },
+                //        { name: "TextIndex" }
+                //    )
 
 
-                        //get the item count
-                        db.collection(entity).find(searchCommand.$query).count(function (err: any, countResult: number) {
-                            db.collection(entity).find(searchCommand, aggregateCommand.$project).skip(Number(specialCommand.$skip)).limit(Number(specialCommand.$limit)).toArray(function (err: any, result: any) {
-
-                                var data = { items: result, count: countResult }
-                                res.json(data);
-                            });
-                        });
-                    } else {
+                //    if (specialCommand.$skip && specialCommand.$limit) {
 
 
-                        if (searchCommand.$query && searchCommand.$query["_id"]) {
-                            if (global.config.appSettings.database.mongodb.useObjectId) {
-                                searchCommand.$query["_id"] = ObjectID(searchCommand.$query["_id"]);
-                            }
-                        }
+                //        //get the item count
+                //        db.collection(entity).find(searchCommand.$query).count(function (err: any, countResult: number) {
+                //            db.collection(entity).find(searchCommand, aggregateCommand.$project).skip(Number(specialCommand.$skip)).limit(Number(specialCommand.$limit)).toArray(function (err: any, result: any) {
+
+                //                var data = { items: result, count: countResult }
+                //                res.json(data);
+                //            });
+                //        });
+                //    } else {
 
 
-                        db.collection(entity).find(searchCommand).toArray(function (err: any, result: any) {
+                //        if (searchCommand.$query && searchCommand.$query["_id"]) {
+                //            if (global.config.appSettings.database.mongodb.useObjectId) {
+                //                searchCommand.$query["_id"] = ObjectID(searchCommand.$query["_id"]);
+                //            }
+                //        }
 
-                            var data = { items: result !== null ? result : [], count: result !== null ? result.length : 0 }
-                            res.json(data);
-                        });
-                    }
+
+                //        db.collection(entity).find(searchCommand).toArray(function (err: any, result: any) {
+
+                //            var data = { items: result !== null ? result : [], count: result !== null ? result.length : 0 }
+                //            res.json(data);
+                //        });
+                //    }
 
 
-                })
+                //})
 
 
 

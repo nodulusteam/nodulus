@@ -469,6 +469,16 @@ export class dal implements nodulus.IDal {
 
         }
 
+        public get(entity: string, searchCommand: nodulus.SearchCommand, specialCommand: nodulus.SpecialCommand, aggregateCommand: nodulus.AggregateCommand, callback: Function) {
+
+            this.db.collection(entity).find(searchCommand).toArray(function (err: any, retArr: any) {
+                var data = { items: retArr, count: retArr.length }
+                callback(data);
+            })
+
+        }
+
+
     }
 
 

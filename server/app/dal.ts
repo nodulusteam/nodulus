@@ -103,6 +103,11 @@ class dalClass {
         public addToSet(id: string, collectionName: string, propertyName: string, pushObject: any, callback: Function) {
             this.impl.addToSet(id, collectionName, propertyName, pushObject, callback);
         }
+
+        public get(entity: string, searchCommand: nodulus.SearchCommand, specialCommand: nodulus.SpecialCommand, aggregateCommand: nodulus.AggregateCommand, callback: Function) {
+            this.impl.get(entity, searchCommand, specialCommand, aggregateCommand, callback);
+        }
+
     }
     
 

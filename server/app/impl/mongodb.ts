@@ -19,6 +19,11 @@ var assert = require('assert');
 
 export class dal implements nodulus.IDal {
 
+
+
+
+
+
     db: any;
 
     public mongoOperator(key: string) {
@@ -306,7 +311,7 @@ export class dal implements nodulus.IDal {
         if (global.config.appSettings.database.mongodb.useObjectId) {
             for (var i = 0; i < idArr.length; i++) {
                 idArr[i] = ObjectID(idArr[i]);
-            }            
+            }
         }
 
         this.connect(function (err: any, db: any) {
@@ -349,11 +354,11 @@ export class dal implements nodulus.IDal {
                         oQuery.values["_id"] = require("node-uuid").v4();
                     }
 
- 
-                    
 
 
-                   
+
+
+
 
                     db.collection(oQuery.collection).save(oQuery.values
                         , function (err: any, result: any) {
@@ -369,12 +374,12 @@ export class dal implements nodulus.IDal {
 
                     break;
                 case "DELETE":
-                    
+
                     if (global.config.appSettings.database.mongodb.useObjectId) {
                         if (oQuery.where["$query"]["_id"] !== undefined) {
                             oQuery.where["$query"]["_id"]["$eq"] = ObjectID(oQuery.where["$query"]["_id"]["$eq"]);
-                        }  
-                    }  
+                        }
+                    }
 
                     db.collection(oQuery.collection).remove(oQuery.where["$query"]
                         , function (err: any, result: any) {
@@ -449,7 +454,55 @@ export class dal implements nodulus.IDal {
 
     }
 
+    //      var searchCommand = new SearchCommand();
+    //var specialCommand = new SpecialCommand();
+    //var aggregateCommand = new AggregateCommand();
 
+    public get(entity: string, searchCommand: nodulus.SearchCommand, specialCommand: nodulus.SpecialCommand, aggregateCommand: nodulus.AggregateCommand, callback: Function) {
+        this.connect(function (err: any, db: any) {
+            if (db === null) {
+                return callback(err);
+            }
+
+            db.collection(entity).ensureIndex(
+                { "$**": "text" },
+                { name: "TextIndex" }
+            )
+
+
+            if (specialCommand.$skip && specialCommand.$limit) {
+
+
+                //get the item count
+                db.collection(entity).find(searchCommand.$query).count(function (err: any, countResult: number) {
+                    db.collection(entity).find(searchCommand, aggregateCommand.$project).skip(Number(specialCommand.$skip)).limit(Number(specialCommand.$limit)).toArray(function (err: any, result: any) {
+
+                        var data = { items: result, count: countResult }
+                        callback(data);
+
+                    });
+                });
+            } else {
+
+
+                if (searchCommand.$query && searchCommand.$query["_id"]) {
+                    if (global.config.appSettings.database.mongodb.useObjectId) {
+                        searchCommand.$query["_id"] = ObjectID(searchCommand.$query["_id"]);
+                    }
+                }
+
+
+                db.collection(entity).find(searchCommand).toArray(function (err: any, result: any) {
+
+                    var data = { items: result !== null ? result : [], count: result !== null ? result.length : 0 }
+                    return callback(data);
+
+                });
+            }
+
+
+        })
+    }
 
 }
 

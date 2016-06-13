@@ -56,9 +56,9 @@
                         <label>database type</label>
 
                         <div class="radio">
-                            <label><input type="radio" name="dbtype" ng-model="modal.database" ng-value="{'diskdb':''}">FileDB</label>
+                            <label><input type="radio" name="dbtype" ng-model="modal.database" ng-value="{'diskdb':{'host': 'server/data'}}">FileDB</label>
 
-                            <input type="text" ng-model="modal.database.diskdb.host" value="c:\nodulus\data\" class="form-control" placeholder="c:\nodulus\data\" />
+                            <input type="text" ng-model="modal.database.diskdb.host" value="server/data" class="form-control" placeholder="server/data" />
                         </div>
                         <div class="radio">
                             <label><input type="radio" name="dbtype" ng-model="modal.database" ng-value="{'mongodb':''}" value="mongodb">mongoDB</label>
@@ -71,7 +71,7 @@
 
                     </fieldset>
                 </div>
-                </div>
+            </div>
             <div ng-switch-when="Admin credentials" class="wave">
 
                 <div class="pad10">
@@ -104,8 +104,8 @@
                         </form>
                     </fieldset>
                 </div>
-                </div>
             </div>
+        </div>
     </div>
 </div>
 <div class="modal-footer">

@@ -21,12 +21,31 @@ declare module nodulus {
         save(data: any, callback: Function): any;
     }
 
- 
+
+    export class SpecialCommand {
+        $skip: any;
+        $limit: any;
+
+    }
+
+    export class SearchCommand {
+        $query: any;
+        $orderby: any;
+
+    }
+
+
+    export class AggregateCommand {
+        $project: any;
+
+
+    }
      
 
 }
 
- 
+
+
 
 declare module NodeJS {
     interface Global {
