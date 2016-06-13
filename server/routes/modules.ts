@@ -30,7 +30,7 @@ var mkdirp = require('mkdirp');
 var appRoot = global.appRoot;
 var serverRoot = global.serverAppRoot;
 
-var modules_configuration_path = global.serverAppRoot + consts.MODULES_NAME;
+var modules_configuration_path = path.join(global.serverAppRoot, consts.MODULES_NAME);
 
 var deleteFolderRecursive = (folderpath: string) => {
     if (fs.existsSync(folderpath)) {
@@ -60,11 +60,11 @@ class ModuleUtiliity {
     install(module_name: string, callback: Function) {
         var instance = this;
 
-        var baseFolder = appRoot + consts.MODULES_PATH + module_name;
+        var baseFolder = path.join(appRoot, consts.MODULES_PATH, module_name);
 
-        global.debug("module path:", baseFolder + module_name + ".zip");
+        global.debug("module path:", path.join(baseFolder, module_name + ".zip"));
 
-        fs.ensureDirSync(global.clientAppRoot + "modules");
+        fs.ensureDirSync(path.join(global.clientAppRoot, "modules"));
         fs.ensureDirSync(baseFolder);
 
         // read a zip file
@@ -352,8 +352,8 @@ class ModuleUtiliity {
 
         //get manifest template:
         var content = zip.generate({ type: "nodebuffer" });
-        var packageFileName = path.join(global.nodulsRepo,  module_name + ".zip");
-        var packageBackupFileName = path.join( global.nodulsRepo , module_name ,  module_name + "." + this.timestamp() + ".zip");
+        var packageFileName = path.join(global.nodulsRepo, module_name + ".zip");
+        var packageBackupFileName = path.join(global.nodulsRepo, module_name, module_name + "." + this.timestamp() + ".zip");
 
 
         if (!fs.existsSync(global.nodulsRepo)) {
@@ -363,7 +363,7 @@ class ModuleUtiliity {
 
 
         if (fs.existsSync(packageFileName)) {
-            fs.ensureDirSync(path.join(global.nodulsRepo , module_name));
+            fs.ensureDirSync(path.join(global.nodulsRepo, module_name));
             fs.renameSync(packageFileName, packageBackupFileName);
         }
 
@@ -377,8 +377,8 @@ class ModuleUtiliity {
         });
     }
     pack(module_name: string, callback: Function) {
-        var baseFolder = path.join( global.clientAppRoot , "modules" , module_name );
-        var manifest_file = fs.readJsonSync(path.join(baseFolder , consts.MANIFEST_NAME), { throws: false });
+        var baseFolder = path.join(global.clientAppRoot, "modules", module_name);
+        var manifest_file = fs.readJsonSync(path.join(baseFolder, consts.MANIFEST_NAME), { throws: false });
         //merge the manifest into the modules.json file
         if (manifest_file === null)
             callback("invalid json, try using ascii file");
@@ -387,8 +387,8 @@ class ModuleUtiliity {
         var zip = new JSZip();
         var filesArr: Array<any> = [];
         for (var i = 0; i < manifest_file.files.length; i++) {
-            if (fs.existsSync(path.join(baseFolder , manifest_file.files[i]))) {
-                var fileContent = fs.readFileSync(path.join(baseFolder , manifest_file.files[i]));
+            if (fs.existsSync(path.join(baseFolder, manifest_file.files[i]))) {
+                var fileContent = fs.readFileSync(path.join(baseFolder, manifest_file.files[i]));
                 zip.file(manifest_file.files[i], fileContent);
 
 
@@ -398,10 +398,10 @@ class ModuleUtiliity {
         }
 
         if (manifest_file.routes !== undefined) {
-            var routeBase: string = path.join(serverRoot   , "routes");
+            var routeBase: string = path.join(serverRoot, "routes");
             for (var i = 0; i < manifest_file.routes.length; i++) {
-                if (fs.existsSync(path.join(routeBase , manifest_file.routes[i].path))) {
-                    var fileContent = fs.readFileSync(path.join(routeBase , manifest_file.routes[i].path));
+                if (fs.existsSync(path.join(routeBase, manifest_file.routes[i].path))) {
+                    var fileContent = fs.readFileSync(path.join(routeBase, manifest_file.routes[i].path));
                     zip.folder("routes").file(manifest_file.routes[i].path, fileContent);
                 }
 
@@ -418,8 +418,8 @@ class ModuleUtiliity {
 
         if (manifest_file.scripts !== undefined) {
             for (var i = 0; i < manifest_file.scripts.length; i++) {
-                if (fs.existsSync(path.join(baseFolder , "scripts",  manifest_file.scripts[i]))) {
-                    var fileContent = fs.readFileSync(path.join(baseFolder , "scripts", manifest_file.scripts[i]));
+                if (fs.existsSync(path.join(baseFolder, "scripts", manifest_file.scripts[i]))) {
+                    var fileContent = fs.readFileSync(path.join(baseFolder, "scripts", manifest_file.scripts[i]));
                     zip.folder("scripts").file(manifest_file.scripts[i], fileContent);
                 }
             }
@@ -430,23 +430,23 @@ class ModuleUtiliity {
 
 
         if (fs.existsSync(baseFolder + "about.html")) {
-            var fileContent = fs.readFileSync(path.join(baseFolder , "about.html"));
+            var fileContent = fs.readFileSync(path.join(baseFolder, "about.html"));
             zip.file("about.html", fileContent);
         }
 
 
 
 
-        var manifestContent = fs.readFileSync(path.join(baseFolder , consts.MANIFEST_NAME));
+        var manifestContent = fs.readFileSync(path.join(baseFolder, consts.MANIFEST_NAME));
         zip.file(consts.MANIFEST_NAME, manifestContent);
 
 
         var content = zip.generate({ type: "nodebuffer" });
-        var packageFileName = path.join( global.nodulsRepo , module_name + ".zip");
-        var packageBackupFileName = path.join(global.nodulsRepo , module_name , module_name + "." + this.timestamp() + ".zip");
+        var packageFileName = path.join(global.nodulsRepo, module_name + ".zip");
+        var packageBackupFileName = path.join(global.nodulsRepo, module_name, module_name + "." + this.timestamp() + ".zip");
 
         if (fs.existsSync(packageFileName)) {
-            fs.ensureDirSync(path.join(global.nodulsRepo , module_name));
+            fs.ensureDirSync(path.join(global.nodulsRepo, module_name));
             fs.renameSync(packageFileName, packageBackupFileName);
         }
 
