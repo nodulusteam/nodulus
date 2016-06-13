@@ -84,8 +84,8 @@ class ModuleUtiliity {
                         var fileData = zip.file(filename).asText();
 
                         if (filename.indexOf('/') > -1) {
-                            var directoryPath = (path.join(baseFolder, filename.replace(/\//g, '\\')));
-                            directoryPath = directoryPath.substr(0, directoryPath.lastIndexOf('\\'));
+                            var directoryPath = ( path.join(baseFolder, path.normalize(filename)));
+                            directoryPath = path.dirname(directoryPath);//.substr(0, directoryPath.lastIndexOf('\\'));
                             if (!fs.existsSync(directoryPath))
                                 mkdirp.sync(directoryPath);
                         }
