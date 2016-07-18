@@ -10,11 +10,13 @@
   
 /// <reference path="../typings/main.d.ts" />
 
-import {consts} from "../app/consts";
-import {dal} from "../app/dal";
-import {config} from "../app/config";
+ 
+var config = require("@nodulus/config").config;
+var consts = require("@nodulus/config").consts;
+var dal = require("@nodulus/data");
+ 
 import {users as userDB} from "../app/users";
-
+ 
 
 var express = require('express');
 var router = express.Router();
