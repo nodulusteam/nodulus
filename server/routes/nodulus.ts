@@ -32,7 +32,7 @@ router.post("/setup", function (req: any, res: any) {
     var setupConfig = req.body;
 
     
-    var configurationPath = path.join( global.serverAppRoot , "config", "config.json");
+    var configurationPath = path.join( global.appRoot , "config", "config.json");
     
      
     var configurationObject = JSON.parse(fs.readFileSync(configurationPath, 'utf8').replace(/^\uFEFF/, ''));

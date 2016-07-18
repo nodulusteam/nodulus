@@ -78,35 +78,6 @@
                 "Alias": "translations"
             }
         ]
-    },
-    "schemas": {
-        "files": [],
-        "scripts": [
-            "papaparse.min.js",
-            "tv4.js",
-            "objectpath.js",
-            "schema-form.js",
-            "bootstrap-decorator.min.js",
-            "schem-form-definitions.js",
-            "angular-schema-form-dynamic-select.js",
-            "bootstrap-ui-ace.min.js",
-            "nav.js"
-        ],
-        "dependencies": [
-            "schemaForm",
-            "nodulus_schemas"
-        ],
-        "navname": "schemas_nav",
-        "routes": [
-            {
-                "route": "/schemas",
-                "path": "schemas.js"
-            }
-        ],
-        "module": {
-            "name": "schemas"
-        },
-        "npm": "@nodulus/schemas",
-        "navigation": []
     }
+    
 }

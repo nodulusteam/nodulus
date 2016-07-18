@@ -1,14 +1,17 @@
 {
-  "name": "nodulus",
-  "url": "",
-  "port": "4000",
-  "appRoot": "/",
-  "enableSockets": true,
-  "database": {
-    "mongodb": {
-      "useObjectId": true,
-      "host": "mongodb://juntas:juntas$sa@ds049624.mongolab.com:49624/juntas"
+    "name": "nodulus",
+    "url": "",
+    "port": "4000",
+    "appRoot": "/",
+    "enableSockets": true,
+    "database": {
+        "diskdb": {
+            "host": "server/data"
+        }
+    },
+    "databasex": {
+        "diskdb": {
+            "host": "server/data"
+        }
     }
-  },
-  "databasex": { "diskdb": { "host": "server/data" } }
 }
