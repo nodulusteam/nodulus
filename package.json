@@ -1,6 +1,6 @@
 {
   "name": "@nodulus/shell",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "private": false,
   "scripts": {
     "start": "node app.js"
@@ -12,11 +12,8 @@
   },
   "dependencies": {
     "@nodulus/api": "*",
-    "@nodulus/config": "^1.0.52",
-    "@nodulus/data": "^1.0.12",
-    "@nodulus/logs": "0.0.17",
+    "@nodulus/core": "*",
     "@nodulus/modules": "*",
-    "@nodulus/schemas": "^1.0.6",
     "@nodulus/translations": "*",
     "@nodulus/update": "*",
     "@nodulus/users": "*",

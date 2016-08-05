@@ -35,7 +35,7 @@ export class Startup {
         var envs = require('envs');
 
 
-        global.logger = require("@nodulus/logs").logger;
+        var log = require("@nodulus/logs").logger;
         var webServer = new web.webServer();
         //var api = require('./api.js');
 
@@ -101,37 +101,40 @@ export class Startup {
         console.log("***_____________________________________________________________________***");
         for (var name of Object.keys(nodulus_modules)) {
             var nodulus_module = nodulus_modules[name];
+            try {
+                var version = require('@nodulus/' + name + '/package.json').version;
 
-            var version = require('@nodulus/' + name + '/package.json').version;
+                console.log("***__ " + name + " " + this.print("_", 55 - name.length) + "**" + version + this.print("_", 8 - version.length) + "***");
 
-            console.log("***__ " + name + " " + this.print("_", 55 - name.length) + "**" + version + this.print("_", 8 - version.length) + "***");
+                var npmname = '@nodulus/' + name;//nodulus_module.npm;
 
-            var npmname = '@nodulus/' + name;//nodulus_module.npm;
+                if (nodulus_module.routes !== undefined) {
+                    for (var x = 0; x < nodulus_module.routes.length; x++) {
+                        try {
 
-            if (nodulus_module.routes !== undefined) {
-                for (var x = 0; x < nodulus_module.routes.length; x++) {
-                    try {
-
-                        var pathRoute = path.join(npmname, 'routes', nodulus_module.routes[x].path);
-                        app.use(nodulus_module.routes[x].route, require(pathRoute));
-                    } catch (error) {
-                        console.error(error);
+                            var pathRoute = path.join(npmname, 'routes', nodulus_module.routes[x].path);
+                            app.use(nodulus_module.routes[x].route, require(pathRoute));
+                        } catch (error) {
+                            console.error(error);
+                        }
                     }
                 }
+
+
+                app.use('/modules/' + name, express.static(path.join('node_modules', '@nodulus', name, 'public')));
             }
+            catch (err) {
+                log.error('missing module', err);
 
-
-            app.use('/modules/' + name, express.static(path.join('node_modules', '@nodulus', name, 'public')));
-
-
+            }
         }
 
         console.log("***_____________________________________________________________________***");
 
         app.use("/nodulus", require('../routes/nodulus.js'));
-        var a = new rest.api();
 
-        a.start(app);
+        var api = new rest.start(app);
+
         console.log("***_____________________________________________________________________***");
         // app.use(require("nodulus-run"));
 
