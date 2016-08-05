@@ -49,6 +49,7 @@ declare module nodulus {
 
 declare module NodeJS {
     interface Global {
+        express: any;
         appRoot: string;
         serverAppRoot: string;
         clientAppRoot: string;
@@ -57,6 +58,7 @@ declare module NodeJS {
         socket: any;
         io: any;
         rooms: any;
+        logger: any;
         config: any;
         terminals: any;
         debug(...messages: Array<any>): void;

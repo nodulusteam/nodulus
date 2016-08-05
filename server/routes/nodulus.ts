@@ -6,13 +6,15 @@
  |_| |_|\___/ \__,_|\__,_|_|\__,_|___/
  @nodulus open source | ©Roi ben haim  ®2016    
  */
-  
-  
+
+
 /// <reference path="../typings/main.d.ts" />
 
-import {consts} from "../app/consts";
-import {dal} from "../app/dal";
-import {config} from "../app/config";
+
+var config = require("@nodulus/config").config;
+var consts = require("@nodulus/config").consts;
+var dal = require("@nodulus/data");
+
 import {users as userDB} from "../app/users";
 
 
@@ -21,19 +23,14 @@ var router = express.Router();
 var util = require('util');
 var fs = require("fs-extra");
 var path = require('path');
- 
+
 
 var appRoot = global.appRoot;
 
 router.post("/setup", function (req: any, res: any) {
-
     var setupConfig = req.body;
-
-    
-    var configurationPath = path.join( global.serverAppRoot , "config", "config.json");
-    
-     
-    var configurationObject = JSON.parse(fs.readFileSync(configurationPath, 'utf8').replace(/^\uFEFF/, ''));
+  //  var configurationPath = path.join(global.serverAppRoot, "config", "config.json");
+    var configurationObject = config; //JSON.parse(fs.readFileSync(configurationPath, 'utf8').replace(/^\uFEFF/, ''));
     configurationObject["database"] = setupConfig["database"];
 
     if (configurationObject["database"].diskdb)
@@ -44,25 +41,25 @@ router.post("/setup", function (req: any, res: any) {
     //    }
 
     //}
-    fs.writeFileSync(configurationPath, JSON.stringify(configurationObject), 'utf8');
-
-    global.config = new config();
+  //  fs.writeFileSync(configurationPath, JSON.stringify(configurationObject), 'utf8');
+    config.persistConfiguration();
+   
 
     var userObj = {
         Email: setupConfig.Email,
         Password: setupConfig.Password
-    
-    }
-   
-    //register the default user    
-    userDB.register(userObj, function () { 
-        var setupConfigPath = path.join( global.clientAppRoot , "config", "setup.json");
-        fs.writeFileSync(setupConfigPath, JSON.stringify({ active: new Date() }), 'utf8');
-        res.status(200).json(setupConfig);    
-    })
-    
 
-    
+    }
+
+    //register the default user    
+    userDB.register(userObj, function () {
+        var setupConfigPath = path.join(global.clientAppRoot, "config", "setup.json");
+        fs.writeFileSync(setupConfigPath, JSON.stringify({ active: new Date() }), 'utf8');
+        res.status(200).json(setupConfig);
+    })
+
+
+
 
 });
 

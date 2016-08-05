@@ -11,7 +11,8 @@
  
 import * as http from "http";
 import * as express from "express";
-import {dal} from "./dal";
+var dal = require("@nodulus/data");
+//import {dal} from "@nodulus/data";
 var ObjectID = require("mongodb").ObjectID;
  
 

@@ -4,7 +4,7 @@
     "scripts": [
       "papaparse.min.js",
       "tv4.js",
-      "ObjectPath.js",
+      "objectpath.js",
       "schema-form.js",
       "bootstrap-decorator.min.js",
       "schem-form-definitions.js",

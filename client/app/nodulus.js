@@ -840,11 +840,18 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
 });
 
 
-
-
-
-
-
+DynamicData.filter("filterpicker", function ($filter) {
+    return function (value, filterName) {
+        return $filter(filterName)(value);
+    };
+});
+DynamicData.filter("text", function ($) {
+    debugger
+      return function (input, current) {
+          debugger
+        return input;
+    };
+});
 
 DynamicData.controller('Directives.BaseController', ['$scope', '$rootScope', '$Models', '$Broker', '$Cache', function ($scope, $rootScope, $Models, $Broker, $Cache) {
         $scope.Admin = $scope.$root.Admin;

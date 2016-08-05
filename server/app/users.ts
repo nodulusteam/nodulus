@@ -8,9 +8,9 @@
  */
 /// <reference path="../typings/main.d.ts" />
 
-import {consts} from "../app/consts";
-import {dal} from "../app/dal";
-
+ 
+var consts = require("@nodulus/config").consts;
+var dal = require("@nodulus/data");
 
 export class users {
     public static login(email: string, password: string, callback: Function): void {
