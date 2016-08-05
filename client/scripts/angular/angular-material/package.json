@@ -1,0 +1,73 @@
+{
+  "name": "angular-material",
+  "version": "0.10.1",
+  "main": "index",
+  "format": "cjs",
+  "registry": "github",
+  "peerDependencies": {
+    "angular": "^1.3.15 || >1.4.0-beta.0",
+    "angular-animate": "^1.3.15 || >1.4.0-beta.0",
+    "angular-aria": "^1.3.15 || >1.4.0-beta.0"
+  },
+  "jspm": {
+    "dependencies": {
+      "angular": "angular/bower-angular@^1.3.15",
+      "angular-animate": "angular/bower-angular-animate@^1.3.15",
+      "angular-aria": "angular/bower-angular-aria@^1.3.15",
+      "css": "systemjs/plugin-css@^0.1.9"
+    },
+    "shim": {
+      "angular-material": {
+        "deps": [
+          "./angular-material.css!"
+        ]
+      }
+    },
+    "peerDependencies": {}
+  },
+  "homepage": "https://material.angularjs.org",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/angular/material.git"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/angular/material/blob/master/LICENSE"
+    }
+  ],
+  "keywords": [
+    "angular",
+    "material",
+    "browser",
+    "client-side"
+  ],
+  "bugs": {
+    "url": "https://github.com/angular/material/issues"
+  },
+  "gitHead": "44f067ad06830daf69a173706e7dee92edb4b1fa",
+  "description": "This repo is for distribution on `npm` and `bower`. The source for this module is in the [main Angular Material repo](https://github.com/angular/material). Please file issues and pull requests against that repo.",
+  "_id": "angular-material@0.10.1",
+  "scripts": {},
+  "_shasum": "0efc36e5889af49cd7701d6966f36f921b7b25ef",
+  "_from": "angular-material@0.10.1",
+  "_npmVersion": "2.7.4",
+  "_nodeVersion": "0.12.2",
+  "_npmUser": {
+    "name": "angularcore",
+    "email": "angular-core+npm@google.com"
+  },
+  "maintainers": [
+    {
+      "name": "angularcore",
+      "email": "angular-core+npm@google.com"
+    }
+  ],
+  "dist": {
+    "shasum": "0efc36e5889af49cd7701d6966f36f921b7b25ef",
+    "tarball": "http://registry.npmjs.org/angular-material/-/angular-material-0.10.1.tgz"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/angular-material/-/angular-material-0.10.1.tgz",
+  "readme": "ERROR: No README data found!"
+}

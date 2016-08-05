@@ -1,0 +1,58 @@
+﻿   
+<div data-ng-controller="SettingsCtrl" class="container" >
+
+
+    
+
+    <div class="form-group">
+    <label>Language:</label>
+        
+
+       
+
+  
+       
+        <select id="LanguageSelector" class="form-control" data-ng-options="language.name for language in  Languages" data-ng-model="Language" data-ng-change="SetLanguage()"></select>
+    </div> 
+    <div class="form-group">
+        <label>
+            Theme:
+        </label>
+
+        <select id="ThemeSelector" class="form-control" data-ng-options="theme for theme in Themes | orderBy: theme" data-ng-model="Theme"></select>
+    </div>
+    
+    <div class="form-group">
+        <span class="fa fa-user"></span>   Connected as:
+       {{$User.User.Email}}
+
+        <a class="btn btn-primary" aria-label="Logoff" ng-click='Logoff()'>Disconnect</a>
+
+    </div> 
+
+    
+
+
+
+        <div class="panel panel-primary col-md-6 container-fluid"
+             style="height: {{PaneHeight}}px;position: fixed;{{$Language.language.align}}: 100px;top:200px;" ng-show="ShowAbout">
+
+
+            <div class="panel-heading">
+                {{"about"| translate}}
+
+            </div>
+            <div class="panel-body" data-ng-include="AboutUrl"></div>
+
+
+
+
+
+
+        </div>
+    </div>
+
+
+
+
+

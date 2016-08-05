@@ -1,0 +1,115 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="modal.dismiss('No bueno!')" aria-hidden="true">&times;</button>
+
+
+    <h3>
+        <span class="icon-nodulus"></span>
+        nodulus <sup><small>&trade;</small></sup>
+
+    </h3>
+
+
+
+</div>
+<div class="modal-body">
+    <div>
+        <div class="btn-group">
+
+            <button class="btn" ng-repeat="step in modal.steps"
+                    ng-class="{'btn-primary':modal.isCurrentStep($index)}"
+                    ng-click="modal.setCurrentStep($index)">
+                {{step | translate}}
+            </button>
+
+        </div>
+        <div ng-switch="modal.getCurrentStep()" class="slide-frame">
+            <div ng-switch-when="Welcome" class="wave">
+
+
+
+                <div class="pad10">
+                    <fieldset class="well pad10">
+                        <div class="form-group">
+                            <label>Language:</label>
+
+
+
+
+
+
+                            <select id="LanguageSelector" class="form-control" data-ng-options="language.name for language in  modal.Languages" data-ng-model="modal.Language" data-ng-change="SetLanguage()"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                Theme:
+                            </label>
+
+                            <select id="ThemeSelector" class="form-control" data-ng-options="theme for theme in modal.Themes | orderBy: theme" data-ng-model="modal.Theme"></select>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div ng-switch-when="Persistence mode" class="wave">
+                <div class="pad10">
+                    <fieldset class="well pad10">
+
+                        <label>database type</label>
+
+                        <div class="radio">
+                            <label><input type="radio" name="dbtype" ng-model="modal.database" ng-value="{'diskdb':{'host': 'server/data'}}">FileDB</label>
+
+                            <input type="text" ng-model="modal.database.diskdb.host" value="server/data" class="form-control" placeholder="server/data" />
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="dbtype" ng-model="modal.database" ng-value="{'mongodb':''}" value="mongodb">mongoDB</label>
+                            <input type="text" ng-model="modal.database.mongodb.host" placeholder="mongodb:" class="form-control" />
+                        </div>
+
+
+
+
+
+                    </fieldset>
+                </div>
+            </div>
+            <div ng-switch-when="Admin credentials" class="wave">
+
+                <div class="pad10">
+                    <fieldset class="well pad10">
+
+
+                        <form name="RegisterForm" novalidate>
+                            <div class="form-group">
+                                <label>Email:</label>
+                                <input type="text" class="form-control" ng-model="modal.Email" />
+                            </div>
+                            <div class="form-group">
+                                <label>Password:</label>
+                                <input type="password" id="Password" class="form-control" ng-model="modal.Password" />
+                                <div ng-messages="LoginForm.Password.$error">
+                                    <div ng-message="required">This is required.</div>
+                                    <!--<div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>-->
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Confirm password:</label>
+                                <input type="password" id="Password2" class="form-control" ng-model="modal.Password2" />
+                                <div ng-messages="LoginForm.Password2.$error">
+                                    <div ng-message="required">This is required.</div>
+                                    <!--<div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>-->
+                                </div>
+                            </div>
+
+                        </form>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <a class="btn btn-default" ng-click="modal.handlePrevious()" ng-show="!modal.isFirstStep()">Back</a>
+    <a class="btn btn-primary" ng-click="modal.handleNext()">{{modal.getNextLabel()}}</a>
+</div>
+

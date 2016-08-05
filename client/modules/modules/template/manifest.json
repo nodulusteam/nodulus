@@ -1,0 +1,41 @@
+{
+  "version":  "0.0.0.1",
+  
+  "files": [
+    "$$module_name$$.js",
+    "$$module_name$$.html"
+  ],
+  "scripts": [
+  
+    
+  ],
+  "dependencies": [ 
+    
+  ],
+  "routes": [
+    {
+      "route": "/$$module_name$$",
+      "path": "$$module_name$$.js"
+    }
+  ],
+  "module": {
+    "name": "$$module_name$$"
+
+  },
+  "npm": {
+
+  },
+  "navigation": [
+        {
+      "_id": "$$module_name$$",
+      "ParentId": "00000000-0000-0000-0000-000000000000",
+      "Name": "$$module_name$$",
+      "label": "$$module_name$$",
+      "Url": "/modules/$$module_name$$/$$module_name$$.html",
+      "Alias": "$$module_name$$"
+    }
+  ]
+
+
+
+}

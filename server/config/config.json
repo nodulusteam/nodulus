@@ -1,0 +1,1 @@
+{"name":"nodulus","url":"","port":"4000","appRoot":"/","enableSockets":true,"database":{"diskdb":{"host":"server/data"}},"databasex":{"diskdb":{"host":"server/data"}}}

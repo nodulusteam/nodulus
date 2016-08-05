@@ -1,0 +1,381 @@
+﻿/*core-toolbar
+{
+	background-color: white;
+}*/
+.clear
+{
+    clear: both;
+}
+.container-full {
+    margin: 0 auto;
+    width: 100%;
+}
+
+.iconsize-menu{
+    font-size: 20px;
+     
+}
+.iconsize-18{
+    font-size: 34px;
+     
+}
+
+.well
+{
+    padding: 5px!important;
+}
+.well .nav>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 10px
+}
+
+.container-fluid {
+    padding: 0px;
+}
+.navbar {
+    min-height: unset !important;
+}
+
+.panel-group .panel-heading > span {
+    cursor: pointer;
+}
+
+.selected {
+    background: silver;
+}
+
+
+.lobby-tab {
+}
+
+
+.menu-item {
+    background: none;
+    border-width: 0;
+    cursor: pointer;
+    display: block;
+    color: #333;
+    font-size: inherit;
+    line-height: 40px;
+    max-height: 40px;
+    opacity: 1;
+    margin: 0;
+    outline: none;
+    padding: 0px 28px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    width: 100%;
+    z-index: 1;
+    -webkit-transition: 0.2s ease-in-out;
+    -webkit-transition-property: max-height, background-color, opacity;
+    -moz-transition: 0.2s ease-in-out;
+    -moz-transition-property: max-height, background-color, opacity;
+    transition: 0.2s ease-in-out;
+    transition-property: max-height, background-color, opacity;
+}
+
+
+
+.tree-classic {
+    font-size: large;
+}
+
+md-input-group.md-default-theme input, md-input-group.md-default-theme textarea {
+    width: 50%;
+}
+
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    padding-top: 50px;
+}
+
+
+/*
+ * Global add-ons
+ */
+
+.sub-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+    border: 0;
+}
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        /*position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;*/
+        display: block;
+        padding-top: 20px;
+        overflow-x: hidden;
+        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        border-right: 1px solid #eee;
+    }
+
+        .sidebar.rtl {
+            position: fixed;
+            top: 51px;
+            bottom: 0;
+            right: 0;
+            left: auto;
+            z-index: 1000;
+            display: block;
+            padding: 20px;
+            overflow-x: hidden;
+            overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+            border-right: 1px solid #eee;
+        }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+    margin-right: -21px; /* 20px padding + 1px border */
+    margin-bottom: 20px;
+    margin-left: -20px;
+}
+
+    .nav-sidebar > li > a {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .nav-sidebar > .active > a,
+    .nav-sidebar > .active > a:hover,
+    .nav-sidebar > .active > a:focus {
+    }
+
+
+/*
+ * Main content
+ */
+
+.main {
+    padding: 20px;
+}
+
+@media (min-width: 768px) {
+    .main {
+        padding-right: 40px;
+        padding-left: 40px;
+    }
+}
+
+.main .page-header {
+    margin-top: 0;
+}
+
+
+/*
+ * Placeholder dashboard ideas
+ */
+
+.placeholders {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+    .placeholders h4 {
+        margin-bottom: 0;
+    }
+
+.placeholder {
+    margin-bottom: 20px;
+}
+
+    .placeholder img {
+        display: inline-block;
+        border-radius: 50%;
+    }
+
+.full-size {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    width: 95%;
+    height: 95%;
+}
+
+    .full-size .ace_editor {
+        height: 700px;
+    }
+
+.ace_editor {
+    height: 200px;
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 7px;
+}
+
+::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #acacac;
+    border: 0px none #ffffff;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #acacac;
+    }
+
+    ::-webkit-scrollbar-thumb:active {
+        background: #787878;
+    }
+
+::-webkit-scrollbar-track {
+    background: #ddd;
+    border: 0px none #ffffff;
+}
+
+    ::-webkit-scrollbar-track:hover {
+        background: #ddd;
+    }
+
+    ::-webkit-scrollbar-track:active {
+        background: #ddd;
+    }
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+
+.modal-dialog .panel,
+md-dialog .panel {
+    margin-bottom: 0px !important;
+}
+
+    .modal-dialog .panel .panel-footer,
+    md-dialog .panel .panel-footer {
+        padding: 10px !important;
+    }
+
+.margin-bottom {
+    margin-bottom: 10px;
+}
+
+.no-pad-right {
+    padding-right: 0 !important;
+}
+
+.notvisible {
+    visibility: hidden;
+}
+
+
+.schema-small-button-text {
+    height: 30px !important;
+    width: 70px !important;
+}
+
+.navbar-nav a {
+    cursor: pointer;
+}
+
+.form-control-feedback {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    display: block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    pointer-events: none;
+}
+
+.form-control-feedback {
+    top: 25px;
+    right: 0;
+}
+
+.spacer{
+    width: 15px;
+}
+.margined {
+    margin-right: 5px; margin-left: 5px;
+}
+.link {
+    cursor: pointer;
+}
+
+.panel-group .panel {
+   overflow: visible;
+}
+
+
+
+.panel-footer .dropdown
+{
+    width: 100%;
+    margin: 0;
+    
+
+}
+
+.panel-footer .dropdown .dropdown-toggle{
+    width: 100%;
+}
+
+.panel-footer
+{
+    padding: 4px 4px 4px 4px; 
+
+}
+
+footer .navbar-btn{
+    margin-top:1px;
+    margin-bottom:1px;
+}
+ 
+
+.animate-show.ng-hide-add.ng-hide-add-active,
+.animate-show.ng-hide-remove.ng-hide-remove-active {
+  -webkit-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+}
+
+.animate-show.ng-hide {
+  line-height:0;
+  opacity:0; 
+}
+
+.icon-placeholder
+{
+    width: 18px;
+}
+
+.pad10
+{
+    padding: 10px;
+}

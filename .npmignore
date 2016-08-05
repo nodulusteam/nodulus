@@ -1,0 +1,6 @@
+*.ts
+typings
+node_modules
+platform-images
+release
+config

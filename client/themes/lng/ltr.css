@@ -1,0 +1,14 @@
+﻿body {
+}
+
+
+
+
+.ltr {
+    direction: ltr;
+    text-align: left;
+}
+
+table {
+    text-align: left;
+}

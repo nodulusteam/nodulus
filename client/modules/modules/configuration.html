@@ -1,0 +1,13 @@
+﻿<div ng-controller="ModulesConfigurationController">
+    <md-progress-linear md-mode='indeterminate'  data-ng-show="ModuleLoading"></md-progress-linear>
+    
+
+
+    <form name="ItemForm" sf-form="form" sf-schema="schema" sf-model="model"
+          sfUseDecorator="true" style="position: relative;"
+          ng-show="!JsonView"></form>
+
+
+    <a ng-click="SaveConfiguration()" class="btn btn-primary" ng-class="{'btn-success': Saved}"><span ng-class="{'fa fa-circle-o-notch fa-spin': Saving,'fa fa-save': !Saving }"></span> {{"Save" | translate}}</a>
+
+</div>

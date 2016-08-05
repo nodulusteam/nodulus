@@ -1,0 +1,32 @@
+{
+
+  "files": [
+  
+  ],
+  "scripts": [
+     
+    
+  ],
+  "dependencies": [ 
+    
+  ],
+  "routes": [
+    {
+      "route": "/users",
+      "path": "users.js"
+    }
+  ],
+  "module": {
+    "name": "users"
+
+  },
+  "npm": {
+
+  },
+  "navigation": [
+
+  ]
+
+
+
+}
