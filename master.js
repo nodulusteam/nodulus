@@ -1,5 +1,7 @@
 var cp = require('child_process');
-var child = cp.fork('./app');
+var child = cp.fork('./app',[], {
+  execArgv: ["--debug=9999"]
+});
 
 child.on('message', function (m) {
 
@@ -12,6 +14,7 @@ child.on('message', function (m) {
         var updateUtil = require("@nodulus/update").update;
         var c = new checkUtil();
         c.checkUpdates().then((upgraded) => {
+            console.log(upgraded);
             if (upgraded) {
                 var n = new updateUtil();
                 n.installUpdates(upgraded).then(function (output) {

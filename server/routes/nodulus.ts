@@ -26,10 +26,11 @@ var path = require('path');
 
 
 var appRoot = global.appRoot;
+ 
 
 router.post("/setup", function (req: any, res: any) {
     var setupConfig = req.body;
-  //  var configurationPath = path.join(global.serverAppRoot, "config", "config.json");
+    //  var configurationPath = path.join(global.serverAppRoot, "config", "config.json");
     var configurationObject = config; //JSON.parse(fs.readFileSync(configurationPath, 'utf8').replace(/^\uFEFF/, ''));
     configurationObject["database"] = setupConfig["database"];
 
@@ -41,9 +42,9 @@ router.post("/setup", function (req: any, res: any) {
     //    }
 
     //}
-  //  fs.writeFileSync(configurationPath, JSON.stringify(configurationObject), 'utf8');
+    //  fs.writeFileSync(configurationPath, JSON.stringify(configurationObject), 'utf8');
     config.persistConfiguration();
-   
+
 
     var userObj = {
         Email: setupConfig.Email,

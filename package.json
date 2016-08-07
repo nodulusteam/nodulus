@@ -1,9 +1,10 @@
 {
   "name": "@nodulus/shell",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "private": false,
   "scripts": {
-    "start": "node app.js"
+    "start": "node master.js",
+    "postpublish": "greenkeeper-postpublish"
   },
   "description": "nodulus",
   "author": {
@@ -14,6 +15,7 @@
     "@nodulus/api": "*",
     "@nodulus/core": "*",
     "@nodulus/modules": "*",
+    "@nodulus/schemas": "^1.0.6",
     "@nodulus/translations": "*",
     "@nodulus/update": "*",
     "@nodulus/users": "*",
@@ -54,6 +56,7 @@
   },
   "devDependencies": {
     "del": "^2.2.0",
+    "greenkeeper-postpublish": "^1.0.0",
     "gulp": "^3.9.1",
     "gulp-bump": "^2.2.0",
     "gulp-copy": "0.0.2",
