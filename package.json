@@ -56,7 +56,7 @@
   },
   "devDependencies": {
     "del": "^2.2.0",
-    "greenkeeper-postpublish": "^1.0.0",
+    "greenkeeper-postpublish": "^1.0.1",
     "gulp": "^3.9.1",
     "gulp-bump": "^2.2.0",
     "gulp-copy": "0.0.2",
