@@ -70,7 +70,7 @@
     "gulp-tslint": "^4.3.4",
     "gulp-typescript": "^2.12.1",
     "gulp-uglify": "^1.5.3",
-    "mocha": "^2.4.5",
+    "mocha": "^3.0.2",
     "run-sequence": "^1.1.5",
     "tslint": "^3.7.1",
     "typescript": "^1.8.9",
