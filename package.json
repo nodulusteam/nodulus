@@ -73,7 +73,7 @@
     "mocha": "^3.0.2",
     "run-sequence": "^1.1.5",
     "tslint": "^3.7.1",
-    "typescript": "^1.8.9",
+    "typescript": "^1.8.10",
     "unit.js": "^2.0.0"
   }
 }
