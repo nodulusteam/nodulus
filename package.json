@@ -34,7 +34,7 @@
     "glob": "^6.0.4",
     "har-validator": "^2.0.3",
     "is-object": "^1.0.1",
-    "jszip": "^2.5.0",
+    "jszip": "^3.1.1",
     "kerberos": "0.0.17",
     "media-typer": "^0.3.0",
     "merge": "^1.2.0",
@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "del": "^2.2.0",
-    "greenkeeper-postpublish": "^1.0.0",
+    "greenkeeper-postpublish": "^1.0.1",
     "gulp": "^3.9.1",
     "gulp-bump": "^2.2.0",
     "gulp-copy": "0.0.2",
@@ -65,16 +65,16 @@
     "gulp-ignore": "^2.0.1",
     "gulp-inject": "^4.0.0",
     "gulp-install": "^0.6.0",
-    "gulp-minify": "0.0.5",
+    "gulp-minify": "0.0.14",
     "gulp-rimraf": "^0.2.0",
     "gulp-tsc": "^1.1.5",
     "gulp-tslint": "^4.3.4",
     "gulp-typescript": "^2.12.1",
     "gulp-uglify": "^1.5.3",
-    "mocha": "^2.4.5",
+    "mocha": "^3.0.2",
     "run-sequence": "^1.1.5",
     "tslint": "^3.7.1",
-    "typescript": "^1.8.9",
+    "typescript": "^1.8.10",
     "unit.js": "^2.0.0"
   }
 }
