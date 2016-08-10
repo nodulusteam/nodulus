@@ -1,6 +1,6 @@
 {
   "name": "@nodulus/shell",
-  "version": "1.0.19",
+  "version": "1.0.21",
   "private": false,
   "scripts": {
     "start": "node master.js",
@@ -13,9 +13,11 @@
   },
   "dependencies": {
     "@nodulus/api": "*",
+    "@nodulus/config": "^1.0.55",
     "@nodulus/core": "*",
-    "@nodulus/modules": "*",
-    "@nodulus/schemas": "^1.0.6",
+    "@nodulus/modules": "^1.0.23",
+    "@nodulus/schemas": "^1.0.9",
+    "@nodulus/terminals": "^1.0.4",
     "@nodulus/translations": "*",
     "@nodulus/update": "*",
     "@nodulus/users": "*",
@@ -44,7 +46,6 @@
     "oauth": "^0.9.14",
     "q": "^1.4.1",
     "request": "^2.67.0",
-    "schemas": "^1.0.0",
     "socket-io-server": "^1.0.5",
     "socket.io": "^1.4.5",
     "sshpk": "^1.7.1",

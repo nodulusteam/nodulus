@@ -58,21 +58,23 @@ class Startup {
         for (var name of Object.keys(nodulus_modules)) {
             var nodulus_module = nodulus_modules[name];
             try {
-                var version = require('@nodulus/' + name + '/package.json').version;
+                var version = require(name + '/package.json').version;
                 console.log("***__ " + name + " " + this.print("_", 55 - name.length) + "**" + version + this.print("_", 8 - version.length) + "***");
-                var npmname = '@nodulus/' + name;
+                var npmname = name;
                 if (nodulus_module.routes !== undefined) {
                     for (var x = 0; x < nodulus_module.routes.length; x++) {
                         try {
-                            var pathRoute = path.join(npmname, 'routes', nodulus_module.routes[x].path);
-                            app.use(nodulus_module.routes[x].route, require(pathRoute));
+                            var pathRoute = npmname + '/' + 'routes/' + nodulus_module.routes[x].path;
+                            app.use('/' + npmname + nodulus_module.routes[x].route , require(pathRoute));
+
+                          
                         }
                         catch (error) {
                             console.error(error);
                         }
                     }
                 }
-                app.use('/modules/' + name, express.static(path.join('node_modules', '@nodulus', name, 'public')));
+                app.use('/' + name , express.static(path.join(process.cwd(), 'node_modules', name, 'public')));
             }
             catch (err) {
                 log.error('missing module', err);

@@ -23,7 +23,8 @@ for (var module_name in nodulus_mapping) {
         var script = document.createElement('script');
         script.type = 'text/javascript';
         script.async = false;
-        script.src = "modules/" + module_name + "/scripts/" + module.scripts[i];
+        
+        script.src = module_name + "/scripts/" + module.scripts[i];
         script.onload = function () {
             loader_count--;
             if (loader_count == 0) {

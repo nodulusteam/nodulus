@@ -590,7 +590,7 @@ angular.module('nodulus').controller('ideController',
 })
 .service("$TreeMenu", function ($resource, $mdDialog, $mdBottomSheet) {
     
-    var TreeResource = $resource("/modules/listnav");
+    var TreeResource = $resource("/@nodulus/modules/listnav");
     var instance = this;
     instance.initTreeMenu = function () {
         TreeResource.query(function (data) {

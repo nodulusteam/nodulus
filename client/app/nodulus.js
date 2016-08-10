@@ -106,7 +106,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
         };
         
         $translateProvider.useSanitizeValueStrategy(null);
-        $translateProvider.useUrlLoader('/translations/languages');
+        $translateProvider.useUrlLoader('/@nodulus/translations/languages');
         
         
         var lcid = localStorage.getItem("lcid");
@@ -412,7 +412,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
         $IDE.ShowLobby({ "_id": "settings", "label": "Settings" }, "partials/settings.html");
     }
     $scope.LoadModulesPage = function () {
-        $IDE.ShowLobby({ "_id": "modules", "label": "Modules" }, "modules/modules/modules.html");
+        $IDE.ShowLobby({ "_id": "modules", "label": "Modules" }, "@nodulus/modules/modules.html");
     }
     
     

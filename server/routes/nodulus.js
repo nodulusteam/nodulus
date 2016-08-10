@@ -9,7 +9,6 @@ var util = require('util');
 var fs = require("fs-extra");
 var path = require('path');
 var appRoot = global.appRoot;
- 
 router.post("/setup", function (req, res) {
     var setupConfig = req.body;
     var configurationObject = config;
