@@ -43,7 +43,8 @@
     "angular-bootstrap-scrolling-tabs": "^0.0.28",
     "angular-ui-sortable": "^0.14.3",
     "bootstrap": "^3.3.7",
-    "hammerjs": "^2.0.8"
+    "hammerjs": "^2.0.8",
+    "moment": "^2.14.1"
   },
   "overrides": {
     "ckeditor": {

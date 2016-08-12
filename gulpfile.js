@@ -12,7 +12,7 @@ var del = require('del');
 var fs = require('fs');
 var concat = require('gulp-concat');
 var order = require('gulp-order');
-
+var rename = require("gulp-rename");
 
 var gulp = require('gulp'),
     debug = require('gulp-debug'),
@@ -46,8 +46,10 @@ gulp.task('uglifynode', ['compile'], function () {
 
 
 gulp.task('create_client', function () {
-    gulp.src('client/**/*.*')
-        .pipe(copy("release/client", { prefix: 1 }));
+    gulp.src(['client/**/*.*', '!client/app/**/','!client/config/**/'
+    
+    ])
+        .pipe(copy("../basic/-nodulus-shell/client", { prefix: 1 }));
     // .pipe(debug())
     //, {prefix: 2}
     // .pipe(debug());
@@ -62,7 +64,7 @@ gulp.task('create_client', function () {
 
 gulp.task('create_server', function () {
     gulp.src(['server/**/*.*', '!server/**/*.ts'])
-        .pipe(copy("release/server", { prefix: 1 }));
+        .pipe(copy("../basic/-nodulus-shell/server", { prefix: 1 }));
     // .pipe(debug());
     //.pipe(debug())
     //.pipe(minify({
@@ -74,7 +76,7 @@ gulp.task('create_server', function () {
 
 gulp.task('copy_main_appjs', function () {
     gulp.src('app.js')
-        .pipe(copy("release/", { prefix: 1 }));
+        .pipe(copy("../basic/-nodulus-shell/", { prefix: 1 }));
 
 
     // .pipe(debug());
@@ -168,7 +170,9 @@ gulp.task('clean-ts', function (cb) {
 
 gulp.task('copyPackageJson', function () {
     // copy any html files in source/ to public/
-    gulp.src('package.json').pipe(gulp.dest('./release'));
+    gulp.src('./package-shell.json')
+    .pipe(rename('package.json'))
+    .pipe(gulp.dest('../basic/-nodulus-shell/'));
 });
 
 
@@ -196,14 +200,14 @@ gulp.task('bundle-client', function () {
 
 });
 
-gulp.task('copyConfig', function () {
-    // copy any html files in source/ to public/
-    gulp.src('./config/*.*').pipe(gulp.dest('./release/config'));
-});
+// gulp.task('copyConfig', function () {
+//     // copy any html files in source/ to public/
+//     gulp.src('./package-shell.json').pipe(gulp.dest('../basic/-nodulus-shell/package.json'));
+// });
 gulp.task('build', function () {
     runSequence('clean_release', ['ts-lint', 'compile-ts'],
-        ['create_client', 'create_server', 'copyPackageJson'],
-        'clean_server_release', 'copy_main_appjs', 'copyConfig'
+       'bundle-vendor', 'bundle-client',  ['create_client', 'create_server', 'copyPackageJson'],
+        'clean_server_release', 'copy_main_appjs'
     );
 });
 
@@ -217,7 +221,7 @@ gulp.task('build-local', function () {
 
 var install = require("gulp-install");
 gulp.task('npm-install', function () {
-    gulp.src(['./release/package.json'])
+    gulp.src(['../basic/-nodulus-shell/package.json'])
         .pipe(install({ production: true, noOptional: true }));
 });
 

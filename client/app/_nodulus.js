@@ -13,7 +13,7 @@
 "use strict";
 if (!location.origin)
     location.origin = location.protocol + "//" + location.host;
- 
+
 
 
 var apiUrl = "/api/";
@@ -94,6 +94,7 @@ var providers = {};
  * module declaration
  */
 
+alert(nodulus_dependecies);
 
 var DynamicData = angular.module('nodulus', nodulus_dependecies)
     .config(['$controllerProvider', '$resourceProvider', '$routeProvider', '$mdThemingProvider', '$compileProvider', '$provide', '$injector', '$translateProvider', 'hotkeysProvider',
@@ -683,13 +684,13 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
             }
         }
     })
-    .controller('setupController', function ($scope, $uibModal) {
+    .controller('setupController', ['$scope', '$uibModal', function ($scope, $uibModal) {
         var app = this;
 
         app.closeAlert = function () {
             app.reason = null;
         };
-
+debugger
         app.open = function () {
             var modalInstance = $uibModal.open({
                 templateUrl: 'setup/partials/wizard.html',
@@ -710,8 +711,8 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
         $scope.app = app;
 
 
-    })
-    .controller('ModalCtrl', function ($scope, $location, $modalInstance, $Language, $Theme, $translate, $resource) {
+    }])
+    .controller('ModalCtrl', ['$scope', '$location', '$modalInstance', '$Language', '$Theme', '$translate', '$resource', function ($scope, $location, $modalInstance, $Language, $Theme, $translate, $resource) {
         var modal = {};
 
 
@@ -839,7 +840,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
         });
         $scope.modal = modal;
 
-    });
+    }]);
 
 
 DynamicData.filter("filterpicker", function ($filter) {

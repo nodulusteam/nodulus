@@ -1,3 +1,5 @@
+debugger
+
 angular.module('App', ['ngAnimate', 'ui.bootstrap'])
     .controller('AppCtrl', function ($modal) {
         var app = this;
@@ -22,12 +24,12 @@ angular.module('App', ['ngAnimate', 'ui.bootstrap'])
                 });
         };
     })
-    .controller('ModalCtrl', function ($modalInstance) {
+    .controller('ModalCtrl', ['$modalInstance', function ($modalInstance) {
         var modal = this;
 
         modal.steps = ['one', 'two', 'three'];
         modal.step = 0;
-        modal.wizard = {tacos: 2};
+        modal.wizard = { tacos: 2 };
 
         modal.isFirstStep = function () {
             return modal.step === 0;
@@ -65,7 +67,7 @@ angular.module('App', ['ngAnimate', 'ui.bootstrap'])
             }
         };
 
-        modal.dismiss = function(reason) {
+        modal.dismiss = function (reason) {
             $modalInstance.dismiss(reason);
         };
-    });
+    }]);
