@@ -75,7 +75,7 @@ gulp.task('create_server', function () {
 });
 
 gulp.task('copy_main_appjs', function () {
-    gulp.src('app.js')
+    gulp.src(['app.js', 'master.js'])
         .pipe(copy("../basic/-nodulus-shell/", { prefix: 1 }));
 
 
@@ -188,6 +188,21 @@ gulp.task('bundle-vendor', function () {
 
 });
 
+
+
+gulp.task('bundle-vendor-css', function () {
+
+
+
+    return gulp.src(mainBowerFiles({ filter: ['**/*.css', '**/*.less'] }))
+        .pipe(concat('vendor.css'))
+        .pipe(minify())
+        .pipe(gulp.dest('./client/css/'));
+
+});
+
+
+
 gulp.task('bundle-client', function () {
 
 
@@ -206,14 +221,14 @@ gulp.task('bundle-client', function () {
 // });
 gulp.task('build', function () {
     runSequence('clean_release', ['ts-lint', 'compile-ts'],
-       'bundle-vendor', 'bundle-client',  ['create_client', 'create_server', 'copyPackageJson'],
+       'bundle-vendor', 'bundle-vendor-css', 'bundle-client',  ['create_client', 'create_server', 'copyPackageJson'],
         'clean_server_release', 'copy_main_appjs'
     );
 });
 
 
 gulp.task('build-local', function () {
-    runSequence('bundle-vendor', ['bundle-client']);
+    runSequence('bundle-vendor',  'bundle-vendor-css', ['bundle-client']);
 
 
 });

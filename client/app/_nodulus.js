@@ -16,7 +16,7 @@ if (!location.origin)
 
 
 
-var apiUrl = "/api/";
+var apiUrl = "@nodulus/api/";
 var logedinuser = {};
 var LNG = {}
 var socket = {};
@@ -94,7 +94,8 @@ var providers = {};
  * module declaration
  */
 
-alert(nodulus_dependecies);
+console.debug('nodulus_dependecies',nodulus_dependecies);
+ 
 
 var DynamicData = angular.module('nodulus', nodulus_dependecies)
     .config(['$controllerProvider', '$resourceProvider', '$routeProvider', '$mdThemingProvider', '$compileProvider', '$provide', '$injector', '$translateProvider', 'hotkeysProvider',
@@ -419,7 +420,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
         }
 
 
-        $resource("config/setup.json").get({}, function () { }, function () {
+        $resource("nodulus.json").get({}, function () { }, function () {
 
             $location.url("/setup");
         });
@@ -447,7 +448,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
 
 
                         $scope.LoginLoading = true;
-                        var LoginResource = $resource('/Users/login/', { Email: "@email", Password: "@password" });
+                        var LoginResource = $resource('@nodulus/users/login/', { Email: "@email", Password: "@password" });
 
                         LoginResource.save({ Email: $scope.Username, Password: $scope.Password }, function (data) {
                             $scope.LoginLoading = false;
@@ -492,7 +493,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
 
 
             $scope.LoginLoading = true;
-            var LoginResource = $resource(apiUrl + '/Users/Login/', { Email: "@email", Password: "@password" });
+            var LoginResource = $resource('@nodulus/users/Login/', { Email: "@email", Password: "@password" });
 
             LoginResource.get({ Email: $scope.Username, Password: $scope.Password }, function (data) {
                 $scope.LoginLoading = false;
@@ -524,7 +525,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
 
 
                     $scope.RegisterLoading = true;
-                    var RegisterResource = $resource('/Users/register/', { Email: "@email", Password: "@password" });
+                    var RegisterResource = $resource('@nodulus/users/register/', { Email: "@email", Password: "@password" });
 
                     RegisterResource.save({ Email: $scope.Username, Password: $scope.Password }, function (data) {
                         $scope.RegisterLoading = false;
@@ -690,7 +691,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
         app.closeAlert = function () {
             app.reason = null;
         };
-debugger
+
         app.open = function () {
             var modalInstance = $uibModal.open({
                 templateUrl: 'setup/partials/wizard.html',
@@ -712,7 +713,7 @@ debugger
 
 
     }])
-    .controller('ModalCtrl', ['$scope', '$location', '$modalInstance', '$Language', '$Theme', '$translate', '$resource', function ($scope, $location, $modalInstance, $Language, $Theme, $translate, $resource) {
+    .controller('ModalCtrl', ['$scope', '$location', '$uibModalInstance', '$Language', '$Theme', '$translate', '$resource', function ($scope, $location, $uibModalInstance, $Language, $Theme, $translate, $resource) {
         var modal = {};
 
 
@@ -766,7 +767,7 @@ debugger
 
 
 
-                    $modalInstance.close(modal.wizard);
+                    $uibModalInstance.close(modal.wizard);
                 }
                 else {
                     modal.step = 1;
@@ -849,9 +850,9 @@ DynamicData.filter("filterpicker", function ($filter) {
     };
 });
 DynamicData.filter("text", function ($) {
-    debugger
+    
     return function (input, current) {
-        debugger
+        
         return input;
     };
 });

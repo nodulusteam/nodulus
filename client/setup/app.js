@@ -1,4 +1,4 @@
-debugger
+
 
 angular.module('App', ['ngAnimate', 'ui.bootstrap'])
     .controller('AppCtrl', function ($modal) {

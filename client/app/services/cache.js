@@ -2,7 +2,7 @@
 service('$Cache', function ($resource, $Config) {
     
     var instance = this;
-    
+    var apiUrl = "@nodulus/api/";
     this.setState = function (collectionName, state) {
         if (this.states[collectionName] === undefined) {
             this.states[collectionName] = { callbacks: [], status: state };
@@ -28,7 +28,7 @@ service('$Cache', function ($resource, $Config) {
             switch (this.states[collectionName].status) {
                 case 'empty':
                     this.states[collectionName].status = 'loading';
-                    var genres = $resource("/api/" + collectionName);
+                    var genres = $resource(apiUrl + collectionName);
                     genres.get({}, function (data) {
 
                         if (data != null && data.items)
@@ -87,7 +87,7 @@ service('$Cache', function ($resource, $Config) {
             
             
             for (var i = 0; i < arrids.length; i++) {
-                var genres = $resource("/api/" + collectionName);
+                var genres = $resource(apiUrl + collectionName);
                 genres.get({ "_id": arrids[i] }, function (data) {
                     var col = {};
                     for (var x = 0; x < data.items.length; x++) {
@@ -118,7 +118,7 @@ service('$Cache', function ($resource, $Config) {
 .service("$Models", ['$resource', '$rootScope', function ($resource, $rootScope) {
         
         this.Models = {};
-        var dbApi = $resource('api/schemas');
+        var dbApi = $resource(apiUrl + 'schemas');
         this.getSchemas = function (id) {
             dbApi.get({ "_id": id }, function (data) {
                 this.db = data.items[0];
@@ -192,7 +192,7 @@ service('$Cache', function ($resource, $Config) {
         }
     }
     this.ready = function (colName, id , callback) {
-        var res = $resource("/api/" + colName);
+        var res = $resource(apiUrl + colName);
         
         res.get({ "_id": id }, function (data) {
             

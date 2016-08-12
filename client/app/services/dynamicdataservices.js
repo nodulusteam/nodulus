@@ -4,7 +4,7 @@
      
     
         this.Models = {};
-        var dbApi = $resource('api/schemas');
+        var dbApi = $resource('@nodulus/api/schemas');
         this.getSchemas = function (id){
             dbApi.get({ "_id": id }, function (data) {
                 this.db = data.items[0];
