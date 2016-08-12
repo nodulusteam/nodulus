@@ -59,7 +59,7 @@
     "del": "^2.2.0",
     "greenkeeper-postpublish": "^1.0.1",
     "gulp": "^3.9.1",
-    "gulp-bump": "^2.2.0",
+    "gulp-bump": "^2.4.0",
     "gulp-bundle-assets": "^2.27.1",
     "gulp-concat": "^2.6.0",
     "gulp-copy": "0.0.2",
