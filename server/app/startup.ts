@@ -12,10 +12,10 @@
 import * as http from "http";
 import * as url from "url";
 import * as express from "express";
-var configuration = require("@nodulus/config").config;
+
 var consts = require("@nodulus/config").consts;
 var config = require("@nodulus/config").config;
-
+var modules = require("@nodulus/modules");
 
 
 import * as web from "./webserver";

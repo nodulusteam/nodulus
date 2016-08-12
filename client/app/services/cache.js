@@ -258,6 +258,7 @@ function isFunction(functionToCheck) {
 
 
 function reviveType(value) {
+    var match = null;
     if (typeof value === "string" && (match = value.match(regexIso8601))) {
         var milliseconds = Date.parse(match[0]);
         if (!isNaN(milliseconds)) {

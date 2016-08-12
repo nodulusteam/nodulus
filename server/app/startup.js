@@ -1,10 +1,12 @@
 "use strict";
-var configuration = require("@nodulus/config").config;
+
 var consts = require("@nodulus/config").consts;
 var config = require("@nodulus/config").config;
 const web = require("./webserver");
 const network = require("./socket");
 var rest = require("@nodulus/api");
+var modules = require("@nodulus/modules");
+
 class Startup {
     constructor() {
         var fs = require('fs');

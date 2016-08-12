@@ -10,6 +10,9 @@ var ignore = require('gulp-ignore');
 var runSequence = require('run-sequence');
 var del = require('del');
 var fs = require('fs');
+var concat = require('gulp-concat');
+var order = require('gulp-order');
+
 
 var gulp = require('gulp'),
     debug = require('gulp-debug'),
@@ -18,15 +21,17 @@ var gulp = require('gulp'),
     tslint = require('gulp-tslint'),
     sourcemaps = require('gulp-sourcemaps'),
     Config = require('./gulpfile.config'),
-    tsProject = tsc.createProject('server/tsconfig.json');
+    tsProject = tsc.createProject('server/tsconfig.json'),
+    bundle = require('gulp-bundle-assets');
+var mainBowerFiles = require('main-bower-files');
 
 
 var config = new Config();
 
-gulp.task('bump', function(){
-  gulp.src('./package.json')
-  .pipe(bump())
-  .pipe(gulp.dest('./'));
+gulp.task('bump', function () {
+    gulp.src('./package.json')
+        .pipe(bump())
+        .pipe(gulp.dest('./'));
 });
 
 gulp.task('uglifynode', ['compile'], function () {
@@ -56,7 +61,7 @@ gulp.task('create_client', function () {
 
 
 gulp.task('create_server', function () {
-    gulp.src(['server/**/*.*','!server/**/*.ts'])
+    gulp.src(['server/**/*.*', '!server/**/*.ts'])
         .pipe(copy("release/server", { prefix: 1 }));
     // .pipe(debug());
     //.pipe(debug())
@@ -161,27 +166,59 @@ gulp.task('clean-ts', function (cb) {
     del(typeScriptGenFiles, cb);
 });
 
-gulp.task('copyPackageJson', function() {
-  // copy any html files in source/ to public/
-  gulp.src('package.json').pipe(gulp.dest('./release'));
+gulp.task('copyPackageJson', function () {
+    // copy any html files in source/ to public/
+    gulp.src('package.json').pipe(gulp.dest('./release'));
 });
 
-gulp.task('copyConfig', function() {
-  // copy any html files in source/ to public/
-  gulp.src('./config/*.*').pipe(gulp.dest('./release/config'));
+
+
+gulp.task('bundle-vendor', function () {
+
+
+
+    return gulp.src(mainBowerFiles({ filter: '**/*.js' }))
+        .pipe(concat('vendor.js'))
+        .pipe(minify())
+        .pipe(gulp.dest('./client/scripts/'));
+
+});
+
+gulp.task('bundle-client', function () {
+
+
+
+    return gulp.src(['client/app/**/*.js'])
+        .pipe(order(['app/**/_*.js', 'app/**/*.js']))
+        .pipe(concat('client.js'))
+        .pipe(minify())
+        .pipe(gulp.dest('./client/scripts/'));
+
+});
+
+gulp.task('copyConfig', function () {
+    // copy any html files in source/ to public/
+    gulp.src('./config/*.*').pipe(gulp.dest('./release/config'));
 });
 gulp.task('build', function () {
     runSequence('clean_release', ['ts-lint', 'compile-ts'],
-        ['create_client', 'create_server','copyPackageJson'],
-        'clean_server_release', 'copy_main_appjs','copyConfig'
+        ['create_client', 'create_server', 'copyPackageJson'],
+        'clean_server_release', 'copy_main_appjs', 'copyConfig'
     );
 });
 
 
+gulp.task('build-local', function () {
+    runSequence('bundle-vendor', ['bundle-client']);
+
+
+});
+
+
 var install = require("gulp-install");
- gulp.task('npm-install', function () {
-gulp.src(['./release/package.json'])
-  .pipe(install({production: true,noOptional: true}));
- });
+gulp.task('npm-install', function () {
+    gulp.src(['./release/package.json'])
+        .pipe(install({ production: true, noOptional: true }));
+});
 
 gulp.task('default', ['bump', 'build']);

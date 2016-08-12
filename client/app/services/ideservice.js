@@ -49,7 +49,7 @@
              
 
             var tabPane = $("<div id='"+ item.itemKey+"' data-any-lobby=\"" + itemUrl + "\" itemkey='" + item.itemKey + "' schemaid='" + item.schemaid + "'></div>");
-            tabwrapper = $("<div></div>");
+           var tabwrapper = $("<div></div>");
             tabwrapper.append(tabPane);
             $("#TabContainer").append(tabwrapper);
             // item.tabPane = tabPane;

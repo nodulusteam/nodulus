@@ -1,0 +1,65 @@
+{
+  "name": "@nodulus/shell",
+  "description": "nodulus",
+  "main": "",
+  "authors": [
+    "nodulus"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/nodulusteam/nodulus",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.0",
+    "angular": "^1.5.8",
+    "angular-sanitize": "^1.5.8",
+    "showdown": "^1.4.2",
+    "angular-markdown-directive": "^0.3.1",
+    "angular-aria": "^1.5.8",
+    "angular-recursion": "^1.0.5",
+    "angular-bootstrap-nav-tree": "*",
+    "angular-tree-control": "^0.2.28",
+    "angular-animate": "^1.5.8",
+    "angular-messages": "^1.5.8",
+    "angular-translate": "^2.11.1",
+    "angular-translate-loader-url": "^2.11.1",
+    "angu-fixed-header-table": "^1.2.0",
+    "angular-route": "^1.5.8",
+    "angular-resource": "^1.5.8",
+    "angular-filter": "^0.5.9",
+    "angular-strap": "^2.3.9",
+    "lodash": "^4.14.2",
+    "angular-hotkeys": "chieffancypants/angular-hotkeys#^1.7.0",
+    "ace-builds": "^1.2.4",
+    "angular-material": "^1.0.9",
+    "angular-bootstrap": "^2.0.1",
+    "angular-ui-ace": "bower",
+    "angular-bootstrap-scrolling-tabs": "^0.0.28",
+    "angular-ui-sortable": "^0.14.3",
+    "bootstrap": "^3.3.7",
+    "hammerjs": "^2.0.8"
+  },
+  "overrides": {
+    "ckeditor": {
+      "main": [
+        "ckeditor.js"
+      ]
+    },
+    "ace-builds": {
+      "main": [
+        "src-min-noconflict/ace.js"
+      ]
+    }
+  },
+  "resolutions": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.0",
+    "angular": "^1.5.8"
+  }
+}
