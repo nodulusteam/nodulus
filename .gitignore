@@ -225,3 +225,4 @@ config.rar
 config/
 server/client/modules/
 bower_components/
+client/nodulus.json
