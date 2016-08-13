@@ -1,6 +1,18 @@
 var cp = require('child_process');
-var child = cp.fork('./app',[], {
-  execArgv: ["--debug=9999"]
+var child = cp.spawn('node', ["./node_modules/@nodulus/shell/app.js"]);//,['./app.js' , '--debug=9999'] );
+// ,[], {
+//   execArgv: ["--debug=9999"],
+//   execPath: ["node.exe"]
+// });
+
+child.stdout.on('data', function(data) {
+    console.log('stdout: ' + data);
+});
+child.stderr.on('data', function(data) {
+    console.log('stdout: ' + data);
+});
+child.on('close', function(code) {
+    console.log('closing code: ' + code);
 });
 
 child.on('message', function (m) {
@@ -29,6 +41,3 @@ child.on('message', function (m) {
 
 
 });
-
-// Send child process some work
-child.send('Please up-case this string');

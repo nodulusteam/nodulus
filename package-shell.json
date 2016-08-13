@@ -2,9 +2,9 @@
   "name": "@nodulus/shell",
   "version": "1.0.21",
   "description": "the @nodulus shell in a package",
-  "main": "app.js",
+  "main": "master.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node master.js"
   },
   "keywords": [
     "nodulus"
@@ -12,12 +12,12 @@
   "author": "nodulus",
   "license": "ISC",
   "dependencies": {
-    "@nodulus/api": "*",
+    "@nodulus/api": "^1.0.16",
     "@nodulus/config": "^1.0.56",
     "@nodulus/core": "*",
     "@nodulus/modules": "^1.0.23",
     "@nodulus/translations": "*",
-    "@nodulus/update": "*",
+    "@nodulus/update": "0.0.5",
     "@nodulus/users": "*",
     "async": "^1.5.0",
     "body-parser": "^1.15.0",

@@ -1,6 +1,6 @@
 {
   "name": "@nodulus/shell",
-  "version": "1.1.18",
+  "version": "1.1.21",
   "private": false,
   "scripts": {
     "start": "node master.js",
@@ -16,8 +16,6 @@
     "@nodulus/config": "^1.0.56",
     "@nodulus/core": "*",
     "@nodulus/modules": "^1.0.23",
-    "@nodulus/schemas-dma": "^0.0.4",
-    "@nodulus/terminals": "^1.0.8",
     "@nodulus/translations": "*",
     "@nodulus/update": "0.0.5",
     "@nodulus/users": "*",
