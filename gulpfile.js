@@ -12,18 +12,15 @@ var del = require('del');
 var fs = require('fs');
 var concat = require('gulp-concat');
 var order = require('gulp-order');
-var rename = require("gulp-rename");
-
-var gulp = require('gulp'),
-    debug = require('gulp-debug'),
+var rename = require("gulp-rename"),
     inject = require('gulp-inject'),
     tsc = require('gulp-typescript'),
     tslint = require('gulp-tslint'),
     sourcemaps = require('gulp-sourcemaps'),
     Config = require('./gulpfile.config'),
     tsProject = tsc.createProject('server/tsconfig.json'),
-    bundle = require('gulp-bundle-assets');
-var mainBowerFiles = require('main-bower-files');
+    bundle = require('gulp-bundle-assets'),
+    mainBowerFiles = require('main-bower-files');
 
 
 var config = new Config();
@@ -46,8 +43,18 @@ gulp.task('uglifynode', ['compile'], function () {
 
 
 gulp.task('create_client', function () {
-    gulp.src(['client/**/*.*', '!client/app/**/','!client/config/**/'
-    
+    gulp.src(['client/css/**/*.*',
+        'client/font/**/*.*',
+        'client/fonts/**/*.*',
+        'client/partials/**/*.*',
+        'client/styles/**/*.*',
+        'client/scripts/vendor/**/*.*',
+        'client/scripts/vendor-min.js',
+        'client/scripts/client-min.js',
+        'client/*.*',
+        '!client/app/**/',
+        '!client/config/**/'
+
     ])
         .pipe(copy("../basic/-nodulus-shell/client", { prefix: 1 }));
     // .pipe(debug())
@@ -171,8 +178,8 @@ gulp.task('clean-ts', function (cb) {
 gulp.task('copyPackageJson', function () {
     // copy any html files in source/ to public/
     gulp.src('./package-shell.json')
-    .pipe(rename('package.json'))
-    .pipe(gulp.dest('../basic/-nodulus-shell/'));
+        .pipe(rename('package.json'))
+        .pipe(gulp.dest('../basic/-nodulus-shell/'));
 });
 
 
@@ -221,14 +228,14 @@ gulp.task('bundle-client', function () {
 // });
 gulp.task('build', function () {
     runSequence('clean_release', ['ts-lint', 'compile-ts'],
-       'bundle-vendor', 'bundle-vendor-css', 'bundle-client',  ['create_client', 'create_server', 'copyPackageJson'],
+        'bundle-vendor', 'bundle-vendor-css', 'bundle-client', ['create_client', 'create_server', 'copyPackageJson'],
         'clean_server_release', 'copy_main_appjs'
     );
 });
 
 
 gulp.task('build-local', function () {
-    runSequence('bundle-vendor',  'bundle-vendor-css', ['bundle-client']);
+    runSequence('bundle-vendor', 'bundle-vendor-css', ['bundle-client']);
 
 
 });

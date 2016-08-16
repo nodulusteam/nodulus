@@ -1,17 +1,15 @@
 var cp = require('child_process');
-var child = cp.spawn('node', ["./node_modules/@nodulus/shell/app.js"]);//,['./app.js' , '--debug=9999'] );
-// ,[], {
-//   execArgv: ["--debug=9999"],
-//   execPath: ["node.exe"]
-// });
+var child = cp.fork('./node_modules/@nodulus/shell/app.js', [], {
+    execArgv: ["--debug=9999"]
+});
 
-child.stdout.on('data', function(data) {
+child.stdout.on('data', function (data) {
     console.log('stdout: ' + data);
 });
-child.stderr.on('data', function(data) {
+child.stderr.on('data', function (data) {
     console.log('stdout: ' + data);
 });
-child.on('close', function(code) {
+child.on('close', function (code) {
     console.log('closing code: ' + code);
 });
 
@@ -32,7 +30,9 @@ child.on('message', function (m) {
                 n.installUpdates(upgraded).then(function (output) {
                     console.log(output);
 
-                    child = cp.fork('./app');
+                    child = cp.fork('./node_modules/@nodulus/shell/app.js', [], {
+                        execArgv: ["--debug=9999"]
+                    });
                     console.log(output);
                 });
             }
