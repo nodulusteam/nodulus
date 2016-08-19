@@ -1,56 +1,47 @@
 {
-  "name": "@nodulus/shell",
-  "version": "1.0.21",
+  "name": "nodulus",
+  "version": "0.0.2",
   "description": "the @nodulus shell in a package",
   "main": "master.js",
   "scripts": {
     "start": "node master.js"
   },
   "keywords": [
-    "nodulus"
+    "nodulus",
+    "shell",
+    "app manager"
   ],
   "author": "nodulus",
   "license": "ISC",
   "dependencies": {
     "@nodulus/api": "^1.0.16",
     "@nodulus/config": "^1.0.56",
-    "@nodulus/core": "*",
-    "@nodulus/modules": "^1.0.23",
-    "@nodulus/translations": "*",
-    "@nodulus/update": "0.0.5",
-    "@nodulus/users": "*",
+    "@nodulus/core": "^1.0.15",
+    "@nodulus/logs": "^0.0.21",
+    "@nodulus/modules": "^1.0.28",
+    "@nodulus/socket": "^0.0.3",
+    "@nodulus/translations": "^1.0.4",
+    "@nodulus/update": "^0.0.5",
+    "@nodulus/users": "^1.0.2",
     "async": "^1.5.0",
     "body-parser": "^1.15.0",
     "chalk": "^1.1.3",
     "cookie-parser": "^1.4.1",
     "debug": "^2.2.0",
-   
     "envs": "^0.1.6",
-    "express": "^4.13.4",
-    "forever-monitor": "^1.7.0",
     "fs-extra": "^0.26.5",
     "glob": "^6.0.4",
     "har-validator": "^2.0.3",
     "is-object": "^1.0.1",
-   
-    "kerberos": "0.0.17",
-    "media-typer": "^0.3.0",
     "merge": "^1.2.0",
     "mkdirp": "^0.5.1",
     "moment": "^2.10.6",
-   
     "node-uuid": "^1.4.7",
-    "nodulus-run": "^1.0.8",
     "oauth": "^0.9.14",
     "q": "^1.4.1",
     "request": "^2.67.0",
     "socket-io-server": "^1.0.5",
     "socket.io": "^1.4.5",
-    "sshpk": "^1.7.1",
-    "strip-bom": "^2.0.0",
-    "stylus": "^0.53.0",
-    "typescript": "^1.8.10",
-    "undefined": "^0.1.0",
-    "wildcard": "^1.1.2"
+    "sshpk": "^1.7.1"
   }
 }

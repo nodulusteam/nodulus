@@ -1,7 +1,7 @@
 ﻿DynamicData
-.directive('metaData', function (RecursionHelper, $compile) {
-    return {
-        restrict: 'E',
-        templateUrl: 'partials/DirectivesTemplates/metaData.html'
+    .directive('metaData', ['RecursionHelper', '$compile', function (RecursionHelper, $compile) {
+        return {
+            restrict: 'E',
+            templateUrl: 'partials/DirectivesTemplates/metaData.html'
         }
-    })
+    }]);

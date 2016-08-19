@@ -94,8 +94,8 @@ var providers = {};
  * module declaration
  */
 
-console.debug('nodulus_dependecies',nodulus_dependecies);
- 
+console.debug('nodulus_dependecies', nodulus_dependecies);
+
 
 var DynamicData = angular.module('nodulus', nodulus_dependecies)
     .config(['$controllerProvider', '$resourceProvider', '$routeProvider', '$mdThemingProvider', '$compileProvider', '$provide', '$injector', '$translateProvider', 'hotkeysProvider',
@@ -137,7 +137,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
                 }
 
             }
-                ;
+            ;
             if (lcid === null)
                 lcid = 1033;
 
@@ -165,7 +165,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
     .provider('$Language', [function () {
 
 
-        this.$get = function ($resource) {
+        this.$get = ['$resource', function ($resource) {
             var languageResource = $resource(apiUrl + '/Languages/', { "lcid": "@lcid" });
 
             return {
@@ -177,10 +177,10 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
                 set: function (language) {
 
                     this.language = language;
-                    less.modifyVars({
-                        '@direction': language.direction,
-                        '@align': language.align
-                    });
+                    // less.modifyVars({
+                    //     '@direction': language.direction,
+                    //     '@align': language.align
+                    // });
 
                     //this.resourceSet = this.getResourceSet(language);
                     return this.getResourceSet(language)
@@ -227,10 +227,10 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
                     }]
 
             }
-        }
+        }];
     }])
     .provider('$DataTable', [function () {
-        this.$get = function ($resource) {
+        this.$get = ['$resource', function ($resource) {
             var datatableResource = $resource(apiUrl + '/DataTable/', {});
 
             return {
@@ -255,7 +255,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
             }
 
 
-        }
+        }];
     }])
     .provider("$Config", function () {
         var type;
@@ -263,7 +263,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
             setType: function (value) {
                 type = value;
             },
-            $get: function ($http) {
+            $get: ['$http',  function ($http) {
                 var self = this;
 
                 $http.get("../../config/client.json").success(function (data) {
@@ -287,7 +287,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
                     },
                     site: self.site
                 };
-            }
+            }]
         };
     })
     .provider('$Theme', [function () {
@@ -326,7 +326,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
             }
         }
     }])
-    .controller('shellController', function ($scope, $mdDialog, $resource, $location, $compile, $Alerts, $Language, $Theme, $User, $Models, $Cache, $Config, $IDE, $nodulus) {
+    .controller('shellController', ['$scope', '$mdDialog', '$resource', '$location', '$compile', '$Alerts', '$Language', '$Theme', '$User', '$Models', '$Cache', '$Config', '$IDE', '$nodulus', function ($scope, $mdDialog, $resource, $location, $compile, $Alerts, $Language, $Theme, $User, $Models, $Cache, $Config, $IDE, $nodulus) {
 
 
 
@@ -351,7 +351,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
         var theme = localStorage.getItem("theme");
 
         if (theme === null)
-            theme = "paper";
+            theme = "default";
 
 
         $Theme.setTheme(theme);
@@ -426,8 +426,8 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
         });
 
 
-    })
-    .controller('loginController', function ($scope, $resource, $location, $mdToast, $animate, $mdDialog, $Theme, $User) {
+    }])
+    .controller('loginController', ['$scope', '$resource', '$location', '$mdToast', '$animate', '$mdDialog', '$Theme', '$User', function ($scope, $resource, $location, $mdToast, $animate, $mdDialog, $Theme, $User) {
 
 
         $scope.$Theme = $Theme;
@@ -513,8 +513,8 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
         }
 
 
-    })
-    .controller('registerController', function ($scope, $resource, $location, $mdToast, $animate, $mdDialog) {
+    }])
+    .controller('registerController', ['$scope', '$resource', '$location', '$mdToast', '$animate', '$mdDialog', function ($scope, $resource, $location, $mdToast, $animate, $mdDialog) {
 
 
         var regDialog = $mdDialog.show({
@@ -558,8 +558,8 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
         $scope.LoginLoading = false;
 
 
-    })
-    .service('$User', function ($resource, $Config) {
+    }])
+    .service('$User', ['$resource', '$Config', function ($resource, $Config) {
 
         var instance = this;
 
@@ -596,8 +596,8 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
             }
         }
 
-    })
-    .service('$Alerts', function ($resource, $Config, $timeout) {
+    }])
+    .service('$Alerts', ['$resource', '$Config', '$timeout', function ($resource, $Config, $timeout) {
 
 
         var instance = this;
@@ -617,10 +617,10 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
         }
 
 
-    })
+    }])
 
 
-    .service('$nodulus', function ($resource, $Config, $injector, $log) {
+    .service('$nodulus', ['$resource', '$Config', '$injector', '$log', function ($resource, $Config, $injector, $log) {
 
         var instance = this;
 
@@ -667,8 +667,8 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
         }
 
 
-    })
-    .directive('navLoader', function ($compile) {
+    }])
+    .directive('navLoader', ['$compile', function ($compile) {
         return {
             restrict: 'E',
             scope: {
@@ -684,7 +684,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
 
             }
         }
-    })
+    }])
     .controller('setupController', ['$scope', '$uibModal', function ($scope, $uibModal) {
         var app = this;
 
@@ -829,7 +829,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
             modal.Theme = theme;
         }
         else {
-            modal.Theme = "paper";
+            modal.Theme = "default";
         }
 
         $scope.$watch("modal.Theme", function (theme_name, oldVal) {
@@ -844,15 +844,15 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
     }]);
 
 
-DynamicData.filter("filterpicker", function ($filter) {
+DynamicData.filter("filterpicker", ['$filter', function ($filter) {
     return function (value, filterName) {
         return $filter(filterName)(value);
     };
-});
+}]);
 DynamicData.filter("text", function ($) {
-    
+
     return function (input, current) {
-        
+
         return input;
     };
 });
@@ -898,10 +898,10 @@ DynamicData.controller('Directives.BaseController', ['$scope', '$rootScope', '$M
 
 
 
-$(document).bind('keydown', function (e) {
-    if (e.ctrlKey && (e.which == 83)) {
-        e.preventDefault();
+//$(document).bind('keydown', function (e) {
+//    if (e.ctrlKey && (e.which == 83)) {
+//        e.preventDefault();
 
-        return false;
-    }
-});
+//        return false;
+//    }
+//});

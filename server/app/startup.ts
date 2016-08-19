@@ -18,83 +18,43 @@ var config = require("@nodulus/config").config;
 var modules = require("@nodulus/modules");
 
 
-import * as web from "./webserver";
-import * as network from "./socket";
-var rest = require("@nodulus/api");
+// import * as web from "./webserver";
+// import * as network from "./socket";
+
 
 export class Startup {
     constructor() {
-        var fs = require('fs');
-        var path = require('path');
-        var express = require('express');
-
-        var cookieParser = require('cookie-parser');
-        var bodyParser = require('body-parser');
-        var url = require('url');
-        var querystring = require('querystring');
-        var envs = require('envs');
-
 
         var log = require("@nodulus/logs").logger;
-        var webServer = new web.webServer();
-        //var api = require('./api.js');
+        var app = require("@nodulus/core");
+
+        var path = require("path");
+        var rest = require("@nodulus/api");
 
 
-        var EventEmitter = require('events').EventEmitter;
-        global.eventServer = new EventEmitter();
-        var app = express();
-        global.express = app;
+        var io = require("@nodulus/socket")(app.server);
+
+
+        // var envs = require('envs');
+
+
+        // 
+
+
+
+        // var EventEmitter = require('events').EventEmitter;
+        // global.eventServer = new EventEmitter();
+        // var app = express();
+        // global.express = app;
 
 
         // If NODE_ENV is not set, 
         // then this application will assume it's prod by default.
-        app.set('environment', envs('NODE_ENV', 'production'));
-
-
-        var http = require("http").createServer(app);
-        var server = require('http').Server(app);
-
-        if (config.appSettings.enableSockets) {
-            var socket = require('socket.io');
-            var io = socket.listen(server);
-            global.socket = io;
-            console.log("*** websocket is active");
-            var SocketUse = new network.socket(io);
-
-        }
-
-
-
-        webServer.start(server, app, function (app: any) {
-        });
-
-
-        var regexIso8601 = /^(\d{4}|\+\d{6})(?:-(\d{2})(?:-(\d{2})(?:T(\d{2}):(\d{2}):(\d{2})\.(\d{1,})(Z|([\-+])(\d{2}):(\d{2}))?)?)?)?$/;
-        app.use(bodyParser.json({
-            reviver: function (key: string, value: any) {
-                var match: any;
-                if (typeof value === "string" && (match = value.match(regexIso8601))) {
-                    var milliseconds = Date.parse(match[0]);
-                    if (!isNaN(milliseconds)) {
-                        return new Date(milliseconds);
-                    }
-                }
-                return value;
-            },
-            limit: '50mb',
-        }));
-        app.use(bodyParser.json()); // for parsing application/json
-        app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-        app.use('/', express.static(global.clientAppRoot));
-        //global.clientAppRoot = path.resolve('./client/');
-
+        // app.set('environment', envs('NODE_ENV', 'production'));
+        app.use('/', app.static(global.clientAppRoot));
         //load modules
         var nodulus_modules = config.modulesSettings;
-
-
         console.log("");
-
-
 
         console.log("***************************************************************************");
         console.log("***__active nodules_____________________________________________________***");
@@ -113,8 +73,6 @@ export class Startup {
                         try {
                             var pathRoute = npmname + '/' + 'routes/' + nodulus_module.routes[x].path;
                             app.use('/' + npmname + nodulus_module.routes[x].route, require(pathRoute));
-
-
                         }
                         catch (error) {
                             console.error(error);
@@ -139,6 +97,8 @@ export class Startup {
         // app.use(require("nodulus-run"));
 
 
+        app.use('/bower_components', express.static(path.join(process.cwd(), 'bower_components')));
+        app.use('/client', express.static(path.join(process.cwd(), 'client')));
     }
 
     print(char: string, num: number): string {

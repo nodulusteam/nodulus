@@ -9,7 +9,8 @@
 
 "use strict";
 
-angular.module('nodulus').controller('ideController',
+angular.module('nodulus').controller('ideController', ['$scope', '$User', '$TreeMenu', '$resource', '$location', '$compile',
+        '$Language', '$mdSidenav', '$mdBottomSheet', '$Theme', '$mdDialog', '$Cache', '$IDE',
     function ($scope, $User, $TreeMenu, $resource, $location, $compile,
         $Language, $mdSidenav, $mdBottomSheet, $Theme, $mdDialog, $Cache, $IDE) {
         $scope.$Theme = $Theme;
@@ -109,9 +110,9 @@ angular.module('nodulus').controller('ideController',
 
         }
 
-    })
+    }])
 
-    .controller('CategoryDialog', function ($scope, $resource, $location, $compile, $mdDialog, $Theme, $Config, $EditCategory, $NodeCollection, $rootScope, $Cache) {
+    .controller('CategoryDialog', ['$scope', '$resource', '$location', '$compile', '$mdDialog', '$Theme', '$Config', '$EditCategory', '$NodeCollection', '$rootScope', '$Cache', function ($scope, $resource, $location, $compile, $mdDialog, $Theme, $Config, $EditCategory, $NodeCollection, $rootScope, $Cache) {
         $scope.EditCategory = $EditCategory;
         var lobbyResource = $resource(apiUrl + '/Navigation/', {}, {
             'get': { method: 'GET' },
@@ -149,11 +150,12 @@ angular.module('nodulus').controller('ideController',
         $scope.Cancel = function () {
             $mdDialog.hide();
         };
-    })
+    }])
 
 
 
-    .controller('SettingsCtrl', function ($rootScope, $scope, $TreeMenu, $resource, $mdDialog,
+    .controller('SettingsCtrl',['$rootScope', '$scope', '$TreeMenu', '$resource', '$mdDialog',
+        '$Alerts', '$location', '$compile', '$Language', '$mdSidenav', '$mdBottomSheet', '$Theme', '$translate', '$IDE',  function ($rootScope, $scope, $TreeMenu, $resource, $mdDialog,
         $Alerts, $location, $compile, $Language, $mdSidenav, $mdBottomSheet, $Theme, $translate, $IDE) {
 
         $scope.Languages = $Language.languages;
@@ -190,7 +192,7 @@ angular.module('nodulus').controller('ideController',
             $scope.Theme = theme;
         }
         else {
-            $scope.Theme = "paper";
+            $scope.Theme = "default";
         }
 
         $scope.$watch("Theme", function (theme_name, oldVal) {
@@ -200,7 +202,7 @@ angular.module('nodulus').controller('ideController',
                 localStorage.setItem("theme", theme_name);
             }
         });
-    })
+    }])
     //.directive('ckEditor', [function () {
     //        return {
     //            require: '?ngModel',
@@ -220,7 +222,7 @@ angular.module('nodulus').controller('ideController',
     //            }
     //        };
     //    }])
-    .directive('egenLongClick', function ($parse) {
+    .directive('egenLongClick',['$parse',  function ($parse) {
         return function (scope, element, attrs) {
             var fn = $parse(attrs.egenLongClick);
 
@@ -233,7 +235,7 @@ angular.module('nodulus').controller('ideController',
                 });
             });
         };
-    })
+    }])
     .directive('anyDialog', function () {
         return {
             scope: false,
@@ -354,7 +356,7 @@ angular.module('nodulus').controller('ideController',
             }
         };
     })
-    .directive('staticInclude', function ($timeout, $http, $templateCache, $compile, $parse) {
+    .directive('staticInclude', ['$timeout', '$http', '$templateCache', '$compile', '$parse', function ($timeout, $http, $templateCache, $compile, $parse) {
         return {
             replace: true,
             link: function (scope, element, attrs) {
@@ -395,7 +397,7 @@ angular.module('nodulus').controller('ideController',
                 })
             }
         }
-    })
+    }])
     .directive('egenPage', function () {
         return {
             templateUrl: 'partials/page.html',
@@ -469,7 +471,7 @@ angular.module('nodulus').controller('ideController',
             }
         };
     })
-    .controller('pageController', function ($scope, $resource, $location, $compile, $http, $Status, $Language) {
+    .controller('pageController', ['$scope', '$resource', '$location', '$compile', '$http', '$Status', '$Language', function ($scope, $resource, $location, $compile, $http, $Status, $Language) {
 
         $http.defaults.useXDomain = true;
         $scope.Statuses = $Status();
@@ -587,8 +589,8 @@ angular.module('nodulus').controller('ideController',
 
 
 
-    })
-    .service("$TreeMenu", function ($resource, $mdDialog, $mdBottomSheet) {
+    }])
+    .service("$TreeMenu", ['$resource', '$mdDialog', '$mdBottomSheet', function ($resource, $mdDialog, $mdBottomSheet) {
 
         var TreeResource = $resource("/@nodulus/modules/listnav");
         var instance = this;
@@ -634,7 +636,7 @@ angular.module('nodulus').controller('ideController',
         // $scope.TreeLoading = true;
 
 
-    });
+    }]);
 
 function guid() {
     function s4() {

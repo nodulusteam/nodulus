@@ -1,5 +1,5 @@
 ﻿angular.module("Cache", []).
-service('$Cache', function ($resource, $Config) {
+service('$Cache', ['$resource', '$Config', function ($resource, $Config) {
     
     var instance = this;
     var apiUrl = "@nodulus/api/";
@@ -113,8 +113,7 @@ service('$Cache', function ($resource, $Config) {
     }
 
 
-})
-
+}])
 .service("$Models", ['$resource', '$rootScope', function ($resource, $rootScope) {
         
         this.Models = {};
@@ -182,7 +181,7 @@ service('$Cache', function ($resource, $Config) {
         }
     }])
 
-.service('$Broker', function ($resource, $Config, $Models) {
+.service('$Broker', ['$resource', '$Config', '$Models', function ($resource, $Config, $Models) {
     var instance = this;
     instance.Models = $Models;
     this.Objects = {};
@@ -239,7 +238,7 @@ service('$Cache', function ($resource, $Config) {
         }
     }
 
-})
+}])
 
 
 
@@ -270,6 +269,3 @@ function reviveType(value) {
 
 
 var regexIso8601 = /^(\d{4}|\+\d{6})(?:-(\d{2})(?:-(\d{2})(?:T(\d{2}):(\d{2}):(\d{2})\.(\d{1,})(Z|([\-+])(\d{2}):(\d{2}))?)?)?)?$/;
-
-
-//touch
