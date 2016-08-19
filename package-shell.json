@@ -11,6 +11,11 @@
     "shell",
     "app manager"
   ],
+   "repository": {
+    "type": "git",
+    "url": "https://github.com/nodulusteam/nodulus"
+  },
+     
   "author": "nodulus",
   "license": "ISC",
   "dependencies": {
