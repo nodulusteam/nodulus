@@ -11,19 +11,18 @@
     "name": "roi ben haim",
     "email": "roi@ewave.co.il"
   },
-   "repository": {
+  "repository": {
     "type": "git",
     "url": "https://github.com/nodulusteam/nodulus"
   },
-     
   "dependencies": {
     "@nodulus/api": "^1.0.16",
     "@nodulus/config": "^1.0.56",
     "@nodulus/core": "^1.0.15",
     "@nodulus/logs": "^0.0.21",
     "@nodulus/modules": "^1.0.28",
+    "@nodulus/schemas": "^1.0.15",
     "@nodulus/socket": "^0.0.3",
-   
     "@nodulus/translations": "^1.0.4",
     "@nodulus/update": "^0.0.5",
     "@nodulus/users": "^1.0.2",
