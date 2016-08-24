@@ -1,56 +1,54 @@
 ﻿
 var gulp = require('gulp-group')(require('gulp'));
 var minify = require('gulp-minify');
-var bump = require('gulp-bump');
-var debug = require('gulp-debug');
-var path = require('path');
-var uglify = require('gulp-uglify');
-var copy = require('gulp-copy');
-var rimraf = require('gulp-rimraf');
-var ignore = require('gulp-ignore');
-var runSequence = require('run-sequence');
-var del = require('del');
-var fs = require('fs');
-var concat = require('gulp-concat');
-var order = require('gulp-order');
-var rename = require("gulp-rename"),
+bump = require('gulp-bump'),
+    debug = require('gulp-debug'),
+    path = require('path'),
+    uglify = require('gulp-uglify'),
+    copy = require('gulp-copy'),
+    rimraf = require('gulp-rimraf'),
+    ignore = require('gulp-ignore'),
+    runSequence = require('run-sequence'),
+    del = require('del'),
+    fs = require('fs'),
+    concat = require('gulp-concat'),
+    order = require('gulp-order'),
+    rename = require("gulp-rename"),
     inject = require('gulp-inject'),
     replace = require('gulp-replace'),
     typescript = require('gulp-typescript'),
     tslint = require('gulp-tslint'),
     sourcemaps = require('gulp-sourcemaps'),
-    Config = require('./gulpfile.config');
-var tsProject = typescript.createProject('server/tsconfig.json'),
+    Config = require('./gulpfile.config'),
     bundle = require('gulp-bundle-assets'),
+    cssmin = require('gulp-cssmin'),
     mainBowerFiles = require('main-bower-files');
-var cssmin = require('gulp-cssmin');
 
+
+
+var tsProject = typescript.createProject('server/tsconfig.json');
 var destination = "../basic/-nodulus-shell";
-
-
 var config = new Config();
-
-
 
 gulp.group('dev', function () {
 
 
     gulp.group('inject', function () {
 
-        
-        gulp.task('index', function () {
-             
-            gulp.src('./client/default.html')
-                    .pipe(inject(gulp.src(mainBowerFiles({ filter: '**/*.js' }), { read: false }), { starttag: '<!-- inject:head:{{ext}} -->' }))
-                    .pipe(inject(gulp.src(['./client/css/*.css'], { read: false }), { starttag: '<!-- inject:style:css -->' }))
-                    .pipe(inject(gulp.src(['./client/app/**/*.js'], { read: false }), { starttag: '<!-- inject:client:js -->' }))
-                    .pipe(gulp.dest('./client'));
 
-                // .pipe(inject(gulp.src(['./client/app/**/*.js', './client/css/*.css'], { read: false })))
-                // .pipe(debug())
-                // .pipe(inject(gulp.src(mainBowerFiles({ filter: '**/*.js' }, { read: false }), { starttag: '<!-- inject:head:js -->' })))
-                // .pipe(debug())
-                // .pipe(gulp.dest('./client'));
+        gulp.task('index', function () {
+
+            gulp.src('./client/default.html')
+                .pipe(inject(gulp.src(mainBowerFiles({ filter: '**/*.js' }), { read: false }), { starttag: '<!-- inject:head:{{ext}} -->' }))
+                .pipe(inject(gulp.src(['./client/css/*.css'], { read: false }), { starttag: '<!-- inject:style:css -->' }))
+                .pipe(inject(gulp.src(['./client/app/**/*.js'], { read: false }), { starttag: '<!-- inject:client:js -->' }))
+                .pipe(gulp.dest('./client'));
+
+            // .pipe(inject(gulp.src(['./client/app/**/*.js', './client/css/*.css'], { read: false })))
+            // .pipe(debug())
+            // .pipe(inject(gulp.src(mainBowerFiles({ filter: '**/*.js' }, { read: false }), { starttag: '<!-- inject:head:js -->' })))
+            // .pipe(debug())
+            // .pipe(gulp.dest('./client'));
         });
     });
 });
@@ -58,11 +56,11 @@ gulp.group('dev', function () {
 
 gulp.group('production', function () {
     gulp.task('bump', function () {
-        gulp.src('./package.json')
-            .pipe(bump())
-            .pipe(gulp.dest('./'));
+        gulp.src('./package-shell.json')
+            .pipe(bump())           
+            .pipe(rename('package.json'))
+            .pipe(gulp.dest(destination));
     });
-
 
     gulp.task('uglifynode', function () {
         return gulp.src(['./release/routes/*.js', './release/classes/**/*.js'])
@@ -73,14 +71,7 @@ gulp.group('production', function () {
     });
 
 
-
-
-
-
-
-
     gulp.group('bundle', function () {
-
         gulp.task('vendor-scripts', function () {
             return gulp.src(mainBowerFiles({ filter: '**/*.js' }))
                 .pipe(concat('vendor.js'))
@@ -101,14 +92,12 @@ gulp.group('production', function () {
                 .pipe(minify())
                 .pipe(gulp.dest('./client/scripts/'));
         });
-
-
         gulp.group('inject', function () {
             gulp.task('inject-all', function () {
                 gulp.src('./client/default.html')
-                    .pipe(inject(gulp.src('./client/scripts/vendor-min.js', { read: false }), { starttag: '<!-- inject:head:{{ext}} -->' }))
-                    .pipe(inject(gulp.src(['./client/css/*.css'], { read: false }), { starttag: '<!-- inject:style:css -->' }))
-                    .pipe(inject(gulp.src(['./client/scripts/client-min.js'], { read: false }), { starttag: '<!-- inject:client:js -->' }))
+                    .pipe(inject(gulp.src('./client/scripts/vendor-min.js', { read: false }), { ignorePath: '/client', starttag: '<!-- inject:head:{{ext}} -->' }))
+                    .pipe(inject(gulp.src(['./client/css/*.css'], { read: false }), { ignorePath: '/client',starttag: '<!-- inject:style:css -->' }))
+                    .pipe(inject(gulp.src(['./client/scripts/client-min.js'], { read: false }), { ignorePath: '/client',starttag: '<!-- inject:client:js -->' }))
                     .pipe(gulp.dest('./client'));
             });
 
@@ -116,6 +105,7 @@ gulp.group('production', function () {
                 gulp.task('create_client', function () {
                     gulp.src(['client/css/**/*.*',
                         'client/font/**/*.*',
+                        'client/setup/**/*.*',
                         'client/fonts/**/*.*',
                         'client/partials/**/*.*',
                         'client/styles/**/*.*',
@@ -136,11 +126,19 @@ gulp.group('production', function () {
                         .pipe(copy(destination + "/server", { prefix: 1 }));
                 });
 
-                gulp.task('copyPackageJson', function () {
-                    gulp.src('./package-shell.json')
-                        .pipe(rename('package.json'))
+                // gulp.task('copyPackageJson', function () {
+                //     gulp.src('./package-shell.json')
+                //         .pipe(rename('package.json'))
+                //         .pipe(gulp.dest(destination));
+                // });
+
+
+                gulp.task('copyReadme', function () {
+                    gulp.src('./README-release.md')
+                        .pipe(rename('README.md'))
                         .pipe(gulp.dest(destination));
                 });
+
 
                 gulp.task('copy_main_appjs', function () {
                     gulp.src(['app.js', 'master.js'])
@@ -151,16 +149,7 @@ gulp.group('production', function () {
 
         });
     });
-
-
-
-
 });
-
-
-
-
-
 
 gulp.task('clean_release', function () {
     return del("release");
@@ -236,13 +225,6 @@ gulp.group('compile', function () {
 
 
 
-
-
-
-
-
-
-
 // gulp.task('copyConfig', function () {
 //     // copy any html files in source/ to public/
 //     gulp.src('./package-shell.json').pipe(gulp.dest('../basic/-nodulus-shell/package.json'));
@@ -250,15 +232,11 @@ gulp.group('compile', function () {
 gulp.task('build', function () {
     runSequence('clean_release', ['ts-lint', 'compile-ts'],
         'bundle-vendor', 'bundle-vendor-css', 'bundle-client', 'copy-files-dest', 'inject-dest'
-
     );
 });
 
-
 gulp.task('build-local', function () {
     runSequence('bundle-vendor', 'bundle-vendor-css', ['bundle-client'], 'vendor-dev', 'index');
-
-
 });
 
 

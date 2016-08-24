@@ -286,16 +286,16 @@ angular.module('nodulus').controller('ideController', ['$scope', '$User', '$Tree
                 }
 
 
-                element.injector().invoke(function ($compile) {
+                element.injector().invoke(['$compile', function ($compile) {
 
                     $compile(element.contents())(scope);
 
                     element.scope().ParentCategory = scope.ParentCategory;
-                });
+                }]);
             }
         };
     })
-    .directive('anyLobby', function () {
+    .directive('anyLobby',['$compile',  function ($compile) {
         return {
             templateUrl: 'partials/any.html',
             link: function (scope, element, attr, $compile) {
@@ -339,10 +339,10 @@ angular.module('nodulus').controller('ideController', ['$scope', '$User', '$Tree
                 }
 
 
-                var c = element.injector().invoke(function ($compile) {
+                var c = element.injector().invoke(['$compile', function ($compile) {
 
                     $compile(element.contents())(scope);
-                }, this, scope);
+                }], this, scope);
 
 
 
@@ -355,7 +355,7 @@ angular.module('nodulus').controller('ideController', ['$scope', '$User', '$Tree
                 'editItem': "&editItem"
             }
         };
-    })
+    }])
     .directive('staticInclude', ['$timeout', '$http', '$templateCache', '$compile', '$parse', function ($timeout, $http, $templateCache, $compile, $parse) {
         return {
             replace: true,
@@ -429,7 +429,7 @@ angular.module('nodulus').controller('ideController', ['$scope', '$User', '$Tree
                 $(elem).parents(".fileinput-button").siblings("span").html("<img src='" + $scope.ImageString + "' style='max-width: 90px'/>");
 
             },
-            controller: function ($scope) {
+            controller: ["$scope", function ($scope) {
                 $scope.ConvertFile = function (obj) {
                     $scope.imagePreview("", obj, $scope);
                 }
@@ -464,7 +464,7 @@ angular.module('nodulus').controller('ideController', ['$scope', '$User', '$Tree
                     }
                 }
 
-            },
+            }],
             scope: {
                 'ImageString': '=image',
 

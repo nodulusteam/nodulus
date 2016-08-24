@@ -440,7 +440,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
 
 
             $mdDialog.show({
-                controller: function ($scope, $resource, $mdToast, $location) {
+                controller: ['$scope', '$resource', '$mdToast', '$location', function ($scope, $resource, $mdToast, $location) {
                     $scope.Login = function () {
 
                         if ($scope.LoginForm.$dirty && $scope.LoginForm.$invalid)
@@ -474,7 +474,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
 
                     }
 
-                },
+                }],
 
                 templateUrl: 'partials/manage/dialogs/login.html'
 
@@ -518,7 +518,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
 
 
         var regDialog = $mdDialog.show({
-            controller: function ($scope, $resource, $mdToast, $location) {
+            controller:['$scope', '$resource', '$mdToast', '$location',  function ($scope, $resource, $mdToast, $location) {
                 $scope.Register = function () {
                     if ($scope.RegisterForm.$dirty && $scope.RegisterForm.$invalid)
                         return;
@@ -545,7 +545,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
 
                 }
 
-            },
+            }],
 
             templateUrl: 'partials/manage/dialogs/register.html'
 

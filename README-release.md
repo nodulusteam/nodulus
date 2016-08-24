@@ -18,8 +18,8 @@ it uses a manifest file to define the nodule files, scripts, dependencies, route
 ### setup & first run
 1. create a directory `mkdir nodulus`
 2. cd into the directory `cd nodulus`
-3. run `npm install @nodulus/shell`
-4. run `node ./node_modules/@nodulus/shell/master.js`
+3. run `npm install nodulus`
+4. run `node ./node_modules/nodulus/master.js`
 
 use the configuration file at /config/config.json to set the database name and the application port, default port is 4000.
 

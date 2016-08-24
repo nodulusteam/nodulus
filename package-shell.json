@@ -1,6 +1,6 @@
 {
   "name": "nodulus",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "the @nodulus shell in a package",
   "main": "master.js",
   "scripts": {
@@ -11,20 +11,20 @@
     "shell",
     "app manager"
   ],
-   "repository": {
+  "repository": {
     "type": "git",
     "url": "https://github.com/nodulusteam/nodulus"
   },
-     
   "author": "nodulus",
   "license": "ISC",
   "dependencies": {
-    "@nodulus/api": "^1.0.16",
-    "@nodulus/config": "^1.0.56",
-    "@nodulus/core": "^1.0.15",
+    "@nodulus/api": "^1.0.17",
+    "@nodulus/config": "^1.0.59",
+    "@nodulus/core": "^1.0.17",
+    "@nodulus/data-diskdb": "^0.0.0",   
     "@nodulus/logs": "^0.0.21",
-    "@nodulus/modules": "^1.0.28",
-    "@nodulus/socket": "^0.0.3",
+    "@nodulus/modules": "^1.0.29",
+    "@nodulus/socket": "0.0.3",
     "@nodulus/translations": "^1.0.4",
     "@nodulus/update": "^0.0.5",
     "@nodulus/users": "^1.0.2",

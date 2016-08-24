@@ -507,7 +507,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
 
 
             $mdDialog.show({
-                controller: function ($scope, $resource, $mdToast, $location) {
+                controller: ['$scope', '$resource', '$mdToast', '$location', function ($scope, $resource, $mdToast, $location) {
                     $scope.Login = function () {
 
                         if ($scope.LoginForm.$dirty && $scope.LoginForm.$invalid)
@@ -541,7 +541,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
 
                     }
 
-                },
+                }],
 
                 templateUrl: 'partials/manage/dialogs/login.html'
 
@@ -585,7 +585,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
 
 
         var regDialog = $mdDialog.show({
-            controller: function ($scope, $resource, $mdToast, $location) {
+            controller:['$scope', '$resource', '$mdToast', '$location',  function ($scope, $resource, $mdToast, $location) {
                 $scope.Register = function () {
                     if ($scope.RegisterForm.$dirty && $scope.RegisterForm.$invalid)
                         return;
@@ -612,7 +612,7 @@ var DynamicData = angular.module('nodulus', nodulus_dependecies)
 
                 }
 
-            },
+            }],
 
             templateUrl: 'partials/manage/dialogs/register.html'
 
@@ -1270,16 +1270,16 @@ angular.module('nodulus').controller('ideController', ['$scope', '$User', '$Tree
                 }
 
 
-                element.injector().invoke(function ($compile) {
+                element.injector().invoke(['$compile', function ($compile) {
 
                     $compile(element.contents())(scope);
 
                     element.scope().ParentCategory = scope.ParentCategory;
-                });
+                }]);
             }
         };
     })
-    .directive('anyLobby', function () {
+    .directive('anyLobby',['$compile',  function ($compile) {
         return {
             templateUrl: 'partials/any.html',
             link: function (scope, element, attr, $compile) {
@@ -1323,10 +1323,10 @@ angular.module('nodulus').controller('ideController', ['$scope', '$User', '$Tree
                 }
 
 
-                var c = element.injector().invoke(function ($compile) {
+                var c = element.injector().invoke(['$compile', function ($compile) {
 
                     $compile(element.contents())(scope);
-                }, this, scope);
+                }], this, scope);
 
 
 
@@ -1339,7 +1339,7 @@ angular.module('nodulus').controller('ideController', ['$scope', '$User', '$Tree
                 'editItem': "&editItem"
             }
         };
-    })
+    }])
     .directive('staticInclude', ['$timeout', '$http', '$templateCache', '$compile', '$parse', function ($timeout, $http, $templateCache, $compile, $parse) {
         return {
             replace: true,
@@ -1413,7 +1413,7 @@ angular.module('nodulus').controller('ideController', ['$scope', '$User', '$Tree
                 $(elem).parents(".fileinput-button").siblings("span").html("<img src='" + $scope.ImageString + "' style='max-width: 90px'/>");
 
             },
-            controller: function ($scope) {
+            controller: ["$scope", function ($scope) {
                 $scope.ConvertFile = function (obj) {
                     $scope.imagePreview("", obj, $scope);
                 }
@@ -1448,7 +1448,7 @@ angular.module('nodulus').controller('ideController', ['$scope', '$User', '$Tree
                     }
                 }
 
-            },
+            }],
             scope: {
                 'ImageString': '=image',
 
