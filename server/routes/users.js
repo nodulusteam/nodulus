@@ -1,13 +1,4 @@
-/*                 _       _
-                 | |     | |
-  _ __   ___   __| |_   _| |_   _ ___
- | '_ \ / _ \ / _` | | | | | | | / __|
- | | | | (_) | (_| | |_| | | |_| \__ \
- |_| |_|\___/ \__,_|\__,_|_|\__,_|___/
- @nodulus open source | ©Roi ben haim  ®2016
- */
-/// <reference path="../typings/main.d.ts" />
-var express = require('express');
+var express = require("@nodulus/core");
 var router = express.Router();
 var util = require('util');
 var fs = require('fs');
@@ -19,8 +10,7 @@ var usermanager = require("../app/users").users;
 router.post('/login', function (req, res) {
     if (!req.body)
         return res.sendStatus(400);
-    // Convert our form input into JSON ready to store in Couchbase
-    var jsonVersion = "{}"; //returnJSONResults("", "");//JSON.stringify(req.body);
+    var jsonVersion = "{}";
     var email = req.body.Email;
     var password = req.body.Password;
     usermanager.login(email, password, function (user) {
@@ -30,19 +20,14 @@ router.post('/login', function (req, res) {
 router.post('/logout', function (req, res) {
     if (!req.body)
         return res.sendStatus(400);
-    // Convert our form input into JSON ready to store in Couchbase
-    var jsonVersion = "{}"; //returnJSONResults("", "");//JSON.stringify(req.body);
+    var jsonVersion = "{}";
     var email = req.body.Email;
     var password = req.body.Password;
-    //user.login(email, password, function (user) {
-    //    res.json(user);
-    //});
 });
 router.post('/register', function (req, res) {
     if (!req.body)
         return res.sendStatus(400);
-    // Convert our form input into JSON ready to store in Couchbase
-    var jsonVersion = "{}"; //returnJSONResults("", "");//JSON.stringify(req.body);
+    var jsonVersion = "{}";
     var email = req.body.Email;
     var password = req.body.Password;
     usermanager.register(req.body, function (user) {

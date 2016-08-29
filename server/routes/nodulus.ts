@@ -14,11 +14,11 @@
 var config = require("@nodulus/config").config;
 var consts = require("@nodulus/config").consts;
 var dal = require("@nodulus/data");
+var users = require("@nodulus/users");
+ 
 
-import {users as userDB} from "../app/users";
 
-
-var express = require('express');
+var express = require("@nodulus/core");
 var router = express.Router();
 var util = require('util');
 var fs = require("fs-extra");
@@ -53,7 +53,7 @@ router.post("/setup", function (req: any, res: any) {
     }
 
     //register the default user    
-    userDB.register(userObj, function () {
+    users.register(userObj, function () {
         var setupConfigPath = path.join(global.clientAppRoot, "nodulus.json");
         fs.writeFileSync(setupConfigPath, JSON.stringify({ active: new Date() }), 'utf8');
         res.status(200).json(setupConfig);

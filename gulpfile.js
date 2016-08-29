@@ -115,7 +115,8 @@ gulp.group('production', function () {
                         'client/scripts/client-min.js',
                         'client/*.*',
                         '!client/app/**/',
-                        '!client/config/**/'
+                        '!client/config/**/',
+                        '!client/nodulus.json'
 
                     ])
                         .pipe(copy(destination + "/client", { prefix: 1 }));
