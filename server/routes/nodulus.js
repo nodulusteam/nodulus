@@ -1,9 +1,8 @@
-"use strict";
 var config = require("@nodulus/config").config;
 var consts = require("@nodulus/config").consts;
 var dal = require("@nodulus/data");
-const users_1 = require("../app/users");
-var express = require('express');
+var users = require("@nodulus/users");
+var express = require("@nodulus/core");
 var router = express.Router();
 var util = require('util');
 var fs = require("fs-extra");
@@ -20,7 +19,7 @@ router.post("/setup", function (req, res) {
         Email: setupConfig.Email,
         Password: setupConfig.Password
     };
-    users_1.users.register(userObj, function () {
+    users.register(userObj, function () {
         var setupConfigPath = path.join(global.clientAppRoot, "nodulus.json");
         fs.writeFileSync(setupConfigPath, JSON.stringify({ active: new Date() }), 'utf8');
         res.status(200).json(setupConfig);
