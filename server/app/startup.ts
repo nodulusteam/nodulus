@@ -11,46 +11,20 @@
 
 import * as http from "http";
 import * as url from "url";
-import * as express from "express";
+ 
 
 var consts = require("@nodulus/config").consts;
 var config = require("@nodulus/config").config;
 var modules = require("@nodulus/modules");
-
-
-// import * as web from "./webserver";
-// import * as network from "./socket";
-
 
 export class Startup {
     constructor() {
 
         var log = require("@nodulus/logs").logger;
         var app = require("@nodulus/core");
-
         var path = require("path");
         var rest = require("@nodulus/api");
-
-
         var io = require("@nodulus/socket")(app.server);
-
-
-        // var envs = require('envs');
-
-
-        // 
-
-
-
-        // var EventEmitter = require('events').EventEmitter;
-        // global.eventServer = new EventEmitter();
-        // var app = express();
-        // global.express = app;
-
-
-        // If NODE_ENV is not set, 
-        // then this application will assume it's prod by default.
-        // app.set('environment', envs('NODE_ENV', 'production'));
         app.use('/', app.static(global.clientAppRoot));
         //load modules
         var nodulus_modules = config.modulesSettings;
@@ -79,7 +53,7 @@ export class Startup {
                         }
                     }
                 }
-                app.use('/' + name, express.static(path.join(process.cwd(), 'node_modules', name, 'public')));
+                app.use('/' + name, app.static(path.join(process.cwd(), 'node_modules', name, 'public')));
             }
             catch (err) {
                 log.error('missing module', err);
@@ -97,8 +71,8 @@ export class Startup {
         // app.use(require("nodulus-run"));
 
 
-        app.use('/bower_components', express.static(path.join(process.cwd(), 'bower_components')));
-        app.use('/client', express.static(path.join(process.cwd(), 'client')));
+        app.use('/bower_components', app.static(path.join(process.cwd(), 'bower_components')));
+        app.use('/client', app.static(path.join(process.cwd(), 'client')));
     }
 
     print(char: string, num: number): string {
