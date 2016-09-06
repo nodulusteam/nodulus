@@ -71,8 +71,8 @@ export class Startup {
         // app.use(require("nodulus-run"));
 
 
-        app.use('/bower_components', app.static(path.join(process.cwd(), 'bower_components')));
-        app.use('/client', app.static(path.join(process.cwd(), 'client')));
+         app.use('/', app.static(path.join(process.cwd(), 'bower_components')));
+        app.use('/', app.static(path.join(process.cwd(), 'public')));
     }
 
     print(char: string, num: number): string {

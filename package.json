@@ -1,6 +1,6 @@
 {
-  "name": "@nodulus/shell",
-  "version": "1.1.111",
+  "name": "nodulus",
+  "version": "0.0.8",
   "private": false,
   "scripts": {
     "start": "node master.js",

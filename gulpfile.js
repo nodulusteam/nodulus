@@ -38,11 +38,11 @@ gulp.group('dev', function () {
 
         gulp.task('index', function () {
 
-            gulp.src('./client/default.html')
-                .pipe(inject(gulp.src(mainBowerFiles({ filter: '**/*.js' }), { read: false }), { starttag: '<!-- inject:head:{{ext}} -->' }))
-                .pipe(inject(gulp.src(['./client/css/*.css'], { read: false }), { starttag: '<!-- inject:style:css -->' }))
-                .pipe(inject(gulp.src(['./client/app/**/*.js'], { read: false }), { starttag: '<!-- inject:client:js -->' }))
-                .pipe(gulp.dest('./client'));
+            gulp.src('./public/default.html')
+                .pipe(inject(gulp.src(mainBowerFiles({ filter: '**/*.js' }), { read: false }), { ignorePath: '/bower_components',starttag: '<!-- inject:head:{{ext}} -->' }))
+                .pipe(inject(gulp.src(['./public/css/*.css'], { read: false }), { ignorePath: '/public',starttag: '<!-- inject:style:css -->' }))
+                .pipe(inject(gulp.src(['./public/app/**/*.js'], { read: false }), { ignorePath: '/public', starttag: '<!-- inject:client:js -->' }))
+                .pipe(gulp.dest('./public'));
 
             // .pipe(inject(gulp.src(['./client/app/**/*.js', './client/css/*.css'], { read: false })))
             // .pipe(debug())
@@ -76,50 +76,50 @@ gulp.group('production', function () {
             return gulp.src(mainBowerFiles({ filter: '**/*.js' }))
                 .pipe(concat('vendor.js'))
                 .pipe(minify())
-                .pipe(gulp.dest('./client/scripts/'));
+                .pipe(gulp.dest('./public/scripts/'));
         });
         gulp.task('vendor-css', function () {
             return gulp.src(mainBowerFiles({ filter: ['**/*.css', '**/*.less'] }))
                 .pipe(concat('vendor.css'))
                 .pipe(cssmin())
                 .pipe(rename({ suffix: '-min' }))
-                .pipe(gulp.dest('./client/css/'));
+                .pipe(gulp.dest('./public/css/'));
         });
         gulp.task('app-scripts', function () {
-            return gulp.src(['client/app/**/*.js'])
+            return gulp.src(['public/app/**/*.js'])
                 .pipe(order(['app/**/_*.js', 'app/**/*.js']))
                 .pipe(concat('client.js'))
                 .pipe(minify())
-                .pipe(gulp.dest('./client/scripts/'));
+                .pipe(gulp.dest('./public/scripts/'));
         });
         gulp.group('inject', function () {
             gulp.task('inject-all', function () {
-                gulp.src('./client/default.html')
-                    .pipe(inject(gulp.src('./client/scripts/vendor-min.js', { read: false }), { ignorePath: '/client', starttag: '<!-- inject:head:{{ext}} -->' }))
-                    .pipe(inject(gulp.src(['./client/css/*.css'], { read: false }), { ignorePath: '/client',starttag: '<!-- inject:style:css -->' }))
-                    .pipe(inject(gulp.src(['./client/scripts/client-min.js'], { read: false }), { ignorePath: '/client',starttag: '<!-- inject:client:js -->' }))
-                    .pipe(gulp.dest('./client'));
+                gulp.src('./public/default.html')
+                    .pipe(inject(gulp.src('./public/scripts/vendor-min.js', { read: false }), { ignorePath: '/public', starttag: '<!-- inject:head:{{ext}} -->' }))
+                    .pipe(inject(gulp.src(['./public/css/*.css'], { read: false }), { ignorePath: '/public',starttag: '<!-- inject:style:css -->' }))
+                    .pipe(inject(gulp.src(['./public/scripts/client-min.js'], { read: false }), { ignorePath: '/public',starttag: '<!-- inject:client:js -->' }))
+                    .pipe(gulp.dest('./public'));
             });
 
             gulp.group('copy-files-dest', function () {
                 gulp.task('create_client', function () {
-                    gulp.src(['client/css/**/*.*',
-                        'client/font/**/*.*',
-                        'client/setup/**/*.*',
-                        'client/fonts/**/*.*',
-                        'client/partials/**/*.*',
-                        'client/styles/**/*.*',
-                        'client/themes/**/*.*',
-                        'client/scripts/vendor/**/*.*',
-                        'client/scripts/vendor-min.js',
-                        'client/scripts/client-min.js',
-                        'client/*.*',
-                        '!client/app/**/',
-                        '!client/config/**/',
-                        '!client/nodulus.json'
+                    gulp.src(['public/css/**/*.*',
+                        'public/font/**/*.*',
+                        'public/setup/**/*.*',
+                        'public/fonts/**/*.*',
+                        'public/partials/**/*.*',
+                        'public/styles/**/*.*',
+                        'public/themes/**/*.*',
+                        'public/scripts/vendor/**/*.*',
+                        'public/scripts/vendor-min.js',
+                        'public/scripts/client-min.js',
+                        'public/*.*',
+                        '!public/app/**/',
+                        '!public/config/**/',
+                        '!public/nodulus.json'
 
                     ])
-                        .pipe(copy(destination + "/client", { prefix: 1 }));
+                        .pipe(copy(destination + "/public", { prefix: 1 }));
                 });
 
                 gulp.task('create_server', function () {

@@ -42,8 +42,8 @@ class Startup {
         app.use("/nodulus", require('../routes/nodulus.js'));
         var api = new rest.start(app);
         console.log("***_____________________________________________________________________***");
-        app.use('/bower_components', app.static(path.join(process.cwd(), 'bower_components')));
-        app.use('/client', app.static(path.join(process.cwd(), 'client')));
+        app.use('/', app.static(path.join(process.cwd(), 'bower_components')));
+        app.use('/', app.static(path.join(process.cwd(), 'public')));
     }
     print(char, num) {
         var str = "";
