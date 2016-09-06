@@ -1,6 +1,6 @@
 {
   "name": "nodulus",
-  "version": "0.0.8",
+  "version": "0.0.12",
   "description": "the @nodulus shell in a package",
   "main": "master.js",
   "scripts": {
