@@ -7,10 +7,20 @@
     <title>nodolus &trade;</title>
     <link rel="icon" type="image/png" href="favicon.png" />
 
+    <script>
+   window.Polymer = {
+        dom: 'shadow',
+        lazyRegister: true
+      };
+      </script>
+
     <!-- inject:style:css -->
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/vendor-min.css">
     <!-- endinject -->
+
+
+
 
     <!-- inject:head:js -->
     <script src="/jquery/dist/jquery.js"></script>
@@ -42,10 +52,22 @@
     <script src="/jquery-ui/jquery-ui.js"></script>
     <script src="/hammerjs/hammer.js"></script>
     <script src="/moment/moment.js"></script>
+    <script src="/marked/lib/marked.js"></script>
+    <script src="/webcomponentsjs/webcomponents.js"></script>
     <script src="/angular-bootstrap-nav-tree/dist/abn_tree_directive.js"></script>
     <script src="/angular-ui-sortable/sortable.js"></script>
     <!-- endinject -->
 
+
+    <!-- inject:head:html -->
+    <link rel="import" href="/polymer/polymer.html">
+    <link rel="import" href="/polymer/polymer-mini.html">
+    <link rel="import" href="/polymer/polymer-micro.html">
+ 
+    <link rel="import" href="/marked-element/marked-element.html">
+    <!-- endinject -->
+
+    
     <link rel="stylesheet" type="text/css" id="mainthemefile" />
     <link rel="stylesheet" type="text/css" id="languageCssfile" />
 
@@ -83,11 +105,11 @@
     <script src="/app/_modules.js"></script>
     <script src="/app/_nodulus.js"></script>
     <script src="/app/ide.js"></script>
+    <script src="/app/directives/MetaDataDirective.js"></script>
+    <script src="/app/directives/autoheight.js"></script>
     <script src="/app/services/cache.js"></script>
     <script src="/app/services/dynamicdataservices.js"></script>
     <script src="/app/services/ideservice.js"></script>
-    <script src="/app/directives/MetaDataDirective.js"></script>
-    <script src="/app/directives/autoheight.js"></script>
     <!-- endinject -->
 
 

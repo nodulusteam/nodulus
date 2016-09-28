@@ -38,9 +38,12 @@ gulp.group('dev', function () {
 
         gulp.task('index', function () {
 
+console.log(mainBowerFiles());
+
             gulp.src('./public/default.html')
-                .pipe(inject(gulp.src(mainBowerFiles({ filter: '**/*.js' }), { read: false }), { ignorePath: '/bower_components',starttag: '<!-- inject:head:{{ext}} -->' }))
-                .pipe(inject(gulp.src(['./public/css/*.css'], { read: false }), { ignorePath: '/public',starttag: '<!-- inject:style:css -->' }))
+                .pipe(inject(gulp.src(mainBowerFiles({ filter: '**/*.js' }), { read: false }), { ignorePath: '/bower_components', starttag: '<!-- inject:head:{{ext}} -->' }))
+                .pipe(inject(gulp.src(mainBowerFiles({ filter: '**/*.html' }), { read: false }), { ignorePath: '/bower_components', starttag: '<!-- inject:head:{{ext}} -->' }))
+                .pipe(inject(gulp.src(['./public/css/*.css'], { read: false }), { ignorePath: '/public', starttag: '<!-- inject:style:css -->' }))
                 .pipe(inject(gulp.src(['./public/app/**/*.js'], { read: false }), { ignorePath: '/public', starttag: '<!-- inject:client:js -->' }))
                 .pipe(gulp.dest('./public'));
 
@@ -55,12 +58,23 @@ gulp.group('dev', function () {
 
 
 gulp.group('production', function () {
-    gulp.task('bump', function () {
-        gulp.src('./package-shell.json')
-            .pipe(bump())           
-            .pipe(rename('package.json'))
-            .pipe(gulp.dest(destination));
+    gulp.group('bump-all', function () {
+        gulp.task('bump', function () {
+            gulp.src('./package.json')
+                .pipe(bump())
+                .pipe(gulp.dest('./'));
+        });
+        gulp.task('bump-shell', function () {
+            gulp.src('./package-shell.json')
+                .pipe(bump())
+                .pipe(gulp.dest('./'));
+        });
+
+
+
+
     });
+
 
     gulp.task('uglifynode', function () {
         return gulp.src(['./release/routes/*.js', './release/classes/**/*.js'])
@@ -96,8 +110,8 @@ gulp.group('production', function () {
             gulp.task('inject-all', function () {
                 gulp.src('./public/default.html')
                     .pipe(inject(gulp.src('./public/scripts/vendor-min.js', { read: false }), { ignorePath: '/public', starttag: '<!-- inject:head:{{ext}} -->' }))
-                    .pipe(inject(gulp.src(['./public/css/*.css'], { read: false }), { ignorePath: '/public',starttag: '<!-- inject:style:css -->' }))
-                    .pipe(inject(gulp.src(['./public/scripts/client-min.js'], { read: false }), { ignorePath: '/public',starttag: '<!-- inject:client:js -->' }))
+                    .pipe(inject(gulp.src(['./public/css/*.css'], { read: false }), { ignorePath: '/public', starttag: '<!-- inject:style:css -->' }))
+                    .pipe(inject(gulp.src(['./public/scripts/client-min.js'], { read: false }), { ignorePath: '/public', starttag: '<!-- inject:client:js -->' }))
                     .pipe(gulp.dest('./public'));
             });
 
@@ -116,7 +130,8 @@ gulp.group('production', function () {
                         'public/*.*',
                         '!public/app/**/',
                         '!public/config/**/',
-                        '!public/nodulus.json'
+                        '!public/nodulus.json',
+
 
                     ])
                         .pipe(copy(destination + "/public", { prefix: 1 }));
@@ -139,6 +154,18 @@ gulp.group('production', function () {
                         .pipe(rename('README.md'))
                         .pipe(gulp.dest(destination));
                 });
+
+
+                gulp.task('copy-package', function () {
+                    gulp.src('./package-shell.json')
+                        .pipe(rename('package.json'))
+                        .pipe(gulp.dest(destination));
+                });
+                gulp.task('copy-bin', function () {
+                    gulp.src('./bin/*.*')
+                        .pipe(gulp.dest(destination +'/bin'));
+                });
+
 
 
                 gulp.task('copy_main_appjs', function () {

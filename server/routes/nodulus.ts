@@ -15,7 +15,7 @@ var config = require("@nodulus/config").config;
 var consts = require("@nodulus/config").consts;
 var dal = require("@nodulus/data");
 var users = require("@nodulus/users");
- 
+
 
 
 var express = require("@nodulus/core");
@@ -25,24 +25,13 @@ var fs = require("fs-extra");
 var path = require('path');
 
 
-var appRoot = global.appRoot;
- 
 
 router.post("/setup", function (req: any, res: any) {
     var setupConfig = req.body;
-    //  var configurationPath = path.join(global.serverAppRoot, "config", "config.json");
-    var configurationObject = config; //JSON.parse(fs.readFileSync(configurationPath, 'utf8').replace(/^\uFEFF/, ''));
-    configurationObject["database"] = setupConfig["database"];
+    config["database"] = setupConfig["database"];
+    if (config["database"].diskdb)
+        fs.ensureDirSync(config["database"].diskdb.host);
 
-    if (configurationObject["database"].diskdb)
-        fs.ensureDirSync(configurationObject["database"].diskdb.host);
-    //for (var key in configurationObject) {
-    //    if (setupConfig[key]) {
-    //        configurationObject[key] = setupConfig[key];
-    //    }
-
-    //}
-    //  fs.writeFileSync(configurationPath, JSON.stringify(configurationObject), 'utf8');
     config.persistConfiguration();
 
 
@@ -54,19 +43,9 @@ router.post("/setup", function (req: any, res: any) {
 
     //register the default user    
     users.register(userObj, function () {
-        var setupConfigPath = path.join(global.clientAppRoot, "nodulus.json");
+        var setupConfigPath = path.join(process.cwd(), "nodulus.json");
         fs.writeFileSync(setupConfigPath, JSON.stringify({ active: new Date() }), 'utf8');
         res.status(200).json(setupConfig);
     })
-
-
-
-
 });
-
-
-
 module.exports = router;
-
-
-

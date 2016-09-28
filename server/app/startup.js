@@ -1,13 +1,14 @@
 "use strict";
-var consts = require("@nodulus/config").consts;
-var config = require("@nodulus/config").config;
-var modules = require("@nodulus/modules");
+const config = require("@nodulus/config");
+const consts = config.consts;
+const modules = require("@nodulus/modules");
+const path = require("path");
+const rest = require("@nodulus/api");
+const nodulusInit = require("@nodulus/core");
 class Startup {
     constructor() {
         var log = require("@nodulus/logs").logger;
         var app = require("@nodulus/core");
-        var path = require("path");
-        var rest = require("@nodulus/api");
         var io = require("@nodulus/socket")(app.server);
         app.use('/', app.static(global.clientAppRoot));
         var nodulus_modules = config.modulesSettings;
@@ -15,6 +16,11 @@ class Startup {
         console.log("***************************************************************************");
         console.log("***__active nodules_____________________________________________________***");
         console.log("***_____________________________________________________________________***");
+        var baseFolderForStatic = process.cwd();
+        if (process.env.NODULUS_MODE === 'global') {
+            baseFolderForStatic = process.env.NODULUS_GLOBALPATH;
+        }
+       
         for (var name of Object.keys(nodulus_modules)) {
             var nodulus_module = nodulus_modules[name];
             try {
@@ -32,7 +38,7 @@ class Startup {
                         }
                     }
                 }
-                app.use('/' + name, app.static(path.join(process.cwd(), 'node_modules', name, 'public')));
+                app.use('/' + name, app.static(path.join(baseFolderForStatic, 'node_modules', name, 'public')));
             }
             catch (err) {
                 log.error('missing module', err);
@@ -42,8 +48,11 @@ class Startup {
         app.use("/nodulus", require('../routes/nodulus.js'));
         var api = new rest.start(app);
         console.log("***_____________________________________________________________________***");
-        app.use('/', app.static(path.join(process.cwd(), 'bower_components')));
-        app.use('/', app.static(path.join(process.cwd(), 'public')));
+        app.use('/', app.static(path.join(baseFolderForStatic, 'bower_components')));
+        app.use('/', app.static(path.join(baseFolderForStatic, 'public')));
+        app.use('/nodulus.json', (req, res) => {
+            res.sendFile(path.join(process.cwd(), './nodulus.json'));
+        });
     }
     print(char, num) {
         var str = "";

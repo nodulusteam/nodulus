@@ -1,7 +1,21 @@
+
+
+var argv={};
+process.argv.slice(2).forEach(function (item) {
+    var s = item.split('=');
+    argv[s[0]] = s[1];
+});
+
+
+console.log('argv');
+console.log(argv);
+
 var cp = require('child_process');
 var path = require('path');
+
 var child = cp.fork(path.join(__dirname, 'app.js'), [], {
-    execArgv: ["--debug=9999"]
+    execArgv: ["--debug=9999"],
+    env: argv
 });
 
 child.on('close', function (code) {

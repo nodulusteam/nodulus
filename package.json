@@ -1,6 +1,6 @@
 {
   "name": "nodulus",
-  "version": "0.0.12",
+  "version": "0.0.20",
   "private": false,
   "scripts": {
     "start": "node master.js",
@@ -10,6 +10,9 @@
   "author": {
     "name": "roi ben haim",
     "email": "roi@ewave.co.il"
+  },
+  "bin": {
+    "nodulus": "bin/nodulus.js"
   },
   "repository": {
     "type": "git",
@@ -22,8 +25,10 @@
     "@nodulus/data": "^1.0.21",
     "@nodulus/data-diskdb": "^0.0.1",
     "@nodulus/data-mongodb": "^0.0.3",
+    "@nodulus/data-rethinkdb": "^0.0.1",
     "@nodulus/logs": "^0.0.21",
-    "@nodulus/modules": "^1.0.29",
+    "@nodulus/modules": "^1.0.33",
+    "@nodulus/schemas": "^1.0.17",
     "@nodulus/socket": "^0.0.3",
     "@nodulus/translations": "^1.0.4",
     "@nodulus/update": "^0.0.5",
@@ -43,11 +48,13 @@
     "kerberos": "0.0.21",
     "media-typer": "^0.3.0",
     "merge": "^1.2.0",
+    "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "moment": "^2.10.6",
     "node-uuid": "^1.4.7",
     "q": "^1.4.1",
     "request": "^2.67.0",
+    "shelljs": "^0.7.4",
     "socket-io-server": "^1.0.5",
     "socket.io": "^1.4.5",
     "sshpk": "^1.10.0",
