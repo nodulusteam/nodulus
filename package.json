@@ -1,6 +1,6 @@
 {
   "name": "nodulus",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "private": false,
   "scripts": {
     "start": "node master.js",
@@ -8,8 +8,8 @@
   },
   "description": "nodulus",
   "author": {
-    "name": "roi ben haim",
-    "email": "roi@ewave.co.il"
+    "name": "nodulus",
+    "email": "nodulusteam@gmail.com"
   },
   "bin": {
     "nodulus": "bin/nodulus.js"
