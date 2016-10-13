@@ -40,7 +40,7 @@
     "debug": "^2.2.0",
     "envs": "^0.1.6",
     "fs-extra": "^0.26.7",
-    "glob": "^6.0.4",
+    "glob": "^7.1.0",
     "gulp-replace": "^0.5.4",
     "gulp-tslint": "^6.1.1",
     "har-validator": "^2.0.3",
