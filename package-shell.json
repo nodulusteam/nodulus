@@ -1,13 +1,13 @@
 {
   "name": "nodulus",
-  "version": "0.0.21",
+   "version": "0.0.19",
   "description": "the @nodulus shell in a package",
   "main": "master.js",
   "scripts": {
     "start": "node master.js"
   },
   "bin": {
-    "nodulus": "bin/nodulus.js"
+    "nodulus": "bin/nodulus.sh"
   },
   "keywords": [
     "nodulus",

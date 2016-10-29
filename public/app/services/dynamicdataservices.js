@@ -1,4 +1,4 @@
-﻿angular.module('DynamicDataSerivces', [])
+angular.module('DynamicDataSerivces', [])
 .service("$Models",['$resource','$rootScope', function ($resource,$rootScope) {
     
      

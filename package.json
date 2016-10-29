@@ -1,6 +1,6 @@
 {
   "name": "nodulus",
-  "version": "0.0.21",
+  "version": "0.0.19",
   "private": false,
   "scripts": {
     "start": "node master.js",
@@ -12,24 +12,26 @@
     "email": "nodulusteam@gmail.com"
   },
   "bin": {
-    "nodulus": "bin/nodulus.js"
+    "nodulus": "bin/nodulus.sh"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/nodulusteam/nodulus"
   },
   "dependencies": {
-    "@nodulus/api": "^1.0.19",
+    "@nodulus/api": "^1.0.31",
+    "@nodulus/codulus": "^0.0.8",
     "@nodulus/config": "^1.0.60",
-    "@nodulus/core": "^1.0.19",
+    "@nodulus/core": "2.0.3-alpha",
     "@nodulus/data": "^1.0.21",
     "@nodulus/data-diskdb": "^0.0.1",
     "@nodulus/data-mongodb": "^0.0.3",
     "@nodulus/data-rethinkdb": "^0.0.1",
     "@nodulus/logs": "^0.0.21",
-    "@nodulus/modules": "^1.0.33",
-    "@nodulus/schemas": "^1.0.17",
+    "@nodulus/modules": "^1.0.37",
+    "@nodulus/schemas": "^1.0.18",
     "@nodulus/socket": "^0.0.3",
+    "@nodulus/terminals": "^1.0.10",
     "@nodulus/translations": "^1.0.4",
     "@nodulus/update": "^0.0.5",
     "@nodulus/users": "^1.0.5",
@@ -57,11 +59,10 @@
     "shelljs": "^0.7.4",
     "socket-io-server": "^1.0.5",
     "socket.io": "^1.4.5",
-    "sshpk": "^1.10.0",
+    "sshpk": "^1.10.1",
     "strip-bom": "^2.0.0",
     "stylus": "^0.53.0",
     "tslint": "^3.15.1",
-    "typescript": "^1.8.10",
     "wildcard": "^1.1.2"
   },
   "devDependencies": {
@@ -84,13 +85,14 @@
     "gulp-rimraf": "^0.2.0",
     "gulp-tsc": "^1.2.2",
     "gulp-tslint": "^6.1.1",
-    "gulp-typescript": "^2.12.1",
+    "gulp-typescript": "^3.0.2",
     "gulp-uglify": "^1.5.3",
+    "gulp-vulcanize": "^6.1.0",
     "main-bower-files": "^2.13.1",
     "mocha": "^3.0.2",
     "run-sequence": "^1.1.5",
     "tslint": "^3.15.1",
-    "typescript": "^1.8.10",
+    "typescript": "^2.0.3",
     "unit.js": "^2.0.0"
   }
 }

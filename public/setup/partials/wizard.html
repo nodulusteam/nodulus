@@ -60,11 +60,13 @@
                             />
                         </div>
                         <div class="radio">
-                            <label><input type="radio" name="dbtype" ng-model="modal.database" ng-value="{'mongodb':''}" value="mongodb">mongoDB</label>
-                            <input type="text" ng-model="modal.database.mongodb.host" placeholder="mongodb:" class="form-control" />
+                            <label><input type="radio" name="dbtype" ng-model="modal.database" ng-value="{'mongodb':{host: 'mongodb://localhost:27017/nodulus'}}" value="mongodb">mongoDB</label>
+                            <input type="text" ng-model="modal.database.mongodb.host" placeholder="mongodb://localhost:27017/nodulus" value="mongodb://localhost:27017/nodulus"
+                                class="form-control" />
                         </div>
                         <div class="radio">
-                            <label><input type="radio" name="dbtype" ng-model="modal.database" ng-value="{'rethinkdb':''}" value="rethinkdb">rethinkDB</label>
+                            <label><input type="radio" name="dbtype" ng-model="modal.database" ng-value="{'rethinkdb':{'servers':[{'host': '127.0.0.1','port': 28015}]}}" value="rethinkdb">rethinkDB</label>
+
                             <input type="text" ng-model="modal.database.rethinkdb.servers" placeholder='[{"host": "127.0.0.1","port": 28015}]' class="form-control" />
                         </div>
 

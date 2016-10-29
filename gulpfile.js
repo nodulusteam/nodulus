@@ -22,6 +22,7 @@ bump = require('gulp-bump'),
     Config = require('./gulpfile.config'),
     bundle = require('gulp-bundle-assets'),
     cssmin = require('gulp-cssmin'),
+    vulcanize = require('gulp-vulcanize'),
     mainBowerFiles = require('main-bower-files');
 
 
@@ -38,7 +39,7 @@ gulp.group('dev', function () {
 
         gulp.task('index', function () {
 
-console.log(mainBowerFiles());
+            console.log(mainBowerFiles());
 
             gulp.src('./public/default.html')
                 .pipe(inject(gulp.src(mainBowerFiles({ filter: '**/*.js' }), { read: false }), { ignorePath: '/bower_components', starttag: '<!-- inject:head:{{ext}} -->' }))
@@ -106,12 +107,21 @@ gulp.group('production', function () {
                 .pipe(minify())
                 .pipe(gulp.dest('./public/scripts/'));
         });
+
+        gulp.task('app-html-vulcanize', function () {
+            return gulp.src(mainBowerFiles({ filter: '**/*.html' }))
+                .pipe(vulcanize())                
+                .pipe(gulp.dest('./public/scripts/imports'));
+        });
+
+
         gulp.group('inject', function () {
             gulp.task('inject-all', function () {
                 gulp.src('./public/default.html')
                     .pipe(inject(gulp.src('./public/scripts/vendor-min.js', { read: false }), { ignorePath: '/public', starttag: '<!-- inject:head:{{ext}} -->' }))
                     .pipe(inject(gulp.src(['./public/css/*.css'], { read: false }), { ignorePath: '/public', starttag: '<!-- inject:style:css -->' }))
                     .pipe(inject(gulp.src(['./public/scripts/client-min.js'], { read: false }), { ignorePath: '/public', starttag: '<!-- inject:client:js -->' }))
+                    .pipe(inject(gulp.src('./public/scripts/imports/*.*', { read: false }), { ignorePath: '/public', starttag: '<!-- inject:head:{{ext}} -->' }))
                     .pipe(gulp.dest('./public'));
             });
 
@@ -127,6 +137,7 @@ gulp.group('production', function () {
                         'public/scripts/vendor/**/*.*',
                         'public/scripts/vendor-min.js',
                         'public/scripts/client-min.js',
+                         'public/scripts/imports/*.*',
                         'public/*.*',
                         '!public/app/**/',
                         '!public/config/**/',
@@ -163,7 +174,7 @@ gulp.group('production', function () {
                 });
                 gulp.task('copy-bin', function () {
                     gulp.src('./bin/*.*')
-                        .pipe(gulp.dest(destination +'/bin'));
+                        .pipe(gulp.dest(destination + '/bin'));
                 });
 
 
@@ -266,6 +277,9 @@ gulp.task('build', function () {
 gulp.task('build-local', function () {
     runSequence('bundle-vendor', 'bundle-vendor-css', ['bundle-client'], 'vendor-dev', 'index');
 });
+
+
+
 
 
 var install = require("gulp-install");
