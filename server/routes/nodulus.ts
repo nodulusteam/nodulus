@@ -18,8 +18,8 @@ var users = require("@nodulus/users");
 
 
 
-var express = require("@nodulus/core").express;
-var router = express.Router();
+var core = require("@nodulus/core");
+var router = core.Router();
 var util = require('util');
 var fs = require("fs-extra");
 var path = require('path');

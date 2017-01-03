@@ -24,3 +24,4 @@ router.post("/setup", function (req, res) {
     });
 });
 module.exports = router;
+//# sourceMappingURL=nodulus.js.map

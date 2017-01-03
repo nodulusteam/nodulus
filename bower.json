@@ -47,8 +47,8 @@
     "moment": "^2.14.1",
     "components-font-awesome": "^4.6.3",
     "marked-element": "PolymerElements/marked-element#^1.2.0",
-    "polymer": "^1.6.1",
-    "jsonymer": "^1.0.5"
+    "polymer": "^1.6.2"
+   
   },
   "overrides": {
     "ckeditor": {
@@ -66,7 +66,7 @@
     "bootstrap": "^3.3.7",
     "jquery": "^3.1.0",
     "angular": "^1.5.8",
-    "polymer": "^1.6.1",
+    "polymer": "^1.6.2",
     "showdown": "^1.4.2"
   }
 }

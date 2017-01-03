@@ -4,9 +4,9 @@
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
-    "target": "es6",
+    "target": "es5",
 
-    "sourceMap": false
+    "sourceMap": true
   },
 
   "exclude": [  

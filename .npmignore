@@ -4,3 +4,10 @@ node_modules
 platform-images
 release
 config
+data
+data1
+logs
+.vscode
+bin
+bower_components
+

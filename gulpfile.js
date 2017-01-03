@@ -65,11 +65,11 @@ gulp.group('production', function () {
                 .pipe(bump())
                 .pipe(gulp.dest('./'));
         });
-        gulp.task('bump-shell', function () {
-            gulp.src('./package-shell.json')
-                .pipe(bump())
-                .pipe(gulp.dest('./'));
-        });
+        // gulp.task('bump-shell', function () {
+        //     gulp.src('./package-shell.json')
+        //         .pipe(bump())
+        //         .pipe(gulp.dest('./'));
+        // });
 
 
 
@@ -168,8 +168,8 @@ gulp.group('production', function () {
 
 
                 gulp.task('copy-package', function () {
-                    gulp.src('./package-shell.json')
-                        .pipe(rename('package.json'))
+                    gulp.src('./package.json')
+                        //.pipe(rename('package.json'))
                         .pipe(gulp.dest(destination));
                 });
                 gulp.task('copy-bin', function () {
@@ -268,15 +268,15 @@ gulp.group('compile', function () {
 //     // copy any html files in source/ to public/
 //     gulp.src('./package-shell.json').pipe(gulp.dest('../basic/-nodulus-shell/package.json'));
 // });
-gulp.task('build', function () {
-    runSequence('clean_release', ['ts-lint', 'compile-ts'],
-        'bundle-vendor', 'bundle-vendor-css', 'bundle-client', 'copy-files-dest', 'inject-dest'
-    );
-});
+// gulp.task('build', function () {
+//     runSequence('clean_release', ['ts-lint', 'compile-ts'],
+//         'bundle-vendor', 'bundle-vendor-css', 'bundle-client', 'copy-files-dest', 'inject-dest'
+//     );
+// });
 
-gulp.task('build-local', function () {
-    runSequence('bundle-vendor', 'bundle-vendor-css', ['bundle-client'], 'vendor-dev', 'index');
-});
+// gulp.task('build-local', function () {
+//     runSequence('bundle-vendor', 'bundle-vendor-css', ['bundle-client'], 'vendor-dev', 'index');
+// });
 
 
 

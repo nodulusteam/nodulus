@@ -1,5 +1,5 @@
-var express = require("@nodulus/core");
-var router = express.Router();
+var core = require("@nodulus/core");
+var router = core.Router();
 var util = require('util');
 var fs = require('fs');
 var path = require('path');
@@ -35,3 +35,4 @@ router.post('/register', function (req, res) {
     });
 });
 module.exports = router;
+//# sourceMappingURL=users.js.map

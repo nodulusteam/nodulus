@@ -49,6 +49,7 @@ declare module nodulus {
 
 declare module NodeJS {
     interface Global {
+        nodulus: any,
         express: any;
         appRoot: string;
         serverAppRoot: string;

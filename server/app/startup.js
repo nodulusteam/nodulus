@@ -1,11 +1,11 @@
 "use strict";
-const config = require("@nodulus/config");
-const consts = config.consts;
-const modules = require("@nodulus/modules");
-const path = require("path");
-const rest = require("@nodulus/api");
-class Startup {
-    constructor() {
+var config = require("@nodulus/config");
+var consts = config.consts;
+var modules = require("@nodulus/modules");
+var path = require("path");
+var rest = require("@nodulus/api");
+var Startup = (function () {
+    function Startup() {
         var log = require("@nodulus/logs").logger;
         var core = require("@nodulus/core");
         var io = require("@nodulus/socket")(core.server);
@@ -20,7 +20,8 @@ class Startup {
             baseFolderForStatic = process.env.NODULUS_GLOBALPATH;
         }
         console.log(baseFolderForStatic);
-        for (var name of Object.keys(nodulus_modules)) {
+        for (var _i = 0, _a = Object.keys(nodulus_modules); _i < _a.length; _i++) {
+            var name = _a[_i];
             var nodulus_module = nodulus_modules[name];
             try {
                 var version = require(name + '/package.json').version;
@@ -47,17 +48,21 @@ class Startup {
         core.use("/nodulus", require('../routes/nodulus.js'));
         var api = rest.start(core);
         console.log("***_____________________________________________________________________***");
-        core.use('/', core.static(path.join(baseFolderForStatic, 'bower_components')));
+        if (process.env.NODE_ENV === 'development') {
+            core.use('/', core.static(path.join(baseFolderForStatic, 'bower_components')));
+        }
         core.use('/', core.static(path.join(baseFolderForStatic, 'public')));
-        core.use('/nodulus.json', (req, res) => {
+        core.use('/nodulus.json', function (req, res) {
             res.sendFile(path.join(process.cwd(), './nodulus.json'));
         });
     }
-    print(char, num) {
+    Startup.prototype.print = function (char, num) {
         var str = "";
         for (var i = 0; i < num; i++)
             str += char;
         return str;
-    }
-}
+    };
+    return Startup;
+}());
 exports.Startup = Startup;
+//# sourceMappingURL=startup.js.map

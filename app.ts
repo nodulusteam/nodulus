@@ -9,15 +9,15 @@
  |_| |_|\___/ \__,_|\__,_|_|\__,_|___/
  @nodulus open source | ©Roi ben haim  ®2016
  */
-
-
+//var njstrace = require('njstrace').inject();
+import {Startup} from './server/app/startup';
 var path = require("path"); 
-var startup = require("./server/app/startup");
+ 
 global.appRoot = __dirname;
 global.serverAppRoot = path.join(__dirname, "server");
 global.clientAppRoot = path.join(__dirname, "public");
-
-module.exports = new startup.Startup();
+global.nodulus = {};
+module.exports = new Startup();
 
 
 
