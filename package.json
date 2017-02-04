@@ -79,7 +79,7 @@
     "gulp-ignore": "^2.0.1",
     "gulp-inject": "^4.0.0",
     "gulp-install": "^0.6.0",
-    "gulp-minify": "0.0.14",
+    "gulp-minify": "0.0.15",
     "gulp-rename": "^1.2.2",
     "gulp-rimraf": "^0.2.0",
     "gulp-tsc": "^1.2.2",
