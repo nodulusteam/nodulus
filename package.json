@@ -57,7 +57,7 @@
     "request": "^2.67.0",
     "shelljs": "^0.7.4",
     "socket-io-server": "^1.0.5",
-    "socket.io": "^1.5.0",
+    "socket.io": "^2.0.0",
     "sshpk": "^1.10.0",
     "strip-bom": "^2.0.0",
     "stylus": "^0.53.0",
