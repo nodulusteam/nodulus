@@ -85,7 +85,7 @@
     "gulp-tsc": "^1.2.2",
     "gulp-tslint": "^6.1.1",
     "gulp-typescript": "^3.0.2",
-    "gulp-uglify": "^1.5.3",
+    "gulp-uglify": "^2.1.1",
     "gulp-vulcanize": "^6.1.0",
     "main-bower-files": "^2.13.1",
     "mocha": "^3.1.2",
