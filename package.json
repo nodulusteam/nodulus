@@ -74,7 +74,7 @@
     "gulp-concat": "^2.6.0",
     "gulp-copy": "1.0.0",
     "gulp-cssmin": "^0.2.0",
-    "gulp-debug": "^2.1.2",
+    "gulp-debug": "^3.0.0",
     "gulp-group": "^1.0.0",
     "gulp-ignore": "^2.0.1",
     "gulp-inject": "^4.0.0",
