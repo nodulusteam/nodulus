@@ -40,7 +40,7 @@
     "cookie-parser": "^1.4.1",
     "debug": "^2.6.0",
     "envs": "^0.1.6",
-    "fs-extra": "^0.26.7",
+    "fs-extra": "^2.0.0",
     "glob": "^7.1.1",
     "gulp-replace": "^0.5.4",
     "gulp-tslint": "^7.0.1",
