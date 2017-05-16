@@ -73,7 +73,7 @@
     "gulp-clean-css": "^2.0.12",
     "gulp-concat": "^2.6.0",
     "gulp-copy": "1.0.0",
-    "gulp-cssmin": "^0.1.7",
+    "gulp-cssmin": "^0.2.0",
     "gulp-debug": "^2.1.2",
     "gulp-group": "^1.0.0",
     "gulp-ignore": "^2.0.1",
