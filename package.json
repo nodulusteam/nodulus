@@ -44,7 +44,7 @@
     "glob": "^7.1.1",
     "gulp-replace": "^0.5.4",
     "gulp-tslint": "^7.0.1",
-    "har-validator": "^4.2.0",
+    "har-validator": "^5.0.1",
     "is-object": "^1.0.1",
     "kerberos": "0.0.21",
     "media-typer": "^0.3.0",
