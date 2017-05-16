@@ -46,7 +46,7 @@
     "gulp-tslint": "^7.0.1",
     "har-validator": "^4.2.0",
     "is-object": "^1.0.1",
-    "kerberos": "0.0.21",
+    "kerberos": "0.0.22",
     "media-typer": "^0.3.0",
     "merge": "^1.2.0",
     "minimist": "^1.2.0",
